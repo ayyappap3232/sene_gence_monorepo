@@ -1,17 +1,17 @@
 import {useEffect, useState} from 'react'
 //@ts-ignore
 import { useLazyQuery } from '@apollo/client'
-import {  GET_CATEGORIES} from '../services/apollo/queries/categories/getCategories'
-// type Props = {
-//     id: string;
-// }
+import {  Categories,GET_CATEGORIES} from '../services/apollo/queries/categories/getCategories'
+type Props = {
+    id: string;
+}
 
-// type Result = {
-//     loading: Boolean;
-//     getCategories(): void;
-//     error: any;
-//     categoryData: Categories;
-// }
+type Result = {
+    loading: Boolean;
+    getCategories(): void;
+    error: any;
+    categoryData: Categories;
+}
 
 export const useCategories = (props) => {
     const [categoryData, setCategoryData] = useState();

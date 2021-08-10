@@ -23,15 +23,15 @@ export const GET_CATEGORIES = gql`
     }
 `
 
-// export interface Categories {
-//     items: Array<ItemCategory>;
-// }
+export interface Categories {
+    items: Array<ItemCategory>;
+}
 
-// export interface ItemCategory {
-//     name: string;
-//     children: Array<ItemChildrenCategory>;
-// }
+export interface ItemCategory {
+    name: string;
+    children: Array<ItemChildrenCategory>;
+}
 
-// export interface ItemChildrenCategory{
-//     name: string;
-// }
+export interface ItemChildrenCategory{
+    name: string;
+}

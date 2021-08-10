@@ -12,8 +12,8 @@ const Stack = createNativeStackNavigator();
 function Navigator() {
   return (
       <Stack.Navigator>
-        <Stack.Screen name="LoginAsCustomer" component={LoginAsCustomer} />
         <Stack.Screen name="Categories" component={Categories} />
+        <Stack.Screen name="LoginAsCustomer" component={LoginAsCustomer} />
         <Stack.Screen name="CustomerDetails" component={CustomerProfile} />
         <Stack.Screen name="UpdateCustomer" component={UpdateCustomer} />
         <Stack.Screen name="CreateCustomer" component={CreateCustomer} />

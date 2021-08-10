@@ -1,22 +1,21 @@
-import {gql} from '@apollo/client';
-
+import { gql } from "@apollo/client";
 
 export const GENERATE_CUSTOMER_TOKEN = gql`
-    mutation GenerateCustomerToken($email: String!, $password: String!){
-        generateCustomerToken(email: $email, password: $password){
-        token
-        }
+  mutation GenerateCustomerToken($email: String!, $password: String!) {
+    generateCustomerToken(email: $email, password: $password) {
+      token
     }
-`
+  }
+`;
 
 export interface GenerateCustomerToken {
-    token: string;
+  token: string;
 }
 
 export interface Data {
-    generateCustomerToken: GenerateCustomerToken;
+  generateCustomerToken: GenerateCustomerToken;
 }
 
 export interface RootObject {
-    data: Data;
+  data: Data;
 }
