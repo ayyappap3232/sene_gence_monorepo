@@ -12,6 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		320971330469948D3EC15474 /* libPods-senegence-senegenceTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F84AB9C5B4C28674F41D50D /* libPods-senegence-senegenceTests.a */; };
+		7A9FC1B426C3D6CC001C5BB7 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 7A9FC1B326C3D6CC001C5BB7 /* main.jsbundle */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8C825DDEF78304E5AF8FBB1D /* libPods-senegence.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A1427BB2424743989D69CC /* libPods-senegence.a */; };
 /* End PBXBuildFile section */
@@ -39,6 +40,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = senegence/main.m; sourceTree = "<group>"; };
 		32A1427BB2424743989D69CC /* libPods-senegence.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-senegence.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75CD6689591A4A44EE6E3C06 /* Pods-senegence-senegenceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-senegence-senegenceTests.release.xcconfig"; path = "Target Support Files/Pods-senegence-senegenceTests/Pods-senegence-senegenceTests.release.xcconfig"; sourceTree = "<group>"; };
+		7A9FC1B326C3D6CC001C5BB7 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = senegence/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		822039989A206D01D4279FAC /* Pods-senegence.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-senegence.release.xcconfig"; path = "Target Support Files/Pods-senegence/Pods-senegence.release.xcconfig"; sourceTree = "<group>"; };
 		9BA2603E6BCAC3DDD52CF970 /* Pods-senegence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-senegence.debug.xcconfig"; path = "Target Support Files/Pods-senegence/Pods-senegence.debug.xcconfig"; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 		13B07FAE1A68108700A75B9A /* senegence */ = {
 			isa = PBXGroup;
 			children = (
+				7A9FC1B326C3D6CC001C5BB7 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -145,7 +148,6 @@
 				DAF931A3056F42197CD7506A /* Pods-senegence-senegenceTests.debug.xcconfig */,
 				75CD6689591A4A44EE6E3C06 /* Pods-senegence-senegenceTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -241,6 +243,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A9FC1B426C3D6CC001C5BB7 /* main.jsbundle in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
