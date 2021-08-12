@@ -13,31 +13,32 @@ type Result = {
     categoryData: Categories;
 }
 
-export const useCategories = (props) => {
+export const useCategories = (props: Props): Result => {
     const [categoryData, setCategoryData] = useState();
-    const [getCategories,{loading, error, data}] = useLazyQuery(GET_CATEGORIES,{
-        variables: {
-            id: props.id
-        },
-    })
 
-    useEffect(() => {
-        if(data){
-            setCategoryData(data)
-            console.log('after use',data)
+    try {
+
+        const [getCategories,{loading, error, data}] = useLazyQuery(GET_CATEGORIES,{
+            variables: {
+                id: props.id
+            },
+            errorPolicy:"all"
+        })
+
+        useEffect(() => {
+            if(data){
+                setCategoryData(data)
+            }
+        }, [data])
+    
+        return {
+            loading,
+            getCategories,
+            error,
+            categoryData
         }
-        console.log('outside use',data)
-
-    }, [data])
-
-    console.log('insite',data)
-    console.log('insite error',{error})
-
-    return {
-        loading,
-        getCategories,
-        error,
-        categoryData
+    } catch (error) {
+        console.log(error)
     }
 }
 

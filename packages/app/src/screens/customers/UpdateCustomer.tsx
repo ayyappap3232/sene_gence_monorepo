@@ -2,14 +2,14 @@ import { useMutation } from '@apollo/client'
 import React, { useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import ActivityIndicator from '../../components/spinners/ActivityIndicator'
-import { UPDATE_CUSTOMER } from '../../services/apollo/mutations/customers/updateCustomer'
+import { useUpdateCustomer } from 'common/controllers/updateCustomer.Controller'
 
 export default function UpdateCustomer() {
-    const [updateCustomer, {loading, error, data}] = useMutation(UPDATE_CUSTOMER,{
-        variables:{
+    const {loading, error, customerUpdatedData, updateCustomer} = useUpdateCustomer(
+       {
             email: "test1212@gmail.com", firstname: "updated my firstname"
         }
-    })
+    )
 
     useEffect(() => {
         updateCustomer()

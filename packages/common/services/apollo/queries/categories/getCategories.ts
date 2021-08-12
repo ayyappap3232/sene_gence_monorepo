@@ -24,6 +24,10 @@ export const GET_CATEGORIES = gql`
 `
 
 export interface Categories {
+    categories: CategoryItems
+}
+
+export interface CategoryItems {
     items: Array<ItemCategory>;
 }
 

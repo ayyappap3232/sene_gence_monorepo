@@ -14,7 +14,7 @@ type Result = {
     customerCart: any;
 }
 
-export const useGetCustomerCart = (props: Props) : Result => {
+export const useGetCustomerCart = () : Result => {
     const [customerCart, setCustomerCart] = useState()
     const [getCustomerCart, {loading, error, data}] = useLazyQuery(GET_CUSTOMER_CART);
 

@@ -10,6 +10,7 @@ export default function Categories() {
     id: '3',
   });
 
+
   useEffect(() => {
     getCategories();
   }, [getCategories]);

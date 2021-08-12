@@ -2,20 +2,19 @@ import { useLazyQuery } from '@apollo/client'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import ActivityIndicator from '../../components/spinners/ActivityIndicator';
-import { CLEAR_CUSTOMER_CART } from '../../services/apollo/mutations/cart/ClearCustomerCart';
-import { GET_CUSTOMER_CART } from '../../services/apollo/queries/cart/getCustomerCart'
-import { removeItemFromACart } from './removeCartItem';
+import {useGetCustomerCart} from "common/controllers/getCustomerCart.Controller"
+import {useClearCustomerCart} from "common/controllers/clearCustomerCart.Controller"
+import {useRemoveItemFromACart} from "common/controllers/removeItemFromCart.Controller"
 
 export default function CustomerCart() {
-    const [customerCart, setCustomerCart] = useState([])
-    const [getCustomerCart,{loading, error, data}] = useLazyQuery(GET_CUSTOMER_CART);
-    const cartUid = data?.customerCart?.id;
+    const [customerCartItems, setCustomerCartItems] = useState()
+    const {loading,error,getCustomerCart,customerCart} = useGetCustomerCart()
+    const cartUid = customerCart?.customerCart?.id;
+
     useEffect(() => {
         getCustomerCart();
-        if(data){
-            setCustomerCart(data);
-        }
-    }, [getCustomerCart,data])
+        setCustomerCartItems(customerCart);
+    }, [getCustomerCart])
 
 
     if(loading){
@@ -27,22 +26,25 @@ export default function CustomerCart() {
     }
 
     const handleClearCustomerCart = () => {
-        const [clearCustomerCart,{loading, error, data}] = useLazyQuery(CLEAR_CUSTOMER_CART,{
-            variables: {cartUid: cartUid}
+        const {clearCustomerCart,loading, error, customerCart} = useClearCustomerCart({
+            cartUid: cartUid
         })
         clearCustomerCart();
         if(loading){
             return <ActivityIndicator />
         }
-        !loading && setCustomerCart(data)
+        !loading && setCustomerCartItems(customerCart)
     }
 
     const handleRemoveItemFromACart = async (cart_item_id: number) => {
-        const {loading,error, data} = await removeItemFromACart(cartUid,cart_item_id)
+        const {loading,error, customerCart, removeItemFromCart} = await useRemoveItemFromACart({cart_id: cartUid, cart_item_id: cart_item_id})
+        
+        removeItemFromCart()
+
         if(loading){
             return <ActivityIndicator />
         }
-        !loading && setCustomerCart(data);
+        !loading && setCustomerCartItems(customerCart);
     }
 
     return (

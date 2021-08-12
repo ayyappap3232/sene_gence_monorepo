@@ -11,6 +11,10 @@ const httpLink = createHttpLink({
   fetchOptions: {
     mode: 'no-cors'
   },
+  headers:{
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': true,
+  }
 });
 
 const errorLink = onError(({graphQLErrors, networkError}) => {
@@ -40,9 +44,6 @@ const authLink =  setContext(async (_, { headers }) => {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : "",
-      'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Credentials': true,
     }
   }
 });
@@ -51,5 +52,4 @@ const authLink =  setContext(async (_, { headers }) => {
 export const apolloClient = new ApolloClient({
     link: errorLink.concat(authLink.concat(httpLink)),
     cache: new InMemoryCache(),
-    connectToDevTools: true,
   });

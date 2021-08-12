@@ -7,18 +7,18 @@ import {useGenerateCustomerToken} from '../../common/controllers/generateCustome
 
 function App() {
 
-  // const {getCategories, loading, error, categoryData} = useCategories({id: "3"});
-  // console.log('categories',categoryData)
+  const {getCategories, loading, error, categoryData} = useCategories({id: "3"});
+  console.log('categories',categoryData)
   
-  //   useEffect(() => {
-  //     getCategories();
-  //   }, [getCategories])
+    useEffect(() => {
+      getCategories();
+    }, [getCategories])
 
-  const {getToken, loading, error, token} = useGenerateCustomerToken({"email": "test1212@gmail.com","password":"test123@123"})
+  // const {getToken, loading, error, token} = useGenerateCustomerToken({email: "test1212@gmail.com",password:"test123@123"})
 
-  useEffect(() => {
-    getToken();
-  }, [getToken])
+  // useEffect(() => {
+  //   getToken();
+  // }, [getToken])
 
   if(loading){
     return <h1>loading...</h1>

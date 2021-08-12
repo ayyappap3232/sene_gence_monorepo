@@ -3,16 +3,17 @@ import React, { useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import ActivityIndicator from '../../components/spinners/ActivityIndicator'
 import { useCart } from '../../hooks/cart/useCart'
-import { GET_PRODUCTS, ProductItem } from '../../services/apollo/queries/products/products'
+import { useSearchProducts } from 'common/controllers/searchProducts.Controller'
+import { ProductItem } from '../../../../common/services/apollo/queries/products/products'
 
 export default function SearchProduct() {
-    const [searchProduct,{loading,error,data}] = useLazyQuery(GET_PRODUCTS,{
-        variables:{match:"dress"}
-    })
+    const {loading,error,searchProducts, getSearchProducts} = useSearchProducts(
+       {match:"dress"}
+    )
     
     useEffect(() => {
-        searchProduct();
-    }, [searchProduct])
+        getSearchProducts();
+    }, [getSearchProducts])
 
     if(loading){
         return <ActivityIndicator />
@@ -20,7 +21,7 @@ export default function SearchProduct() {
 
     return (
         <>
-        {data?.products?.items.map((item : ProductItem) => <Text key={item.name}>{item.name}</Text>)}</>
+        {searchProducts?.products?.items.map((item : ProductItem) => <Text key={item.name}>{item.name}</Text>)}</>
     )
 }
 
