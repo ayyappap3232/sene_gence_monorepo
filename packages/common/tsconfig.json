@@ -11,6 +11,8 @@
     "sourceMap": true,
     "skipLibCheck": false,
     "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmitOnError": true
   },
-  "exclude": ["./node_modules/**/*"]
+  "exclude": ["./node_modules/**/*"],
 }

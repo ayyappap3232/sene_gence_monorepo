@@ -9,12 +9,14 @@ import { magentoConfig } from './magento.config';
 const httpLink = createHttpLink({
   uri: `${magentoConfig.API_URL}/graphql`,
   fetchOptions: {
-    mode: 'no-cors'
+    mode: 'no-cors',
   },
   headers:{
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Credentials': true,
-  }
+    "Content-Type": "application/json",
+  },
+  useGETForQueries: true
 });
 
 const errorLink = onError(({graphQLErrors, networkError}) => {
@@ -50,6 +52,15 @@ const authLink =  setContext(async (_, { headers }) => {
 
 // Initialize Apollo Client
 export const apolloClient = new ApolloClient({
-    link: errorLink.concat(authLink.concat(httpLink)),
-    cache: new InMemoryCache(),
+    link: authLink.concat(errorLink.concat(httpLink)),
+    cache: new InMemoryCache({
+      addTypename: false
+    }),
+    defaultOptions: {
+      watchQuery: {
+        fetchPolicy: 'network-only',
+        errorPolicy: 'all'
+      }
+    },
+    credentials: "same-origin"
   });

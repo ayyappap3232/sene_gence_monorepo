@@ -1,5 +1,6 @@
-const back = require("../assets/images");
-
+const carousel1 = require("../../assets/images/carousel1.png");
+const logo = require("../../assets/images/LOGO.png")
 export default {
-    back,
+    carousel1,
+    logo
 }

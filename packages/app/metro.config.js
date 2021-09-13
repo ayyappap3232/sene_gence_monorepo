@@ -4,6 +4,7 @@
  *
  * @format
  */
+ const {getDefaultConfig} = require('metro-config')
  const path = require('path');
  const extraNodeModules = {
    'common': path.resolve(__dirname + '/../common'),
@@ -11,7 +12,12 @@
  const watchFolders = [
    path.resolve(__dirname + '/../common')
  ];
- module.exports = {
+
+ module.exports = (async () => {
+  const {
+    resolver: {sourceExts, assetExts} }= await getDefaultConfig();
+
+  return {
    transformer: {
      getTransformOptions: async () => ({
        transform: {
@@ -19,8 +25,11 @@
          inlineRequires: false,
        },
      }),
+     babelTransformerPath: require.resolve('react-native-svg-transformer')
    }, 
    resolver: {
+     assetExts: assetExts.filter(ext => ext !== 'svg'),
+     sourceExts: [...sourceExts, 'svg'],
      extraNodeModules: new Proxy(extraNodeModules, {
        get: (target, name) =>
          //redirects dependencies referenced from common/ to local node_modules
@@ -28,4 +37,6 @@
      }),
    },
    watchFolders,
- };
+ }
+}
+);

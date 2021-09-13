@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View,Image} from 'react-native';
 import CategoryList from './CategoryList';
 import ActivityIndicator from '../../components/spinners/ActivityIndicator';
 //@ts-ignore
@@ -21,6 +21,13 @@ export default function Categories() {
 
   return (
     <>
+    <Image
+        source={{
+          uri: "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/t/vt11-ll_main_2.jpg",
+        }}
+        style={{ width: 200, height: 200 ,backgroundColor:'orange'}}
+        resizeMode="cover"
+      />
       {categoryData?.categories?.items?.map((item: ItemCategory,index: number) => {
         return (
           <View key={`${item.name}-root${index}`}>

@@ -2,7 +2,7 @@ import { Dimensions } from "react-native";
 const {width, height} = Dimensions.get("window");
 
 export const COLORS = {
-
+    white: "#ffffff"
 }
 
 export const SIZES = {
@@ -31,7 +31,11 @@ export const SIZES = {
 }
 
 export const FONTS = {
-    largeTitle : {fontFamily: "Roboto-regular", fontSize: SIZES.largeTitle, lineHeight: 55}
+    AvenirRegular: "Avenir Regular",
+    BebasNeueBold: "BebasNeue-Bold",
+    AvenirBook: "Avenir-Book",
+    AvenirMedium:"Avenir-Medium",
+    largeTitle : {fontFamily: "Avenir Regular", fontSize: SIZES.largeTitle, lineHeight: 55}
 }
 
 const appTheme = {COLORS, SIZES, FONTS};

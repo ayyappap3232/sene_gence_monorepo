@@ -18,7 +18,6 @@ type Result = {
 export const useGenerateCustomerToken = (props: Props):Result => {
   const [token, setToken] = useState();
 
-  try {
     const [getToken, { loading, error, data }] = useMutation(
       GENERATE_CUSTOMER_TOKEN,
       {
@@ -42,7 +41,4 @@ export const useGenerateCustomerToken = (props: Props):Result => {
       error,
       token,
     };
-  } catch (error) {
-    console.log('customer token error',error)
-  }
 };
