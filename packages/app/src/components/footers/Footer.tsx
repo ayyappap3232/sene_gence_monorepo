@@ -49,7 +49,7 @@ export default function Footer({containerStyle = {}}) {
                   toggle: !selectedState.toggle,
                 })
               }
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              style={{flexDirection: 'row', justifyContent: 'space-between',alignItems:'center'}}>
               <Text
                 containerStyle={{
                   fontSize: SIZES.body3,

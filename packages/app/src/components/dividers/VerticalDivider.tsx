@@ -4,7 +4,7 @@ import { COLORS } from '../../constants'
 
 export default function VerticalDivider() {
     return (
-        <View style={{marginRight: 10,borderRightWidth: 1, borderRightColor: COLORS.white}}>
+        <View style={{width: 2,height: 20, backgroundColor: COLORS.white}}>
         </View>
     )
 }
