@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+    <defs>
+        <clipPath id="clip-path">
+            <path id="Rectangle_396" data-name="Rectangle 396" transform="translate(1118 -174)" style="fill:#fff" d="M0 0h40v40H0z"/>
+        </clipPath>
+        <style>
+            .cls-3{fill:#0052d2}
+        </style>
+    </defs>
+    <g id="Mask_Group_7" data-name="Mask Group 7" transform="translate(-1118 174)" style="clip-path:url(#clip-path)">
+        <g id="youtube" transform="translate(1126.647 -165.353)">
+            <g id="Group_739" data-name="Group 739" transform="translate(9.816 9.039)">
+                <g id="Group_738" data-name="Group 738">
+                    <path id="Path_254" data-name="Path 254" class="cls-3" d="M13.071 12.048v4.307l3.97-2.135z" transform="translate(-13.071 -12.048)"/>
+                </g>
+            </g>
+            <g id="Group_742" data-name="Group 742">
+                <g id="Group_741" data-name="Group 741">
+                    <g id="Group_740" data-name="Group 740">
+                        <path id="Path_255" data-name="Path 255" class="cls-3" d="M17.012 0H5.677A5.7 5.7 0 0 0 0 5.695V17.03a5.7 5.7 0 0 0 5.677 5.677h11.335a5.707 5.707 0 0 0 5.695-5.695V5.695A5.707 5.707 0 0 0 17.012 0zm1.37 11.912c0 1.189-.108 2.4-.108 2.4a3.27 3.27 0 0 1-.541 1.46 1.96 1.96 0 0 1-1.406.631c-1.982.144-4.956.162-4.956.162s-3.694-.054-4.83-.162a2.3 2.3 0 0 1-1.568-.631 3.05 3.05 0 0 1-.541-1.46s-.108-1.207-.108-2.4v-1.117c0-1.189.108-2.4.108-2.4a3.27 3.27 0 0 1 .541-1.46 2 2 0 0 1 1.406-.649c2-.144 4.974-.162 4.974-.162s2.973.018 4.956.162a2.074 2.074 0 0 1 1.424.631 3.094 3.094 0 0 1 .54 1.483s.108 1.207.108 2.4z"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

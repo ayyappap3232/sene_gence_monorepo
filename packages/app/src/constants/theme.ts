@@ -2,7 +2,12 @@ import { Dimensions } from "react-native";
 const {width, height} = Dimensions.get("window");
 
 export const COLORS = {
-    white: "#ffffff"
+    white: "#ffffff",
+    primary: "#497ec7",
+    text: "#00002d",
+    border: '#d2d7e2',
+    primary2: "#0052d2",
+    footerColor: "#4387d6"
 }
 
 export const SIZES = {
@@ -35,6 +40,9 @@ export const FONTS = {
     BebasNeueBold: "BebasNeue-Bold",
     AvenirBook: "Avenir-Book",
     AvenirMedium:"Avenir-Medium",
+    BebasNeueRegular:"BebasNeue-Regular",
+    AvenirLight:"AvenirLight",
+    AvenirHeavy: "AvenirLTProHeavy",
     largeTitle : {fontFamily: "Avenir Regular", fontSize: SIZES.largeTitle, lineHeight: 55}
 }
 

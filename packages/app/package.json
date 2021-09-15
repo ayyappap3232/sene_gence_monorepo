@@ -8,13 +8,16 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "build:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
-    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios'"
+    "debug:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && cd android && ./gradlew assembleDebug && cd ..",
+    "release:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/build/intermediates/res/merged/release/ && rm -rf ./android/app/src/main/res/drawable-* && rm -rf ./android/app/src/main/res/raw && cd android && ./gradlew assembleRelease && cd ..",
+    "build:ios": "react-native bundle --entry-file index.js --platform ios --bundle-output ios/main.jsbundle --assets-dest ios --dev false"
   },
   "dependencies": {
     "@apollo/client": "^3.4.5",
+    "@eliav2/react-native-collapsible-view": "^1.4.0",
     "@react-native-async-storage/async-storage": "^1.15.5",
     "@react-navigation/drawer": "^6.0.0",
+    "@react-navigation/material-top-tabs": "^6.0.2",
     "@react-navigation/native": "^6.0.0",
     "@react-navigation/native-stack": "^6.0.0",
     "@reduxjs/toolkit": "^1.6.1",
@@ -22,12 +25,14 @@
     "react": "17.0.1",
     "react-native": "0.64.1",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-pager-view": "^5.4.4",
     "react-native-reanimated": "^2.2.1",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.4.0",
     "react-native-size-matters": "^0.4.0",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "^12.1.1",
+    "react-native-tab-view": "^3.1.1",
     "react-redux": "^7.2.4"
   },
   "devDependencies": {

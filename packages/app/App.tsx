@@ -4,7 +4,6 @@ import { NavigationContainer , DarkTheme, DefaultTheme} from '@react-navigation/
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ApolloProvider } from '@apollo/client';
 //@ts-ignore
-import {apolloClient} from 'common/services/client'
 import { Provider } from 'react-redux';
 
 import AppNavigator from './src/navigation/AppNavigator';
@@ -12,6 +11,7 @@ import { store } from './src/redux/store';
 import { useState } from 'react';
 import AuthNavigator from './src/navigation/AuthNavigator';
 import DrawerNavigator from './src/navigation/DrawerNavigator';
+import { apolloClient } from './src/apollo/services/client';
 
 const Stack = createNativeStackNavigator();
 

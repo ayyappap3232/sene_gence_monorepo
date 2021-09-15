@@ -17,7 +17,7 @@ export default function HomeCarousel({carouselData}: any) {
       <ImageBackground
         resizeMode="cover"
         source={item.image}
-        style={{width: 343, height: 363}}>
+        style={{width: 334, height: 363}}>
         <View
           style={[
             styles.carouselInnerContent,
@@ -34,9 +34,11 @@ export default function HomeCarousel({carouselData}: any) {
           activeDotIndex={activeSlide}
           containerStyle={styles.pagination}
           dotColor={'blue'}
-          inactiveDotColor={'white'}
+          inactiveDotColor={COLORS.white}
           inactiveDotOpacity={1}
           inactiveDotScale={1}
+          dotStyle={{width: 14,height: 14, borderRadius: 10,borderWidth: 3,borderColor: COLORS.border}}
+          dotContainerStyle={{width: 14,height: 14, borderRadius: 10, borderWidth: 2,borderColor: 'red'}}
         />
       </ImageBackground>
     );
@@ -49,6 +51,8 @@ export default function HomeCarousel({carouselData}: any) {
       sliderWidth={353}
       itemWidth={363}
       onSnapToItem={index => setActiveSlide(index)}
+      autoplay={true}
+      autoplayInterval={200}
     />
   );
 }
@@ -59,7 +63,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     marginTop: 95,
     marginBottom: 94,
-    marginHorizontal: 15,
+    marginHorizontal: 10,
     padding: 10,
     width: 314,
     height: 174

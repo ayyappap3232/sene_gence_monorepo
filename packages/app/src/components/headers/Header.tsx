@@ -1,18 +1,18 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useLayoutEffect } from 'react'
-import { StyleSheet, Text, View ,SafeAreaView, TouchableOpacity, Image} from 'react-native'
+import { StyleSheet, Text, View ,SafeAreaView, TouchableOpacity, Image, Platform} from 'react-native'
 import { AppLogo, Globe, HamburgerMenu, Search } from '../../../assets/svgs';
 import { COLORS, FONTS, images, SIZES } from '../../constants';
 
 export default function Header() {
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
 
     useLayoutEffect(() => {
         navigation.setOptions({
             header: () => {
             return <SafeAreaView style={styles.header}>
                 <View style={styles.headerContent}>
-                    <TouchableOpacity activeOpacity={0.7} onPress={() => navigation?.openDrawer()}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.openDrawer()}>
                         <HamburgerMenu width={23.7} height={18.6} style={styles.hamburgerMenu}/>
                     </TouchableOpacity>
                     <Image source={images.logo} resizeMode="contain" style={{width: 192.7, height: 44}}/>
@@ -38,17 +38,17 @@ export default function Header() {
 
 const styles = StyleSheet.create({
     header: {
-        height: 120,
-        justifyContent:'space-around',
+        height: Platform.OS =="ios" ? 120 : 80,
+        justifyContent:'space-between',
         alignItems: 'center',
         flexDirection: 'row',
-        backgroundColor: COLORS.white
+        backgroundColor: COLORS.white,
     },
     headerContent:{
         flexDirection:'row',
         justifyContent:'center',
         alignItems:'center',
-        marginBottom: 20,
+        marginHorizontal: 10
 
     },
     hamburgerMenu: {

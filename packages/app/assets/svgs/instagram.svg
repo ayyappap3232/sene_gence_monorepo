@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+    <defs>
+        <clipPath id="clip-path">
+            <path id="Rectangle_369" data-name="Rectangle 369" transform="translate(1118 -218)" style="fill:#fff" d="M0 0h40v40H0z"/>
+        </clipPath>
+        <style>
+            .cls-3{fill:#0052d2}
+        </style>
+    </defs>
+    <g id="Mask_Group_3" data-name="Mask Group 3" transform="translate(-1118 218)" style="clip-path:url(#clip-path)">
+        <g id="instagram" transform="translate(1127.333 -208.6)">
+            <g id="Group_180" data-name="Group 180">
+                <g id="Group_173" data-name="Group 173" transform="translate(8.725 8.715)">
+                    <g id="Group_172" data-name="Group 172">
+                        <path id="Path_196" data-name="Path 196" class="cls-3" d="M16.451 12.794a2.6 2.6 0 0 0-4.252 0 2.7 2.7 0 0 0-.494 1.538 2.62 2.62 0 0 0 5.239 0 2.7 2.7 0 0 0-.493-1.538z" transform="translate(-11.705 -11.693)"/>
+                    </g>
+                </g>
+                <g id="Group_175" data-name="Group 175" transform="translate(5.271 9.666)">
+                    <g id="Group_174" data-name="Group 174">
+                        <path id="Path_197" data-name="Path 197" class="cls-3" d="M17.227 13.1a3.732 3.732 0 0 1 .3 1.519 4.081 4.081 0 0 1-8.162 0 3.667 3.667 0 0 1 .3-1.519h-2.3v6.09a1.541 1.541 0 0 0 1.5 1.5h9.149a1.541 1.541 0 0 0 1.5-1.5V13.1z" transform="translate(-7.375 -13.097)"/>
+                    </g>
+                </g>
+                <g id="Group_177" data-name="Group 177" transform="translate(14.278 5.856)">
+                    <g id="Group_176" data-name="Group 176">
+                        <path id="Path_198" data-name="Path 198" class="cls-3" d="M21.187 7.81h-2.2v2.525h2.506V7.791z" transform="translate(-18.985 -7.791)"/>
+                    </g>
+                </g>
+                <g id="Group_179" data-name="Group 179">
+                    <g id="Group_178" data-name="Group 178">
+                        <path id="Path_199" data-name="Path 199" class="cls-3" d="M17 .012H5.69A5.7 5.7 0 0 0 0 5.707v11.335a5.7 5.7 0 0 0 5.69 5.677h11.326a5.7 5.7 0 0 0 5.69-5.695V5.707A5.732 5.732 0 0 0 17 .012zm1.369 9.894v5.8a2.646 2.646 0 0 1-2.683 2.685H7a2.646 2.646 0 0 1-2.683-2.685V7.022A2.646 2.646 0 0 1 7 4.337h8.679a2.646 2.646 0 0 1 2.683 2.685v2.884z" transform="translate(0 -.012)"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
