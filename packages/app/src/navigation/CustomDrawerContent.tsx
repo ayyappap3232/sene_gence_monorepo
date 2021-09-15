@@ -249,26 +249,28 @@ const CustomDrawerContent = (props: any) => {
   };
 
   return (
-    <DrawerContentScrollView  {...props}>
+    <DrawerContentScrollView contentContainerStyle={styles.container}  {...props}>
       {_header()}
       {_topTabs()}
-      <View style={styles.tabWrapper}>
+      <ScrollView style={styles.tabWrapper}>
         {isTabSelected == 'MENU' ? (
           <>
             {_menuContent()}
             {_socialNetworkSection()}
             {_links()}
-            {_footer()}
+            
           </>
         ) : (
           _loginContent()
         )}
-      </View>
+      </ScrollView>
+      {_footer()}
     </DrawerContentScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  container:{flex: 1,justifyContent:'space-between'},
   rectangleHeaderBackground: {
     height: 53,
     margin: 0,
@@ -338,7 +340,6 @@ const styles = StyleSheet.create({
   footer: {
     height: 157,
     backgroundColor: COLORS.primary,
-    marginLeft: -20,
     marginRight: -15,
   },
   footerBody: {

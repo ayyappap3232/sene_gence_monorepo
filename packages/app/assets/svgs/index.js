@@ -14,3 +14,5 @@ export {default as Youtube} from './youtube.svg';
 
 //Download Icons
 export {default as DownloadIcon} from './downloadicon.svg';
+
+export {default as PageUp} from './pageup.svg';

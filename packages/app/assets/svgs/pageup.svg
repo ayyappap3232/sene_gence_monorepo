@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88.289" height="88.289">
+    <defs>
+        <filter id="Path_218" x="0" y="0" width="88.289" height="88.289" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite operator="in" in2="blur"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <style>
+            .cls-1{fill:#fff}
+        </style>
+    </defs>
+    <g id="Page_up" data-name="Page up" transform="translate(9 6)">
+        <g transform="translate(-9 -6)" style="filter:url(#Path_218)">
+            <path id="Path_218-2" data-name="Path 218" class="cls-1" d="M70.289 35.145A35.145 35.145 0 1 1 35.145 0a35.144 35.144 0 0 1 35.144 35.145zm0 0" transform="translate(9 6)"/>
+        </g>
+        <path id="Path_219" data-name="Path 219" class="cls-1" d="M0 256a35.145 35.145 0 0 0 70.289 0zm0 0" transform="translate(0 -220.855)"/>
+        <path id="Path_235" data-name="Path 235" d="m44.682 38.7-8.032-8.031a.435.435 0 0 0-.615.615l7.289 7.289.626.371-.626.5-7.289 7.289a.435.435 0 1 0 .615.615l8.031-8.031a.437.437 0 0 0 0-.616z" transform="rotate(-90 35.82 39.683)" style="fill:#6a5f41;stroke:#6a5f41;stroke-width:1.5px"/>
+    </g>
+</svg>

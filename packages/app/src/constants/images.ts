@@ -37,6 +37,7 @@ const pinterest = require("../../assets/images/footericons/pinterest.png")
 const twitter = require("../../assets/images/footericons/twitter.png")
 const youtube = require("../../assets/images/footericons/youtube.png")
 
+const pageUp = require("../../assets/images/pageup3x.png")
 export default {
     carousel1,
     logo,
@@ -63,5 +64,6 @@ export default {
     instagram,
     pinterest,
     twitter,
-    youtube
+    youtube,
+    pageUp
 }
