@@ -5,7 +5,7 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
-import {Alert, Image, ScrollView, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, Linking, ScrollView, TouchableOpacity, View} from 'react-native';
 import {
   AppLogo,
   Chevron,
@@ -24,6 +24,7 @@ import CollapsibleView from '@eliav2/react-native-collapsible-view';
 import OutlineTextInput from '../components/textInputs/OutlineTextInput';
 import OutlineButton from '../components/buttons/OutlineButton';
 import {Platform} from 'react-native';
+import { facebookUrl, instagramUrl, pinterestUrl, twitterUrl, youtubeUrl } from '../utils/data/links';
 
 const CustomDrawerContent = (props: any) => {
   const navigation = useNavigation<any>();
@@ -206,11 +207,11 @@ const CustomDrawerContent = (props: any) => {
             justifyContent: 'space-around',
             alignItems: 'center',
           }}>
-          <Facebook onPress={() => {}} />
-          <Twitter onPress={() => {}} />
-          <Instagram onPress={() => {}} />
-          <Pinterest onPress={() => {}} />
-          <Youtube onPress={() => {}} />
+          <Facebook onPress={() => Linking.openURL(facebookUrl)} />
+          <Twitter onPress={() => Linking.openURL(twitterUrl)} />
+          <Instagram onPress={() => Linking.openURL(instagramUrl)} />
+          <Pinterest onPress={() => Linking.openURL(pinterestUrl)} />
+          <Youtube onPress={() => Linking.openURL(youtubeUrl)} />
         </View>
       </>
     );

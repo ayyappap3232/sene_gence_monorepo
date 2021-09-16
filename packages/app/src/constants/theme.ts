@@ -10,7 +10,8 @@ export const COLORS = {
     footerColor: "#4387d6",
     black: "#00002d",
     red: "#e84646",
-    swatch: "#787878"
+    swatch: "#787878",
+    ligthGrey: "#f4f4f4"
 }
 
 export const SIZES = {
@@ -47,6 +48,7 @@ export const FONTS = {
     AvenirLight:"AvenirLight",
     AvenirHeavy: "AvenirLTProHeavy",
     AvenirBold: "AvenirBold",
+    AvenirBlack: "AvenirLTStd-Black",
     largeTitle : {fontFamily: "Avenir Regular", fontSize: SIZES.largeTitle, lineHeight: 55}
 }
 

@@ -40,6 +40,14 @@ const youtube = require("../../assets/images/footericons/youtube.png")
 const pageUp = require("../../assets/images/pageup3x.png")
 
 const rectangleGrayBg = require("../../assets/images/categories/rectanglegraybg.png")
+const leftChevron = require("../../assets/images/categories/leftChevron.png")
+const rightChevron = require("../../assets/images/categories/rightChevron.png")
+
+//filter images
+const filter1 = require("../../assets/images/filter1.png")
+const filter2 = require("../../assets/images/filter2.png")
+const filter3Sort = require("../../assets/images/filter3sort.png")
+
 export default {
     carousel1,
     logo,
@@ -68,5 +76,10 @@ export default {
     twitter,
     youtube,
     pageUp,
-    rectangleGrayBg
+    rectangleGrayBg,
+    leftChevron,
+    rightChevron,
+    filter1,
+    filter2,
+    filter3Sort
 }

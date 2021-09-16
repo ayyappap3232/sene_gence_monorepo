@@ -22,6 +22,7 @@ export const CATEGORY_LIST = gql`
     image
     
     products(pageSize:$pageSize, currentPage: $currentPage){
+      total_count
       items{
         stock_status
         name

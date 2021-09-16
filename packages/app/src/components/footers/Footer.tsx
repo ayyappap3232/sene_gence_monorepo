@@ -1,6 +1,8 @@
+import { useNavigation } from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity, View, Linking} from 'react-native';
 import {useCategories} from '../../apollo/controllers/getCategories.Controller';
+import { ItemChildrenCategory } from '../../apollo/services/apollo/queries/categories/getCategories';
 import {COLORS, FONTS, icons, SIZES} from '../../constants';
 import {
   footerData,
@@ -15,6 +17,7 @@ import ActivityIndicator from '../spinners/ActivityIndicator';
 import Text from '../text/Text';
 
 export default function Footer({containerStyle = {}}) {
+  const navigation = useNavigation<any>();
   const [selectedState, setSelectedState] = useState({id: '', toggle: false});
 
   const {getCategories, loading, error, categoryData} = useCategories({
@@ -25,7 +28,6 @@ export default function Footer({containerStyle = {}}) {
     getCategories();
   }, [getCategories]);
 
-  console.log('categorydata  in footer', categoryData);
 
   const _lastFooterContent = (text: string, link: any) => {
     return (
@@ -37,11 +39,47 @@ export default function Footer({containerStyle = {}}) {
     );
   };
 
+
+  const _renderTopFooterMenu = (children: ItemChildrenCategory[]) => {
+    return children.map((childItem, index) => {
+      return <View key={childItem.name} style={{marginBottom: 20}}>
+        <TouchableOpacity style={[styles.linkWrapper]} onPress={() => setSelectedState({id: childItem.name, toggle: !selectedState.toggle})}>
+          <Text containerStyle={[styles.title, {marginLeft: -10}]}> {childItem.name} </Text>
+          <Image
+                source={icons.Chevron}
+                style={{
+                  width: 14,
+                  height: 8,
+                  tintColor: 'white',
+                  transform: [
+                    {
+                      rotate:
+                        childItem.name == selectedState.id && selectedState.toggle
+                          ? '0deg'
+                          : '180deg',
+                    },
+                  ],
+                }}
+              />
+        </TouchableOpacity>
+        {childItem.name == selectedState.id && selectedState.toggle && childItem?.children.map((item,index) => {
+          return <TouchableOpacity onPress={() => navigation.navigate('CategoryItem', {categoryData: item})}>
+            <Text containerStyle={[styles.childName, {textTransform:'capitalize'}]}>{item.children.length > 0 && item.name}</Text>
+          </TouchableOpacity>
+        })}
+      </View>
+    })
+  }
+
+
   return (
-    <View style={[styles.footerContainer, containerStyle]}>
+    <View style={[containerStyle]}>
+      {categoryData?.categories?.items?.map((item, index) => {
+        return _renderTopFooterMenu(item?.children)
+      })}
       {footerData.map((item, index) => {
         return (
-          <View key={item.id} style={{marginBottom: 30}}>
+          <View key={item.id}>
             <TouchableOpacity
               onPress={() =>
                 setSelectedState({
@@ -49,14 +87,9 @@ export default function Footer({containerStyle = {}}) {
                   toggle: !selectedState.toggle,
                 })
               }
-              style={{flexDirection: 'row', justifyContent: 'space-between',alignItems:'center'}}>
+              style={[styles.linkWrapper,{marginBottom: 20}]}>
               <Text
-                containerStyle={{
-                  fontSize: SIZES.body3,
-                  fontFamily: FONTS.BebasNeueBold,
-                  letterSpacing: 4.8,
-                  color: COLORS.white,
-                }}>
+                containerStyle={styles.title}>
                 {item.title}
               </Text>
               <Image
@@ -86,15 +119,9 @@ export default function Footer({containerStyle = {}}) {
                         ? Linking.openURL(childItem.link)
                         : {}
                     }
-                    style={{marginTop: 20}}
                     key={childItem.id}>
                     <Text
-                      containerStyle={{
-                        fontSize: SIZES.body3,
-                        color: COLORS.white,
-                        fontFamily: FONTS.AvenirBook,
-                        letterSpacing: 0.7,
-                      }}>
+                      containerStyle={[styles.childName,index == item.children.length - 1 && {marginBottom: 20}]}>
                       {childItem.name}
                     </Text>
                   </TouchableOpacity>
@@ -111,7 +138,7 @@ export default function Footer({containerStyle = {}}) {
           return (
             <TouchableOpacity
               onPress={() => {
-                item.link;
+                Linking.openURL(item.link);
               }}
               key={item.id}>
               <Image
@@ -151,7 +178,20 @@ export default function Footer({containerStyle = {}}) {
 }
 
 const styles = StyleSheet.create({
-  footerContainer: {},
+  title: {
+    fontSize: SIZES.body3,
+    fontFamily: FONTS.BebasNeueBold,
+    letterSpacing: 4.8,
+    color: COLORS.white,
+  },
+  childName:{
+    fontSize: SIZES.body3,
+    color: COLORS.white,
+    fontFamily: FONTS.AvenirBook,
+    letterSpacing: 0.7,
+    lineHeight: 32
+  },
+  linkWrapper:{flexDirection: 'row', justifyContent: 'space-between',alignItems:'center'},
   lastFooterContent: {
     flexDirection: 'row',
     flexWrap: 'wrap',

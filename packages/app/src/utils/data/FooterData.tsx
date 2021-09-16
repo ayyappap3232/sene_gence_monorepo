@@ -1,4 +1,5 @@
 import { images } from '../../constants';
+import { facebookUrl, instagramUrl, pinterestUrl, twitterUrl, youtubeUrl } from './links';
 
 export interface IFooterData {
     id: string;
@@ -130,27 +131,27 @@ export interface IFooterSocialIcons {
 export const footerSocialIcons: IFooterSocialIcons[] = [
     {
         id: "facebook",
-        link: "",
+        link: facebookUrl,
         icon: images.facebook
     },
     {
         id: "twitter",
-        link: "",
+        link: twitterUrl,
         icon: images.twitter
     },
     {
         id: "instagram",
-        link: "",
+        link: instagramUrl,
         icon: images.instagram
     },
     {
         id: "pinterest",
-        link: "",
+        link: pinterestUrl,
         icon: images.pinterest
     },
     {
         id: "youtube",
-        link: "",
+        link: youtubeUrl,
         icon: images.youtube
     },
 ]
