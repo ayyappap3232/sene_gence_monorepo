@@ -7,7 +7,7 @@ import { magentoConfig } from './magento.config';
 
 
 const httpLink = createHttpLink({
-  uri: `${magentoConfig.API_URL}/graphql`,
+  uri: `${magentoConfig.SENEGENCE_API_URL}/graphql`,
   fetchOptions: {
     mode: 'no-cors',
   },
