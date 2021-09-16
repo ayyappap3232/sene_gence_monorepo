@@ -1,6 +1,6 @@
 import { useEffect,useState } from "react";
 //@ts-ignore
-import {useLazyQuery} from "@apollo/graphql";
+import {useLazyQuery} from "@apollo/client";
 import {CATEGORY_LIST} from '../services/apollo/queries/categories/categoryList'
 
 type Props = {

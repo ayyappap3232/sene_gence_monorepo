@@ -38,6 +38,8 @@ const twitter = require("../../assets/images/footericons/twitter.png")
 const youtube = require("../../assets/images/footericons/youtube.png")
 
 const pageUp = require("../../assets/images/pageup3x.png")
+
+const rectangleGrayBg = require("../../assets/images/categories/rectanglegraybg.png")
 export default {
     carousel1,
     logo,
@@ -65,5 +67,6 @@ export default {
     pinterest,
     twitter,
     youtube,
-    pageUp
+    pageUp,
+    rectangleGrayBg
 }

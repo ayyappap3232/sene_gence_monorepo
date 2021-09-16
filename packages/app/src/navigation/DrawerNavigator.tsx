@@ -5,8 +5,8 @@ import StartUpPage from '../screens/AuthScreens/StartUpPage';
 import CustomDrawerContent from './CustomDrawerContent';
 import ActivityIndicator from '../components/spinners/ActivityIndicator';
 import { useCategories } from '../apollo/controllers/getCategories.Controller';
-import CategoryScreen from '../screens/AnonymousScreens/CategoryScreen';
 import Footer from '../components/footers/Footer';
+import CategoryScreen from '../screens/AnonymousScreens/PLP_Pages/CategoryScreen';
 
 const Drawer = createDrawerNavigator();
 

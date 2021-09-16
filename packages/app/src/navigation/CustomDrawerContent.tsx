@@ -117,6 +117,7 @@ const CustomDrawerContent = (props: any) => {
         <Text containerStyle={styles.categoriesList}>{item.name}</Text>
         {item.children?.length > 0 && (
           <TouchableOpacity
+          key={`${index}${item.name}`}
             onPress={() =>
               item.children?.length > 0
                 ? setSelectedItem({

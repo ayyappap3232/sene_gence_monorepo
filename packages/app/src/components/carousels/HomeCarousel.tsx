@@ -15,6 +15,7 @@ export default function HomeCarousel({carouselData}: any) {
   const _renderItem = ({item}: any) => {
     return (
       <ImageBackground
+        key={item.id}
         resizeMode="cover"
         source={item.image}
         style={{width: 334, height: 363}}>
