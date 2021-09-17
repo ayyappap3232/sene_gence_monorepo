@@ -3,21 +3,25 @@ import {gql} from '@apollo/client';
 export const GET_CATEGORIES = gql`
   query Get_Categories($pageSize: Int!) {
     categories(pageSize: $pageSize) {
-      items {
+      items{
+      uid
+      name
+      children{
+        uid
         name
-        children {
+        url_path
+        children{
+          uid
           name
-          url_path
-          children {
+        url_path
+          children{
+            uid
             name
-            url_path
-            children {
-              name
-              url_path
-            }
+        url_path
           }
         }
       }
+    }
     }
     # categoryList(filters:{ids:{eq:$id}}){
     #     id

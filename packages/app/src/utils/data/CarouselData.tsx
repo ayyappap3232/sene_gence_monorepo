@@ -39,4 +39,31 @@ const asSeenInCarouselData : IAsSeenInCarouselData[] = [
     }
 ]
 
-export {homeCarouselData, asSeenInCarouselData}
+const productCategoryShippingDetailsData = [
+    {
+        id: 'PCSD1',
+        name: "Free shipping on orders $100+",
+        icon: images.truck
+    },
+    {
+        id: 'PCSD2',
+        name: "10% off Discount",
+        icon: images.discount
+    },
+    {
+        id: 'PCSD3',
+        name: "Exclusive",
+        icon: images.exclusive
+    },
+    {
+        id: 'PCSD4',
+        name: "Additional Kiss Credits",
+        icon: images.kisscredits
+    },
+]
+
+const carouselTypes = {
+    HorizontalTextWithIcon : "HorizontalTextWithIcon"
+}
+
+export {homeCarouselData, asSeenInCarouselData,carouselTypes,productCategoryShippingDetailsData}

@@ -1,0 +1,56 @@
+import React, {useRef, useState} from 'react';
+import {SafeAreaView, ScrollView, StyleSheet} from 'react-native';
+import FAB from 'react-native-fab';
+import {PageUp} from '../../assets/svgs';
+import Footer from './footers/Footer';
+import Header from './headers/Header';
+import {COLORS} from '../constants';
+
+export const ScrollToTopContainer = ({children, containerStyle={},scrollContainerStyle={}, scrollContentContainerStyle={}}: any) => {
+  //ScrollTo Top Functionality
+  const scrollRef = useRef<ScrollView>();
+  const [showPageUp, setShowPageUp] = useState(false);
+
+  const _goToTop = () => {
+    scrollRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
+  };
+
+  return (
+    <SafeAreaView style={[styles.container, containerStyle]}>
+      <Header />
+      <ScrollView
+        onScroll={e => {
+          setShowPageUp(e.nativeEvent.contentOffset.y > 100 ? true : false);
+        }}
+        ref={scrollRef}
+        style={[{backgroundColor: COLORS.white},scrollContainerStyle]}
+        contentContainerStyle={[{flexGrow: 1},scrollContentContainerStyle]}>
+        {children}
+        <Footer
+          containerStyle={{
+            paddingHorizontal: 27,
+            paddingTop: 28.6,
+            backgroundColor: COLORS.footerColor,
+          }}
+        />
+      </ScrollView>
+      <FAB
+        onClickAction={() => {
+          _goToTop();
+        }}
+        visible={showPageUp}
+        iconTextComponent={<PageUp style={{elevation: 2}} />}
+      />
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: COLORS.white,
+    flex: 1,
+  },
+});

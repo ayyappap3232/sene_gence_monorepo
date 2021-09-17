@@ -5,6 +5,7 @@ import { onError } from "@apollo/client/link/error";
 
 import { magentoConfig } from './magento.config';
 
+const cache = new InMemoryCache();
 
 const httpLink = createHttpLink({
   uri: `${magentoConfig.SENEGENCE_API_URL}/graphql`,
@@ -53,14 +54,6 @@ const authLink =  setContext(async (_, { headers }) => {
 // Initialize Apollo Client
 export const apolloClient = new ApolloClient({
     link: authLink.concat(errorLink.concat(httpLink)),
-    cache: new InMemoryCache({
-      addTypename: false
-    }),
-    defaultOptions: {
-      watchQuery: {
-        fetchPolicy: 'network-only',
-        errorPolicy: 'all'
-      }
-    },
+    cache,
     credentials: "same-origin"
   });

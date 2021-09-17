@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {
-    Image,
+  Image,
   ImageBackground,
   StyleSheet,
   Text,
@@ -8,44 +8,101 @@ import {
   View,
 } from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
-import { COLORS, FONTS, SIZES } from '../../constants';
+import {COLORS, FONTS, SIZES} from '../../constants';
+import {carouselTypes} from '../../utils/data/CarouselData';
 
-export default function PlainCarousel({carouselData}: any) {
+export default function PlainCarousel({
+  carouselData,
+  uri = false,
+  sliderWidth = 353,
+  itemWidth = 363,
+  width = 334,
+  height = 70,
+  borderColor = COLORS.white,
+  borderWidth = 0,
+  typeOfCarousel = null,
+}: any) {
   const [activeSlide, setActiveSlide] = useState(0);
+
   const _renderItem = ({item}: any) => {
-    return (
+    if (typeOfCarousel === carouselTypes.HorizontalTextWithIcon) {
+      return (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Image
+            resizeMode="contain"
+            source={item.icon}
+            style={{width: width, height: height}}
+          />
+          <Text>{item.name}</Text>
+        </View>
+      );
+    } else {
+      return (
         <>
-      <Image
-        resizeMode="center"
-        source={item.image}
-        style={{width: 334, height: 70}} />
-        
+          {!uri ? (
+            <Image
+              resizeMode="center"
+              source={item.image}
+              style={{width: width, height: height}}
+            />
+          ) : (
+            <Image
+              resizeMode="center"
+              source={{uri: item.url}}
+              style={{
+                width: width,
+                height: height,
+                borderColor: borderColor,
+                borderWidth: borderWidth,
+              }}
+            />
+          )}
         </>
-    );
+      );
+    }
   };
 
   return (
-      <>
-    <Carousel
-      data={carouselData}
-      renderItem={_renderItem}
-      sliderWidth={353}
-      itemWidth={363}
-      onSnapToItem={index => setActiveSlide(index)}
-      autoplay={false}
-      loop={false}
-    />
-    <Pagination
-          dotsLength={carouselData.length}
-          activeDotIndex={activeSlide}
+    <>
+      <Carousel
+        data={carouselData}
+        renderItem={_renderItem}
+        sliderWidth={sliderWidth}
+        itemWidth={itemWidth}
+        onSnapToItem={index => setActiveSlide(index)}
+        autoplay={true}
+        loop={true}
+        layout={'default'}
+        containerCustomStyle={{flexGrow: 0,marginBottom:-10}}
+      />
+      <Pagination
+        dotsLength={carouselData.length}
+        activeDotIndex={activeSlide}
         //   containerStyle={styles.pagination}
-          dotColor={'blue'}
-          inactiveDotColor={COLORS.white}
-          inactiveDotOpacity={1}
-          inactiveDotScale={1}
-          dotStyle={{width: 14,height: 14, borderRadius: 10,borderWidth: 3,borderColor: COLORS.border}}
-          dotContainerStyle={{width: 14,height: 14, borderRadius: 10, borderWidth: 2,borderColor: 'red'}}
-        />
+        dotColor={'blue'}
+        inactiveDotColor={COLORS.white}
+        inactiveDotOpacity={1}
+        inactiveDotScale={1}
+        dotStyle={{
+          width: 14,
+          height: 14,
+          borderRadius: 10,
+          borderWidth: 3,
+          borderColor: COLORS.border,
+        }}
+        dotContainerStyle={{
+          width: 14,
+          height: 14,
+          borderRadius: 10,
+          borderWidth: 2,
+          borderColor: 'red',
+        }}
+      />
     </>
   );
 }
@@ -58,5 +115,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     alignSelf: 'center',
-  }
+  },
 });

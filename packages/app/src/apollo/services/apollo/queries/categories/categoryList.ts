@@ -20,10 +20,16 @@ export const CATEGORY_LIST = gql`
     name
     product_count
     image
-    
+    url_path
     products(pageSize:$pageSize, currentPage: $currentPage){
       total_count
       items{
+        categories{
+          breadcrumbs{
+            category_name
+            category_url_path
+          }
+        }
         stock_status
         name
         thumbnail{
@@ -125,7 +131,17 @@ export interface PriceRange {
   minimum_price: MinimumPrice;
 }
 
+export interface BreadCrumbs{
+  category_name: string;
+  category_url_path: string;
+}
+
+export interface Categories {
+  breadcrumbs: BreadCrumbs;
+}
+
 export interface Item {
+  categories: Categories;
   stock_status: string;
   name: string;
   thumbnail: Thumbnail;
@@ -149,6 +165,7 @@ export interface CategoryList {
   name: string;
   product_count: number;
   image?: any;
+  url_path:string;
   products: Products;
 }
 

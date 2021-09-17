@@ -7,6 +7,7 @@ import ActivityIndicator from '../components/spinners/ActivityIndicator';
 import { useCategories } from '../apollo/controllers/getCategories.Controller';
 import Footer from '../components/footers/Footer';
 import CategoryScreen from '../screens/AnonymousScreens/PLP_Pages/CategoryScreen';
+import CategoryDetailsScreen from '../screens/AnonymousScreens/PDP_Pages/CategoryDetailsScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -29,6 +30,7 @@ const DrawerNavigator = ()  => {
         <Drawer.Navigator screenOptions={{drawerType: 'front',drawerStyle:{width: 293}}} drawerContent={(props) => <CustomDrawerContent {...props} categoryData={categoryData} /> }>
             <Drawer.Screen name="StartUpDrawer" options={{drawerLabel: () => null, drawerIcon: undefined, title: undefined}} component={StartUpPage} />
             <Drawer.Screen name="CategoryItem" component={CategoryScreen} />
+            <Drawer.Screen name="CategoryDetails" component={CategoryDetailsScreen} />
         </Drawer.Navigator>
   );
 }

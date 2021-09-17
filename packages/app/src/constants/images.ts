@@ -48,6 +48,15 @@ const filter1 = require("../../assets/images/filter1.png")
 const filter2 = require("../../assets/images/filter2.png")
 const filter3Sort = require("../../assets/images/filter3sort.png")
 
+//Shipping Category Product Details
+const truck = require("../../assets/images/categories/truck.png")
+const discount = require("../../assets/images/categories/discount.png")
+const exclusive = require("../../assets/images/categories/exclusive.png")
+const kisscredits = require("../../assets/images/categories/kisscredits.png")
+
+const plus = require("../../assets/images/plus.png")
+const minus = require("../../assets/images/minus.png")
+
 export default {
     carousel1,
     logo,
@@ -81,5 +90,10 @@ export default {
     rightChevron,
     filter1,
     filter2,
-    filter3Sort
+    filter3Sort,
+    truck,
+    discount,
+    exclusive,
+    kisscredits,
+    plus,minus
 }

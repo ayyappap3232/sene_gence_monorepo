@@ -43,6 +43,7 @@ import PlainCarousel from '../../components/carousels/PlainCarousel';
 import Footer from '../../components/footers/Footer';
 import {useScrollToTop} from '@react-navigation/native';
 import FAB from 'react-native-fab';
+import { ScrollToTopContainer } from '../../components/ScrollToTopContainer';
 
 export default function StartUpPage() {
   const navigation = useNavigation<any>();
@@ -277,15 +278,9 @@ export default function StartUpPage() {
   const [showPageUp, setShowPageUp] = useState(false)
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Header />
-      <ScrollView
-        onScroll={(e) => {         
-          setShowPageUp(e.nativeEvent.contentOffset.y > 100 ? true: false)
-        }}
-        ref={scrollRef}
-        contentContainerStyle={styles.scrollContainer}>
-        <HomeCarousel carouselData={homeCarouselData} />
+    <ScrollToTopContainer>
+      <View style={{paddingHorizontal: 20}}>
+      <HomeCarousel carouselData={homeCarouselData} />
         <OutlineButton title={'SHOP & SAVE'} onPress={() => {}} />
         <Spacer mt={10} />
         <OutlineButton title={'BECOME A DISTRIBUTOR'} onPress={() => {}} />
@@ -361,28 +356,8 @@ export default function StartUpPage() {
         <Spacer mt={40.1} />
         {_asSeenIn()}
         <Spacer mt={40} />
-        <Footer
-          containerStyle={{
-            marginLeft: -20,
-            marginRight: -20,
-            paddingHorizontal: 27,
-            paddingTop: 28.6,
-            backgroundColor: COLORS.footerColor,
-          }}
-        />
-      </ScrollView>
-      
-        <FAB
-          onClickAction={() => {
-            _goToTop()
-          }}
-          
-          visible={showPageUp}
-          iconTextComponent={
-            <PageUp style={{elevation: 2}}/>
-          }
-        />
-    </SafeAreaView>
+        </View>
+    </ScrollToTopContainer>
   );
 }
 

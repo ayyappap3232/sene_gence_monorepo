@@ -18,26 +18,25 @@ import {Item} from '../../../apollo/services/apollo/queries/categories/categoryL
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import Footer from '../../../components/footers/Footer';
 import Header from '../../../components/headers/Header';
+import CategoryItemComponent from '../../../components/PLP/CategoryItemComponent';
 import Spacer from '../../../components/Spacer';
 import ActivityIndicator from '../../../components/spinners/ActivityIndicator';
 import Text from '../../../components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
+import { ScrollToTopContainer } from '../../../components/ScrollToTopContainer';
 import {_getCurrencySymbols} from '../../../utils/helpers/getSymbolBasedOnCurrency';
 
 export default function CategoryScreen() {
   const navigation = useNavigation();
 
-  //ScrollTo Top Functionality
-  const scrollRef = useRef<ScrollView>();
-  const [showPageUp, setShowPageUp] = useState(false);
-
   const route = useRoute();
   const {name, url_path} = route?.params?.categoryData;
+  
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(1);
 
-  const [gridView, setgridView] = useState(false);
+  const [gridView, setgridView] = useState<boolean>(false);
 
   const {getCategoryList, loading, error, categoryList} = useCategoryList({
     url_path: url_path,
@@ -53,147 +52,6 @@ export default function CategoryScreen() {
   if (loading) {
     return <ActivityIndicator />;
   }
-
-  const _handleStockStatus = (status: string) => {
-    switch (status) {
-      case 'IN_STOCK':
-        return 'VIEW PRODUCT';
-      case 'OUT_OF_STOCK':
-        return 'OUT OF STOCK';
-      default:
-        return 'VIEW PRODUCT';
-    }
-  };
-
-  const _renderCategoryListItems = (item: Item, containerStyle = {}) => {
-    const {
-      price_range: {
-        minimum_price: {
-          regular_price: {currency, value},
-          discount: {amount_off},
-          final_price,
-        },
-      },
-      name,
-      image: {url},
-      second_title,
-      stock_status,
-    } = item;
-
-    const _priceContent = () => {
-      return (
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text
-            containerStyle={[
-              {
-                fontFamily: FONTS.AvenirMedium,
-                marginRight: 5,
-              },
-              amount_off > 0 && {
-                textDecorationLine: 'line-through',
-              },
-              styles.commonTextStyle,
-            ]}>
-            {_getCurrencySymbols(currency)}
-            {value} {currency}
-          </Text>
-          {amount_off > 0 && (
-            <Text
-              containerStyle={[
-                styles.commonTextStyle,
-                {
-                  fontFamily: FONTS.AvenirMedium,
-                  color: COLORS.red,
-                },
-              ]}>
-              {_getCurrencySymbols(currency)}
-              {final_price?.value} {currency}
-            </Text>
-          )}
-        </View>
-      );
-    };
-
-    const _titleAndSecondTitle = () => {
-      return (
-        <View style={{marginLeft: 6.3}}>
-          <Text
-            containerStyle={[
-              {
-                fontFamily: FONTS.AvenirBold,
-              },
-              styles.commonTextStyle,
-              {width: SIZES.width/2 - 40}
-            ]}>
-            {name}
-          </Text>
-          <Text
-            containerStyle={[
-              {
-                fontFamily: FONTS.AvenirBook,
-              },
-              styles.commonTextStyle,
-              {width: SIZES.width/2 - 40}
-            ]}>
-            {second_title}
-          </Text>
-        </View>
-      );
-    };
-
-    const _renderImageContent = () => {
-      return (
-        <ImageBackground
-          source={images.rectangleGrayBg}
-          style={styles.imageBackground}>
-          <Image source={{uri: url}} style={styles.image} />
-          <OutlineButton
-            textStyleContainer={styles.outlineButtonText}
-            containerStyle={styles.outlineButtonContainer}
-            title={_handleStockStatus(stock_status)}
-            onPress={() => {}}
-          />
-        </ImageBackground>
-      );
-    };
-
-    const _renderColorsContent = () => {
-      return (
-        <Text
-          containerStyle={[
-            styles.commonTextStyle,
-            {
-              fontFamily: FONTS.AvenirBook,
-              color: COLORS.swatch,
-            },
-          ]}>
-          16 more colors
-        </Text>
-      );
-    };
-
-    return (
-      <TouchableOpacity
-        activeOpacity={0.7}
-        key={item.name}
-        style={[
-          styles.itemContainer,
-          containerStyle,
-          {flexDirection: gridView ? 'row' : 'column'},
-        ]}>
-        <View>{_renderImageContent()}</View>
-        <Spacer mb={10.1} />
-        <View>
-          {_titleAndSecondTitle()}
-          <Spacer mt={10} />
-          <View style={{marginLeft: 6.3}}>
-            {_priceContent()}
-            {_renderColorsContent()}
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  };
 
   const total_count = categoryList?.categoryList[0]?.products?.total_count;
 
@@ -313,13 +171,6 @@ export default function CategoryScreen() {
     );
   };
 
-  const _goToTop = () => {
-    scrollRef.current?.scrollTo({
-      y: 0,
-      animated: true,
-    });
-  };
-
   const _filters = () => {
     return (
       <View
@@ -364,24 +215,17 @@ export default function CategoryScreen() {
     );
   };
 
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Header />
-      <ScrollView
-        onScroll={e => {
-          setShowPageUp(e.nativeEvent.contentOffset.y > 100 ? true : false);
-        }}
-        ref={scrollRef}
-        style={{backgroundColor: COLORS.white}}
-        contentContainerStyle={{flexGrow: 1}}>
-        {_filters()}
+    <ScrollToTopContainer>
+      {_filters()}
           <FlatList
             scrollEnabled={false}
             // columnWrapperStyle={{alignItems: 'flex-start'}}
             contentContainerStyle={{paddingHorizontal: 20}}
             numColumns={gridView ? 1 : 2}
             key={gridView ? 1 : 0}
-            renderItem={({item}) => _renderCategoryListItems(item)}
+            renderItem={({item}) => CategoryItemComponent(item,{},gridView,navigation,url_path)}
             data={categoryList?.categoryList[0]?.products?.items}
             keyExtractor={(item, index) => index.toString()}
             ListEmptyComponent={() => (
@@ -406,7 +250,7 @@ export default function CategoryScreen() {
           style={{marginHorizontal: 10}}
           numColumns={1}
           renderItem={({item}) =>
-            _renderCategoryListItems(item, {marginRight: 10})
+            CategoryItemComponent(item, {marginRight: 10},gridView,navigation,url_path)
           }
           data={categoryList?.categoryList[0]?.products?.items}
           keyExtractor={(item, index) => index.toString()}
@@ -417,22 +261,7 @@ export default function CategoryScreen() {
           )}
         />
         <Spacer mt={54.1} />
-        <Footer
-          containerStyle={{
-            paddingHorizontal: 27,
-            paddingTop: 28.6,
-            backgroundColor: COLORS.footerColor,
-          }}
-        />
-      </ScrollView>
-      <FAB
-        onClickAction={() => {
-          _goToTop();
-        }}
-        visible={showPageUp}
-        iconTextComponent={<PageUp style={{elevation: 2}} />}
-      />
-    </SafeAreaView>
+    </ScrollToTopContainer>
   );
 }
 

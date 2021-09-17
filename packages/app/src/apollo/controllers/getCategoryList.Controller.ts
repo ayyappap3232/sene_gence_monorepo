@@ -23,7 +23,8 @@ export const useCategoryList = (props: Props): Result => {
             url_path: props?.url_path,
             pageSize: props?.pageSize,
             currentPage: props?.currentPage
-        }
+        },
+        fetchPolicy: "cache-and-network"
     })
 
     useEffect(() => {

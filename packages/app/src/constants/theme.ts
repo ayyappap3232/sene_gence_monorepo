@@ -11,7 +11,9 @@ export const COLORS = {
     black: "#00002d",
     red: "#e84646",
     swatch: "#787878",
-    ligthGrey: "#f4f4f4"
+    ligthGrey: "#f4f4f4",
+    border1:"#6a5f41"
+
 }
 
 export const SIZES = {
