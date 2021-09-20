@@ -1,16 +1,19 @@
 import { images } from '../../constants';
+import { ScreenNames } from '../screenNames';
 import { facebookUrl, instagramUrl, pinterestUrl, twitterUrl, youtubeUrl } from './links';
 
 export interface IFooterData {
     id: string;
     title: string;
+    route?: string;
     children: IFooterChildData[];
 }   
 
 export interface IFooterChildData {
     id: string;
     name: string;
-    link: string;
+    link?: string;
+    onPress?: string;
 }
 
 
@@ -55,16 +58,17 @@ export const footerData : IFooterData[]= [
   {
     id: 'F3',
     title: 'About Us',
+    route: ScreenNames.AboutUs,
     children: [
       {
         id: 'F31C',
-        name: 'Meed the Founder',
+        name: 'Meet the Founder',
         link: 'https://seneweb.senegence.com/ca/meet-the-founder/',
       },
       {
         id: 'F32C',
         name: 'Executive Management Team',
-        link: 'https://seneweb.senegence.com/ca/company/executive-management-team/',
+        onPress: ScreenNames.ExecutiveManagementTeam,
       },
       {
         id: 'F33C',

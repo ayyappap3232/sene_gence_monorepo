@@ -57,6 +57,27 @@ const kisscredits = require("../../assets/images/categories/kisscredits.png")
 const plus = require("../../assets/images/plus.png")
 const minus = require("../../assets/images/minus.png")
 
+const executiveManagementTeam = require("../../assets/images/executiveManagementTeam.png")
+
+//About Us Members
+const JoniRoger = require("../../assets/images/executiveTeamMembers/JoniRogersKante.png")
+const AlanRogersKante = require("../../assets/images/executiveTeamMembers/AlanRogersKante.png")
+const BenKante = require("../../assets/images/executiveTeamMembers/BenKante.png")
+const CharlesMiller = require("../../assets/images/executiveTeamMembers/CharlesMiller.png")
+const JeromeSKaiser = require("../../assets/images/executiveTeamMembers/JeromeSKaiser.png")
+const KarenGoodman = require("../../assets/images/executiveTeamMembers/KarenGoodman.png")
+const KirstenAguilar = require("../../assets/images/executiveTeamMembers/KirstenAguilar.png")
+const MichaelMoad = require("../../assets/images/executiveTeamMembers/MichaelMoad.png")
+const PhilippeGuerreau = require("../../assets/images/executiveTeamMembers/PhilippeGuerreau.png")
+const BarryGilmore = require("../../assets/images/executiveTeamMembers/BarryGilmore.png")
+const JohnGleason = require("../../assets/images/executiveTeamMembers/JohnGleason.png")
+const VincentSerpico = require("../../assets/images/executiveTeamMembers/VincentSerpico.png")
+
+const close = require("../../assets/images/close.png")
+
+const aboutusbanner = require("../../assets/images/aboutUs/aboutusbanner.png")
+const dropusnow = require("../../assets/images/aboutUs/dropusnow.png")
+
 export default {
     carousel1,
     logo,
@@ -95,5 +116,21 @@ export default {
     discount,
     exclusive,
     kisscredits,
-    plus,minus
+    plus,minus,
+    executiveManagementTeam,
+    JoniRoger,
+    AlanRogersKante,
+    BenKante,
+    CharlesMiller,
+    JeromeSKaiser,
+    KarenGoodman,
+    KirstenAguilar,
+    MichaelMoad,
+    PhilippeGuerreau,
+    BarryGilmore,
+    JohnGleason,
+    VincentSerpico,
+    close,
+    aboutusbanner,
+    dropusnow
 }

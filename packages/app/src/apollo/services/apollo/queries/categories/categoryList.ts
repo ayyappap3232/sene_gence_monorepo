@@ -24,6 +24,7 @@ export const CATEGORY_LIST = gql`
     products(pageSize:$pageSize, currentPage: $currentPage){
       total_count
       items{
+        uid
         categories{
           breadcrumbs{
             category_name
@@ -141,6 +142,7 @@ export interface Categories {
 }
 
 export interface Item {
+  uid: string;
   categories: Categories;
   stock_status: string;
   name: string;

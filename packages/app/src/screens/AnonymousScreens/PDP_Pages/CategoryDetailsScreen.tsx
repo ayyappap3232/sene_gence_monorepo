@@ -13,7 +13,6 @@ import {COLORS} from '../../../constants';
 export default function CategoryDetailsScreen() {
     const route = useRoute();
     const item: Item = route?.params?.categoryDetail;
-    console.log('routes in categoryDetails Screen',route?.params?.url_path)
     const url_path: string = route?.params?.url_path;
 
 

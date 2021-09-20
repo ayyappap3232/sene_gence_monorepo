@@ -8,8 +8,16 @@ import { useCategories } from '../apollo/controllers/getCategories.Controller';
 import Footer from '../components/footers/Footer';
 import CategoryScreen from '../screens/AnonymousScreens/PLP_Pages/CategoryScreen';
 import CategoryDetailsScreen from '../screens/AnonymousScreens/PDP_Pages/CategoryDetailsScreen';
+import ExecutiveManagementTeam from '../screens/AnonymousScreens/About_Us_Pages/ExecutiveManagementTeam';
+import { ScreenNames } from '../utils/screenNames';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ReadMore from '../screens/AnonymousScreens/About_Us_Pages/ReadMore';
+import AboutUs from '../screens/AnonymousScreens/About_Us_Pages/AboutUs';
 
 const Drawer = createDrawerNavigator();
+
+const Stack = createNativeStackNavigator();
+
 
 const DrawerNavigator = ()  => {
 
@@ -28,9 +36,11 @@ const DrawerNavigator = ()  => {
 
   return (
         <Drawer.Navigator screenOptions={{drawerType: 'front',drawerStyle:{width: 293}}} drawerContent={(props) => <CustomDrawerContent {...props} categoryData={categoryData} /> }>
-            <Drawer.Screen name="StartUpDrawer" options={{drawerLabel: () => null, drawerIcon: undefined, title: undefined}} component={StartUpPage} />
-            <Drawer.Screen name="CategoryItem" component={CategoryScreen} />
-            <Drawer.Screen name="CategoryDetails" component={CategoryDetailsScreen} />
+              <Drawer.Screen name={ScreenNames.StartUpDrawer} options={{drawerLabel: () => null, drawerIcon: undefined, title: undefined}} component={StartUpPage} />
+              <Drawer.Screen name={ScreenNames.CategoryItem} component={CategoryScreen} />
+              <Drawer.Screen name={ScreenNames.CategoryDetails} component={CategoryDetailsScreen} />
+              <Drawer.Screen name={ScreenNames.ExecutiveManagementTeam} component={ExecutiveManagementTeam} />            
+              <Drawer.Screen name={ScreenNames.AboutUs} component={AboutUs} />            
         </Drawer.Navigator>
   );
 }

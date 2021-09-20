@@ -12,7 +12,9 @@ export const COLORS = {
     red: "#e84646",
     swatch: "#787878",
     ligthGrey: "#f4f4f4",
-    border1:"#6a5f41"
+    border1:"#6a5f41",
+    dotBackground: "#0052d4",
+    assistColor: "#333333"
 
 }
 

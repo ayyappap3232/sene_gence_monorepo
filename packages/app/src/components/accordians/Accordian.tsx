@@ -17,7 +17,6 @@ export default function CustomAccordian({
   const [activeSections, setActiveSections] = useState([]);
 
   const _renderHeader = (section: any, index: any,isActive: boolean) => {
-      console.log('index',isActive)
     return (
       <View
         style={{

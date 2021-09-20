@@ -5,7 +5,14 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
-import {Alert, Image, Linking, ScrollView, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  Image,
+  Linking,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {
   AppLogo,
   Chevron,
@@ -24,7 +31,13 @@ import CollapsibleView from '@eliav2/react-native-collapsible-view';
 import OutlineTextInput from '../components/textInputs/OutlineTextInput';
 import OutlineButton from '../components/buttons/OutlineButton';
 import {Platform} from 'react-native';
-import { facebookUrl, instagramUrl, pinterestUrl, twitterUrl, youtubeUrl } from '../utils/data/links';
+import {
+  facebookUrl,
+  instagramUrl,
+  pinterestUrl,
+  twitterUrl,
+  youtubeUrl,
+} from '../utils/data/links';
 
 const CustomDrawerContent = (props: any) => {
   const navigation = useNavigation<any>();
@@ -102,7 +115,12 @@ const CustomDrawerContent = (props: any) => {
     navigation.navigate('CategoryItem', {categoryData: item});
   };
 
-  const _renderMenuItem = (item, index, setSelectedItem?, selectedItem?) => {
+  const _renderMenuItem = (
+    item: any,
+    index: any,
+    setSelectedItem?: any,
+    selectedItem?: any,
+  ) => {
     return (
       <TouchableOpacity
         key={`${index}${item.name}`}
@@ -118,7 +136,7 @@ const CustomDrawerContent = (props: any) => {
         <Text containerStyle={styles.categoriesList}>{item.name}</Text>
         {item.children?.length > 0 && (
           <TouchableOpacity
-          key={`${index}${item.name}`}
+            key={`${index}${item.name}`}
             onPress={() =>
               item.children?.length > 0
                 ? setSelectedItem({
@@ -150,47 +168,58 @@ const CustomDrawerContent = (props: any) => {
   };
 
   const _menuContent = () => {
-    return <View style={{marginTop: 13}}>
-     {props.categoryData?.categories?.items?.map((item, index) => {
-      return item.children.map((item, index) => {
-        return (
-          <>
-            {_renderMenuItem(
-              item,
-              index,
-              setSelectedItemIndex,
-              selectedItemIndex,
-            )}
-            {index + item.name == selectedItemIndex.id &&
-              selectedItemIndex.toggle &&
-              item.children.length > 0 &&
-              item.children.map((item, index) => {
-                return (
-                  <>
-                    {_renderMenuItem(
-                      item,
-                      index,
-                      setSelectedChildItemIndex,
-                      selectedChildItemIndex,
-                    )}
-                    {index + item.name == selectedChildItemIndex.id &&
-                      selectedChildItemIndex.toggle &&
-                      item.children.length > 0 &&
-                      item.children.map((item, index) => {
-                        return _renderMenuItem(item, index);
-                      })}
-                  </>
-                );
-              })}
-          </>
-        );
-      });
-    })}
-    </View>
+    return (
+      <View style={{marginTop: 13}}>
+        {props.categoryData?.categories?.items?.map((item, index) => {
+          return item.children.map((item, index) => {
+            return (
+              <>
+                {_renderMenuItem(
+                  item,
+                  index,
+                  setSelectedItemIndex,
+                  selectedItemIndex,
+                )}
+                {index + item.name == selectedItemIndex.id &&
+                  selectedItemIndex.toggle &&
+                  item.children.length > 0 &&
+                  item.children.map((item, index) => {
+                    return (
+                      <>
+                        {_renderMenuItem(
+                          item,
+                          index,
+                          setSelectedChildItemIndex,
+                          selectedChildItemIndex,
+                        )}
+                        {index + item.name == selectedChildItemIndex.id &&
+                          selectedChildItemIndex.toggle &&
+                          item.children.length > 0 &&
+                          item.children.map((item, index) => {
+                            return _renderMenuItem(item, index);
+                          })}
+                      </>
+                    );
+                  })}
+              </>
+            );
+          });
+        })}
+      </View>
+    );
   };
 
   const _loginContent = () => {
-    return <DrawerItem label="Login Content" onPress={() => {}} />;
+    return (
+      <>
+        <TouchableOpacity onPress={() => {}} activeOpacity={0.7} style={[styles.loginText, {marginTop: 15}]}>
+          <Text>LOGIN AS A CUSTOMER</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {}} activeOpacity={0.7} style={styles.loginText}>
+          <Text>LOGIN AS A DISTRIBUTOR</Text>
+        </TouchableOpacity>
+      </>
+    );
   };
 
   const _socialNetworkSection = () => {
@@ -251,7 +280,9 @@ const CustomDrawerContent = (props: any) => {
   };
 
   return (
-    <DrawerContentScrollView contentContainerStyle={styles.container}  {...props}>
+    <DrawerContentScrollView
+      contentContainerStyle={styles.container}
+      {...props}>
       {_header()}
       {_topTabs()}
       <ScrollView style={styles.tabWrapper}>
@@ -260,7 +291,6 @@ const CustomDrawerContent = (props: any) => {
             {_menuContent()}
             {_socialNetworkSection()}
             {_links()}
-            
           </>
         ) : (
           _loginContent()
@@ -272,7 +302,7 @@ const CustomDrawerContent = (props: any) => {
 };
 
 const styles = StyleSheet.create({
-  container:{flex: 1,justifyContent:'space-between'},
+  container: {flex: 1, justifyContent: 'space-between'},
   rectangleHeaderBackground: {
     height: 53,
     margin: 0,
@@ -310,6 +340,14 @@ const styles = StyleSheet.create({
     letterSpacing: 1.6,
   },
   tabWrapper: {marginLeft: 20, marginRight: 15},
+  loginText: {
+    fontWeight: '700',
+    paddingVertical: 7,
+    paddingHorizontal: 15,
+    letterSpacing: 1.8,
+    fontFamily: FONTS.AvenirMedium,
+    fontSize: SIZES.body3
+  },
   categoriesList: {
     fontSize: 14,
     fontFamily: FONTS.AvenirMedium,

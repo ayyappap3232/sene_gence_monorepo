@@ -1,6 +1,14 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {FlatList, Linking, LogBox, StyleSheet, View} from 'react-native';
+import {
+  FlatList,
+  Linking,
+  LogBox,
+  StyleSheet,
+  View,
+  Animated,
+  Image,
+} from 'react-native';
 import {useCategoryList} from '../../apollo/controllers/getCategoryList.Controller';
 import {Item} from '../../apollo/services/apollo/queries/categories/categoryList';
 import {COLORS, FONTS, SIZES} from '../../constants';
@@ -12,11 +20,13 @@ import {findADistributor} from '../../utils/data/links';
 import {_getCurrencySymbols} from '../../utils/helpers/getSymbolBasedOnCurrency';
 import CustomAccordian from '../accordians/Accordian';
 import OutlineButton from '../buttons/OutlineButton';
+import PaginationDots from '../carousels/PaginationDots';
 import PlainCarousel from '../carousels/PlainCarousel';
 import Divider from '../dividers/Divider';
 import Spacer from '../Spacer';
 import ActivityIndicator from '../spinners/ActivityIndicator';
 import Text from '../text/Text';
+import TextWithUnderLine from '../text/TextWithUnderLine';
 import CategoryItemComponent from './CategoryItemComponent';
 
 export default function CategoryDetailsItemComponent({
@@ -24,7 +34,6 @@ export default function CategoryDetailsItemComponent({
   url_path,
 }: any) {
   const navigation = useNavigation();
-  console.log('iam inside, cat details', url_path);
 
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -133,35 +142,53 @@ export default function CategoryDetailsItemComponent({
     );
   };
 
-  const _useItWith = () => {
+  const scrollX = new Animated.Value(0);
+  let position = Animated.divide(scrollX, SIZES.width);
+
+  const _renderProductData = (data: any) => {
     return loading ? (
       <ActivityIndicator />
     ) : (
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        horizontal={true}
-        style={{marginHorizontal: 10}}
-        contentContainerStyle={{}}
-        numColumns={1}
-        renderItem={({item}) =>
-          CategoryItemComponent(
-            item,
-            {marginRight: 10},
-            false,
-            navigation,
-            url_path,
-          )
-        }
-        data={categoryList?.categoryList[0]?.products?.items}
-        keyExtractor={(item, index) => index.toString()}
-        ListEmptyComponent={() => (
-          <View style={{}}>
-            <Text>No Content Found</Text>
-          </View>
-        )}
-      />
+      <>
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+          style={{marginHorizontal: 10}}
+          contentContainerStyle={{}}
+          numColumns={1}
+          pagingEnabled
+          scrollEnabled
+          snapToAlignment="center"
+          scrollEventThrottle={16}
+          decelerationRate="fast"
+          onScroll = {Animated.event(
+              [{nativeEvent: {contentOffset: {x: scrollX}}}],{ useNativeDriver: false }
+          )}
+          renderItem={({item}) =>
+            CategoryItemComponent(
+              item,
+              {marginRight: 10},
+              false,
+              navigation,
+              url_path,
+            )
+          }
+          data={data}
+          keyExtractor={(item, index) => 'key' + index.toString()}
+          ListEmptyComponent={() => (
+            <View style={{}}>
+              <Text>No Content Found</Text>
+            </View>
+          )}
+        />
+        {/* <PaginationDots data={categoryList?.categoryList[0]?.products?.items} position={position}/> */}
+      </>
     );
   };
+
+  const _similarProducts = () => {
+    return;
+  }
 
   return (
     <View style={styles.container}>
@@ -218,28 +245,18 @@ export default function CategoryDetailsItemComponent({
           marginHorizontal={5}
           collapsibleData={[{title: 'Ingredients', content: description.html}]}
         />
-        <Spacer mb={40} />
-
-        {/* Use It With Section with horizontal flatlist items */}
-        <Text
-          containerStyle={{
-            textAlign: 'center',
-            fontFamily: FONTS.BebasNeueRegular,
-            fontSize: SIZES.h1,
-            letterSpacing: 1.5,
-          }}>
-          USE IT WITH
-        </Text>
-        <Spacer mb={4.5} />
-        <Divider backgroundColor={COLORS.border1} width={80} />
-        <Spacer mb={19.5} />
-
-        {/* Similar Products with horizontal Flatlist */}
-
-        {/* Recently Viewed Products */}
-        <Spacer mb={10} />
+        <Spacer mb={40} />        
       </View>
-      {_useItWith()}
+      <TextWithUnderLine title={"USE IT WITH"}/>
+      {_renderProductData(categoryList?.categoryList[0]?.products?.items)}
+      <Spacer mb={40} />
+      <TextWithUnderLine title={"SIMILAR PRODUCTS"}/>
+      {/* Get the similar products and show */}
+      {_renderProductData(categoryList?.categoryList[0]?.products?.items)}
+      <Spacer mb={40} />
+      <TextWithUnderLine title={"RECENTLY VIEWED"}/>
+      {/* Get the Recently Viewed Products from the Async Storage i.e localstorage */}
+      {_renderProductData(categoryList?.categoryList[0]?.products?.items)}
     </View>
   );
 }

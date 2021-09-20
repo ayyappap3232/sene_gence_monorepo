@@ -62,8 +62,30 @@ const productCategoryShippingDetailsData = [
     },
 ]
 
+const advisoryBoardData = [
+    {
+        id: 'advbm1',
+        image: images.BarryGilmore,
+        name: 'Barry Gilmore',
+        description: 'Our Advisory Board Technology Expert, is an innovative IT Business Executive who has transformed organizations on a global scale. '
+    },
+    {
+        id: 'advbm2',
+        image: images.JohnGleason,
+        name: 'John Gleason',
+        description: 'Our Advisory Board Technology Expert, is an innovative IT Business Executive who has transformed organizations on a global scale. '
+    },
+    {
+        id: 'advbm3',
+        image: images.VincentSerpico,
+        name: 'Vincent Serpico',
+        description: 'Our Advisory Board Technology Expert, is an innovative IT Business Executive who has transformed organizations on a global scale. '
+    },
+]
+
 const carouselTypes = {
-    HorizontalTextWithIcon : "HorizontalTextWithIcon"
+    HorizontalTextWithIcon : "HorizontalTextWithIcon",
+    VerticalTitleAndDescriptionTextWithImage: "VerticalTitleAndDescriptionTextWithImage"
 }
 
-export {homeCarouselData, asSeenInCarouselData,carouselTypes,productCategoryShippingDetailsData}
+export {homeCarouselData, asSeenInCarouselData,carouselTypes,productCategoryShippingDetailsData,advisoryBoardData}

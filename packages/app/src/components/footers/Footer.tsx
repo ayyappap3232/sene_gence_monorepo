@@ -10,6 +10,7 @@ import {
   IFooterChildData,
   IFooterSocialIcons,
 } from '../../utils/data/FooterData';
+import { ScreenNames } from '../../utils/screenNames';
 import Divider from '../dividers/Divider';
 import VerticalDivider from '../dividers/VerticalDivider';
 import Spacer from '../Spacer';
@@ -80,19 +81,28 @@ export default function Footer({containerStyle = {}}) {
       {footerData.map((item, index) => {
         return (
           <View key={item.id}>
+            <View style={[styles.linkWrapper,{marginBottom: 20}]}>
+
+
             <TouchableOpacity
-              onPress={() =>
+              onPress={() => item.route ? navigation.navigate(item.route) :
                 setSelectedState({
                   id: item.title,
                   toggle: !selectedState.toggle,
                 })
               }
-              style={[styles.linkWrapper,{marginBottom: 20}]}>
+              >
               <Text
                 containerStyle={styles.title}>
                 {item.title}
               </Text>
-              <Image
+              
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setSelectedState({
+                  id: item.title,
+                  toggle: !selectedState.toggle,
+                })}>
+            <Image
                 source={icons.Chevron}
                 style={{
                   width: 14,
@@ -109,15 +119,17 @@ export default function Footer({containerStyle = {}}) {
                 }}
               />
             </TouchableOpacity>
+            </View>
+
             {item.title == selectedState.id &&
               selectedState.toggle &&
               item.children.map((childItem: IFooterChildData, index) => {
                 return (
                   <TouchableOpacity
                     onPress={() =>
-                      childItem.link != ''
-                        ? Linking.openURL(childItem.link)
-                        : {}
+                      childItem?.link
+                        ? Linking.openURL(childItem?.link)
+                        : navigation.navigate(childItem?.onPress)
                     }
                     key={childItem.id}>
                     <Text

@@ -1,5 +1,8 @@
 import React from 'react'
 import { Image, ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 import { Item } from '../../apollo/services/apollo/queries/categories/categoryList';
 import { COLORS, FONTS, images, SIZES } from '../../constants';
 import { _handleStockStatus } from '../../utils/helpers/getStockStatus';
@@ -9,7 +12,6 @@ import Spacer from '../Spacer';
 import Text from '../text/Text';
 
 const CategoryItemComponent = (item: Item, containerStyle = {}, gridView : boolean, navigation?: any,url_path="") => {
-  
 
   const {
       price_range: {
@@ -117,6 +119,46 @@ const CategoryItemComponent = (item: Item, containerStyle = {}, gridView : boole
       );
     };
 
+    // const _retrieveRecentlyViewedData = async (uid: string) => {
+    //   let isExists = false;
+    //   try {
+    //     const value = await AsyncStorage.getItem("recently_viewed_products");
+    //     console.log('value on 127', value);
+    //     const parsedData = JSON.parse(value);
+    //     console.log('parsedData on 129',parsedData?.uid === uid, parsedData?.length)
+    //     const result = parsedData?.filter(x => x.uid === uid);
+    //     console.log('result on 131',result);
+    //     if(result){
+    //        isExists = true;
+    //     }
+    //     else  isExists = false;
+    //   } catch (error) {
+    //     // Error retrieving data
+    //     console.log('error',error)
+    //     isExists = false;
+    //   }
+    //   return isExists;
+    // };
+
+
+    const handleCategoryDetailsNavigation = () => {
+      //Check Whether the item exists or not in the local storage
+      // const isRecentlyViewedDataExists = _retrieveRecentlyViewedData(item.uid);
+      // isRecentlyViewedDataExists.then(val => {
+      //   console.log('value at 148', val)
+      //   if(val){
+      //     console.log('value on line number 149',val)
+      //     return;
+      //   }else{
+      //     console.log('iam in 152')
+      //     AsyncStorage.removeItem("recently_viewed_products")
+      //     // check if item exists in productsArray
+      //     //AsyncStorage.setItem("recently_viewed_products",JSON.stringify(item))
+      //   }
+      // })
+      navigation.navigate("CategoryDetails",{categoryDetail: item, url_path: url_path})
+    }
+
     return (
       <TouchableOpacity
         activeOpacity={0.7}
@@ -126,7 +168,7 @@ const CategoryItemComponent = (item: Item, containerStyle = {}, gridView : boole
           containerStyle,
           {flexDirection: gridView ? 'row' : 'column'},
         ]}
-        onPress={() => navigation.navigate("CategoryDetails",{categoryDetail: item, url_path: url_path})}
+        onPress={() => handleCategoryDetailsNavigation()}
         >
         <View>{_renderImageContent()}</View>
         <Spacer mb={10.1} />

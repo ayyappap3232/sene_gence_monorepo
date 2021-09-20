@@ -6,7 +6,7 @@ import Footer from './footers/Footer';
 import Header from './headers/Header';
 import {COLORS} from '../constants';
 
-export const ScrollToTopContainer = ({children, containerStyle={},scrollContainerStyle={}, scrollContentContainerStyle={}}: any) => {
+export const ScrollToTopContainer = ({children,nestedScrollEnabled = true, containerStyle={},scrollContainerStyle={}, scrollContentContainerStyle={}}: any) => {
   //ScrollTo Top Functionality
   const scrollRef = useRef<ScrollView>();
   const [showPageUp, setShowPageUp] = useState(false);
@@ -22,6 +22,7 @@ export const ScrollToTopContainer = ({children, containerStyle={},scrollContaine
     <SafeAreaView style={[styles.container, containerStyle]}>
       <Header />
       <ScrollView
+        nestedScrollEnabled={nestedScrollEnabled}
         onScroll={e => {
           setShowPageUp(e.nativeEvent.contentOffset.y > 100 ? true : false);
         }}

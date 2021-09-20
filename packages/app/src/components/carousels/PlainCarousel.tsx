@@ -16,11 +16,17 @@ export default function PlainCarousel({
   uri = false,
   sliderWidth = 353,
   itemWidth = 363,
+  autoplay=true,
+  loop = true,
   width = 334,
   height = 70,
   borderColor = COLORS.white,
   borderWidth = 0,
   typeOfCarousel = null,
+  verticalTextImageContainerStyle = {},
+  verticalImageStyle={},
+  verticalMainText={},
+  verticalSubText={}
 }: any) {
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -33,14 +39,20 @@ export default function PlainCarousel({
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Image
-            resizeMode="contain"
-            source={item.icon}
-            style={{width: width, height: height}}
-          />
+            <Image
+              resizeMode="contain"
+              source={item.icon}
+              style={{width: width, height: height}}
+            />
           <Text>{item.name}</Text>
         </View>
       );
+    }else if (typeOfCarousel === carouselTypes.VerticalTitleAndDescriptionTextWithImage){
+      return <View style={[verticalTextImageContainerStyle]}>
+        <Image source={item.image} style={[verticalImageStyle]}/>
+        <Text style={[verticalMainText]}>{item.name}</Text>
+        <Text style={[verticalSubText]}>{item.description}</Text>
+      </View>
     } else {
       return (
         <>
@@ -75,10 +87,10 @@ export default function PlainCarousel({
         sliderWidth={sliderWidth}
         itemWidth={itemWidth}
         onSnapToItem={index => setActiveSlide(index)}
-        autoplay={true}
-        loop={true}
+        autoplay={autoplay}
+        loop={loop}
         layout={'default'}
-        containerCustomStyle={{flexGrow: 0,marginBottom:-10}}
+        containerCustomStyle={{flexGrow: 0, marginBottom: -10}}
       />
       <Pagination
         dotsLength={carouselData.length}
