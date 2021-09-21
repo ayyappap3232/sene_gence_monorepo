@@ -63,7 +63,7 @@ export const footerData : IFooterData[]= [
       {
         id: 'F31C',
         name: 'Meet the Founder',
-        link: 'https://seneweb.senegence.com/ca/meet-the-founder/',
+        onPress: ScreenNames.MeetTheFounder,
       },
       {
         id: 'F32C',
@@ -83,7 +83,7 @@ export const footerData : IFooterData[]= [
       {
         id: 'F35C',
         name: 'Contact Us',
-        link: 'https://seneweb.senegence.com/ca/contact/',
+        onPress: ScreenNames.ContactUs,
       },
     ],
   },

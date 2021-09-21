@@ -17,6 +17,7 @@ export interface IOutlineButton {
         onPress: () => void;
         containerStyle?: {};
         textStyleContainer?: {};
+        activeOpacity?: any;
 }
 
 export interface IOutlineButtonWithIcon {
@@ -39,4 +40,5 @@ export interface IOutlineTextProps {
         onChangeText: any;
         containerStyle?: {};
         restProps?: any;
+        multiline?: boolean;
 }

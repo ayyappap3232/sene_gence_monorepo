@@ -38,6 +38,7 @@ import {
   twitterUrl,
   youtubeUrl,
 } from '../utils/data/links';
+import { ScreenNames } from '../utils/screenNames';
 
 const CustomDrawerContent = (props: any) => {
   const navigation = useNavigation<any>();
@@ -212,10 +213,16 @@ const CustomDrawerContent = (props: any) => {
   const _loginContent = () => {
     return (
       <>
-        <TouchableOpacity onPress={() => {}} activeOpacity={0.7} style={[styles.loginText, {marginTop: 15}]}>
+        <TouchableOpacity
+          onPress={() => {}}
+          activeOpacity={0.7}
+          style={[styles.loginText, {marginTop: 15}]}>
           <Text>LOGIN AS A CUSTOMER</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}} activeOpacity={0.7} style={styles.loginText}>
+        <TouchableOpacity
+          onPress={() => {}}
+          activeOpacity={0.7}
+          style={styles.loginText}>
           <Text>LOGIN AS A DISTRIBUTOR</Text>
         </TouchableOpacity>
       </>
@@ -249,7 +256,9 @@ const CustomDrawerContent = (props: any) => {
   const _links = () => {
     return (
       <View style={styles.links}>
-        <Text containerStyle={styles.textLinks}>Select Your Country</Text>
+        <TouchableOpacity onPress={()=> navigation.navigate(ScreenNames.SelectYourCountry)}>
+          <Text containerStyle={styles.textLinks}>Select Your Country</Text>
+        </TouchableOpacity>
         <Text containerStyle={styles.textLinks}>The Make Sense Foundation</Text>
         <Text containerStyle={styles.textLinks}>Member of DSWA & DSA</Text>
         <Text containerStyle={styles.textLinks}>Code of Ethics</Text>
@@ -346,7 +355,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     letterSpacing: 1.8,
     fontFamily: FONTS.AvenirMedium,
-    fontSize: SIZES.body3
+    fontSize: SIZES.body3,
   },
   categoriesList: {
     fontSize: 14,

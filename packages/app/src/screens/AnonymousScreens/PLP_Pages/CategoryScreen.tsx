@@ -25,9 +25,12 @@ import Text from '../../../components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
 import { ScrollToTopContainer } from '../../../components/ScrollToTopContainer';
 import {_getCurrencySymbols} from '../../../utils/helpers/getSymbolBasedOnCurrency';
+import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CategoryScreen() {
   const navigation = useNavigation();
+  // const [recentlyViewedProducts, setRecentlyViewedProducts] = useState<any>([])
 
   const route = useRoute();
   const {name, url_path} = route?.params?.categoryData;
@@ -43,6 +46,12 @@ export default function CategoryScreen() {
     pageSize: pageSize,
     currentPage: currentPage,
   });
+
+  // useEffect(() => {
+  //   AsyncStorage.getItem('recently_viewed_products').then((products) => {
+  //     products && setRecentlyViewedProducts(products);
+  //   })
+  // }, [])
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
@@ -218,6 +227,9 @@ export default function CategoryScreen() {
 
   return (
     <ScrollToTopContainer>
+      <View style={{marginLeft: 20}}>
+      <BreadCrumbWithOneLevelUp title={name}/>
+      </View>
       {_filters()}
           <FlatList
             scrollEnabled={false}
@@ -225,7 +237,7 @@ export default function CategoryScreen() {
             contentContainerStyle={{paddingHorizontal: 20}}
             numColumns={gridView ? 1 : 2}
             key={gridView ? 1 : 0}
-            renderItem={({item}) => CategoryItemComponent(item,{},gridView,navigation,url_path)}
+            renderItem={({item}) => CategoryItemComponent(item,{},gridView,navigation,url_path,name)}
             data={categoryList?.categoryList[0]?.products?.items}
             keyExtractor={(item, index) => index.toString()}
             ListEmptyComponent={() => (
@@ -250,7 +262,7 @@ export default function CategoryScreen() {
           style={{marginHorizontal: 10}}
           numColumns={1}
           renderItem={({item}) =>
-            CategoryItemComponent(item, {marginRight: 10},gridView,navigation,url_path)
+             CategoryItemComponent(item, {marginRight: 10},gridView,navigation,url_path,name)
           }
           data={categoryList?.categoryList[0]?.products?.items}
           keyExtractor={(item, index) => index.toString()}
@@ -260,6 +272,7 @@ export default function CategoryScreen() {
             </View>
           )}
         />
+          
         <Spacer mt={54.1} />
     </ScrollToTopContainer>
   );

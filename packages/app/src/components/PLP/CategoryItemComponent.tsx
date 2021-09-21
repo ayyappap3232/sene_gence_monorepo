@@ -1,5 +1,5 @@
-import React from 'react'
-import { Image, ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Alert, Image, ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -11,11 +11,10 @@ import OutlineButton from '../buttons/OutlineButton';
 import Spacer from '../Spacer';
 import Text from '../text/Text';
 
-const CategoryItemComponent = (item: Item, containerStyle = {}, gridView : boolean, navigation?: any,url_path="") => {
-
+const CategoryItemComponent = (item: Item, containerStyle = {}, gridView : boolean, navigation?: any,url_path="", pathName="") => {
   const {
       price_range: {
-        minimum_price: {
+        minimum_price : {
           regular_price: {currency, value},
           discount: {amount_off},
           final_price,
@@ -25,7 +24,9 @@ const CategoryItemComponent = (item: Item, containerStyle = {}, gridView : boole
       image: {url},
       second_title,
       stock_status,
-    } = item;
+    } = item || {};
+
+    
 
     const _priceContent = () => {
       return (
@@ -119,29 +120,7 @@ const CategoryItemComponent = (item: Item, containerStyle = {}, gridView : boole
       );
     };
 
-    // const _retrieveRecentlyViewedData = async (uid: string) => {
-    //   let isExists = false;
-    //   try {
-    //     const value = await AsyncStorage.getItem("recently_viewed_products");
-    //     console.log('value on 127', value);
-    //     const parsedData = JSON.parse(value);
-    //     console.log('parsedData on 129',parsedData?.uid === uid, parsedData?.length)
-    //     const result = parsedData?.filter(x => x.uid === uid);
-    //     console.log('result on 131',result);
-    //     if(result){
-    //        isExists = true;
-    //     }
-    //     else  isExists = false;
-    //   } catch (error) {
-    //     // Error retrieving data
-    //     console.log('error',error)
-    //     isExists = false;
-    //   }
-    //   return isExists;
-    // };
-
-
-    const handleCategoryDetailsNavigation = () => {
+    const handleCategoryDetailsNavigation = (item:Item) => {
       //Check Whether the item exists or not in the local storage
       // const isRecentlyViewedDataExists = _retrieveRecentlyViewedData(item.uid);
       // isRecentlyViewedDataExists.then(val => {
@@ -156,7 +135,13 @@ const CategoryItemComponent = (item: Item, containerStyle = {}, gridView : boole
       //     //AsyncStorage.setItem("recently_viewed_products",JSON.stringify(item))
       //   }
       // })
-      navigation.navigate("CategoryDetails",{categoryDetail: item, url_path: url_path})
+      AsyncStorage.getItem('recently_viewed_products').then((products)=>{
+        const p = products ? JSON.parse(products) : [];
+        p.push(item);
+        AsyncStorage.setItem('recently_viewed_products', JSON.stringify(p));
+      });
+
+      navigation.navigate("CategoryDetails",{categoryDetail: item, one_level_url_path: url_path, pathName: pathName})
     }
 
     return (
@@ -168,7 +153,7 @@ const CategoryItemComponent = (item: Item, containerStyle = {}, gridView : boole
           containerStyle,
           {flexDirection: gridView ? 'row' : 'column'},
         ]}
-        onPress={() => handleCategoryDetailsNavigation()}
+        onPress={() => handleCategoryDetailsNavigation(item)}
         >
         <View>{_renderImageContent()}</View>
         <Spacer mb={10.1} />

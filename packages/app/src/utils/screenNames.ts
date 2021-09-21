@@ -5,5 +5,8 @@ export const ScreenNames = {
     ExecutiveManagementTeam: "ExecutiveManagementTeam",
     ModalScreens: "ModalScreens",
     AboutUsReadMoreModal: "AboutUsReadMoreModal",
-    AboutUs: "AboutUs"
+    AboutUs: "AboutUs",
+    MeetTheFounder: "MeetTheFounder",
+    ContactUs: "ContactUs",
+    SelectYourCountry:"SelectYourCountry"
 }

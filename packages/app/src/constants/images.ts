@@ -78,6 +78,35 @@ const close = require("../../assets/images/close.png")
 const aboutusbanner = require("../../assets/images/aboutUs/aboutusbanner.png")
 const dropusnow = require("../../assets/images/aboutUs/dropusnow.png")
 
+//Meet the founders
+const meetTheFounder = require("../../assets/images/meetthefounder/meetthefounderbanner.png")
+const accloads = require("../../assets/images/meetthefounder/accloads.png")
+const lipsenseshadeaward = require("../../assets/images/meetthefounder/lipsenseshadeaward.png")
+const milliondollarlips = require("../../assets/images/meetthefounder/milliondollarlips.png")
+const rogerskantefamily = require("../../assets/images/meetthefounder/rogerskantefamily.png")
+
+//Contact Us
+const contactusbanner = require("../../assets/images/contactus/contactusbanner.png")
+
+//Countries
+const america = require("../../assets/images/countries/us.png")
+const newzealand = require("../../assets/images/countries/newzealand.png")
+const mexico = require("../../assets/images/countries/mexico.png")
+const hongkong = require("../../assets/images/countries/hongkong.png")
+const canada = require("../../assets/images/countries/canada.png")
+const australia = require("../../assets/images/countries/australia.png")
+const poland = require("../../assets/images/countries/poland.png")
+const unitedkingdom = require("../../assets/images/countries/uk.png")
+const switzerland = require("../../assets/images/countries/switzerland.png")
+const indonesia = require("../../assets/images/countries/indonesia.png")
+
+//Country Maps
+const worldmap = require("../../assets/images/countries/worldmap.png")
+const americamap = require("../../assets/images/countries/americamap.png")
+const asiaspecificmap = require("../../assets/images/countries/asiaspecificmap.png")
+const europemap = require("../../assets/images/countries/europemap.png")
+
+
 export default {
     carousel1,
     logo,
@@ -132,5 +161,25 @@ export default {
     VincentSerpico,
     close,
     aboutusbanner,
-    dropusnow
+    dropusnow,
+    meetTheFounder,
+    accloads,
+    rogerskantefamily,
+    lipsenseshadeaward,
+    milliondollarlips,
+    contactusbanner,
+    america,
+    hongkong,
+    australia,
+    newzealand,
+    mexico,
+    canada,
+    poland,
+    switzerland,
+    indonesia,
+    unitedkingdom,
+    worldmap,
+    americamap,
+    europemap,
+    asiaspecificmap
 }

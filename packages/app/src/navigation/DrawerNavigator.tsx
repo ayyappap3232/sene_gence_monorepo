@@ -13,6 +13,9 @@ import { ScreenNames } from '../utils/screenNames';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ReadMore from '../screens/AnonymousScreens/About_Us_Pages/ReadMore';
 import AboutUs from '../screens/AnonymousScreens/About_Us_Pages/AboutUs';
+import MeetTheFounder from '../screens/AnonymousScreens/About_Us_Pages/MeetTheFounder';
+import ContactUs from '../screens/AnonymousScreens/About_Us_Pages/ContactUs';
+import SelectCountry from '../screens/AnonymousScreens/SelectYourCountryPages/SelectCountry';
 
 const Drawer = createDrawerNavigator();
 
@@ -41,6 +44,9 @@ const DrawerNavigator = ()  => {
               <Drawer.Screen name={ScreenNames.CategoryDetails} component={CategoryDetailsScreen} />
               <Drawer.Screen name={ScreenNames.ExecutiveManagementTeam} component={ExecutiveManagementTeam} />            
               <Drawer.Screen name={ScreenNames.AboutUs} component={AboutUs} />            
+              <Drawer.Screen name={ScreenNames.MeetTheFounder} component={MeetTheFounder} />            
+              <Drawer.Screen name={ScreenNames.ContactUs} component={ContactUs} />            
+              <Drawer.Screen name={ScreenNames.SelectYourCountry} component={SelectCountry} />            
         </Drawer.Navigator>
   );
 }

@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
   FlatList,
@@ -19,6 +19,7 @@ import {
 import {findADistributor} from '../../utils/data/links';
 import {_getCurrencySymbols} from '../../utils/helpers/getSymbolBasedOnCurrency';
 import CustomAccordian from '../accordians/Accordian';
+import BreadCrumbWithTwoLevelUp from '../breadCrumbs/BreadCrumbWithTwoLevelUp';
 import OutlineButton from '../buttons/OutlineButton';
 import PaginationDots from '../carousels/PaginationDots';
 import PlainCarousel from '../carousels/PlainCarousel';
@@ -31,9 +32,12 @@ import CategoryItemComponent from './CategoryItemComponent';
 
 export default function CategoryDetailsItemComponent({
   categoryDetailsData,
-  url_path,
+  url_path
 }: any) {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const {one_level_url_path, pathName} = route?.params;
 
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -192,7 +196,11 @@ export default function CategoryDetailsItemComponent({
 
   return (
     <View style={styles.container}>
-      {/* breadcrumbs */}
+      {/* breadCrumbs */}
+      <View style={{marginHorizontal: 10,alignSelf:'flex-start'}}>
+        <BreadCrumbWithTwoLevelUp oneLevelTitle={pathName} oneLevelUrlPath={one_level_url_path} title={name}/>
+      </View>
+      <Spacer mt={10} />
       {_carousel()}
       <Spacer mt={10} />
       <View style={{alignSelf: 'flex-start', paddingLeft: 5}}>

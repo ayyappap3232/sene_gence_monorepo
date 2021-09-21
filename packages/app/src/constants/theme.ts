@@ -14,7 +14,9 @@ export const COLORS = {
     ligthGrey: "#f4f4f4",
     border1:"#6a5f41",
     dotBackground: "#0052d4",
-    assistColor: "#333333"
+    assistColor: "#333333",
+    pureBlack: "#000000",
+    mandatoryColor: "#ff3217"
 
 }
 
@@ -26,7 +28,8 @@ export const SIZES = {
     padding1: 10,
     padding2: 12,
 
-    //fontsizes
+    //
+    veryLargeTitle: 70,
     largeTitle:50,
     h1: 30,
     h2: 22,
