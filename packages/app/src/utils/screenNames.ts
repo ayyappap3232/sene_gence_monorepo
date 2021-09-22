@@ -10,5 +10,6 @@ export const ScreenNames = {
     ContactUs: "ContactUs",
     SelectYourCountry:"SelectYourCountry",
     MakeSenseFoundation: "MakeSenseFoundation",
-    FindADistributor:"FindADistributor"
+    FindADistributor:"FindADistributor",
+    StartABusiness:"StartABusiness"
 }

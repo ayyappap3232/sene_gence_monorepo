@@ -18,6 +18,7 @@ import ContactUs from '../screens/AnonymousScreens/About_Us_Pages/ContactUs';
 import SelectCountry from '../screens/AnonymousScreens/SelectYourCountryPages/SelectCountry';
 import MakeSenseFoundation from '../screens/AnonymousScreens/MakeSenseFoundation/MakeSenseFoundation';
 import FindADistributor from '../screens/AnonymousScreens/FindADistributor/FindADistributor';
+import StartABusiness from '../screens/AnonymousScreens/StartABusiness/StartABusiness';
 
 const Drawer = createDrawerNavigator();
 
@@ -51,6 +52,7 @@ const DrawerNavigator = ()  => {
               <Drawer.Screen name={ScreenNames.SelectYourCountry} component={SelectCountry} />            
               <Drawer.Screen name={ScreenNames.MakeSenseFoundation} component={MakeSenseFoundation} />            
               <Drawer.Screen name={ScreenNames.FindADistributor} component={FindADistributor} />            
+              <Drawer.Screen name={ScreenNames.StartABusiness} component={StartABusiness} />            
         </Drawer.Navigator>
   );
 }

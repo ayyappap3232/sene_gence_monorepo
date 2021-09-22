@@ -42,7 +42,8 @@ export const footerData : IFooterData[]= [
       {
         id: 'F21C',
         name: 'Start a Business',
-        link: 'https://seneweb.senegence.com/ca/career/',
+        onPress: ScreenNames.StartABusiness
+        // link: 'https://seneweb.senegence.com/ca/career/',
       },
       {
         id: 'F22C',

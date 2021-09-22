@@ -126,6 +126,9 @@ const distributormall = require("../../assets/images/finddistributor/distributor
 const jalynn = require("../../assets/images/finddistributor/jalynn.png")
 const jenna = require("../../assets/images/finddistributor/jenna.png")
 
+//Start a business
+const startabusiness = require("../../assets/images/startabusiness/startabusinessimage.png")
+
 export default {
     carousel1,
     logo,
@@ -215,5 +218,6 @@ export default {
     dawn,
     jalynn,
     jenna,
-    distributormall
+    distributormall,
+    startabusiness
 }
