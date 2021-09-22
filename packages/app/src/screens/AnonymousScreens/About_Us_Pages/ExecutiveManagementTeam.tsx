@@ -10,6 +10,7 @@ import Spacer from '../../../components/Spacer';
 import Text from '../../../components/text/Text';
 import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
+import { globalStyles } from '../../../globalstyles/GlobalStyles';
 import {aboutUsData, IAboutUsData} from '../../../utils/data/AboutUsData';
 import {
   advisoryBoardData,
@@ -104,7 +105,7 @@ export default function ExecutiveManagementTeam() {
             styles.commonTitleAndDescription,
             {fontFamily: FONTS.AvenirBook},
           ]}
-          verticalTextImageContainerStyle={styles.advisoryImageWrapper}
+          verticalTextImageContainerStyle={globalStyles.verticalImageTextAndDescriptionWrapper}
           verticalImageStyle={styles.advisoryImage}
           carouselData={advisoryBoardData}
           typeOfCarousel={
@@ -129,20 +130,6 @@ export default function ExecutiveManagementTeam() {
 
 const styles = StyleSheet.create({
   
-  advisoryImageWrapper: {
-    width: 162,
-    marginTop: 19.5,
-    marginRight: 10,
-    marginBottom: 20,
-    marginLeft: 20.5,
-    paddingTop: 19.8,
-    paddingRight: 3.6,
-    paddingBottom: 20,
-    paddingLeft: 9.4,
-    elevation: 2,
-    backgroundColor: COLORS.white,
-    alignSelf: 'center',
-  },
   advisoryImage: {
     width: 142.2,
     height: 165,

@@ -12,12 +12,11 @@ import {ScreenNames} from '../../../utils/screenNames';
 export default function MeetTheFounder() {
   const _headerImageView = () => {
     return (
-      <View>
         <ImageBackground
           source={images.meetTheFounder}
           resizeMode="cover"
           style={{paddingLeft: 36, paddingRight: 36, width: 334, height: 262}}>
-          <View>
+          <View style={{alignItems: 'center'}}>
             <Text containerStyle={styles.imageTextTitle}>Meet the Founder</Text>
             <Spacer mt={10} />
             <Text
@@ -25,8 +24,6 @@ export default function MeetTheFounder() {
                 fontFamily: FONTS.AvenirHeavy,
                 fontSize: SIZES.body4,
                 letterSpacing: 0.7,
-                position: 'absolute',
-                bottom: 20,
                 color: COLORS.white,
                 textAlign: 'center',
               }}>
@@ -36,7 +33,6 @@ export default function MeetTheFounder() {
           </View>
           <Overlay />
         </ImageBackground>
-      </View>
     );
   };
 
@@ -246,7 +242,9 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     marginTop: 18,
     fontFamily: FONTS.BebasNeueBold,
-    textAlign: 'center',
+    lineHeight: 80,
+    width: 334,
+    textAlign:'center'
   },
   aboutFounderTitle: {
     fontFamily: FONTS.BebasNeueRegular,

@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import { COLORS, FONTS, SIZES } from "../constants";
 
 export const globalStyles = StyleSheet.create({
+    innerContainer: {flex: 1, alignSelf: 'center',paddingHorizontal: 22},
     contactCard: {
         backgroundColor: COLORS.white,
         alignSelf: 'flex-start',
@@ -39,6 +40,28 @@ export const globalStyles = StyleSheet.create({
         fontFamily: FONTS.BebasNeueRegular,
         fontSize: 30,
         letterSpacing: 1.5,
+        color: COLORS.text,
+        textAlign: 'center'
+      },
+      verticalImageTextAndDescriptionWrapper: {
+        width: 162,
+        marginTop: 19.5,
+        marginRight: 10,
+        marginBottom: 20,
+        marginLeft: 20.5,
+        paddingTop: 19.8,
+        paddingRight: 3.6,
+        paddingBottom: 20,
+        paddingLeft: 9.4,
+        elevation: 2,
+        backgroundColor: COLORS.white,
+        alignSelf: 'center',
+      },
+      tabHeadingInCardView:{
+        fontFamily: FONTS.BebasNeueRegular,
+        fontSize: SIZES.h1,
+        lineHeight: 40,
+        letterSpacing: 3,
         color: COLORS.text,
         textAlign: 'center'
       }

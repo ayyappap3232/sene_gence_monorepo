@@ -30,7 +30,8 @@ export const footerData : IFooterData[]= [
       {
         id: 'F12C',
         name: 'Find a Distributor',
-        link: 'https://www.senegence.com/senegence/find_distributor.aspx?culture=en-CA',
+        onPress: ScreenNames.FindADistributor,
+        // link: 'https://www.senegence.com/senegence/find_distributor.aspx?culture=en-CA',
       },
     ],
   },
@@ -73,7 +74,8 @@ export const footerData : IFooterData[]= [
       {
         id: 'F33C',
         name: 'Non-Profit Foundation',
-        link: 'https://seneweb.senegence.com/us/company/non-profit-foundation/',
+        // link: 'https://seneweb.senegence.com/us/company/non-profit-foundation/',
+        onPress: ScreenNames.MakeSenseFoundation,
       },
       {
         id: 'F34C',

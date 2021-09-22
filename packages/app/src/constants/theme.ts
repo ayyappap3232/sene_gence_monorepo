@@ -16,7 +16,10 @@ export const COLORS = {
     dotBackground: "#0052d4",
     assistColor: "#333333",
     pureBlack: "#000000",
-    mandatoryColor: "#ff3217"
+    mandatoryColor: "#ff3217",
+    tabBottomColor: "#32a5e0",
+    unselectedColor: "#838383",
+    border2: "#dedede"
 
 }
 

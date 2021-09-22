@@ -119,6 +119,12 @@ const mommyandme = require("../../assets/images/makesensefoundation/mommyandme.p
 const msf = require("../../assets/images/makesensefoundation/msf.png")
 const nominateanorganization = require("../../assets/images/makesensefoundation/nominateanorganization.png")
 
+//Find a Distributor
+const findadistributor = require("../../assets/images/finddistributor/findadistributor.png")
+const dawn = require("../../assets/images/finddistributor/dawn.png")
+const distributormall = require("../../assets/images/finddistributor/distributormall.png")
+const jalynn = require("../../assets/images/finddistributor/jalynn.png")
+const jenna = require("../../assets/images/finddistributor/jenna.png")
 
 export default {
     carousel1,
@@ -204,5 +210,10 @@ export default {
     genesis,
     msf,
     mommyandme,
-    nominateanorganization
+    nominateanorganization,
+    findadistributor,
+    dawn,
+    jalynn,
+    jenna,
+    distributormall
 }

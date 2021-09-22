@@ -9,5 +9,6 @@ export const ScreenNames = {
     MeetTheFounder: "MeetTheFounder",
     ContactUs: "ContactUs",
     SelectYourCountry:"SelectYourCountry",
-    MakeSenseFoundation: "MakeSenseFoundation"
+    MakeSenseFoundation: "MakeSenseFoundation",
+    FindADistributor:"FindADistributor"
 }

@@ -1,10 +1,11 @@
-import React, {useRef, useState} from 'react';
-import {SafeAreaView, ScrollView, StyleSheet} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 import FAB from 'react-native-fab';
 import {PageUp} from '../../assets/svgs';
 import Footer from './footers/Footer';
 import Header from './headers/Header';
 import {COLORS} from '../constants';
+import { useNavigation } from '@react-navigation/native';
 
 export const ScrollToTopContainer = ({children,nestedScrollEnabled = true, containerStyle={},scrollContainerStyle={}, scrollContentContainerStyle={}}: any) => {
   //ScrollTo Top Functionality
@@ -22,6 +23,7 @@ export const ScrollToTopContainer = ({children,nestedScrollEnabled = true, conta
     <SafeAreaView style={[styles.container, containerStyle]}>
       <Header />
       <ScrollView
+      keyboardShouldPersistTaps="always"
         nestedScrollEnabled={nestedScrollEnabled}
         onScroll={e => {
           setShowPageUp(e.nativeEvent.contentOffset.y > 100 ? true : false);
@@ -42,6 +44,7 @@ export const ScrollToTopContainer = ({children,nestedScrollEnabled = true, conta
         onClickAction={() => {
           _goToTop();
         }}
+        
         visible={showPageUp}
         iconTextComponent={<PageUp style={{elevation: 2}} />}
       />
