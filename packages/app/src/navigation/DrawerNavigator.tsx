@@ -16,6 +16,7 @@ import AboutUs from '../screens/AnonymousScreens/About_Us_Pages/AboutUs';
 import MeetTheFounder from '../screens/AnonymousScreens/About_Us_Pages/MeetTheFounder';
 import ContactUs from '../screens/AnonymousScreens/About_Us_Pages/ContactUs';
 import SelectCountry from '../screens/AnonymousScreens/SelectYourCountryPages/SelectCountry';
+import MakeSenseFoundation from '../screens/AnonymousScreens/MakeSenseFoundation/MakeSenseFoundation';
 
 const Drawer = createDrawerNavigator();
 
@@ -47,6 +48,7 @@ const DrawerNavigator = ()  => {
               <Drawer.Screen name={ScreenNames.MeetTheFounder} component={MeetTheFounder} />            
               <Drawer.Screen name={ScreenNames.ContactUs} component={ContactUs} />            
               <Drawer.Screen name={ScreenNames.SelectYourCountry} component={SelectCountry} />            
+              <Drawer.Screen name={ScreenNames.MakeSenseFoundation} component={MakeSenseFoundation} />            
         </Drawer.Navigator>
   );
 }

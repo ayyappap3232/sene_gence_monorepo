@@ -8,5 +8,6 @@ export const ScreenNames = {
     AboutUs: "AboutUs",
     MeetTheFounder: "MeetTheFounder",
     ContactUs: "ContactUs",
-    SelectYourCountry:"SelectYourCountry"
+    SelectYourCountry:"SelectYourCountry",
+    MakeSenseFoundation: "MakeSenseFoundation"
 }

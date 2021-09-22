@@ -54,7 +54,7 @@ export default function SelectCountry() {
 
   const _renderCountriesItem = (item: ICountriesData) => {
     return (
-      <View style={[globalStyles.contactCard,{marginHorizontal: 10}]} key={item.id}>
+      <View key={item.id} style={[globalStyles.contactCard,{marginHorizontal: 10}]} key={item.id}>
         <Divider
           width={334}
           height={7}

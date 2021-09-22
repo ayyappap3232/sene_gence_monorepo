@@ -107,6 +107,19 @@ const asiaspecificmap = require("../../assets/images/countries/asiaspecificmap.p
 const europemap = require("../../assets/images/countries/europemap.png")
 
 
+//Makesense foundation
+const casa = require("../../assets/images/makesensefoundation/casa.png")
+const abusedwomen = require("../../assets/images/makesensefoundation/abusedwomen.png")
+const childhoodcancer = require("../../assets/images/makesensefoundation/childhoodcancer.png")
+const genesis = require("../../assets/images/makesensefoundation/genesis.png")
+const group = require("../../assets/images/makesensefoundation/group.png")
+const makesensebanner = require("../../assets/images/makesensefoundation/makesensebanner.png")
+const makesenselogo = require("../../assets/images/makesensefoundation/makesenselogo.png")
+const mommyandme = require("../../assets/images/makesensefoundation/mommyandme.png")
+const msf = require("../../assets/images/makesensefoundation/msf.png")
+const nominateanorganization = require("../../assets/images/makesensefoundation/nominateanorganization.png")
+
+
 export default {
     carousel1,
     logo,
@@ -181,5 +194,15 @@ export default {
     worldmap,
     americamap,
     europemap,
-    asiaspecificmap
+    asiaspecificmap,
+    casa,
+    childhoodcancer,
+    abusedwomen,
+    makesensebanner,
+    makesenselogo,
+    group,
+    genesis,
+    msf,
+    mommyandme,
+    nominateanorganization
 }

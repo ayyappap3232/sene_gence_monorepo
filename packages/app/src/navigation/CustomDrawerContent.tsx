@@ -38,7 +38,7 @@ import {
   twitterUrl,
   youtubeUrl,
 } from '../utils/data/links';
-import { ScreenNames } from '../utils/screenNames';
+import {ScreenNames} from '../utils/screenNames';
 
 const CustomDrawerContent = (props: any) => {
   const navigation = useNavigation<any>();
@@ -256,10 +256,17 @@ const CustomDrawerContent = (props: any) => {
   const _links = () => {
     return (
       <View style={styles.links}>
-        <TouchableOpacity onPress={()=> navigation.navigate(ScreenNames.SelectYourCountry)}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(ScreenNames.SelectYourCountry)}>
           <Text containerStyle={styles.textLinks}>Select Your Country</Text>
         </TouchableOpacity>
-        <Text containerStyle={styles.textLinks}>The Make Sense Foundation</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(ScreenNames.MakeSenseFoundation)}>
+          <Text containerStyle={styles.textLinks}>
+            The Make Sense Foundation
+          </Text>
+        </TouchableOpacity>
+
         <Text containerStyle={styles.textLinks}>Member of DSWA & DSA</Text>
         <Text containerStyle={styles.textLinks}>Code of Ethics</Text>
         <Text containerStyle={styles.textLinks}>Contact the DSA</Text>
