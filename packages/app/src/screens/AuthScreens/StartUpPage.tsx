@@ -268,19 +268,10 @@ export default function StartUpPage() {
     );
   };
 
-  const _goToTop = () => {
-    scrollRef.current?.scrollTo({
-      y: 0,
-      animated: true
-    })
-  };
-
-  const [showPageUp, setShowPageUp] = useState(false)
-
   return (
     <ScrollToTopContainer>
-      <View style={{paddingHorizontal: 20}}>
-      <HomeCarousel carouselData={homeCarouselData} />
+      <View style={{paddingHorizontal: 29}}>
+        <HomeCarousel carouselData={homeCarouselData} />
         <OutlineButton title={'SHOP & SAVE'} onPress={() => {}} />
         <Spacer mt={10} />
         <OutlineButton title={'BECOME A DISTRIBUTOR'} onPress={() => {}} />
@@ -377,9 +368,10 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     textTransform: 'uppercase',
     transform: [{rotate: '-90deg'}],
-    position: 'absolute',
-    marginTop: 45,
-    marginLeft: -30,
+    right: 60,
+    top: 40,
+    textAlign:'left',
+
   },
   shopSaveText1: {
     textTransform: 'uppercase',
