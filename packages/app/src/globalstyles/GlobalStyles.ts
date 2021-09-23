@@ -31,15 +31,29 @@ export const globalStyles = StyleSheet.create({
       },
       text: {
         fontFamily: FONTS.AvenirBook,
-        fontSize: SIZES.body4,
         letterSpacing: 0.7,
+        fontSize: SIZES.body4,
         color: COLORS.text,
         textAlign:'left'
+      },
+      text_avenir_medium: {
+        fontFamily: FONTS.AvenirMedium,
+        letterSpacing: 1.6,
+        fontSize: SIZES.body3,
+        color: COLORS.text,
+        textAlign:'center'
       },
       text_bebas_regular: {
         fontFamily: FONTS.BebasNeueRegular,
         fontSize: 30,
         letterSpacing: 1.5,
+        color: COLORS.text,
+        textAlign: 'center'
+      },
+      text_bebas_bold: {
+        fontFamily: FONTS.BebasNeueBold,
+        fontSize: 20,
+        letterSpacing: 2,
         color: COLORS.text,
         textAlign: 'center'
       },
@@ -64,5 +78,19 @@ export const globalStyles = StyleSheet.create({
         letterSpacing: 3,
         color: COLORS.text,
         textAlign: 'center'
-      }
+      },
+      bannerBtnBlueOutline:{
+        borderColor: COLORS.primary2,
+        width: 152,
+        alignSelf:'center'
+      },
+      bannerBtnTextBlue:{
+        color: COLORS.primary2
+      },
+      bannerBtnWhiteBackground:{
+        borderColor: COLORS.white,
+        backgroundColor: COLORS.white,
+        width: 152,
+        alignSelf:'center'
+      },
 })

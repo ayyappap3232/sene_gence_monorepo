@@ -39,6 +39,7 @@ import {
   youtubeUrl,
 } from '../utils/data/links';
 import {ScreenNames} from '../utils/screenNames';
+import Collapsible from 'react-native-collapsible';
 
 const CustomDrawerContent = (props: any) => {
   const navigation = useNavigation<any>();
@@ -174,7 +175,7 @@ const CustomDrawerContent = (props: any) => {
         {props.categoryData?.categories?.items?.map((item, index) => {
           return item.children.map((item, index) => {
             return (
-              <>
+              <React.Fragment key={item.name+index}>
                 {_renderMenuItem(
                   item,
                   index,
@@ -182,11 +183,11 @@ const CustomDrawerContent = (props: any) => {
                   selectedItemIndex,
                 )}
                 {index + item.name == selectedItemIndex.id &&
-                  selectedItemIndex.toggle &&
-                  item.children.length > 0 &&
+                          selectedItemIndex.toggle &&
+                          item.children.length > 0 &&
                   item.children.map((item, index) => {
                     return (
-                      <>
+                      <React.Fragment key={item.name+index}>
                         {_renderMenuItem(
                           item,
                           index,
@@ -194,15 +195,15 @@ const CustomDrawerContent = (props: any) => {
                           selectedChildItemIndex,
                         )}
                         {index + item.name == selectedChildItemIndex.id &&
-                          selectedChildItemIndex.toggle &&
-                          item.children.length > 0 &&
+                              selectedChildItemIndex.toggle &&
+                              item.children.length > 0 && 
                           item.children.map((item, index) => {
-                            return _renderMenuItem(item, index);
+                            return _renderMenuItem(item, index );
                           })}
-                      </>
+                      </React.Fragment>
                     );
                   })}
-              </>
+              </React.Fragment>
             );
           });
         })}

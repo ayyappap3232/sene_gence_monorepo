@@ -4,7 +4,7 @@ import { COLORS, FONTS } from '../../constants'
 import { IOutlineButton } from '../../types'
 import Text from '../text/Text'
 
-export default function OutlineButton({title, onPress, containerStyle,textStyleContainer, activeOpacity=0.2}: IOutlineButton) {
+export default function OutlineButton({title, onPress, containerStyle,textStyleContainer, activeOpacity=0.5}: IOutlineButton) {
     return (
         <TouchableOpacity activeOpacity={activeOpacity} style={[styles.container, containerStyle]} onPress={onPress}>
             <Text containerStyle={[styles.textStyle, textStyleContainer]}>{title}</Text>

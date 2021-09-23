@@ -10,6 +10,7 @@ import {
   Image,
 } from 'react-native';
 import {useCategoryList} from '../../apollo/controllers/getCategoryList.Controller';
+import { useSearchCategoryList } from '../../apollo/controllers/getSearchCategoryList.Controller';
 import {Item} from '../../apollo/services/apollo/queries/categories/categoryList';
 import {COLORS, FONTS, SIZES} from '../../constants';
 import {
@@ -48,6 +49,8 @@ export default function CategoryDetailsItemComponent({
     pageSize: pageSize,
     currentPage: currentPage,
   });
+
+  
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);

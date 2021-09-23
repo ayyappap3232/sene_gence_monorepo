@@ -19,7 +19,9 @@ export const COLORS = {
     mandatoryColor: "#ff3217",
     tabBottomColor: "#32a5e0",
     unselectedColor: "#838383",
-    border2: "#dedede"
+    border2: "#dedede",
+    backgroundGrayColor: "#f7f7f7",
+    searchTitle: "#605f5f"
 
 }
 

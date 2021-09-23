@@ -14,6 +14,10 @@ export interface IProductAttributeSortInput {
   relevance: SortEnum;
 }
 
+const queryObj = {
+  
+}
+
 export const CATEGORY_LIST = gql`
     query CategoryList($url_path: String!, $pageSize: Int!, $currentPage: Int!){
   categoryList(filters: {url_path:{eq: $url_path}}){
@@ -78,6 +82,66 @@ export const CATEGORY_LIST = gql`
     }
   }
 }
+`
+
+export const SEARCH_CATEGORY_LIST = gql`
+  query GetProducts($name: String!, $pageSize: Int!, $currentPage: Int!){
+    products(pageSize:$pageSize, currentPage: $currentPage, search: $name){
+      total_count
+      items{
+        uid
+        categories{
+          breadcrumbs{
+            category_name
+            category_url_path
+          }
+        }
+        stock_status
+        name
+        thumbnail{
+          label
+          url
+        }
+        image{
+          disabled
+          label
+          url
+        }
+        small_image{
+          label
+          disabled
+          url
+        }
+        hover_image
+        media_gallery{
+          disabled
+          label
+          url
+        }
+        description{
+          html
+        }
+        
+        second_title
+				swatch_image
+        sku
+        price_range{
+          minimum_price{
+            regular_price{
+              value
+              currency
+            }
+            final_price{
+              value
+            }
+            discount{
+              amount_off
+            }
+          }         
+        }        
+      }
+    }
+  }
 `
 
 //Types

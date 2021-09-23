@@ -135,11 +135,11 @@ const CategoryItemComponent = (item: Item, containerStyle = {}, gridView : boole
       //     //AsyncStorage.setItem("recently_viewed_products",JSON.stringify(item))
       //   }
       // })
-      AsyncStorage.getItem('recently_viewed_products').then((products)=>{
-        const p = products ? JSON.parse(products) : [];
-        p.push(item);
-        AsyncStorage.setItem('recently_viewed_products', JSON.stringify(p));
-      });
+      // AsyncStorage.getItem('recently_viewed_products').then((products)=>{
+      //   const p = products ? JSON.parse(products) : [];
+      //   p.push(item);
+      //   AsyncStorage.setItem('recently_viewed_products', JSON.stringify(p));
+      // });
 
       navigation.navigate("CategoryDetails",{categoryDetail: item, one_level_url_path: url_path, pathName: pathName})
     }

@@ -128,6 +128,21 @@ const jenna = require("../../assets/images/finddistributor/jenna.png")
 
 //Start a business
 const startabusiness = require("../../assets/images/startabusiness/startabusinessimage.png")
+const ellipse = require("../../assets/images/startabusiness/ellipse.png")
+const briefcase = require("../../assets/images/startabusiness/briefcase.png")
+const dollar = require("../../assets/images/startabusiness/dollar.png")
+const innovative = require("../../assets/images/startabusiness/innovative.png")
+const noinventory = require("../../assets/images/startabusiness/noinventory.png")
+const toolsforsuccess = require("../../assets/images/startabusiness/toolsforsuccess.png")
+const worklifebalance = require("../../assets/images/startabusiness/worklifebalance.png")
+const exclusiveopportunities = require("../../assets/images/startabusiness/exclusiveopportunities.png")
+const sisterhood = require("../../assets/images/startabusiness/sisterhood.png")
+const distributorkit = require("../../assets/images/startabusiness/distributorkit.png")
+const whereyourjouneybegins = require("../../assets/images/startabusiness/whereyourjouneybegins.png")
+const becomeadistributorgirl = require("../../assets/images/startabusiness/becomeadistributorgirl.png")
+
+//No Search Results Found
+const nosearchresultsfound = require("../../assets/images/nosearchresultsfound.png")
 
 export default {
     carousel1,
@@ -219,5 +234,18 @@ export default {
     jalynn,
     jenna,
     distributormall,
-    startabusiness
+    startabusiness,
+    ellipse,
+    briefcase,
+    dollar,
+    innovative,
+    noinventory,
+    toolsforsuccess,
+    worklifebalance,
+    exclusiveopportunities,
+    sisterhood,
+    distributorkit,
+    whereyourjouneybegins,
+    becomeadistributorgirl,
+    nosearchresultsfound
 }

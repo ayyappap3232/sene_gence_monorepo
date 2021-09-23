@@ -41,4 +41,5 @@ export interface IOutlineTextProps {
         containerStyle?: {};
         restProps?: any;
         multiline?: boolean;
+        value?: string;
 }

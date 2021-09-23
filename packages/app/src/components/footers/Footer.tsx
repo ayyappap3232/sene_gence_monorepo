@@ -16,6 +16,7 @@ import VerticalDivider from '../dividers/VerticalDivider';
 import Spacer from '../Spacer';
 import ActivityIndicator from '../spinners/ActivityIndicator';
 import Text from '../text/Text';
+import Collapsible from 'react-native-collapsible';
 
 export default function Footer({containerStyle = {}}) {
   const navigation = useNavigation<any>();
@@ -63,10 +64,12 @@ export default function Footer({containerStyle = {}}) {
                 }}
               />
         </TouchableOpacity>
-        {childItem.name == selectedState.id && selectedState.toggle && childItem?.children.map((item,index) => {
-          return <TouchableOpacity onPress={() => navigation.navigate('CategoryItem', {categoryData: item})}>
+        {childItem?.children.map((item,index) => {
+          return <Collapsible collapsed={!(childItem.name == selectedState.id && selectedState.toggle)}>
+          <TouchableOpacity onPress={() => navigation.navigate('CategoryItem', {categoryData: item})}>
             <Text containerStyle={[styles.childName, {textTransform:'capitalize'}]}>{item.children.length > 0 && item.name}</Text>
           </TouchableOpacity>
+          </Collapsible>
         })}
       </View>
     })
@@ -121,10 +124,11 @@ export default function Footer({containerStyle = {}}) {
             </TouchableOpacity>
             </View>
 
-            {item.title == selectedState.id &&
-              selectedState.toggle &&
+            {
               item.children.map((childItem: IFooterChildData, index) => {
                 return (
+                  <Collapsible collapsed={!(item.title == selectedState.id &&
+                    selectedState.toggle)}>
                   <TouchableOpacity
                     onPress={() =>
                       childItem?.link
@@ -137,6 +141,7 @@ export default function Footer({containerStyle = {}}) {
                       {childItem.name}
                     </Text>
                   </TouchableOpacity>
+                  </Collapsible>
                 );
               })}
           </View>
