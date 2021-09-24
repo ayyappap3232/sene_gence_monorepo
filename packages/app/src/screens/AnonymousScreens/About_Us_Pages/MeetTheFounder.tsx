@@ -196,7 +196,7 @@ export default function MeetTheFounder() {
 
   return (
     <ScrollToTopContainer>
-      <View style={{flex: 1, marginHorizontal: 20, alignSelf: 'center'}}>
+      <View style={{flex: 1, paddingHorizontal: 30, alignSelf: 'center'}}>
         <BreadCrumbWithTwoLevelUpWithoutNavigationParams
           titleStyle={{fontFamily: FONTS.AvenirHeavy}}
           oneLevelTitle={'ABOUT US'}

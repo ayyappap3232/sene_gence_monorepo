@@ -1,5 +1,11 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React, {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import {LogBox} from 'react-native';
 import {
   FlatList,
@@ -44,8 +50,7 @@ export default function SearchCategoryScreen({name}: any) {
     return <ActivityIndicator />;
   }
 
-  const total_count =
-    searchCategoryList?.products?.total_count;
+  const total_count = searchCategoryList?.products?.total_count;
 
   const paginationLength = Math.round(total_count / 10);
 
@@ -196,67 +201,35 @@ export default function SearchCategoryScreen({name}: any) {
     <>
       {searchCategoryList?.products?.total_count > 0 ? (
         <>
-        <Text containerStyle={[globalStyles.text,{marginLeft: 20,marginTop: 10}]}>{searchCategoryList?.products?.total_count} ITEMS</Text>
+          <Text
+            containerStyle={[
+              globalStyles.text,
+              {marginLeft: 20, marginTop: 10},
+            ]}>
+            {searchCategoryList?.products?.total_count} ITEMS
+          </Text>
           {_filters()}
           <FlatList
-                    scrollEnabled={false}
-                    // columnWrapperStyle={{alignItems: 'flex-start'}}
-                    contentContainerStyle={{paddingHorizontal: 20}}
-                    numColumns={gridView ? 1 : 2}
-                    key={gridView ? 1 : 0}
-                    renderItem={({item}) =>
-                      CategoryItemComponent(
-                        item,
-                        {},
-                        gridView,
-                        navigation,
-                        '',
-                        name,
-                      )
-                    }
-                    data={searchCategoryList?.products?.items}
-                    keyExtractor={(item, index) => index.toString()}
-                    ListEmptyComponent={() => (
-                      <View style={styles.listEmpty}>
-                        <Text>No Content Found</Text>
-                      </View>
-                    )}
-                  />
+            scrollEnabled={false}
+            // columnWrapperStyle={{alignItems: 'flex-start'}}
+            contentContainerStyle={{paddingHorizontal: 20}}
+            numColumns={gridView ? 1 : 2}
+            key={gridView ? 1 : 0}
+            renderItem={({item}) =>
+              CategoryItemComponent(item, {}, gridView, navigation, '', name)
+            }
+            data={searchCategoryList?.products?.items}
+            keyExtractor={(item, index) => index.toString()}
+            ListEmptyComponent={() => (
+              <View style={styles.listEmpty}>
+                <Text>No Content Found</Text>
+              </View>
+            )}
+          />
 
-                  <Spacer mt={20} />
-                  {_pagination()}
-                  <Spacer mt={40} />
-                  {_recentlyViewedProducts()}
-                  <Spacer mt={26} />
-
-                  {/* //Note Need to replace the data with recently Viewed Products */}
-                  <FlatList
-                    showsHorizontalScrollIndicator={false}
-                    horizontal={true}
-                    style={{marginHorizontal: 10}}
-                    numColumns={1}
-                    renderItem={({item}) =>
-                      CategoryItemComponent(
-                        item,
-                        {marginRight: 10},
-                        gridView,
-                        navigation,
-                        '',
-                        name,
-                      )
-                    }
-                    data={searchCategoryList?.products?.items}
-                    keyExtractor={(item, index) => index.toString()}
-                    ListEmptyComponent={() => (
-                      <View style={styles.listEmpty}>
-                        <Text containerStyle={{textAlign: 'center'}}>
-                          No Content Found
-                        </Text>
-                      </View>
-                    )}
-                  />
-
-                  <Spacer mt={54.1} />
+          <Spacer mt={20} />
+          {_pagination()}
+          <Spacer mt={40} />
         </>
       ) : (
         _noSearchResultsFound()

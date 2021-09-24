@@ -14,6 +14,8 @@ target 'senegence' do
 
 
 
+  pod 'RNCPicker', :path => '../node_modules/@react-native-picker/picker'
+
   target 'senegenceTests' do
     inherit! :complete
     # Pods for testing

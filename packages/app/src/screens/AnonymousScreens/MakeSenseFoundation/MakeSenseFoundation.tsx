@@ -52,7 +52,7 @@ export default function MakeSenseFoundation() {
           works
         </Text>
         <Spacer mt={4} />
-        <Text containerStyle={globalStyles.text}>
+        <Text containerStyle={[globalStyles.text,{paddingHorizontal: 8}]}>
           SeneGence is all about empowering women with a career that really
           works and helping them to look and feel more beautiful with innovative
           skin care and cosmetics.
@@ -89,8 +89,9 @@ export default function MakeSenseFoundation() {
           width: 340.5,
           paddingVertical: 20,
           backgroundColor: COLORS.ligthGrey,
+          paddingHorizontal: 5
         }}>
-        <Text style={globalStyles.text}>
+        <Text style={[globalStyles.text]}>
           The proceeds from the sale of select SeneGence products, including
           designated LipSense shades, go directly to The MSF to support
           operating expenses, while The MSF contributes 100% of the donations it
@@ -155,7 +156,7 @@ export default function MakeSenseFoundation() {
 
   return (
     <ScrollToTopContainer>
-      <View style={{flex: 1, paddingHorizontal: 20, alignSelf: 'center'}}>
+      <View style={{flex: 1, paddingHorizontal: 20, alignItems: 'center'}}>
         <Spacer mt={10} />
         {_headerImageView()}
         <Spacer mt={30.2} />
