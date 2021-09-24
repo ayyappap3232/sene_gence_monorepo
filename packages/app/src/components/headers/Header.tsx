@@ -64,7 +64,7 @@ export default function Header() {
               </View>
             </SafeAreaView>
             <Collapsible collapsed={!isSearchOpen}>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{flexDirection: 'row',height: 50,marginTop: 10}}>
                 <Search
                   width={30}
                   height={30}
@@ -75,6 +75,7 @@ export default function Header() {
                   containerStyle={{
                     width: '100%',
                     backgroundColor: COLORS.ligthGrey,
+                    
                   }}
                   placeholder={'Search...'}
                   onChangeText={(text: string) => setSearchText(text)}

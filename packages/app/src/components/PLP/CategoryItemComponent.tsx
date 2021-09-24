@@ -147,7 +147,7 @@ const CategoryItemComponent = (item: Item, containerStyle = {}, gridView : boole
     return (
       <TouchableOpacity
         activeOpacity={0.7}
-        key={item.name}
+        key={item.name+second_title}
         style={[
           styles.itemContainer,
           containerStyle,

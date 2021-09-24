@@ -31,7 +31,6 @@ export const useSearchCategoryList = (props: Props): Result => {
         if(data){
             setSearchCategoryList(data)
         }
-        console.log('data on 34',data)
     }, [data])
 
     return {

@@ -3,8 +3,8 @@ import React, { useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import ActivityIndicator from '../../components/spinners/ActivityIndicator'
 import { useCart } from '../../hooks/cart/useCart'
-import { useSearchProducts } from 'common/controllers/searchProducts.Controller'
 import { ProductItem } from '../../../../common/services/apollo/queries/products/products'
+import { useSearchProducts } from '../../apollo/controllers/searchProducts.Controller'
 
 export default function SearchProduct() {
     const {loading,error,searchProducts, getSearchProducts} = useSearchProducts(

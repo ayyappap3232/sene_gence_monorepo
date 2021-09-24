@@ -30,10 +30,11 @@ export default function PlainCarousel({
 }: any) {
   const [activeSlide, setActiveSlide] = useState(0);
 
-  const _renderItem = ({item}: any) => {
+  const _renderItem = ({item,index}: any) => {
     if (typeOfCarousel === carouselTypes.HorizontalTextWithIcon) {
       return (
         <View
+        key={item.name+index}
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
@@ -48,14 +49,14 @@ export default function PlainCarousel({
         </View>
       );
     }else if (typeOfCarousel === carouselTypes.VerticalTitleAndDescriptionTextWithImage){
-      return <View style={[verticalTextImageContainerStyle]}>
+      return <View key={item.name+index} style={[verticalTextImageContainerStyle]}>
         <Image source={item.image} style={[verticalImageStyle]}/>
         <Text style={[verticalMainText]}>{item.name}</Text>
         <Text style={[verticalSubText]}>{item.description}</Text>
       </View>
     } else {
       return (
-        <>
+        <React.Fragment key={index}>
           {!uri ? (
             <Image
               resizeMode="center"
@@ -74,7 +75,7 @@ export default function PlainCarousel({
               }}
             />
           )}
-        </>
+        </React.Fragment>
       );
     }
   };
@@ -86,6 +87,7 @@ export default function PlainCarousel({
         renderItem={_renderItem}
         sliderWidth={sliderWidth}
         itemWidth={itemWidth}
+        keyExtractor={(_,index) => index.toString()}
         onSnapToItem={index => setActiveSlide(index)}
         autoplay={autoplay}
         loop={loop}

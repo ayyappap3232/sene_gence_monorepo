@@ -1,5 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoute } from '@react-navigation/native';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
 import FAB from 'react-native-fab';
 import {PageUp} from '../../../../assets/svgs';
@@ -14,7 +15,6 @@ export default function CategoryDetailsScreen() {
     const route = useRoute();
     const item: Item = route?.params?.categoryDetail;
     const url_path: string = route?.params?.url_path;
-
 
   return (
     <ScrollToTopContainer>

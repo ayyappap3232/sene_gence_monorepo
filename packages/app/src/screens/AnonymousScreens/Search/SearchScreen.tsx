@@ -11,10 +11,7 @@ import SearchCategoryScreen from './SearchCategoryScreen';
 
 export default function SearchScreen() {
   const route = useRoute();
-  console.log('route', route);
   const {searchQuery}: any = route?.params;
-
-  const [searchResultData, setSearchResultData] = useState();
 
   useEffect(() => {}, [route]);
 

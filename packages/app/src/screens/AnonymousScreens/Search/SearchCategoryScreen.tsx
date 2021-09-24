@@ -37,7 +37,6 @@ export default function SearchCategoryScreen({name}: any) {
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-    console.log('react 58', name);
     getSearchCategoryList();
   }, [getSearchCategoryList, currentPage, name]);
 

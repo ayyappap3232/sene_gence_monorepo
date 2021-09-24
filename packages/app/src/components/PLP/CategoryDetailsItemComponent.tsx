@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
@@ -10,9 +11,10 @@ import {
   Image,
 } from 'react-native';
 import {useCategoryList} from '../../apollo/controllers/getCategoryList.Controller';
-import { useSearchCategoryList } from '../../apollo/controllers/getSearchCategoryList.Controller';
+import {useSearchCategoryList} from '../../apollo/controllers/getSearchCategoryList.Controller';
 import {Item} from '../../apollo/services/apollo/queries/categories/categoryList';
 import {COLORS, FONTS, SIZES} from '../../constants';
+import SimilarProducts from '../../screens/AnonymousScreens/PDP_Pages/SimilarProductsScreen';
 import {
   carouselTypes,
   productCategoryShippingDetailsData,
@@ -33,12 +35,27 @@ import CategoryItemComponent from './CategoryItemComponent';
 
 export default function CategoryDetailsItemComponent({
   categoryDetailsData,
-  url_path
+  url_path,
 }: any) {
   const navigation = useNavigation();
   const route = useRoute();
 
+  const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
+
   const {one_level_url_path, pathName} = route?.params;
+
+  useEffect(() => {
+    AsyncStorage.getItem('recently_viewed_products').then(products => {
+      const p = products ? JSON.parse(products) : [];
+      p.push(categoryDetailsData);
+      let jsonObject = p.map(JSON.stringify);
+      let uniqueSet = new Set(jsonObject);
+      let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+      setRecentlyViewedProducts(uniqueArray)
+      
+      AsyncStorage.setItem('recently_viewed_products', JSON.stringify(p));
+    });
+  }, [route]);
 
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,8 +66,6 @@ export default function CategoryDetailsItemComponent({
     pageSize: pageSize,
     currentPage: currentPage,
   });
-
-  
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
@@ -63,6 +78,9 @@ export default function CategoryDetailsItemComponent({
     hover_image,
     image,
     name,
+    application_techniques,
+    benefits,
+    ingredients,
     price_range: {
       minimum_price: {
         regular_price: {currency, value},
@@ -77,6 +95,7 @@ export default function CategoryDetailsItemComponent({
     small_image,
     thumbnail,
   } = categoryDetailsData;
+
 
   const _carousel = () => {
     return (
@@ -168,8 +187,9 @@ export default function CategoryDetailsItemComponent({
           snapToAlignment="center"
           scrollEventThrottle={16}
           decelerationRate="fast"
-          onScroll = {Animated.event(
-              [{nativeEvent: {contentOffset: {x: scrollX}}}],{ useNativeDriver: false }
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {x: scrollX}}}],
+            {useNativeDriver: false},
           )}
           renderItem={({item}) =>
             CategoryItemComponent(
@@ -193,15 +213,15 @@ export default function CategoryDetailsItemComponent({
     );
   };
 
-  const _similarProducts = () => {
-    return;
-  }
-
   return (
     <View style={styles.container}>
       {/* breadCrumbs */}
-      <View style={{marginHorizontal: 10,alignSelf:'flex-start'}}>
-        <BreadCrumbWithTwoLevelUp oneLevelTitle={pathName} oneLevelUrlPath={one_level_url_path} title={name}/>
+      <View style={{marginHorizontal: 10, alignSelf: 'flex-start'}}>
+        <BreadCrumbWithTwoLevelUp
+          oneLevelTitle={pathName}
+          oneLevelUrlPath={one_level_url_path}
+          title={name}
+        />
       </View>
       <Spacer mt={10} />
       {_carousel()}
@@ -241,33 +261,34 @@ export default function CategoryDetailsItemComponent({
           borderBottomWidth={2}
           marginHorizontal={5}
           collapsibleData={[
-            {title: 'Application Techniques', content: description.html},
+            {title: 'Application Techniques', content: application_techniques},
           ]}
         />
         <CustomAccordian
           noContentTextFound={'No Benefits Found!'}
           borderBottomWidth={2}
           marginHorizontal={5}
-          collapsibleData={[{title: 'Benifits', content: description.html}]}
+          collapsibleData={[{title: 'Benifits', content: benefits}]}
         />
         <CustomAccordian
           noContentTextFound={'No Ingredients Found!'}
           borderBottomWidth={2}
           marginHorizontal={5}
-          collapsibleData={[{title: 'Ingredients', content: description.html}]}
+          collapsibleData={[{title: 'Ingredients', content: ingredients}]}
         />
-        <Spacer mb={40} />        
+        <Spacer mb={40} />
       </View>
-      <TextWithUnderLine title={"USE IT WITH"}/>
+      <TextWithUnderLine title={'USE IT WITH'} />
       {_renderProductData(categoryList?.categoryList[0]?.products?.items)}
-      <Spacer mb={40} />
-      <TextWithUnderLine title={"SIMILAR PRODUCTS"}/>
+      <Spacer mb={20} />
+      <TextWithUnderLine title={'SIMILAR PRODUCTS'} />
       {/* Get the similar products and show */}
-      {_renderProductData(categoryList?.categoryList[0]?.products?.items)}
-      <Spacer mb={40} />
-      <TextWithUnderLine title={"RECENTLY VIEWED"}/>
+      <SimilarProducts name={name} />
+      <Spacer mb={20} />
+      <TextWithUnderLine title={'RECENTLY VIEWED'} />
       {/* Get the Recently Viewed Products from the Async Storage i.e localstorage */}
-      {_renderProductData(categoryList?.categoryList[0]?.products?.items)}
+      {_renderProductData(recentlyViewedProducts)}
+      <Spacer mb={20} />
     </View>
   );
 }
@@ -290,10 +311,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: SIZES.width - 50,
+    marginTop: 20,
+    marginLeft: 5,
   },
   priceWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginLeft: 5,
   },
   regularPrice: {
     fontSize: SIZES.body4,

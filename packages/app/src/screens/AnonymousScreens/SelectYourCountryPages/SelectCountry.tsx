@@ -24,7 +24,6 @@ export default function SelectCountry() {
   };
 
   const _countryMapsList = (item: IData[]) =>  {
-      console.log('item',item)
     return item && item.map((data,index) => {
         return <><View key={`${index}${data.countryName}`} style={{flexDirection: 'row', alignItems: 'center'}}>
             <Text

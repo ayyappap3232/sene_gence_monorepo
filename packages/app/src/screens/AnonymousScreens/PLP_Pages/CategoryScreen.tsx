@@ -23,7 +23,7 @@ import Spacer from '../../../components/Spacer';
 import ActivityIndicator from '../../../components/spinners/ActivityIndicator';
 import Text from '../../../components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import { ScrollToTopContainer } from '../../../components/ScrollToTopContainer';
+import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
 import {_getCurrencySymbols} from '../../../utils/helpers/getSymbolBasedOnCurrency';
 import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -34,11 +34,11 @@ export default function CategoryScreen() {
 
   const route = useRoute();
   const {name, url_path} = route?.params?.categoryData;
-  
+
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(1);
-
+  const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
   const [gridView, setgridView] = useState<boolean>(false);
 
   const {getCategoryList, loading, error, categoryList} = useCategoryList({
@@ -57,6 +57,18 @@ export default function CategoryScreen() {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     getCategoryList();
   }, [getCategoryList, currentPage]);
+
+  useEffect(() => {
+    AsyncStorage.getItem('recently_viewed_products').then(products => {
+      const p = products ? JSON.parse(products) : [];
+
+      let jsonObject = p.map(JSON.stringify);
+      let uniqueSet = new Set(jsonObject);
+      let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+      setRecentlyViewedProducts(uniqueArray);
+
+    });
+  }, [route]);
 
   if (loading) {
     return <ActivityIndicator />;
@@ -224,56 +236,64 @@ export default function CategoryScreen() {
     );
   };
 
-
   return (
     <ScrollToTopContainer>
       <View style={{marginLeft: 20}}>
-      <BreadCrumbWithOneLevelUp title={name}/>
+        <BreadCrumbWithOneLevelUp title={name} />
       </View>
       {_filters()}
-          <FlatList
-            scrollEnabled={false}
-            // columnWrapperStyle={{alignItems: 'flex-start'}}
-            contentContainerStyle={{paddingHorizontal: 20}}
-            numColumns={gridView ? 1 : 2}
-            key={gridView ? 1 : 0}
-            renderItem={({item}) => CategoryItemComponent(item,{},gridView,navigation,url_path,name)}
-            data={categoryList?.categoryList[0]?.products?.items}
-            keyExtractor={(item, index) => index.toString()}
-            ListEmptyComponent={() => (
-              <View style={styles.listEmpty}>
-                <Text>No Content Found</Text>
-              </View>
-            )}
-          />
-          
-        <Spacer mt={20} />
-        {_pagination()}
-        <Spacer mt={40} />
-        {_beautyBook()}
-        <Spacer mt={40} />
-        {_recentlyViewedProducts()}
-        <Spacer mt={26} />
+      <FlatList
+        scrollEnabled={false}
+        // columnWrapperStyle={{alignItems: 'flex-start'}}
+        contentContainerStyle={{paddingHorizontal: 20}}
+        numColumns={gridView ? 1 : 2}
+        key={gridView ? 1 : 0}
+        renderItem={({item}) =>
+          CategoryItemComponent(item, {}, gridView, navigation, url_path, name)
+        }
+        data={categoryList?.categoryList[0]?.products?.items}
+        keyExtractor={(item, index) => index.toString()}
+        ListEmptyComponent={() => (
+          <View style={styles.listEmpty}>
+            <Text>No Content Found</Text>
+          </View>
+        )}
+      />
 
-        {/* //Note Need to replace the data with recently Viewed Products */}
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          horizontal={true}
-          style={{marginHorizontal: 10}}
-          numColumns={1}
-          renderItem={({item}) =>
-             CategoryItemComponent(item, {marginRight: 10},gridView,navigation,url_path,name)
-          }
-          data={categoryList?.categoryList[0]?.products?.items}
-          keyExtractor={(item, index) => index.toString()}
-          ListEmptyComponent={() => (
-            <View style={styles.listEmpty}>
-              <Text>No Content Found</Text>
-            </View>
-          )}
-        />
-          
-        <Spacer mt={54.1} />
+      <Spacer mt={20} />
+      {_pagination()}
+      <Spacer mt={40} />
+      {_beautyBook()}
+      <Spacer mt={40} />
+      {_recentlyViewedProducts()}
+      <Spacer mt={26} />
+
+      {/* //Note Need to replace the data with recently Viewed Products */}
+      <FlatList
+        showsHorizontalScrollIndicator={false}
+        horizontal={true}
+        style={{marginHorizontal: 10}}
+        numColumns={1}
+        renderItem={({item}) =>
+          CategoryItemComponent(
+            item,
+            {marginRight: 10},
+            gridView,
+            navigation,
+            url_path,
+            name,
+          )
+        }
+        data={recentlyViewedProducts}
+        keyExtractor={(item, index) => index.toString()}
+        ListEmptyComponent={() => (
+          <View style={styles.listEmpty}>
+            <Text>No Content Found</Text>
+          </View>
+        )}
+      />
+
+      <Spacer mt={54.1} />
     </ScrollToTopContainer>
   );
 }
@@ -326,7 +346,6 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     fontSize: SIZES.body4,
     letterSpacing: 0.28,
-    
   },
   listEmpty: {
     flex: 1,
