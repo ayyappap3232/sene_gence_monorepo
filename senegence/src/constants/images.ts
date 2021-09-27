@@ -144,6 +144,9 @@ const becomeadistributorgirl = require("../../assets/images/startabusiness/becom
 //No Search Results Found
 const nosearchresultsfound = require("../../assets/images/nosearchresultsfound.png")
 
+//filters
+const dropdowncaret = require("../../assets/images/polygon.png")
+
 export default {
     carousel1,
     logo,
@@ -247,5 +250,6 @@ export default {
     distributorkit,
     whereyourjouneybegins,
     becomeadistributorgirl,
-    nosearchresultsfound
+    nosearchresultsfound,
+    dropdowncaret
 }

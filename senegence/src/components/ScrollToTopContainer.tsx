@@ -23,6 +23,7 @@ export const ScrollToTopContainer = ({children,nestedScrollEnabled = true, conta
     <SafeAreaView style={[styles.container, containerStyle]}>
       <Header />
       <ScrollView
+      scrollEventThrottle={16}
       keyboardShouldPersistTaps="always"
         nestedScrollEnabled={nestedScrollEnabled}
         onScroll={e => {

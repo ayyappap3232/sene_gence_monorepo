@@ -22,11 +22,14 @@ import {COLORS, FONTS, images, SIZES} from '../../../constants';
 import {_getCurrencySymbols} from '../../../utils/helpers/getSymbolBasedOnCurrency';
 import {useSearchCategoryList} from '../../../apollo/controllers/getSearchCategoryList.Controller';
 import {globalStyles} from '../../../globalstyles/GlobalStyles';
+import SortByFilter from '../../../components/filters/SortByFilter';
+import { ScreenNames } from '../../../utils/screenNames';
+import FilterDrawer from '../../../components/drawers/FilterDrawer';
 
 export default function SearchCategoryScreen({name}: any) {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
-  const [resultsCount, setResultsCount] = useState();
+  const [textInputValue, setTextInputValue] = useState('');
 
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -134,16 +137,8 @@ export default function SearchCategoryScreen({name}: any) {
           margin: 20,
         }}>
         <View style={styles.filterWrapper}>
-          <TouchableOpacity onPress={() => {}}>
-            <Image
-              source={images.filter1}
-              style={{width: 12.6, height: 12.6, marginRight: 4}}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
+        <FilterDrawer/>
           <Text containerStyle={styles.filterText}>Shop By</Text>
-        </View>
-        <View style={styles.filterWrapper}>
           <TouchableOpacity onPress={() => setgridView(false)}>
             <Image
               source={images.filter1}
@@ -158,12 +153,10 @@ export default function SearchCategoryScreen({name}: any) {
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <Text containerStyle={styles.filterText}>Sort by - Featured</Text>
-          <Image
-            source={images.filter3Sort}
-            style={{width: 12.6, height: 12.6, marginLeft: 4}}
-            resizeMode="contain"
-          />
+        </View>
+        <View style={styles.filterWrapper}>
+          
+        <SortByFilter textInputValue={textInputValue} setTextInputValue={setTextInputValue}/>
         </View>
       </View>
     );
@@ -250,6 +243,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.7,
     color: COLORS.black,
     textTransform: 'uppercase',
+    marginRight: 10
   },
   itemContainer: {
     flex: 0.5,

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { useAddProductsToCart } from '../../apollo/controllers/addProductToCart.Controller'
 
-export default function ProductsList() {
+export default function AddProductsToCart() {
     const {loading, error, addProductToCart, productsToCart} = useAddProductsToCart(
       {
             cart_id:"",
