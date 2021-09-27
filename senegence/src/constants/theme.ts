@@ -21,7 +21,8 @@ export const COLORS = {
     unselectedColor: "#838383",
     border2: "#dedede",
     backgroundGrayColor: "#f7f7f7",
-    searchTitle: "#605f5f"
+    searchTitle: "#605f5f",
+    unCheckedColor: "#707070"
 
 }
 

@@ -1,6 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
-import {LogBox} from 'react-native';
+import {LogBox, TextInput} from 'react-native';
 import {
   FlatList,
   Image,
@@ -9,15 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import FAB from 'react-native-fab';
-import {ScrollView} from 'react-native-gesture-handler';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {PageUp} from '../../../../assets/svgs';
 import {useCategoryList} from '../../../apollo/controllers/getCategoryList.Controller';
-import {Item} from '../../../apollo/services/apollo/queries/categories/categoryList';
-import OutlineButton from '../../../components/buttons/OutlineButton';
-import Footer from '../../../components/footers/Footer';
-import Header from '../../../components/headers/Header';
 import CategoryItemComponent from '../../../components/PLP/CategoryItemComponent';
 import Spacer from '../../../components/Spacer';
 import ActivityIndicator from '../../../components/spinners/ActivityIndicator';
@@ -27,12 +19,22 @@ import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
 import {_getCurrencySymbols} from '../../../utils/helpers/getSymbolBasedOnCurrency';
 import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import FilterOptionItem from '../../../components/filters/FilterOptionItem';
+import {filterNames} from '../../../utils/data/FilterData';
+import SortByFilter from '../../../components/filters/SortByFilter';
+import { ScreenNames } from '../../../utils/screenNames';
+import FilterDrawer from '../../../components/drawers/FilterDrawer';
+import Drawer from 'react-native-drawer'
+import CustomDrawerContent from '../../../navigation/CustomDrawerContent';
 
 export default function CategoryScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   // const [recentlyViewedProducts, setRecentlyViewedProducts] = useState<any>([])
 
-  const [selectedFilter, setSelectedFilter] = useState();
+  const [textInputValue, setTextInputValue] = useState('');
+  const [collapsed,setCollapsed] = useState(false);
+  let  _drawer = useRef(null);;
+  
 
   const route = useRoute();
   const {name, url_path} = route?.params?.categoryData;
@@ -198,13 +200,7 @@ export default function CategoryScreen() {
           margin: 20,
         }}>
         <View style={styles.filterWrapper}>
-          <TouchableOpacity onPress={() => {}}>
-            <Image
-              source={images.filter1}
-              style={{width: 12.6, height: 12.6, marginRight: 4}}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
+        <FilterDrawer/>
           <Text containerStyle={styles.filterText}>Shop By</Text>
           <TouchableOpacity onPress={() => setgridView(false)}>
             <Image
@@ -222,18 +218,13 @@ export default function CategoryScreen() {
           </TouchableOpacity>
         </View>
         <View style={styles.filterWrapper}>
-          
-          <Text containerStyle={styles.filterText}>Sort by - Featured</Text>
-          
-          <Image
-            source={images.filter3Sort}
-            style={{width: 12.6, height: 12.6, marginLeft: 4}}
-            resizeMode="contain"
-          />
+          <SortByFilter textInputValue={textInputValue} setTextInputValue={setTextInputValue}/>
         </View>
       </View>
     );
   };
+
+
 
   return (
     <ScrollToTopContainer>
@@ -290,6 +281,7 @@ export default function CategoryScreen() {
           </View>
         )}
       />
+          <SortByFilter textInputValue={textInputValue} setTextInputValue={setTextInputValue}/>
 
       <Spacer mt={54.1} />
     </ScrollToTopContainer>
@@ -308,7 +300,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.7,
     color: COLORS.black,
     textTransform: 'uppercase',
-    marginRight: 10
+    marginRight: 10,
   },
   itemContainer: {
     flex: 0.5,
