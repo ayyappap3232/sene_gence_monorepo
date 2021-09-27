@@ -206,8 +206,6 @@ export default function CategoryScreen() {
             />
           </TouchableOpacity>
           <Text containerStyle={styles.filterText}>Shop By</Text>
-        </View>
-        <View style={styles.filterWrapper}>
           <TouchableOpacity onPress={() => setgridView(false)}>
             <Image
               source={images.filter1}
@@ -222,10 +220,11 @@ export default function CategoryScreen() {
               resizeMode="contain"
             />
           </TouchableOpacity>
+        </View>
+        <View style={styles.filterWrapper}>
+          
           <Text containerStyle={styles.filterText}>Sort by - Featured</Text>
           
-
-
           <Image
             source={images.filter3Sort}
             style={{width: 12.6, height: 12.6, marginLeft: 4}}
@@ -309,6 +308,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.7,
     color: COLORS.black,
     textTransform: 'uppercase',
+    marginRight: 10
   },
   itemContainer: {
     flex: 0.5,
