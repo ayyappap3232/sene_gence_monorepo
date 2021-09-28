@@ -26,7 +26,7 @@ const PressDrawer = ({pressDrawerContentData, initialId}: any) => {
 
   return (
     <>
-      <TouchableOpacity onPress={() => showModal()}>
+      <TouchableOpacity onPress={() =>{showModal()}}>
         <Image
           source={images.filter2}
           style={{
