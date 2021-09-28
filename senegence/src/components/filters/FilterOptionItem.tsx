@@ -1,7 +1,10 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
-import {RadioButton} from 'react-native-paper';
+// import {RadioButton} from 'react-native-paper';
 import { COLORS, FONTS, SIZES } from '../../constants';
+import RadioButton from '../buttons/radioButtons/RadioButton';
+
 
 export default function FilterOptionItem({index, checked, setChecked,title}:any) {
   return (
@@ -12,13 +15,14 @@ export default function FilterOptionItem({index, checked, setChecked,title}:any)
         alignItems: 'center',
       }}>
       <Text style={styles.title}>{title}</Text>
-      <RadioButton
-        value="first"
+      {/* <RadioButton
+        value={checked}
         status={checked === index ? 'checked' : 'unchecked'}
         onPress={() => setChecked(index)}
         uncheckedColor={COLORS.unCheckedColor}
         color={COLORS.footerColor}
-      />
+      />  */}
+      <RadioButton checked={checked} index={index}/>
     </View>
   );
 }
