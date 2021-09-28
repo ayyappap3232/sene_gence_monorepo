@@ -77,7 +77,7 @@ export default function SortByFilter({textInputValue, setTextInputValue}: any) {
       <ModalSelector
         data={data}
         initValue="Featured Products"
-        supportedOrientations={['landscape']}
+        supportedOrientations={['portrait']}
         accessible={true}
         scrollViewAccessibilityLabel={'Scrollable options'}
         backdropPressToClose={true}

@@ -1,9 +1,10 @@
 import * as React from 'react';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image, StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Close} from '../../../assets/svgs';
 import {COLORS, images, SIZES} from '../../constants';
 import Text from '../text/Text';
 import Modal from "react-native-modal";
+import { Platform } from 'react-native';
 
 const FilterDrawer = () => {
   const [visible, setVisible] = React.useState(false);
@@ -20,9 +21,8 @@ const FilterDrawer = () => {
         />
       </TouchableOpacity>
       <Modal
-      deviceWidth={SIZES.width}
       style={{width: SIZES.width-120,marginLeft: 0}}
-        supportedOrientations={['landscape-left']}
+        supportedOrientations={['portrait']}
         presentationStyle="overFullScreen"
         animationOut="slideOutLeft"
         isVisible={visible}
@@ -50,6 +50,6 @@ const styles = StyleSheet.create({
         shadowOffset: {width: 2, height: 2},
         shadowRadius: 3,
         shadowOpacity: 0.7,
-        paddingTop: 20
+        paddingTop: Platform.OS === 'ios' ? 40 : 20
       }
 })
