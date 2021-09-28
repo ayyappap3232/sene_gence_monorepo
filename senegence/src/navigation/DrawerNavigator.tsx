@@ -22,6 +22,8 @@ import StartABusiness from '../screens/AnonymousScreens/StartABusiness/StartABus
 import SearchScreen from '../screens/AnonymousScreens/Search/SearchScreen';
 import FilterDrawer from '../components/drawers/FilterDrawer';
 import { SIZES } from '../constants';
+import Press from '../screens/AnonymousScreens/About_Us_Pages/Press';
+import TermsAndConditions from '../screens/AnonymousScreens/CopyRightScreens/TermsAndConditions';
 
 const Drawer = createDrawerNavigator();
 
@@ -97,6 +99,9 @@ const DrawerNavigator = () => {
         name={ScreenNames.FilterDrawerItems}
         component={FilterDrawer}
       />
+      <Drawer.Screen name={ScreenNames.Press} component={Press} />
+      <Drawer.Screen name={ScreenNames.TermsAndConditions} component={TermsAndConditions} />
+
     </Drawer.Navigator>
   );
 };

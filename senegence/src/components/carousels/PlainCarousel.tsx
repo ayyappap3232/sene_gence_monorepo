@@ -54,7 +54,12 @@ export default function PlainCarousel({
         <Text style={[verticalMainText]}>{item.name}</Text>
         <Text style={[verticalSubText]}>{item.description}</Text>
       </View>
-    } else {
+    } else if(typeOfCarousel === carouselTypes.VerticalTextWithImage) {
+      return <View key={item.name+index} style={[verticalTextImageContainerStyle]}>
+        <Image source={item.image} resizeMode="contain" style={[verticalImageStyle]}/>
+        <Text style={[verticalMainText]}>{item.name}</Text>
+      </View>
+    }else {
       return (
         <React.Fragment key={index}>
           {!uri ? (

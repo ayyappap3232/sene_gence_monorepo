@@ -81,7 +81,8 @@ export const footerData : IFooterData[]= [
       {
         id: 'F34C',
         name: 'Press',
-        link: 'https://seneweb.senegence.com/ca/in-the-media/press-releases/',
+        // link: 'https://seneweb.senegence.com/ca/in-the-media/press-releases/',
+        onPress: ScreenNames.Press
       },
       {
         id: 'F35C',

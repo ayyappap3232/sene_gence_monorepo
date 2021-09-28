@@ -147,7 +147,45 @@ const nosearchresultsfound = require("../../assets/images/nosearchresultsfound.p
 //filters
 const dropdowncaret = require("../../assets/images/polygon.png")
 
+//press
+const aclaim = require("../../assets/images/press/aclaim.png")
+const aclaim2 = require("../../assets/images/press/aclaim2.png")
+const aclaim3 = require("../../assets/images/press/aclaim3.png")
+const Digital_Defense = require("../../assets/images/press/Digital_Defense.png")
+const Digital_Defense_4 = require("../../assets/images/press/Digital_Defense_4.png")
+const EnchantedForest_ShadowSenseLifestyle = require("../../assets/images/press/EnchantedForest_ShadowSenseLifestyle.png")
+const JoniDesk_Cropped = require("../../assets/images/press/JoniDesk_Cropped.png")
+const JoniDesk_White = require("../../assets/images/press/JoniDesk_White.png")
+const milliondollar = require("../../assets/images/press/milliondollar.png")
+const Nangai_Oil = require("../../assets/images/press/Nangai_Oil.png")
+const Neotight_Lifestyle = require("../../assets/images/press/Neotight_Lifestyle.png")
+const OvernightLipMask_Lifestyle = require("../../assets/images/press/OvernightLipMask_Lifestyle.png")
+const pressbanner = require("../../assets/images/press/pressbanner.png")
+const purchaseebook = require("../../assets/images/press/purchaseebook.png")
+const TranslucentPowders_Lifestyle = require("../../assets/images/press/TranslucentPowders_Lifestyle.png")
+const VolumizingBrowGelLifestyle = require("../../assets/images/press/VolumizingBrowGelLifestyle.png")
+const winnershapebeautyaward = require("../../assets/images/press/winnershapebeautyaward.png")
+const winnershapebeautyaward_2 = require("../../assets/images/press/winnershapebeautyaward_2.png")
+
 export default {
+    aclaim2,
+    aclaim,
+    aclaim3,
+    Digital_Defense,
+    Digital_Defense_4,
+    JoniDesk_Cropped,
+    JoniDesk_White,
+    milliondollar,
+    Nangai_Oil,
+    Neotight_Lifestyle,
+    OvernightLipMask_Lifestyle,
+    pressbanner,
+    purchaseebook,
+    TranslucentPowders_Lifestyle,
+    VolumizingBrowGelLifestyle,
+    winnershapebeautyaward,
+    winnershapebeautyaward_2,
+    EnchantedForest_ShadowSenseLifestyle,
     carousel1,
     logo,
     drawerContentImage1,
@@ -252,4 +290,5 @@ export default {
     becomeadistributorgirl,
     nosearchresultsfound,
     dropdowncaret
+
 }
