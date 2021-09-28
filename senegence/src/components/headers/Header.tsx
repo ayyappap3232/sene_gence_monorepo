@@ -16,7 +16,7 @@ import OutlineTextInput from '../textInputs/OutlineTextInput';
 import Collapsible from 'react-native-collapsible';
 import {ScreenNames} from '../../utils/screenNames';
 
-export default function Header() {
+export default function Header({headerContainerStyle={}}) {
   const navigation = useNavigation<any>();
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [searchText, setSearchText] = useState('');
@@ -36,7 +36,7 @@ export default function Header() {
       header: () => {
         return (
           <>
-            <SafeAreaView style={styles.header}>
+            <SafeAreaView style={[styles.header,headerContainerStyle]}>
               <View style={styles.headerContent}>
                 <TouchableOpacity
                   activeOpacity={0.7}
@@ -103,7 +103,7 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   header: {
-    height: Platform.OS == 'ios' ? 120 : 80,
+    height: Platform.OS == 'ios' ? 100 : 80,
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',

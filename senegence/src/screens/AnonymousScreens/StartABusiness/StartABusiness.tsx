@@ -3,6 +3,7 @@ import {Image, ImageBackground, StyleSheet, View} from 'react-native';
 import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import PlainCarousel from '../../../components/carousels/PlainCarousel';
+import { _frequentlyAskedQuestions } from '../../../components/FrequentlyAskedQuestion';
 import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
 import Spacer from '../../../components/Spacer';
 import Text from '../../../components/text/Text';
@@ -295,30 +296,7 @@ export default function StartABusiness() {
     );
   };
 
-  const _frequentlyAskedQuestions = () => {
-    return (
-      <View style={{backgroundColor: COLORS.ligthGrey, alignItems: 'center'}}>
-        <Spacer mt={20} />
-        <Text
-          containerStyle={[
-            globalStyles.text_bebas_regular,
-            {fontSize: SIZES.h3},
-          ]}>
-          Frequently Asked Questions?
-        </Text>
-        <Spacer mt={4} />
-        <Text containerStyle={[globalStyles.text, {marginHorizontal: 6}]}>
-          Join us as an Independent Distributor and enjoy fantastic products
-          that really work, and a career that really works to meet your unique
-          needs and goals.
-        </Text>
-        <Spacer mt={4} />
-        <OutlineButton textStyleContainer={{color: COLORS.white}} containerStyle={[globalStyles.bannerBtnWhiteBackground,{backgroundColor:COLORS.footerColor}]} title={'View More'} onPress={() => {}} />
-        <Spacer mt={20} />
-      
-      </View>
-    );
-  };
+  
 
   return (
     <ScrollToTopContainer>

@@ -281,7 +281,6 @@ export default function CategoryScreen() {
           </View>
         )}
       />
-          <SortByFilter textInputValue={textInputValue} setTextInputValue={setTextInputValue}/>
 
       <Spacer mt={54.1} />
     </ScrollToTopContainer>

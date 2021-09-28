@@ -43,6 +43,14 @@ export const globalStyles = StyleSheet.create({
         color: COLORS.text,
         textAlign:'center'
       },
+      text_avenir_heavy: {
+        fontFamily: FONTS.AvenirHeavy,
+        letterSpacing: 0.28,
+        fontSize: SIZES.body4,
+        lineHeight: SIZES.h2,
+        color: COLORS.text,
+        textAlign:'left'
+      },
       text_bebas_regular: {
         fontFamily: FONTS.BebasNeueRegular,
         fontSize: 30,

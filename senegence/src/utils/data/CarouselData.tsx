@@ -84,6 +84,7 @@ const advisoryBoardData = [
 ]
 
 const carouselTypes = {
+    VerticalTextWithImage: "VerticalTextWithImage",
     HorizontalTextWithIcon : "HorizontalTextWithIcon",
     VerticalTitleAndDescriptionTextWithImage: "VerticalTitleAndDescriptionTextWithImage"
 }

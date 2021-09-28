@@ -14,5 +14,7 @@ export const ScreenNames = {
     StartABusiness:"StartABusiness",
     SearchScreen: "SearchScreen",
     FilterDrawerItems: "FilterDrawerItems",
-    ListOfStacks: "ListOfStacks"
+    ListOfStacks: "ListOfStacks",
+    Press: "Press",
+    TermsAndConditions:"TermsAndConditions"
 }

@@ -31,11 +31,11 @@ export default function Footer({containerStyle = {}}) {
   }, [getCategories]);
 
 
-  const _lastFooterContent = (text: string, link: any) => {
+  const _lastFooterContent = (text: string, link: any, name = "") => {
     return (
       <TouchableOpacity
         style={{marginHorizontal: 5}}
-        onPress={() => (link !== '' ? Linking.openURL(link) : {})}>
+        onPress={() => (link !== '' ? Linking.openURL(link) : navigation.navigate(name))}>
         <Text containerStyle={{fontSize: SIZES.body4, fontFamily:FONTS.AvenirBook, lineHeight: 20, letterSpacing: 0.3, color: COLORS.white}}>{text}</Text>
       </TouchableOpacity>
     );
@@ -187,7 +187,8 @@ export default function Footer({containerStyle = {}}) {
         <VerticalDivider />
         {_lastFooterContent(
           'Terms & Conditions',
-          'https://seneweb.senegence.com/ca/terms-and-conditions/',
+          '',
+          ScreenNames.TermsAndConditions,
         )}
       </View>
     </View>
