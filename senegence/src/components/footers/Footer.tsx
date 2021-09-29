@@ -177,7 +177,8 @@ export default function Footer({containerStyle = {}}) {
         <VerticalDivider />
         {_lastFooterContent(
           'Copyright DMCA Policy',
-          'https://seneweb.senegence.com/ca/copyright-dmca-policy/',
+          '',
+          ScreenNames.CopyrightDMCAPolicy
         )}
         <VerticalDivider />
         {_lastFooterContent(

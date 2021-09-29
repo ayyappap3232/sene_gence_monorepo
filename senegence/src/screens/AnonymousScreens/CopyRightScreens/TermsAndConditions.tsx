@@ -56,18 +56,23 @@ export default function TermsAndConditions() {
   };
 
   return (
-    <ScrollToTopContainer>
+    <ScrollToTopContainer nestedScrollEnabled={true} showCart={true}>
       <View style={{flex: 1, paddingHorizontal: 20}}>
         <BreadCrumbWithOneLevelUp title={'Terms & conditions'} />
         <Spacer mt={30} />
         {_termsAndConditionsWrapper()}
         <Spacer mt={15} />
-        <ScrollView>
+        <ScrollView style={{maxHeight: SIZES.height/2}} nestedScrollEnabled={true}>
+            {_titleAndDescription("Acceptance of the Terms","These terms of use are entered into by and between you and SGII, Inc. d.b.a. SeneGence International® (“Company”, “we” or “us”). The following terms and conditions, together with any documents they expressly incorporate by These terms of use are entered into by and between you and SGII, Inc. d.b.a. SeneGence International® (“Company”, “we” or “us”). The following terms and conditions, together with any documents they expressly incorporate by")}
+          <Spacer mt={9.5} />
+            <Divider backgroundColor={COLORS.border} width={SIZES.width-40}/>
+            <Spacer mt={9.5} />
             {_titleAndDescription("Changes the Terms of Use","These terms of use are entered into by and between you and SGII, Inc. d.b.a. SeneGence International® (“Company”, “we” or “us”). The following terms and conditions, together with any documents they expressly incorporate by These terms of use are entered into by and between you and SGII, Inc. d.b.a. SeneGence International® (“Company”, “we” or “us”). The following terms and conditions, together with any documents they expressly incorporate by")}
             <Spacer mt={9.5} />
             <Divider backgroundColor={COLORS.border} width={SIZES.width-40}/>
             <Spacer mt={9.5} />
             {_titleAndDescription("Intellectual Property Right","These terms of use are entered into by and between you and SGII, Inc. d.b.a. SeneGence International® (“Company”, “we” or “us”). The following terms and conditions, together with any documents they expressly incorporate by These terms of use are entered into by and between you and SGII, Inc. d.b.a. SeneGence International® (“Company”, “we” or “us”). The following terms and conditions, together with any documents they expressly incorporate by ")}
+            
         </ScrollView>
         <Spacer mt={30} />
         {_frequentlyAskedQuestions()}

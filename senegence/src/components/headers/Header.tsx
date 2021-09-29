@@ -2,12 +2,12 @@ import {useNavigation} from '@react-navigation/core';
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   SafeAreaView,
   TouchableOpacity,
   Image,
   Platform,
+  ScrollView,
 } from 'react-native';
 import {AppLogo, Globe, HamburgerMenu, Search} from '../../../assets/svgs';
 import {COLORS, FONTS, images, SIZES} from '../../constants';
@@ -15,8 +15,13 @@ import Spacer from '../Spacer';
 import OutlineTextInput from '../textInputs/OutlineTextInput';
 import Collapsible from 'react-native-collapsible';
 import {ScreenNames} from '../../utils/screenNames';
+import Modal from 'react-native-modal';
+import {globalStyles} from '../../globalstyles/GlobalStyles';
+import OutlineButton from '../buttons/OutlineButton';
+import Text from '../text/Text';
+import Divider from '../dividers/Divider';
 
-export default function Header({headerContainerStyle={}}) {
+export default function Header({headerContainerStyle = {}, showCart = false}) {
   const navigation = useNavigation<any>();
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [searchText, setSearchText] = useState('');
@@ -31,12 +36,15 @@ export default function Header({headerContainerStyle={}}) {
     setSearchText('');
   };
 
+  const [visible, setVisible] = React.useState(false);
+  const showModal = () => setVisible(!visible);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       header: () => {
         return (
           <>
-            <SafeAreaView style={[styles.header,headerContainerStyle]}>
+            <SafeAreaView style={[styles.header, headerContainerStyle]}>
               <View style={styles.headerContent}>
                 <TouchableOpacity
                   activeOpacity={0.7}
@@ -50,15 +58,35 @@ export default function Header({headerContainerStyle={}}) {
                 <Image
                   source={images.logo}
                   resizeMode="contain"
-                  style={{width: 192.7, height: 44}}
+                  style={{width: 126.1, height: 28.8}}
                 />
               </View>
-              <View style={styles.headerContent}>
+              <View
+                style={[styles.headerContent, showCart && {marginRight: 5}]}>
                 <TouchableOpacity onPress={() => handleSearch()}>
-                  <Search />
+                  <Image
+                    source={images.search}
+                    style={{width: 16, height: 16, marginHorizontal: 5}}
+                    resizeMode="contain"
+                  />
                 </TouchableOpacity>
-                <View style={styles.globeWrapper}>
-                  <Globe />
+                {/* Replace with cart icon and count */}
+                {showCart && (
+                  <TouchableOpacity onPress={() => showModal()}>
+                    <Image
+                      source={images.search}
+                      style={{width: 16, height: 16, marginHorizontal: 5}}
+                      resizeMode="contain"
+                    />
+                  </TouchableOpacity>
+                )}
+                <View
+                  style={[styles.globeWrapper, !showCart && {marginLeft: 10}]}>
+                  <Image
+                    source={images.globe}
+                    style={{width: 16, height: 16, marginRight: 3}}
+                    resizeMode="contain"
+                  />
                   <Text style={styles.rightText}>USA</Text>
                 </View>
               </View>
@@ -88,11 +116,68 @@ export default function Header({headerContainerStyle={}}) {
                 </TouchableOpacity>
               </View>
             </Collapsible>
+            <Modal
+              style={[
+                globalStyles.shadowEffect,
+                {
+                  width: SIZES.width - 16,
+                  marginTop: 80,
+                  marginHorizontal: 8,
+                  backgroundColor: COLORS.white,
+                },
+              ]}
+              supportedOrientations={['portrait']}
+              backdropOpacity={0}
+              presentationStyle="overFullScreen"
+              animationOut="slideOutDown"
+              isVisible={visible}
+              animationIn="slideInUp">
+              <View style={styles.addToCartWrapper}>
+                <View style={{paddingLeft: 20, paddingTop: 5,marginBottom: 10}}>
+                  <TouchableOpacity onPress={() => showModal()}>
+                    <Image
+                      source={images.close}
+                      style={{
+                        width: 24,
+                        height: 24,
+                        marginRight: 10,
+                        alignSelf: 'flex-end',
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <ScrollView
+                  contentContainerStyle={{flex: 1,marginHorizontal: 20}}>
+                  <Text containerStyle={[globalStyles.text,{ lineHeight: 50, textTransform:'uppercase'}]}>2 Items In Cart</Text>
+                </ScrollView>
+                <Divider backgroundColor={COLORS.border} width={SIZES.width-40} />
+                <View style={{}}>
+                  <View style={{width: 238,flexDirection:'row', justifyContent:'space-between',alignSelf:'center'}}>
+                    <Text containerStyle={[globalStyles.text_avenir_medium,{textTransform: 'uppercase'}]}>Sub Total</Text>
+                    <Text containerStyle={[globalStyles.text_avenir_medium]}>$50 USD</Text>
+                  </View>
+                <Spacer mt={20} />
+
+                  <OutlineButton
+                  textStyleContainer={{color: COLORS.white}}
+                    containerStyle={{
+                      backgroundColor: COLORS.footerColor,
+                      borderColor: COLORS.footerColor,
+                      alignSelf: 'center',
+                      width: 238
+                    }}
+                    title={'Proceed To Checkout'}
+                    onPress={() => {}}
+                  />
+                </View>
+                <Spacer mt={20} />
+              </View>
+            </Modal>
           </>
         );
       },
     });
-  }, [isSearchOpen, searchText]);
+  }, [isSearchOpen, searchText, showCart, visible]);
 
   return (
     <>
@@ -103,7 +188,7 @@ export default function Header({headerContainerStyle={}}) {
 
 const styles = StyleSheet.create({
   header: {
-    height: Platform.OS == 'ios' ? 100 : 80,
+    height: Platform.OS == 'ios' ? 70 : 60,
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
@@ -121,11 +206,17 @@ const styles = StyleSheet.create({
   globeWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginLeft: 5,
   },
   rightText: {
     fontFamily: FONTS.AvenirMedium,
     letterSpacing: 1.6,
     fontSize: SIZES.body3,
     marginLeft: -5,
+  },
+  addToCartWrapper: {
+    backgroundColor: COLORS.white,
+    flex: 1,
+    marginTop: 10,
   },
 });

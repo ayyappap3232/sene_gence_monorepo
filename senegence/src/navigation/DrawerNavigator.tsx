@@ -21,13 +21,22 @@ import FindADistributor from '../screens/AnonymousScreens/FindADistributor/FindA
 import StartABusiness from '../screens/AnonymousScreens/StartABusiness/StartABusiness';
 import SearchScreen from '../screens/AnonymousScreens/Search/SearchScreen';
 import FilterDrawer from '../components/drawers/FilterDrawer';
-import { SIZES } from '../constants';
+import {SIZES} from '../constants';
 import Press from '../screens/AnonymousScreens/About_Us_Pages/Press';
 import TermsAndConditions from '../screens/AnonymousScreens/CopyRightScreens/TermsAndConditions';
+import CopyrightDMCAPolicy from '../screens/AnonymousScreens/CopyRightScreens/CopyrightDMCAPolicy';
 
 const Drawer = createDrawerNavigator();
 
 const Stack = createNativeStackNavigator();
+
+// const RootStack = () => {
+//   return <Stack.Navigator>
+//     <Stack.Group screenOptions={{presentation:"transparentModal", headerShown: false, gestureEnabled: true}}>
+//       <Stack.Screen  name={ScreenNames.ShowCartScreen} component={ShowCartScreen}/>
+//     </Stack.Group>
+//   </Stack.Navigator>
+// }
 
 const DrawerNavigator = () => {
   const {getCategories, loading, error, categoryData} = useCategories({
@@ -48,60 +57,78 @@ const DrawerNavigator = () => {
       drawerContent={props => (
         <CustomDrawerContent {...props} categoryData={categoryData} />
       )}>
-      <Drawer.Screen
-        name={ScreenNames.StartUpDrawer}
-        options={{
-          drawerLabel: () => null,
-          drawerIcon: undefined,
-          title: undefined,
-        }}
-        component={StartUpPage}
-      />
-      <Drawer.Screen
-        name={ScreenNames.CategoryItem}
-        component={CategoryScreen}
-      />
-      <Drawer.Screen
-        name={ScreenNames.CategoryDetails}
-        component={CategoryDetailsScreen}
-      />
-      <Drawer.Screen
-        name={ScreenNames.ExecutiveManagementTeam}
-        component={ExecutiveManagementTeam}
-      />
-      <Drawer.Screen name={ScreenNames.AboutUs} component={AboutUs} />
-      <Drawer.Screen
-        name={ScreenNames.MeetTheFounder}
-        component={MeetTheFounder}
-      />
-      <Drawer.Screen name={ScreenNames.ContactUs} component={ContactUs} />
-      <Drawer.Screen
-        name={ScreenNames.SelectYourCountry}
-        component={SelectCountry}
-      />
-      <Drawer.Screen
-        name={ScreenNames.MakeSenseFoundation}
-        component={MakeSenseFoundation}
-      />
-      <Drawer.Screen
-        name={ScreenNames.FindADistributor}
-        component={FindADistributor}
-      />
-      <Drawer.Screen
-        name={ScreenNames.StartABusiness}
-        component={StartABusiness}
-      />
-      <Drawer.Screen name={ScreenNames.SearchScreen} component={SearchScreen} />
-      <Drawer.Screen
-        options={{
-          headerShown: false,
-        }}
-        name={ScreenNames.FilterDrawerItems}
-        component={FilterDrawer}
-      />
-      <Drawer.Screen name={ScreenNames.Press} component={Press} />
-      <Drawer.Screen name={ScreenNames.TermsAndConditions} component={TermsAndConditions} />
-
+      <Drawer.Group>
+        <Drawer.Screen
+          name={ScreenNames.StartUpDrawer}
+          options={{
+            drawerLabel: () => null,
+            drawerIcon: undefined,
+            title: undefined,
+          }}
+          component={StartUpPage}
+        />
+        <Drawer.Screen
+          name={ScreenNames.CategoryItem}
+          component={CategoryScreen}
+        />
+        <Drawer.Screen
+          name={ScreenNames.CategoryDetails}
+          component={CategoryDetailsScreen}
+        />
+        <Drawer.Screen
+          name={ScreenNames.ExecutiveManagementTeam}
+          component={ExecutiveManagementTeam}
+        />
+        <Drawer.Screen name={ScreenNames.AboutUs} component={AboutUs} />
+        <Drawer.Screen
+          name={ScreenNames.MeetTheFounder}
+          component={MeetTheFounder}
+        />
+        <Drawer.Screen name={ScreenNames.ContactUs} component={ContactUs} />
+        <Drawer.Screen
+          name={ScreenNames.SelectYourCountry}
+          component={SelectCountry}
+        />
+        <Drawer.Screen
+          name={ScreenNames.MakeSenseFoundation}
+          component={MakeSenseFoundation}
+        />
+        <Drawer.Screen
+          name={ScreenNames.FindADistributor}
+          component={FindADistributor}
+        />
+        <Drawer.Screen
+          name={ScreenNames.StartABusiness}
+          component={StartABusiness}
+        />
+        <Drawer.Screen
+          name={ScreenNames.SearchScreen}
+          component={SearchScreen}
+        />
+        <Drawer.Screen
+          options={{
+            headerShown: false,
+          }}
+          name={ScreenNames.FilterDrawerItems}
+          component={FilterDrawer}
+        />
+        <Drawer.Screen name={ScreenNames.Press} component={Press} />
+        <Drawer.Screen
+          name={ScreenNames.TermsAndConditions}
+          component={TermsAndConditions}
+        />
+        <Drawer.Screen
+          name={ScreenNames.CopyrightDMCAPolicy}
+          component={CopyrightDMCAPolicy}
+        />
+      </Drawer.Group>
+      {/* <Drawer.Group screenOptions={{}}>
+        <Drawer.Screen
+        options={{headerShown: false}}
+          name={ScreenNames.ListOfStacks}
+          component={RootStack}
+        />
+      </Drawer.Group> */}
     </Drawer.Navigator>
   );
 };

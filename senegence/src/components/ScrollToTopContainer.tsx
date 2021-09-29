@@ -7,7 +7,7 @@ import Header from './headers/Header';
 import {COLORS} from '../constants';
 import { useNavigation } from '@react-navigation/native';
 
-export const ScrollToTopContainer = ({children,nestedScrollEnabled = true, containerStyle={},scrollContainerStyle={}, scrollContentContainerStyle={}, headerContainerStyle={}}: any) => {
+export const ScrollToTopContainer = ({children,nestedScrollEnabled = true, containerStyle={},scrollContainerStyle={}, scrollContentContainerStyle={}, headerContainerStyle={}, showCart=false}: any) => {
   //ScrollTo Top Functionality
   const scrollRef = useRef<ScrollView>();
   const [showPageUp, setShowPageUp] = useState(false);
@@ -21,9 +21,10 @@ export const ScrollToTopContainer = ({children,nestedScrollEnabled = true, conta
 
   return (
     <SafeAreaView style={[styles.container, containerStyle]}>
-      <Header headerContainerStyle={headerContainerStyle}/>
+      <Header headerContainerStyle={headerContainerStyle} showCart={showCart}/>
       <ScrollView
       scrollEventThrottle={16}
+      showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="always"
         nestedScrollEnabled={nestedScrollEnabled}
         onScroll={e => {

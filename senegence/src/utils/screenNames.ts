@@ -16,5 +16,7 @@ export const ScreenNames = {
     FilterDrawerItems: "FilterDrawerItems",
     ListOfStacks: "ListOfStacks",
     Press: "Press",
-    TermsAndConditions:"TermsAndConditions"
+    TermsAndConditions:"TermsAndConditions",
+    ShowCartScreen: "ShowCartScreen",
+    CopyrightDMCAPolicy:"CopyrightDMCAPolicy"
 }
