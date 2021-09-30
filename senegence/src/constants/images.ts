@@ -55,6 +55,7 @@ const truck = require("../../assets/images/categories/truck.png")
 const discount = require("../../assets/images/categories/discount.png")
 const exclusive = require("../../assets/images/categories/exclusive.png")
 const kisscredits = require("../../assets/images/categories/kisscredits.png")
+const share = require("../../assets/images/share.png")
 
 const plus = require("../../assets/images/plus.png")
 const minus = require("../../assets/images/minus.png")
@@ -170,6 +171,9 @@ const TranslucentPowders_Lifestyle = require("../../assets/images/press/Transluc
 const VolumizingBrowGelLifestyle = require("../../assets/images/press/VolumizingBrowGelLifestyle.png")
 const winnershapebeautyaward = require("../../assets/images/press/winnershapebeautyaward.png")
 const winnershapebeautyaward_2 = require("../../assets/images/press/winnershapebeautyaward_2.png")
+
+//shopping cart
+const shoppingbag = require("../../assets/images/shoppingcart/shoppingbag.png")
 
 export default {
     aclaim2,
@@ -297,6 +301,7 @@ export default {
     nosearchresultsfound,
     dropdowncaret,
     search,
-    globe
-
+    globe,
+    shoppingbag,
+    share
 }

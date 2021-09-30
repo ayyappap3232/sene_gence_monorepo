@@ -222,10 +222,9 @@ export default function StartUpPage() {
     );
   };
 
-  
-
   return (
-    <ScrollToTopContainer>
+    <>
+    <ScrollToTopContainer showCart={true} isBannerShownOnInitialLoad={true}>
       <View style={{paddingHorizontal: 29}}>
         <HomeCarousel carouselData={homeCarouselData} />
         <OutlineButton title={'SHOP & SAVE'} onPress={() => {}} />
@@ -305,6 +304,7 @@ export default function StartUpPage() {
         <Spacer mt={40} />
         </View>
     </ScrollToTopContainer>
+    </>
   );
 }
 

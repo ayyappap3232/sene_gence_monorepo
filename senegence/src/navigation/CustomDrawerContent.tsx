@@ -122,8 +122,10 @@ const CustomDrawerContent = (props: any) => {
     index: any,
     setSelectedItem?: any,
     selectedItem?: any,
+    collapsed?: boolean
   ) => {
     return (
+      <Collapsible collapsed={collapsed}>
       <TouchableOpacity
         key={`${index}${item.name}`}
         style={[
@@ -166,6 +168,7 @@ const CustomDrawerContent = (props: any) => {
           </TouchableOpacity>
         )}
       </TouchableOpacity>
+      </Collapsible>
     );
   };
 
@@ -181,6 +184,7 @@ const CustomDrawerContent = (props: any) => {
                   index,
                   setSelectedItemIndex,
                   selectedItemIndex,
+                  false
                 )}
                 {index + item.name == selectedItemIndex.id &&
                           selectedItemIndex.toggle &&
@@ -193,12 +197,17 @@ const CustomDrawerContent = (props: any) => {
                           index,
                           setSelectedChildItemIndex,
                           selectedChildItemIndex,
+                          (index+item.name == selectedItemIndex.id) &&
+                          selectedItemIndex.toggle &&
+                          item.children.length > 0,
                         )}
                         {index + item.name == selectedChildItemIndex.id &&
                               selectedChildItemIndex.toggle &&
                               item.children.length > 0 && 
                           item.children.map((item, index) => {
-                            return _renderMenuItem(item, index );
+                            return _renderMenuItem(item, index ,undefined,undefined,(index+item.name == selectedChildItemIndex.id) &&
+                              selectedChildItemIndex.toggle &&
+                              item.children.length > 0);
                           })}
                       </React.Fragment>
                     );

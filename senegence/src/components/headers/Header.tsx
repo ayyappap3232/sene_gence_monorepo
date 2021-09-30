@@ -9,7 +9,13 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import {AppLogo, Globe, HamburgerMenu, Search} from '../../../assets/svgs';
+import {
+  AppLogo,
+  Close,
+  Globe,
+  HamburgerMenu,
+  Search,
+} from '../../../assets/svgs';
 import {COLORS, FONTS, images, SIZES} from '../../constants';
 import Spacer from '../Spacer';
 import OutlineTextInput from '../textInputs/OutlineTextInput';
@@ -20,11 +26,17 @@ import {globalStyles} from '../../globalstyles/GlobalStyles';
 import OutlineButton from '../buttons/OutlineButton';
 import Text from '../text/Text';
 import Divider from '../dividers/Divider';
+import IntroBanner from '../banners/IntroBanner';
 
-export default function Header({headerContainerStyle = {}, showCart = false}) {
+export default function Header({
+  headerContainerStyle = {},
+  showCart = false,
+  isBannerShownOnInitialLoad = false,
+}) {
   const navigation = useNavigation<any>();
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [searchText, setSearchText] = useState('');
+  const [bannerShown, setBannerShown] = useState(isBannerShownOnInitialLoad);
 
   const handleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -44,6 +56,9 @@ export default function Header({headerContainerStyle = {}, showCart = false}) {
       header: () => {
         return (
           <>
+            {bannerShown && (
+              <IntroBanner bannerShown={bannerShown} setBannerShown={setBannerShown}/>
+            )}
             <SafeAreaView style={[styles.header, headerContainerStyle]}>
               <View style={styles.headerContent}>
                 <TouchableOpacity
@@ -74,10 +89,13 @@ export default function Header({headerContainerStyle = {}, showCart = false}) {
                 {showCart && (
                   <TouchableOpacity onPress={() => showModal()}>
                     <Image
-                      source={images.search}
+                      source={images.shoppingbag}
                       style={{width: 16, height: 16, marginHorizontal: 5}}
                       resizeMode="contain"
                     />
+                    <View style={{position:'absolute',bottom: 14,right:-5,justifyContent:'center',alignItems:'center',backgroundColor: COLORS.footerColor, width: 16, height: 16,borderRadius: 10}}>
+                      <Text containerStyle={{fontSize: SIZES.body5,color: COLORS.white}}>2</Text>
+                    </View>
                   </TouchableOpacity>
                 )}
                 <View
@@ -133,7 +151,8 @@ export default function Header({headerContainerStyle = {}, showCart = false}) {
               isVisible={visible}
               animationIn="slideInUp">
               <View style={styles.addToCartWrapper}>
-                <View style={{paddingLeft: 20, paddingTop: 5,marginBottom: 10}}>
+                <View
+                  style={{paddingLeft: 20, paddingTop: 5, marginBottom: 10}}>
                   <TouchableOpacity onPress={() => showModal()}>
                     <Image
                       source={images.close}
@@ -147,24 +166,47 @@ export default function Header({headerContainerStyle = {}, showCart = false}) {
                   </TouchableOpacity>
                 </View>
                 <ScrollView
-                  contentContainerStyle={{flex: 1,marginHorizontal: 20}}>
-                  <Text containerStyle={[globalStyles.text,{ lineHeight: 50, textTransform:'uppercase'}]}>2 Items In Cart</Text>
+                  contentContainerStyle={{flex: 1, marginHorizontal: 20}}>
+                  <Text
+                    containerStyle={[
+                      globalStyles.text,
+                      {lineHeight: 50, textTransform: 'uppercase'},
+                    ]}>
+                    2 Items In Cart
+                  </Text>
                 </ScrollView>
-                <Divider backgroundColor={COLORS.border} width={SIZES.width-40} />
+                <Divider
+                  backgroundColor={COLORS.border}
+                  width={SIZES.width - 40}
+                />
                 <View style={{}}>
-                  <View style={{width: 238,flexDirection:'row', justifyContent:'space-between',alignSelf:'center'}}>
-                    <Text containerStyle={[globalStyles.text_avenir_medium,{textTransform: 'uppercase'}]}>Sub Total</Text>
-                    <Text containerStyle={[globalStyles.text_avenir_medium]}>$50 USD</Text>
+                  <View
+                    style={{
+                      width: 238,
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignSelf: 'center',
+                    }}>
+                    <Text
+                      containerStyle={[
+                        globalStyles.text_avenir_medium,
+                        {textTransform: 'uppercase'},
+                      ]}>
+                      Sub Total
+                    </Text>
+                    <Text containerStyle={[globalStyles.text_avenir_medium]}>
+                      $50 USD
+                    </Text>
                   </View>
-                <Spacer mt={20} />
+                  <Spacer mt={20} />
 
                   <OutlineButton
-                  textStyleContainer={{color: COLORS.white}}
+                    textStyleContainer={{color: COLORS.white}}
                     containerStyle={{
                       backgroundColor: COLORS.footerColor,
                       borderColor: COLORS.footerColor,
                       alignSelf: 'center',
-                      width: 238
+                      width: 238,
                     }}
                     title={'Proceed To Checkout'}
                     onPress={() => {}}
@@ -177,7 +219,7 @@ export default function Header({headerContainerStyle = {}, showCart = false}) {
         );
       },
     });
-  }, [isSearchOpen, searchText, showCart, visible]);
+  }, [isSearchOpen, searchText, showCart, visible, bannerShown]);
 
   return (
     <>
