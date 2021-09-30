@@ -93,7 +93,6 @@ export default function Header({
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
-                {/* Replace with cart icon and count */}
                 {showCart && (
                   <TouchableOpacity onPress={() => showModal()}>
                     <Image

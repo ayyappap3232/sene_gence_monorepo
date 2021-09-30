@@ -231,6 +231,10 @@ export default function CategoryScreen() {
       <View style={{marginLeft: 20}}>
         <BreadCrumbWithOneLevelUp title={name} />
       </View>
+      {total_count > 0 && <>
+        <Spacer mt={10}/>
+        <Text containerStyle={{marginLeft: 20}}>ITEMS {(currentPage-1)*pageSize+1} - {pageSize*currentPage} OF {total_count} </Text>
+      </>}
       {_filters()}
       <FlatList
         scrollEnabled={false}
