@@ -9,11 +9,12 @@ import {
   View,
   Animated,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import {useCategoryList} from '../../apollo/controllers/getCategoryList.Controller';
 import {useSearchCategoryList} from '../../apollo/controllers/getSearchCategoryList.Controller';
 import {Item} from '../../apollo/services/apollo/queries/categories/categoryList';
-import {COLORS, FONTS, SIZES} from '../../constants';
+import {COLORS, FONTS, images, SIZES} from '../../constants';
 import SimilarProducts from '../../screens/AnonymousScreens/PDP_Pages/SimilarProductsScreen';
 import {
   carouselTypes,
@@ -113,8 +114,13 @@ export default function CategoryDetailsItemComponent({
   const _titleWithSku = () => {
     return (
       <View style={styles.titleSkuWrapper}>
-        <Text containerStyle={styles.name}>{name}</Text>
-        <Text># {sku}</Text>
+        <View style={{flex: 1, flexDirection:'row',flexWrap:'wrap'}}>
+          <Text containerStyle={styles.name}>{name}</Text>
+          <Text># {sku}</Text>
+        </View>
+        <TouchableOpacity>
+          <Image source={images.share} style={{width: 22, height: 22, marginRight: 10}}/>
+        </TouchableOpacity>
       </View>
     );
   };

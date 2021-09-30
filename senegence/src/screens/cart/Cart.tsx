@@ -8,7 +8,7 @@ import ActivityIndicator from '../../components/spinners/ActivityIndicator';
 export default function Cart() {
     const cart_id = "";
 
-    const {getCart,loading, error} = useCart({cartId: cart_id})
+    const {getCart,loading, error, cartData} = useCart({cartId: cart_id})
 
     useEffect(() => {
        getCart();
@@ -22,6 +22,7 @@ export default function Cart() {
         return <Text>{error.message}</Text>
     }
 
+    console.log('cart data',cartData);
     return (
         <View>
             <Text>Cart Details</Text>

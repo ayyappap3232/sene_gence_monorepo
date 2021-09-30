@@ -25,6 +25,9 @@ import {SIZES} from '../constants';
 import Press from '../screens/AnonymousScreens/About_Us_Pages/Press';
 import TermsAndConditions from '../screens/AnonymousScreens/CopyRightScreens/TermsAndConditions';
 import CopyrightDMCAPolicy from '../screens/AnonymousScreens/CopyRightScreens/CopyrightDMCAPolicy';
+import MainShoppingCartBag from '../screens/AnonymousScreens/ShoppingCart_Pages/MainShoppingCartBag';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useCart } from '../hooks/cart/useCart';
 
 const Drawer = createDrawerNavigator();
 
@@ -47,6 +50,18 @@ const DrawerNavigator = () => {
     getCategories();
   }, [getCategories]);
 
+  const {cartId} = useCart();
+
+  useEffect(() => {
+    AsyncStorage.getItem('cartId').then(value => {
+      if(value != null){
+        return;
+      }else {
+        AsyncStorage.setItem('cartId', cartId);
+      }
+    })
+  }, [])
+
   if (loading) {
     return <ActivityIndicator />;
   }
@@ -54,6 +69,7 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       screenOptions={{drawerType: 'front', drawerStyle: {width: 293}}}
+      initialRouteName={ScreenNames.MainShoppingCartBag}
       drawerContent={props => (
         <CustomDrawerContent {...props} categoryData={categoryData} />
       )}>
@@ -120,6 +136,10 @@ const DrawerNavigator = () => {
         <Drawer.Screen
           name={ScreenNames.CopyrightDMCAPolicy}
           component={CopyrightDMCAPolicy}
+        />
+        <Drawer.Screen
+          name={ScreenNames.MainShoppingCartBag}
+          component={MainShoppingCartBag}
         />
       </Drawer.Group>
       {/* <Drawer.Group screenOptions={{}}>

@@ -227,7 +227,7 @@ export default function CategoryScreen() {
 
 
   return (
-    <ScrollToTopContainer>
+    <ScrollToTopContainer showCart={false}>
       <View style={{marginLeft: 20}}>
         <BreadCrumbWithOneLevelUp title={name} />
       </View>

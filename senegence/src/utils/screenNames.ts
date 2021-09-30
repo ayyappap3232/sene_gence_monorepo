@@ -18,5 +18,6 @@ export const ScreenNames = {
     Press: "Press",
     TermsAndConditions:"TermsAndConditions",
     ShowCartScreen: "ShowCartScreen",
-    CopyrightDMCAPolicy:"CopyrightDMCAPolicy"
+    CopyrightDMCAPolicy:"CopyrightDMCAPolicy",
+    MainShoppingCartBag:"MainShoppingCartBag"
 }

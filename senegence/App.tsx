@@ -15,12 +15,16 @@ import { apolloClient } from './src/apollo/services/client';
 import { persistCache, AsyncStorageWrapper } from 'apollo3-cache-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ActivityIndicator from './src/components/spinners/ActivityIndicator';
+import { useCart } from './src/hooks/cart/useCart';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
 
   const [user, setUser] = useState(null);
+
+ 
+
 
   const [darkApp, setDarkApp] = useState(false)
   const appTheme = darkApp ? DarkTheme : DefaultTheme;
