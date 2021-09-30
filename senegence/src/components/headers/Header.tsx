@@ -27,6 +27,8 @@ import OutlineButton from '../buttons/OutlineButton';
 import Text from '../text/Text';
 import Divider from '../dividers/Divider';
 import IntroBanner from '../banners/IntroBanner';
+import minishoppingbag from '../shoppingcartbags/Minishoppingbag';
+import Minishoppingbag from '../shoppingcartbags/Minishoppingbag';
 
 export default function Header({
   headerContainerStyle = {},
@@ -57,7 +59,7 @@ export default function Header({
         return (
           <>
             {bannerShown && (
-              <IntroBanner bannerShown={bannerShown} setBannerShown={setBannerShown}/>
+              <SafeAreaView><IntroBanner bannerShown={bannerShown} setBannerShown={setBannerShown}/></SafeAreaView>
             )}
             <SafeAreaView style={[styles.header, headerContainerStyle]}>
               <View style={styles.headerContent}>
@@ -165,54 +167,9 @@ export default function Header({
                     />
                   </TouchableOpacity>
                 </View>
-                <ScrollView
-                  contentContainerStyle={{flex: 1, marginHorizontal: 20}}>
-                  <Text
-                    containerStyle={[
-                      globalStyles.text,
-                      {lineHeight: 50, textTransform: 'uppercase'},
-                    ]}>
-                    2 Items In Cart
-                  </Text>
-                </ScrollView>
-                <Divider
-                  backgroundColor={COLORS.border}
-                  width={SIZES.width - 40}
-                />
-                <View style={{}}>
-                  <View
-                    style={{
-                      width: 238,
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignSelf: 'center',
-                    }}>
-                    <Text
-                      containerStyle={[
-                        globalStyles.text_avenir_medium,
-                        {textTransform: 'uppercase'},
-                      ]}>
-                      Sub Total
-                    </Text>
-                    <Text containerStyle={[globalStyles.text_avenir_medium]}>
-                      $50 USD
-                    </Text>
-                  </View>
-                  <Spacer mt={20} />
-
-                  <OutlineButton
-                    textStyleContainer={{color: COLORS.white}}
-                    containerStyle={{
-                      backgroundColor: COLORS.footerColor,
-                      borderColor: COLORS.footerColor,
-                      alignSelf: 'center',
-                      width: 238,
-                    }}
-                    title={'Proceed To Checkout'}
-                    onPress={() => {}}
-                  />
-                </View>
-                <Spacer mt={20} />
+                
+                  <Minishoppingbag />
+                
               </View>
             </Modal>
           </>

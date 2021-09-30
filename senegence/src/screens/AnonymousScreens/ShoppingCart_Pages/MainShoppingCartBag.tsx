@@ -4,6 +4,7 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp'
 import OutlineButton from '../../../components/buttons/OutlineButton'
 import { ScrollToTopContainer } from '../../../components/ScrollToTopContainer'
+import Mainshoppingbag from '../../../components/shoppingcartbags/Mainshoppingbag'
 import Spacer from '../../../components/Spacer'
 import Text from '../../../components/text/Text'
 import TextWithUnderLine from '../../../components/text/TextWithUnderLine'
@@ -35,8 +36,7 @@ export default function MainShoppingCartBag() {
                 </View>
                 <Spacer mt={21}/>
                 <TextWithUnderLine title={"Shopping Bag"}/>
-                <Spacer mt={29}/>
-                <Text containerStyle={{textAlign:'center'}}>Cart is Empty</Text>
+                <Mainshoppingbag />
                 <Spacer mt={40}/>
                 <OutlineButton
                     textStyleContainer={{color: COLORS.white}}
@@ -51,7 +51,6 @@ export default function MainShoppingCartBag() {
                   />
                 <Spacer mt={40}/>
                 <TextWithUnderLine title={"Items You May Like"}/>
-
             </View>
         </ScrollToTopContainer>
     )

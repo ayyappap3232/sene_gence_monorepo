@@ -59,6 +59,8 @@ const share = require("../../assets/images/share.png")
 
 const plus = require("../../assets/images/plus.png")
 const minus = require("../../assets/images/minus.png")
+const deleteIcon = require("../../assets/images/delete.png")
+const editIcon = require("../../assets/images/pencil.png")
 
 const executiveManagementTeam = require("../../assets/images/executiveManagementTeam.png")
 
@@ -303,5 +305,7 @@ export default {
     search,
     globe,
     shoppingbag,
-    share
+    share,
+    deleteIcon,
+    editIcon
 }
