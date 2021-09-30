@@ -29,6 +29,7 @@ import Divider from '../dividers/Divider';
 import IntroBanner from '../banners/IntroBanner';
 import minishoppingbag from '../shoppingcartbags/Minishoppingbag';
 import Minishoppingbag from '../shoppingcartbags/Minishoppingbag';
+import {miniShoppingCartData} from '../../utils/data/MiniShoppingBagData';
 
 export default function Header({
   headerContainerStyle = {},
@@ -59,7 +60,12 @@ export default function Header({
         return (
           <>
             {bannerShown && (
-              <SafeAreaView><IntroBanner bannerShown={bannerShown} setBannerShown={setBannerShown}/></SafeAreaView>
+              <SafeAreaView>
+                <IntroBanner
+                  bannerShown={bannerShown}
+                  setBannerShown={setBannerShown}
+                />
+              </SafeAreaView>
             )}
             <SafeAreaView style={[styles.header, headerContainerStyle]}>
               <View style={styles.headerContent}>
@@ -95,8 +101,25 @@ export default function Header({
                       style={{width: 16, height: 16, marginHorizontal: 5}}
                       resizeMode="contain"
                     />
-                    <View style={{position:'absolute',bottom: 14,right:-5,justifyContent:'center',alignItems:'center',backgroundColor: COLORS.footerColor, width: 16, height: 16,borderRadius: 10}}>
-                      <Text containerStyle={{fontSize: SIZES.body5,color: COLORS.white}}>2</Text>
+                    <View
+                      style={{
+                        position: 'absolute',
+                        bottom: 14,
+                        right: -5,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: COLORS.footerColor,
+                        width: 16,
+                        height: 16,
+                        borderRadius: 10,
+                      }}>
+                      <Text
+                        containerStyle={{
+                          fontSize: SIZES.body5,
+                          color: COLORS.white,
+                        }}>
+                        {miniShoppingCartData?.length}
+                      </Text>
                     </View>
                   </TouchableOpacity>
                 )}
@@ -167,9 +190,8 @@ export default function Header({
                     />
                   </TouchableOpacity>
                 </View>
-                
-                  <Minishoppingbag />
-                
+
+                <Minishoppingbag miniShoppingCartData={miniShoppingCartData} />
               </View>
             </Modal>
           </>

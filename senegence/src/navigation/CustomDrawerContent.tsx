@@ -427,6 +427,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.AvenirLight,
     fontSize: 14,
     letterSpacing: 0.35,
+    width:SIZES.width - 150
   },
   signupButton: {
     width: 114,

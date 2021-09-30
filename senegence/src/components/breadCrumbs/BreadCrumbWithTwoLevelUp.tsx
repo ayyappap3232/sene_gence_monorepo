@@ -22,7 +22,7 @@ export default function BreadCrumbWithTwoLevelUp({oneLevelTitle, oneLevelUrlPath
         <Text containerStyle={[styles.commonText, {marginHorizontal: 10}]}>
           /
         </Text>
-        <TouchableOpacity
+        {!!oneLevelTitle && <><TouchableOpacity
           onPress={() => navigation.navigate(ScreenNames.CategoryItem,{categoryData: {name: oneLevelTitle, url_path: oneLevelUrlPath}})}>
             <Text
             containerStyle={[
@@ -34,7 +34,7 @@ export default function BreadCrumbWithTwoLevelUp({oneLevelTitle, oneLevelUrlPath
         </TouchableOpacity>
         <Text containerStyle={[styles.commonText, {marginHorizontal: 10}]}>
           /
-        </Text>
+        </Text></>}
         <Text
             containerStyle={[
                 styles.commonText,
