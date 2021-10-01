@@ -19,7 +19,7 @@ export default function FAQS() {
   const _headerImageView = () => {
     return (
       <ImageBackground
-        source={images.aboutusbanner}
+        source={images.faqbanner}
         style={{width: 334, height: 314, alignSelf: 'center'}}
         resizeMode="cover">
         <Spacer mt={28} />
@@ -50,7 +50,6 @@ export default function FAQS() {
           ]}>
           You can also browse the topics below to find what you are looking for.
         </Text>
-        <Overlay />
       </ImageBackground>
     );
   };
