@@ -132,6 +132,7 @@ export default function FAQS() {
           <Text containerStyle={[globalStyles.text, {textAlign: 'center'}]}>
             Leave your message and we will get back to you shortly
           </Text>
+          <Spacer mt={20} />
           {_inputItem('Full Name', {}, 'Enter Your Full Name...')}
           {_inputItem('Email', {}, 'Enter Your Email...')}
           {_inputItem('Phone', {}, 'Enter Your Phone...')}
@@ -143,9 +144,18 @@ export default function FAQS() {
             true,
           )}
           <Spacer mt={30} />
-          <OutlineButton title={"Submit"} textStyleContainer={{color: COLORS.white}} onPress={() => {}} containerStyle={{alignSelf: 'center', width: 180, backgroundColor: COLORS.footerColor, borderColor: COLORS.footerColor}}/>
+          <OutlineButton
+            title={'Submit'}
+            textStyleContainer={{color: COLORS.white}}
+            onPress={() => {}}
+            containerStyle={{
+              alignSelf: 'center',
+              width: 180,
+              backgroundColor: COLORS.footerColor,
+              borderColor: COLORS.footerColor,
+            }}
+          />
           <Spacer mt={4} />
-        
         </View>
       </View>
     );
