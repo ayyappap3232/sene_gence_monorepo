@@ -12,7 +12,9 @@ export default function CustomAccordian({
   borderBottomWidth = 0,
   borderTopColor = COLORS.border,
   borderBottomColor = COLORS.border,
-  noContentTextFound=""
+  noContentTextFound="",
+  titleContainerStyle={},
+  sectionContainerStyle={}
 }) {
   const [activeSections, setActiveSections] = useState([]);
 
@@ -30,7 +32,7 @@ export default function CustomAccordian({
           paddingVertical: 10,
         }}>
         <Text
-          containerStyle={styles.title}>
+          containerStyle={[styles.title,titleContainerStyle]}>
           {section.title}
         </Text>
         {!isActive ? (
@@ -47,7 +49,7 @@ export default function CustomAccordian({
         html: section.content
     }
     return section.content ? (
-      <View style={{width:SIZES.width / 1.2}}>
+      <View style={[{width:SIZES.width / 1.2},sectionContainerStyle]}>
           <RenderHtml contentWidth={SIZES.width}  source={source} />
       </View>
     ) : (

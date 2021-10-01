@@ -28,6 +28,7 @@ import CopyrightDMCAPolicy from '../screens/AnonymousScreens/CopyRightScreens/Co
 import MainShoppingCartBag from '../screens/AnonymousScreens/ShoppingCart_Pages/MainShoppingCartBag';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCart } from '../hooks/cart/useCart';
+import FAQS from '../screens/AnonymousScreens/FreaquentlyAsked_Pages/FAQS';
 
 const Drawer = createDrawerNavigator();
 
@@ -140,6 +141,10 @@ const DrawerNavigator = () => {
         <Drawer.Screen
           name={ScreenNames.MainShoppingCartBag}
           component={MainShoppingCartBag}
+        />
+        <Drawer.Screen
+          name={ScreenNames.FAQS}
+          component={FAQS}
         />
       </Drawer.Group>
       {/* <Drawer.Group screenOptions={{}}>
