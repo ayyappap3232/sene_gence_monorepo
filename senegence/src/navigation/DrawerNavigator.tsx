@@ -31,6 +31,7 @@ import { useCart } from '../hooks/cart/useCart';
 import { View } from 'react-native';
 import Text from '../components/text/Text';
 import OutlineButton from '../components/buttons/OutlineButton';
+import FAQS from '../screens/AnonymousScreens/FreaquentlyAsked_Pages/FAQS';
 
 const Drawer = createDrawerNavigator();
 
@@ -160,6 +161,10 @@ const DrawerNavigator = () => {
         <Drawer.Screen
           name={ScreenNames.MainShoppingCartBag}
           component={MainShoppingCartBag}
+        />
+        <Drawer.Screen
+          name={ScreenNames.FAQS}
+          component={FAQS}
         />
       </Drawer.Group>
       {/* <Drawer.Group screenOptions={{}}>

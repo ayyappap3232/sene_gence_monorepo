@@ -107,5 +107,13 @@ export const globalStyles = StyleSheet.create({
         shadowOffset: {width: 0, height: 2},
         shadowRadius: 3.84,
         shadowOpacity: 0.25,
+      },
+      bannerTitle: {
+        fontFamily: FONTS.BebasNeueBold,
+        fontSize: SIZES.veryLargeTitle,
+        lineHeight: 80,
+        letterSpacing: 3.5,
+        textAlign:'center',
+        color: COLORS.white
       }
 })
