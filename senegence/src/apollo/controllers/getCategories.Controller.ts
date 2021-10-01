@@ -28,10 +28,6 @@ export const useCategories = (props: Props): Result => {
     }
   );
 
-  if(error){
-      console.log('error',error)
-  }
-
   useEffect(() => {
     if (data) {
       setCategoryData(data);

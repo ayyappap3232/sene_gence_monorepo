@@ -21,13 +21,16 @@ import FindADistributor from '../screens/AnonymousScreens/FindADistributor/FindA
 import StartABusiness from '../screens/AnonymousScreens/StartABusiness/StartABusiness';
 import SearchScreen from '../screens/AnonymousScreens/Search/SearchScreen';
 import FilterDrawer from '../components/drawers/FilterDrawer';
-import {SIZES} from '../constants';
+import {COLORS, SIZES} from '../constants';
 import Press from '../screens/AnonymousScreens/About_Us_Pages/Press';
 import TermsAndConditions from '../screens/AnonymousScreens/CopyRightScreens/TermsAndConditions';
 import CopyrightDMCAPolicy from '../screens/AnonymousScreens/CopyRightScreens/CopyrightDMCAPolicy';
 import MainShoppingCartBag from '../screens/AnonymousScreens/ShoppingCart_Pages/MainShoppingCartBag';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCart } from '../hooks/cart/useCart';
+import { View } from 'react-native';
+import Text from '../components/text/Text';
+import OutlineButton from '../components/buttons/OutlineButton';
 
 const Drawer = createDrawerNavigator();
 
@@ -64,6 +67,23 @@ const DrawerNavigator = () => {
 
   if (loading) {
     return <ActivityIndicator />;
+  }
+
+  if (error) {
+    console.log('error',error.message)
+    return (
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          flex: 1,
+          backgroundColor: COLORS.border,
+        }}>
+        <Text>OOPS!!!</Text>
+        <Text>Network request failed</Text>
+        <OutlineButton loading={loading} containerStyle={{ width: 234,borderColor: COLORS.red, alignSelf: 'center',backgroundColor:COLORS.red}} textStyleContainer={{color:COLORS.white}} title={"Try Again"} onPress={() => getCategories()}/>
+      </View>
+    );
   }
 
   return (

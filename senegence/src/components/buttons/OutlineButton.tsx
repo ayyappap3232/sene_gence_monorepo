@@ -2,12 +2,13 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { COLORS, FONTS } from '../../constants'
 import { IOutlineButton } from '../../types'
+import ActivityIndicator from '../spinners/ActivityIndicator'
 import Text from '../text/Text'
 
-export default function OutlineButton({title, onPress, containerStyle,textStyleContainer, activeOpacity=0.5}: IOutlineButton) {
+export default function OutlineButton({title, onPress, containerStyle,textStyleContainer, activeOpacity=0.5,loading}: IOutlineButton) {
     return (
         <TouchableOpacity activeOpacity={activeOpacity} style={[styles.container, containerStyle]} onPress={onPress}>
-            <Text containerStyle={[styles.textStyle, textStyleContainer]}>{title}</Text>
+            {loading ? <ActivityIndicator /> : <Text containerStyle={[styles.textStyle, textStyleContainer]}>{title}</Text>}
         </TouchableOpacity>
     )
 }

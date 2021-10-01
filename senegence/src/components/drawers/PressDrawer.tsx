@@ -15,7 +15,7 @@ import {Platform} from 'react-native';
 import {globalStyles} from '../../globalstyles/GlobalStyles';
 import SideDrawerHeader from '../headers/SideDrawerHeader';
 
-const PressDrawer = ({pressDrawerContentData, initialId}: any) => {
+const PressDrawer = ({pressDrawerContentData, initialId,onScrollCallback}: any) => {
   const [visible, setVisible] = React.useState(false);
   const [isDrawerItemSelected, setIsDrawerItemSelected] = React.useState({
     id: initialId,
@@ -24,9 +24,17 @@ const PressDrawer = ({pressDrawerContentData, initialId}: any) => {
 
   const showModal = () => setVisible(true);
 
+  const handlePressItemSelected = (item: any) => {
+    setIsDrawerItemSelected({id: item.id, isSelected: true});
+    setVisible(!visible);
+  };
+
   return (
     <>
-      <TouchableOpacity onPress={() =>{showModal()}}>
+      <TouchableOpacity
+        onPress={() => {
+          showModal();
+        }}>
         <Image
           source={images.filter2}
           style={{
@@ -54,8 +62,7 @@ const PressDrawer = ({pressDrawerContentData, initialId}: any) => {
                   activeOpacity={0.7}
                   key={item.id}
                   onPress={() => {
-                    setIsDrawerItemSelected({id: item.id, isSelected: true});
-                    setVisible(!visible);
+                    handlePressItemSelected(item);
                   }}>
                   <Text
                     containerStyle={[

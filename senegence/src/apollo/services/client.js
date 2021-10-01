@@ -55,5 +55,5 @@ const authLink =  setContext(async (_, { headers }) => {
 export const apolloClient = new ApolloClient({
     link: authLink.concat(errorLink.concat(httpLink)),
     cache,
-    credentials: "same-origin"
+    credentials: "include",
   });
