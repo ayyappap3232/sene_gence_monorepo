@@ -177,6 +177,8 @@ const winnershapebeautyaward_2 = require("../../assets/images/press/winnershapeb
 //shopping cart
 const shoppingbag = require("../../assets/images/shoppingcart/shoppingbag.png")
 
+const faqbanner = require("../../assets/images/faqbanner.png")
+
 export default {
     aclaim2,
     aclaim,
@@ -307,5 +309,6 @@ export default {
     shoppingbag,
     share,
     deleteIcon,
-    editIcon
+    editIcon,
+    faqbanner
 }
