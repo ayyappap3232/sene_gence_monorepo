@@ -1,4 +1,4 @@
-import { Dimensions } from "react-native";
+import { Dimensions,Platform } from "react-native";
 const {width, height} = Dimensions.get("window");
 
 export const COLORS = {
@@ -53,16 +53,30 @@ export const SIZES = {
 }
 
 export const FONTS = {
-    AvenirRegular: "Avenir Regular",
-    BebasNeueBold: "BebasNeue-Bold",
-    AvenirBook: "Avenir-Book",
-    AvenirMedium:"Avenir-Medium",
-    BebasNeueRegular:"BebasNeue-Regular",
-    AvenirLight:"AvenirLight",
-    AvenirHeavy: "AvenirLTProHeavy",
-    AvenirBold: "AvenirBold",
-    AvenirBlack: "AvenirLTStd-Black",
-    largeTitle : {fontFamily: "Avenir Regular", fontSize: SIZES.largeTitle, lineHeight: 55}
+    ...Platform.select({
+        ios: {
+            AvenirRegular: "Avenir Regular",
+            BebasNeueBold: "BebasNeue-Bold",
+            AvenirBook: "Avenir-Book",
+            AvenirMedium:"Avenir-Medium",
+            BebasNeueRegular:"BebasNeue-Regular",
+            AvenirLight:"Avenir-Light",
+            AvenirHeavy: "Avenir-Heavy",
+            AvenirBold: "Avenir-Bold",
+            AvenirBlack: "Avenir-Black",
+        },
+        android: {
+            AvenirRegular: "Avenir Regular",
+            BebasNeueBold: "BebasNeue-Bold",
+            AvenirBook: "Avenir-Book",
+            AvenirMedium:"Avenir-Medium",
+            BebasNeueRegular:"BebasNeue-Regular",
+            AvenirLight:"AvenirLight",
+            AvenirHeavy: "AvenirLTProHeavy",
+            AvenirBold: "AvenirBold",
+            AvenirBlack: "AvenirLTStd-Black",
+        },
+      }),
 }
 
 const appTheme = {COLORS, SIZES, FONTS};
