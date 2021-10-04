@@ -14,12 +14,12 @@ export default function IntroBanner({bannerShown, setBannerShown}:any) {
                     flexDirection: 'row',
                     alignItems: 'center',
                   }}>
-                  <View style={{flex: 3, marginLeft: 10}}>
-                    <Text containerStyle={{color: COLORS.white}}>
-                      Lorem ipsum...
+                  <View style={{flex: 1, marginLeft: 10,marginRight: 10}}>
+                    <Text containerStyle={{color: COLORS.white}} numberOfLines={1}>
+                    Fooops!® SenseCosmetics® Dual Phase Color Remover, Remove long-lasting SenseCosmetics® quickly and easily with this unique, easy-to-use formula that activates when shaken.
                     </Text>
                   </View>
-                  <View style={{flex: 2}}>
+                  <View>
                     <Text
                       containerStyle={[
                         {

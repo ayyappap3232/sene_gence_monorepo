@@ -40,6 +40,7 @@ import {
 } from '../utils/data/links';
 import {ScreenNames} from '../utils/screenNames';
 import Collapsible from 'react-native-collapsible';
+import ActivityIndicator from '../components/spinners/ActivityIndicator';
 
 const CustomDrawerContent = (props: any) => {
   const navigation = useNavigation<any>();
@@ -69,7 +70,7 @@ const CustomDrawerContent = (props: any) => {
     return (
       <View style={styles.rectangleHeaderBackground}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => props.navigation.closeDrawer()}>
+          <TouchableOpacity onPress={() => props?.navigation.closeDrawer()}>
             <Close width={19} height={19} />
           </TouchableOpacity>
           <TouchableOpacity
@@ -172,10 +173,12 @@ const CustomDrawerContent = (props: any) => {
     );
   };
 
+  console.log("pros cat",props?.categoryData)
+
   const _menuContent = () => {
     return (
       <View style={{marginTop: 13}}>
-        {props.categoryData?.categories?.items?.map((item, index) => {
+        {props?.categoryData?.categories?.items?.map((item, index) => {
           return item.children.map((item, index) => {
             return (
               <React.Fragment key={item.name+index}>
@@ -304,6 +307,10 @@ const CustomDrawerContent = (props: any) => {
       </View>
     );
   };
+
+  if(!props?.categoryData){
+    return <ActivityIndicator />
+  }
 
   return (
     <DrawerContentScrollView

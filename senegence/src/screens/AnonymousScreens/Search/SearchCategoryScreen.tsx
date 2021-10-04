@@ -55,7 +55,8 @@ export default function SearchCategoryScreen({name}: any) {
 
   const total_count = searchCategoryList?.products?.total_count;
 
-  const paginationLength = Math.round(total_count / 10);
+  const paginationLength = Math.ceil(total_count / pageSize);
+  console.log('pagina',paginationLength)
 
   const _pagination = () => {
     return (
@@ -199,7 +200,7 @@ export default function SearchCategoryScreen({name}: any) {
               globalStyles.text,
               {marginHorizontal: 20, marginTop: 10},
             ]}>
-            {searchCategoryList?.products?.total_count} ITEMS
+            {searchCategoryList?.products?.total_count} ITEMS {(currentPage-1)*pageSize+1} - {pageSize*currentPage} OF {total_count}
           </Text>
           {_filters()}
           <FlatList

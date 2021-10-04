@@ -244,6 +244,12 @@ export default function Minishoppingbag({miniShoppingCartData}:any) {
     );
   };
 
+  const _listEmptyComponent = () => {
+    return <View style={{flex: 1, justifyContent: 'center', alignItems:'center'}}>
+      <Text>You have no items in your shopping bag.</Text>
+    </View>
+  }
+
   return (
     <FlatList
       contentContainerStyle={{paddingHorizontal: 20}}
@@ -256,6 +262,7 @@ export default function Minishoppingbag({miniShoppingCartData}:any) {
         </>
       )}
       renderItem={_renderItem}
+      ListEmptyComponent={_listEmptyComponent()}
       keyExtractor={(item, index) => item.id}
       ListFooterComponent={() => _footerSection()}
       ListHeaderComponent={() => _headerSection()}

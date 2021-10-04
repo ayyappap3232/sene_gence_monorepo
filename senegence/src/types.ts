@@ -18,6 +18,7 @@ export interface IOutlineButton {
         containerStyle?: {};
         textStyleContainer?: {};
         activeOpacity?: any;
+        loading?: boolean;
 }
 
 export interface IOutlineButtonWithIcon {

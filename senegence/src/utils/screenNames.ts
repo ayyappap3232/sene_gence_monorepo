@@ -1,4 +1,5 @@
 export const ScreenNames = {
+    DrawerNavigator:'DrawerNavigator',
     StartUpDrawer: "StartUpDrawer",
     CategoryItem: "CategoryItem",
     CategoryDetails: "CategoryDetails",

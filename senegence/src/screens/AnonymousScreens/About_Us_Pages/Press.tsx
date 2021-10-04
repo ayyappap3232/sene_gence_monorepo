@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Alert } from 'react-native';
 import {
   Image,
   ScrollView,
@@ -24,6 +25,7 @@ import {carouselTypes} from '../../../utils/data/CarouselData';
 import {pressData, pressDrawerContentData} from '../../../utils/data/PressData';
 
 export default function Press() {
+
   const _menu = () => {
     return (
       <PressDrawer pressDrawerContentData={pressDrawerContentData} initialId={"PDCD1"}/>

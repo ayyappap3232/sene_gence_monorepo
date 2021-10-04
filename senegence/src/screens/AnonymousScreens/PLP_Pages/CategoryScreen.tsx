@@ -22,9 +22,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import FilterOptionItem from '../../../components/filters/FilterOptionItem';
 import {filterNames} from '../../../utils/data/FilterData';
 import SortByFilter from '../../../components/filters/SortByFilter';
-import { ScreenNames } from '../../../utils/screenNames';
+import {ScreenNames} from '../../../utils/screenNames';
 import FilterDrawer from '../../../components/drawers/FilterDrawer';
-import Drawer from 'react-native-drawer'
+import Drawer from 'react-native-drawer';
 import CustomDrawerContent from '../../../navigation/CustomDrawerContent';
 
 export default function CategoryScreen() {
@@ -32,9 +32,8 @@ export default function CategoryScreen() {
   // const [recentlyViewedProducts, setRecentlyViewedProducts] = useState<any>([])
 
   const [textInputValue, setTextInputValue] = useState('');
-  const [collapsed,setCollapsed] = useState(false);
-  let  _drawer = useRef(null);;
-  
+  const [collapsed, setCollapsed] = useState(false);
+  let _drawer = useRef(null);
 
   const route = useRoute();
   const {name, url_path} = route?.params?.categoryData;
@@ -75,7 +74,7 @@ export default function CategoryScreen() {
 
   const total_count = categoryList?.categoryList[0]?.products?.total_count;
 
-  const paginationLength = Math.round(total_count / 10);
+  const paginationLength = Math.ceil(total_count / pageSize);
 
   const _pagination = () => {
     return (
@@ -200,7 +199,7 @@ export default function CategoryScreen() {
           margin: 20,
         }}>
         <View style={styles.filterWrapper}>
-        <FilterDrawer/>
+          <FilterDrawer />
           <Text containerStyle={styles.filterText}>Shop By</Text>
           <TouchableOpacity onPress={() => setgridView(false)}>
             <Image
@@ -218,23 +217,29 @@ export default function CategoryScreen() {
           </TouchableOpacity>
         </View>
         <View style={styles.filterWrapper}>
-          <SortByFilter textInputValue={textInputValue} setTextInputValue={setTextInputValue}/>
+          <SortByFilter
+            textInputValue={textInputValue}
+            setTextInputValue={setTextInputValue}
+          />
         </View>
       </View>
     );
   };
-
-
 
   return (
     <ScrollToTopContainer showCart={false}>
       <View style={{marginLeft: 20}}>
         <BreadCrumbWithOneLevelUp title={name} />
       </View>
-      {total_count > 0 && <>
-        <Spacer mt={10}/>
-        <Text containerStyle={{marginLeft: 20}}>ITEMS {(currentPage-1)*pageSize+1} - {pageSize*currentPage} OF {total_count} </Text>
-      </>}
+      {total_count > 0 && (
+        <>
+          <Spacer mt={10} />
+          <Text containerStyle={{marginLeft: 20}}>
+            ITEMS {(currentPage - 1) * pageSize + 1} - {pageSize * currentPage}{' '}
+            OF {total_count}{' '}
+          </Text>
+        </>
+      )}
       {_filters()}
       <FlatList
         scrollEnabled={false}
@@ -249,7 +254,7 @@ export default function CategoryScreen() {
         keyExtractor={(item, index) => index.toString()}
         ListEmptyComponent={() => (
           <View style={styles.listEmpty}>
-            <Text>No Content Found</Text>
+            <Text>We can't find products matching the selection.</Text>
           </View>
         )}
       />
@@ -262,31 +267,34 @@ export default function CategoryScreen() {
       {_recentlyViewedProducts()}
       <Spacer mt={26} />
 
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        horizontal={true}
-        style={{marginHorizontal: 10}}
-        numColumns={1}
-        renderItem={({item}) =>
-          CategoryItemComponent(
-            item,
-            {marginRight: 10},
-            gridView,
-            navigation,
-            url_path,
-            name,
-          )
-        }
-        data={recentlyViewedProducts}
-        keyExtractor={(item, index) => index.toString()}
-        ListEmptyComponent={() => (
-          <View style={styles.listEmpty}>
-            <Text>No Content Found</Text>
-          </View>
-        )}
-      />
-
-      <Spacer mt={54.1} />
+      {recentlyViewedProducts.length > 0 && (
+        <>
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal={true}
+            style={{marginHorizontal: 10}}
+            numColumns={1}
+            renderItem={({item}) =>
+              CategoryItemComponent(
+                item,
+                {marginRight: 10},
+                gridView,
+                navigation,
+                url_path,
+                name,
+              )
+            }
+            data={recentlyViewedProducts}
+            keyExtractor={(item, index) => index.toString()}
+            ListEmptyComponent={() => (
+              <View style={styles.listEmpty}>
+                <Text>No Content Found</Text>
+              </View>
+            )}
+          />
+          <Spacer mt={54.1} />
+        </>
+      )}
     </ScrollToTopContainer>
   );
 }

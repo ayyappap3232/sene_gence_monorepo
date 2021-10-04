@@ -178,6 +178,8 @@ const winnershapebeautyaward_2 = require("../../assets/images/press/winnershapeb
 const shoppingbag = require("../../assets/images/shoppingcart/shoppingbag.png")
 
 const faqbanner = require("../../assets/images/faqbanner.png")
+const fabbackgroundimage = require("../../assets/images/fabbackgroundimage.png")
+const uparrow = require("../../assets/images/uparrow.png")
 
 export default {
     aclaim2,
@@ -310,5 +312,7 @@ export default {
     share,
     deleteIcon,
     editIcon,
-    faqbanner
+    faqbanner,
+    fabbackgroundimage,
+    uparrow
 }
