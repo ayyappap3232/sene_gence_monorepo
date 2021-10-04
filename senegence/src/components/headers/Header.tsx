@@ -8,6 +8,7 @@ import {
   Image,
   Platform,
   ScrollView,
+  Alert,
 } from 'react-native';
 import {
   AppLogo,
@@ -46,9 +47,13 @@ export default function Header({
   };
 
   const onSearchHandler = () => {
-    setIsSearchOpen(false);
-    navigation.navigate(ScreenNames.SearchScreen, {searchQuery: searchText});
-    setSearchText('');
+    if(searchText){
+      setIsSearchOpen(false);
+      navigation.navigate(ScreenNames.SearchScreen, {searchQuery: searchText});
+      setSearchText('');
+    }else{
+      Alert.alert("Please enter keywords to search","e.g. lips, wallets")
+    }
   };
 
   const [visible, setVisible] = React.useState(false);
@@ -132,31 +137,35 @@ export default function Header({
                   <Text style={styles.rightText}>USA</Text>
                 </View>
               </View>
+            
             </SafeAreaView>
             <Collapsible collapsed={!isSearchOpen}>
+            {isSearchOpen &&
               <View
-                style={{
-                  flexDirection: 'row',
-                  marginHorizontal: 10,
-                  height: 50,
-                  marginTop: 10,
-                  justifyContent: 'space-between',
-                }}>
-                <OutlineTextInput
-                  value={searchText}
-                  containerStyle={{
-                    width: '100%',
-                    borderRadius: 20,
-                  }}
-                  placeholder={'Search...'}
-                  onChangeText={(text: string) => setSearchText(text)}
-                />
-                <TouchableOpacity
-                  style={{position: 'absolute', right: 10}}
-                  onPress={() => onSearchHandler()}>
-                  <Search width={30} height={30} />
-                </TouchableOpacity>
-              </View>
+              style={{
+                flexDirection: 'row',
+                marginHorizontal: 10,
+                height: 50,
+                marginTop: 10,
+                justifyContent: 'space-between',
+              }}>
+              <OutlineTextInput
+                value={searchText}
+                containerStyle={{
+                  width: '100%',
+                  borderRadius: 20,
+                  
+                }}
+                placeholder={'Search...'}
+                onChangeText={(text: string) => setSearchText(text)}
+              />
+              <TouchableOpacity
+                style={{position: 'absolute',width: 16,right: 0,top:0, bottom:10, left: "92%",alignItems:'flex-end',justifyContent:'center'}}
+                onPress={() => onSearchHandler()}>
+                <Image source={images.search} style={{width: 16, height: 16}}/>
+              </TouchableOpacity>
+            </View>
+              }
             </Collapsible>
             <Modal
               style={[
@@ -197,7 +206,7 @@ export default function Header({
         );
       },
     });
-  }, [isSearchOpen, searchText, showCart, visible, bannerShown]);
+  }, [isSearchOpen, searchText, showCart, visible, bannerShown,navigation]);
 
   return (
     <>

@@ -272,7 +272,6 @@ export default function StartUpPage() {
             />
           </View>
         </ImageBackground>
-        {/* feature products */}
         <Spacer mt={40} />
         {_featureProducts()}
         <Spacer mt={71.5} />

@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import * as React from 'react';
 import {
   NavigationContainer,
@@ -22,8 +23,8 @@ import {useCart} from './src/hooks/cart/useCart';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Text, View} from 'react-native';
 import {COLORS} from './src/constants';
+import StackNavigator from './src/navigation/DrawerNavigator';
 
-const Stack = createNativeStackNavigator();
 
 function App() {
   const [user, setUser] = useState(null);
@@ -54,7 +55,7 @@ function App() {
     <Provider store={store}>
       <ApolloProvider client={client}>
         <NavigationContainer theme={appTheme}>
-          {user ? <AppNavigator /> : <DrawerNavigator />}
+          {user ? <AppNavigator /> : <StackNavigator />}
         </NavigationContainer>
       </ApolloProvider>
     </Provider>

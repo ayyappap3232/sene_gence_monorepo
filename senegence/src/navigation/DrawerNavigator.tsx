@@ -54,6 +54,7 @@ const DrawerNavigator = () => {
     getCategories();
   }, [getCategories]);
 
+
   const {cartId} = useCart();
 
   useEffect(() => {
