@@ -35,6 +35,13 @@ export default function SearchCategoryScreen({name}: any) {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(1);
 
+  useEffect(() => {
+    setPageSize(10);
+    setCurrentIndex(1);
+    setCurrentPage(1);
+  
+}, [name])
+
   const [gridView, setgridView] = useState<boolean>(false);
 
   const {getSearchCategoryList, loading, error, searchCategoryList} =
@@ -200,7 +207,7 @@ export default function SearchCategoryScreen({name}: any) {
               globalStyles.text,
               {marginHorizontal: 20, marginTop: 10},
             ]}>
-            {searchCategoryList?.products?.total_count} ITEMS {(currentPage-1)*pageSize+1} - {pageSize*currentPage} OF {total_count}
+            {searchCategoryList?.products?.total_count} ITEMS
           </Text>
           {_filters()}
           <FlatList
