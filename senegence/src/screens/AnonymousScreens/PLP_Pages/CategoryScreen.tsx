@@ -26,6 +26,7 @@ import {ScreenNames} from '../../../utils/screenNames';
 import FilterDrawer from '../../../components/drawers/FilterDrawer';
 import Drawer from 'react-native-drawer';
 import CustomDrawerContent from '../../../navigation/CustomDrawerContent';
+import { Alert } from 'react-native';
 
 export default function CategoryScreen() {
   const navigation = useNavigation<any>();
@@ -43,6 +44,16 @@ export default function CategoryScreen() {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
   const [gridView, setgridView] = useState<boolean>(false);
+
+  useEffect(() => {
+      setPageSize(10);
+      setCurrentIndex(1);
+      setCurrentPage(1);
+    
+  }, [url_path])
+
+  console.log('navigation currentPage', currentPage);
+  
 
   const {getCategoryList, loading, error, categoryList} = useCategoryList({
     url_path: url_path,
@@ -235,7 +246,7 @@ export default function CategoryScreen() {
         <>
           <Spacer mt={10} />
           <Text containerStyle={{marginLeft: 20}}>
-            ITEMS {(currentPage - 1) * pageSize + 1} - {pageSize * currentPage}{' '}
+          ITEMS {(currentPage - 1) * pageSize + 1} - {(total_count > 10 ? pageSize : total_count )* currentPage}{' '}
             OF {total_count}{' '}
           </Text>
         </>

@@ -8,7 +8,7 @@ import Text from '../text/Text'
 export default function BreadCrumbWithOneLevelUp({title}: any) {
     const navigation = useNavigation<any>();
     return (
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{flexDirection: 'row', alignItems: 'center',flexWrap:'wrap'}}>
         <TouchableOpacity
           onPress={() => navigation.navigate(ScreenNames.StartUpDrawer)}>
           <Text
@@ -23,6 +23,7 @@ export default function BreadCrumbWithOneLevelUp({title}: any) {
           /
         </Text>
         <Text
+        numberOfLines={1}
           containerStyle={[
             styles.commonText,
             {fontFamily: FONTS.AvenirMedium},
