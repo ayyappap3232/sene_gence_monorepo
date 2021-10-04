@@ -63,7 +63,6 @@ export default function SearchCategoryScreen({name}: any) {
   const total_count = searchCategoryList?.products?.total_count;
 
   const paginationLength = Math.ceil(total_count / pageSize);
-  console.log('pagina',paginationLength)
 
   const _pagination = () => {
     return (

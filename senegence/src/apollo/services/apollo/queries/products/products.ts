@@ -1,5 +1,4 @@
-import { gql } from '@apollo/client';
-
+import {gql} from '@apollo/client';
 
 export const SEARCH_CATEGORY_LIST = gql`
   query GetProducts($name: String!, $pageSize: Int!, $currentPage: Int!) {
@@ -63,6 +62,28 @@ export const SEARCH_CATEGORY_LIST = gql`
     }
   }
 `;
+
+//Get Search Product Name and Overall Count
+export const SEARCH_PRODUCT_NAME_OVERALL_COUNT = gql`
+  query GetProductNameWithOverallCount($name: String!, $pageSize: Int!, $currentPage: Int!) {
+    products(pageSize: $pageSize, currentPage: $currentPage, search: $name) {
+      total_count
+      items {
+        name
+      }
+    }
+  }
+`;
+
+//Get Individual product count
+export const GET_SEARCH_PRODUCT_COUNT = gql`
+  query GetProductNameWithOverallCount($name: String!) {
+    products(search: $name) {
+      total_count
+    }
+  }
+`;
+
 
 //Types
 
