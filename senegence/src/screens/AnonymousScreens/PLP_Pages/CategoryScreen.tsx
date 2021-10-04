@@ -275,11 +275,12 @@ export default function CategoryScreen() {
       <Spacer mt={40} />
       {_beautyBook()}
       <Spacer mt={40} />
-      {_recentlyViewedProducts()}
-      <Spacer mt={26} />
+      
 
       {recentlyViewedProducts.length > 0 && (
         <>
+        {_recentlyViewedProducts()}
+      <Spacer mt={26} />
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal={true}

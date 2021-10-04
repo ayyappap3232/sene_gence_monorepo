@@ -9,6 +9,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ApolloProvider, InMemoryCache} from '@apollo/client';
 //@ts-ignore
 import {Provider} from 'react-redux';
+import SplashScreen from 'react-native-splash-screen';
 
 import AppNavigator from './src/navigation/AppNavigator';
 import {store} from './src/redux/store';
@@ -35,6 +36,10 @@ function App() {
   const [client, setClient] = useState<any>(null);
 
   const cache = new InMemoryCache();
+
+  useEffect(() => {
+       SplashScreen.hide();
+  }, []);
 
   useEffect(() => {
     persistCache({
