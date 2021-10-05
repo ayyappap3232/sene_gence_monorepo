@@ -115,5 +115,6 @@ export const globalStyles = StyleSheet.create({
         letterSpacing: 3.5,
         textAlign:'center',
         color: COLORS.white
-      }
+      },
+      row: {flexDirection:'row',justifyContent:'space-between',alignItems:'center'}
 })

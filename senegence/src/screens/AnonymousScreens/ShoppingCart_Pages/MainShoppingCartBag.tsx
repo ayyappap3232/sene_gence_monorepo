@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Image, LogBox, StyleSheet, TouchableOpacity, View } from 'react-native'
 import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp'
 import OutlineButton from '../../../components/buttons/OutlineButton'
+import Divider from '../../../components/dividers/Divider'
 import { ScrollToTopContainer } from '../../../components/ScrollToTopContainer'
 import Mainshoppingbag from '../../../components/shoppingcartbags/Mainshoppingbag'
 import Spacer from '../../../components/Spacer'
@@ -17,6 +18,8 @@ export default function MainShoppingCartBag() {
   const {cartId} = useCart();
         
   useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+
     AsyncStorage.getItem('cartId').then(value => {
       if(value != null){
         setExistingCartId(value);
@@ -30,25 +33,14 @@ export default function MainShoppingCartBag() {
 
     return (
         <ScrollToTopContainer>
-            <View style={{flex: 1, paddingHorizontal: 22}}>
-                <View>
+            <View style={{flex: 1, }}>
+                <View style={{paddingHorizontal: 20}}>
                     <BreadCrumbWithOneLevelUp title={"Shopping Bag"}/>
                 </View>
                 <Spacer mt={21}/>
                 <TextWithUnderLine title={"Shopping Bag"}/>
                 <Mainshoppingbag />
-                <Spacer mt={40}/>
-                <OutlineButton
-                    textStyleContainer={{color: COLORS.white}}
-                    containerStyle={{
-                      backgroundColor: COLORS.footerColor,
-                      borderColor: COLORS.footerColor,
-                      alignSelf: 'center',
-                      width: 238,
-                    }}
-                    title={'Proceed To Checkout'}
-                    onPress={() => {}}
-                  />
+                <Divider />
                 <Spacer mt={40}/>
                 <TextWithUnderLine title={"Items You May Like"}/>
             </View>

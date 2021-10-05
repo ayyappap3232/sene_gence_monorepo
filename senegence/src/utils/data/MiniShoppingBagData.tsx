@@ -8,7 +8,7 @@ export const miniShoppingCartData = [
       size: 'L',
       image: images.featureProduct1,
       price: 50,
-      qty: '1',
+      qty: 1,
     },
     {
       id: 2,
@@ -17,7 +17,7 @@ export const miniShoppingCartData = [
       size: 'S',
       image: images.featureProduct2,
       price: 49,
-      qty: '2',
+      qty: 2,
     },
     {
       id: 3,
@@ -26,6 +26,6 @@ export const miniShoppingCartData = [
       size: 'S',
       image: images.featureProduct2,
       price: 49,
-      qty: '2',
+      qty: 2,
     },
   ];

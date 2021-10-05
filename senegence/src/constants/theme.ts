@@ -22,7 +22,8 @@ export const COLORS = {
     border2: "#dedede",
     backgroundGrayColor: "#f7f7f7",
     searchTitle: "#605f5f",
-    unCheckedColor: "#707070"
+    unCheckedColor: "#707070",
+    error: '#ff6e6e'
 
 }
 
