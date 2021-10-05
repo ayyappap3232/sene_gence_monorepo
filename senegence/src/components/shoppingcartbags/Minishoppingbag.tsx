@@ -156,7 +156,7 @@ export default function Minishoppingbag({miniShoppingCartData}:any) {
             <TouchableOpacity onPress={() => {}}>
               <Image
                 source={images.deleteIcon}
-                style={{width: 20, height: 20, tintColor: COLORS.red}}
+                style={{width: 20, height: 20}}
               />
             </TouchableOpacity>
           </View>

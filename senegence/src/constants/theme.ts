@@ -62,7 +62,7 @@ export const FONTS = {
             BebasNeueRegular:"BebasNeue-Regular",
             AvenirLight:"Avenir-Light",
             AvenirHeavy: "Avenir-Heavy",
-            AvenirBold: "Avenir-Bold",
+            AvenirBold: "AvenirNext-Bold",
             AvenirBlack: "Avenir-Black",
         },
         android: {
