@@ -173,7 +173,6 @@ const CustomDrawerContent = (props: any) => {
     );
   };
 
-  console.log("pros cat",props?.categoryData)
 
   const _menuContent = () => {
     return (

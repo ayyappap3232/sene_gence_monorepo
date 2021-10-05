@@ -65,8 +65,8 @@ export const SEARCH_CATEGORY_LIST = gql`
 
 //Get Search Product Name and Overall Count
 export const SEARCH_PRODUCT_NAME_OVERALL_COUNT = gql`
-  query GetProductNameWithOverallCount($name: String!, $pageSize: Int!, $currentPage: Int!) {
-    products(pageSize: $pageSize, currentPage: $currentPage, search: $name) {
+  query GetProductNameWithOverallCount($name: String!, $pageSize: Int!) {
+    products(search: $name,pageSize: $pageSize) {
       total_count
       items {
         name

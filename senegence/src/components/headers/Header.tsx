@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState, useCallback} from 'react';
 import {
   StyleSheet,
   View,
@@ -31,6 +31,11 @@ import IntroBanner from '../banners/IntroBanner';
 import minishoppingbag from '../shoppingcartbags/Minishoppingbag';
 import Minishoppingbag from '../shoppingcartbags/Minishoppingbag';
 import {miniShoppingCartData} from '../../utils/data/MiniShoppingBagData';
+import {debounce} from 'lodash';
+import {
+  useSearchProductCount,
+  useSearchProductNameWithCount,
+} from '../../apollo/controllers/getSearchCategoryList.Controller';
 
 export default function Header({
   headerContainerStyle = {},
@@ -40,24 +45,152 @@ export default function Header({
   const navigation = useNavigation<any>();
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [searchText, setSearchText] = useState('');
+  const [relatedSearchItems, setRelatedSearchItems] = useState([]);
   const [bannerShown, setBannerShown] = useState(isBannerShownOnInitialLoad);
+  const [productName, setProductName] = useState('');
+  const [correspondingProductItemCount, setCorrespondingProductItemCount] =
+    useState<Array<any>>([]);
+  const [showClearButton, setShowClearButton] = useState(false);
 
   const handleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
   };
 
-  const onSearchHandler = () => {
-    if(searchText){
+  //handle search operation when click on search icon
+  const onSearchHandler = (name = '') => {
+    console.log('name', name);
+    setSearchText(name);
+    if (searchText) {
       setIsSearchOpen(false);
-      navigation.navigate(ScreenNames.SearchScreen, {searchQuery: searchText});
-      setSearchText('');
-    }else{
-      Alert.alert("Please enter keywords to search","e.g. lips, wallets")
+      navigation.navigate(ScreenNames.SearchScreen, {
+        searchQuery: name || searchText,
+      });
+      // setSearchText('');
+      setRelatedSearchItems([]);
+    } else {
+      Alert.alert('Please enter keywords to search', 'e.g. lips, wallets');
     }
   };
 
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(!visible);
+
+  const {
+    getSearchProductNameWithCount,
+    loading,
+    error,
+    searchProductNameWithCount,
+  } = useSearchProductNameWithCount({
+    name: searchText,
+    pageSize: 5,
+  });
+
+  //Get Product Name along with Total Count
+  useEffect(() => {
+    if (searchText) {
+      setShowClearButton(true);
+      getSearchProductNameWithCount();
+      setRelatedSearchItems(searchProductNameWithCount?.products?.items);
+    } else {
+      setShowClearButton(false);
+    }
+  }, [searchText, correspondingProductItemCount]);
+
+  const handleSearchDebounce = (text: string) => {
+    if (text === '') {
+      setRelatedSearchItems([]);
+      setCorrespondingProductItemCount([]);
+    }
+    setSearchText(text);
+  };
+
+  const {getSearchProductCount, searchProductCount} = useSearchProductCount({
+    name: productName,
+  });
+
+  //Get Product Count and Corresponding Product Count Item
+  useEffect(() => {
+    if (productName) {
+      getSearchProductCount();
+      setCorrespondingProductItemCount([
+        ...correspondingProductItemCount,
+        {name: productName, count: searchProductCount?.products?.total_count},
+      ]);
+    }
+  }, [productName]);
+
+  const _getRelatedProductItemCount = (name: string) => {
+    setProductName(name);
+  };
+
+  //Start of Clear Button Logic
+  const _onSearchClear = () => {
+    setSearchText('');
+    setRelatedSearchItems([]);
+  };
+
+  const _clearButton = () => {
+    return (
+      showClearButton && (
+        <TouchableOpacity
+          style={[
+            styles.commonSearchIcons,
+            {
+              right: 10,
+              left: '85%',
+            },
+          ]}
+          onPress={() => _onSearchClear()}>
+          <Image source={images.close} style={{width: 16, height: 16}} />
+        </TouchableOpacity>
+      )
+    );
+  };
+  //End of Clear Button Logic
+
+  const _searchButton = () => {
+    return (
+      <TouchableOpacity
+        style={[
+          styles.commonSearchIcons,
+          {
+            right: 0,
+            left: '92%',
+          },
+        ]}
+        onPress={() => onSearchHandler()}>
+        <Image source={images.search} style={{width: 16, height: 16}} />
+      </TouchableOpacity>
+    );
+  };
+
+  const _shoppingCartModal = () => {
+    return <Modal
+    style={[
+      globalStyles.shadowEffect,
+      styles.modalWrapper,
+    ]}
+    supportedOrientations={['portrait']}
+    backdropOpacity={0}
+    presentationStyle="overFullScreen"
+    animationOut="slideOutDown"
+    isVisible={visible}
+    animationIn="slideInUp">
+    <View style={styles.addToCartWrapper}>
+      <View
+        style={{paddingLeft: 20, paddingTop: 5, marginBottom: 10}}>
+        <TouchableOpacity onPress={() => showModal()}>
+          <Image
+            source={images.close}
+            style={styles.modalClose}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <Minishoppingbag miniShoppingCartData={miniShoppingCartData} />
+    </View>
+  </Modal>
+  }
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -106,17 +239,7 @@ export default function Header({
                       resizeMode="contain"
                     />
                     <View
-                      style={{
-                        position: 'absolute',
-                        bottom: 14,
-                        right: -5,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: COLORS.footerColor,
-                        width: 16,
-                        height: 16,
-                        borderRadius: 10,
-                      }}>
+                      style={styles.miniShoppingCartIcon}>
                       <Text
                         containerStyle={{
                           fontSize: SIZES.body5,
@@ -137,76 +260,71 @@ export default function Header({
                   <Text style={styles.rightText}>USA</Text>
                 </View>
               </View>
-            
             </SafeAreaView>
             <Collapsible collapsed={!isSearchOpen}>
-            {isSearchOpen &&
-              <View
-              style={{
-                flexDirection: 'row',
-                marginHorizontal: 10,
-                height: 50,
-                marginTop: 10,
-                justifyContent: 'space-between',
-              }}>
-              <OutlineTextInput
-                value={searchText}
-                containerStyle={{
-                  width: '100%',
-                  borderRadius: 20,
-                  
-                }}
-                placeholder={'Search...'}
-                onChangeText={(text: string) => setSearchText(text)}
-              />
-              <TouchableOpacity
-                style={{position: 'absolute',width: 16,right: 0,top:0, bottom:10, left: "92%",alignItems:'flex-end',justifyContent:'center'}}
-                onPress={() => onSearchHandler()}>
-                <Image source={images.search} style={{width: 16, height: 16}}/>
-              </TouchableOpacity>
-            </View>
-              }
-            </Collapsible>
-            <Modal
-              style={[
-                globalStyles.shadowEffect,
-                {
-                  width: SIZES.width - 16,
-                  marginTop: 80,
-                  marginHorizontal: 8,
-                  backgroundColor: COLORS.white,
-                },
-              ]}
-              supportedOrientations={['portrait']}
-              backdropOpacity={0}
-              presentationStyle="overFullScreen"
-              animationOut="slideOutDown"
-              isVisible={visible}
-              animationIn="slideInUp">
-              <View style={styles.addToCartWrapper}>
-                <View
-                  style={{paddingLeft: 20, paddingTop: 5, marginBottom: 10}}>
-                  <TouchableOpacity onPress={() => showModal()}>
-                    <Image
-                      source={images.close}
-                      style={{
-                        width: 24,
-                        height: 24,
-                        marginRight: 10,
-                        alignSelf: 'flex-end',
+              {isSearchOpen && (
+                <>
+                  <View
+                    style={styles.clearAndSearchWrapper}>
+                    <OutlineTextInput
+                      value={searchText}
+                      containerStyle={{
+                        width: '100%',
+                        borderRadius: 20,
                       }}
+                      placeholder={'Search...'}
+                      onChangeText={(text: string) =>
+                        handleSearchDebounce(text)
+                      }
                     />
-                  </TouchableOpacity>
-                </View>
-
-                <Minishoppingbag miniShoppingCartData={miniShoppingCartData} />
-              </View>
-            </Modal>
+                    {_clearButton()}
+                    {_searchButton()}
+                  </View>
+                  <ScrollView keyboardShouldPersistTaps={'always'}>
+                    {relatedSearchItems &&
+                      relatedSearchItems.map((item: any, index: number) => {
+                        _getRelatedProductItemCount(item.name);
+                        return (
+                          <TouchableOpacity
+                            key={item + index}
+                            activeOpacity={0.7}
+                            style={styles.searchItemDropdownList}
+                            onPress={() => {
+                              onSearchHandler(item.name);
+                            }}>
+                            <Text>{item.name}</Text>
+                            <Text>
+                              {correspondingProductItemCount[index]?.count}
+                            </Text>
+                          </TouchableOpacity>
+                        );
+                      })}
+                    {loading && (
+                      <View style={{alignSelf: 'center'}}>
+                        <Text>Loading...</Text>
+                      </View>
+                    )}
+                  </ScrollView>
+                </>
+              )}
+            </Collapsible>
+            {_shoppingCartModal()}
           </>
         );
       },
     });
-  }, [isSearchOpen, searchText, showCart, visible, bannerShown,navigation]);
+  }, [
+    isSearchOpen,
+    searchText,
+    showCart,
+    visible,
+    bannerShown,
+    showClearButton,
+    navigation,
+    loading,
+    relatedSearchItems,
+    correspondingProductItemCount,
+  ]);
 
   return (
     <>
@@ -248,4 +366,49 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 10,
   },
+  searchItemDropdownList:{
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  clearAndSearchWrapper:{
+    flexDirection: 'row',
+    marginHorizontal: 10,
+    height: 50,
+    marginTop: 10,
+    justifyContent: 'space-between',
+  },
+  commonSearchIcons: {
+    position: 'absolute',
+    width: 16,
+    top: 0,
+    bottom: 10,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
+  miniShoppingCartIcon:{
+    position: 'absolute',
+    bottom: 14,
+    right: -5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.footerColor,
+    width: 16,
+    height: 16,
+    borderRadius: 10,
+  },
+  modalWrapper:{
+    width: SIZES.width - 16,
+    marginTop: 80,
+    marginHorizontal: 8,
+    backgroundColor: COLORS.white,
+  },
+  modalClose: {
+    width: 24,
+    height: 24,
+    marginRight: 10,
+    alignSelf: 'flex-end',
+  }
 });
