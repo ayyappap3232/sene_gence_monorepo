@@ -181,7 +181,29 @@ const faqbanner = require("../../assets/images/faqbanner.png")
 const fabbackgroundimage = require("../../assets/images/fabbackgroundimage.png")
 const uparrow = require("../../assets/images/uparrow.png")
 
+//Careers
+const additionalincomecareer = require("../../assets/images/careers/additionalincome.png")
+const careeronyourtermscareer = require("../../assets/images/careers/careeronyourterms.png")
+const exclusiveopportunitycareer = require("../../assets/images/careers/exclusiveopportunity.png")
+const glamourdemokitcareer = require("../../assets/images/careers/glamourdemokit.png")
+const innovativeproductscareer = require("../../assets/images/careers/innovativeproducts.png")
+const newdistributorkitcareer = require("../../assets/images/careers/newdistributorkit.png")
+const noinventoryrequiredcareer = require("../../assets/images/careers/noinventoryrequired.png")
+const sisterhoodcareer = require("../../assets/images/careers/sisterhood.png")
+const toolsforsuccesscareer = require("../../assets/images/careers/toolsforsuccess.png")
+const worklifebalancecareer = require("../../assets/images/careers/worklifebalance.png")
+
 export default {
+    additionalincomecareer,
+    careeronyourtermscareer,
+    exclusiveopportunitycareer,
+    glamourdemokitcareer,
+    innovativeproductscareer,
+    newdistributorkitcareer,
+    noinventoryrequiredcareer,
+    sisterhoodcareer,
+    toolsforsuccesscareer,
+    worklifebalancecareer,
     aclaim2,
     aclaim,
     aclaim3,

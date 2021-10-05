@@ -32,6 +32,7 @@ import { View } from 'react-native';
 import Text from '../components/text/Text';
 import OutlineButton from '../components/buttons/OutlineButton';
 import FAQS from '../screens/AnonymousScreens/FreaquentlyAsked_Pages/FAQS';
+import Careers from '../screens/AnonymousScreens/Careers/Careers';
 
 const Drawer = createDrawerNavigator();
 
@@ -166,6 +167,10 @@ const DrawerNavigator = () => {
         <Drawer.Screen
           name={ScreenNames.FAQS}
           component={FAQS}
+        />
+        <Drawer.Screen
+          name={ScreenNames.Careers}
+          component={Careers}
         />
       </Drawer.Group>
       {/* <Drawer.Group screenOptions={{}}>
