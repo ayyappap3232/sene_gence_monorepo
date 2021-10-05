@@ -232,7 +232,13 @@ export default function Header({
                   />
                 </TouchableOpacity>
                 {showCart && (
-                  <TouchableOpacity onPress={() => showModal()}>
+                  <TouchableOpacity onPress={() => 
+                    {
+                      //showModal()
+                      navigation.navigate(ScreenNames.MainShoppingCartBag)
+                    }
+                  
+                  }>
                     <Image
                       source={images.shoppingbag}
                       style={{width: 16, height: 16, marginHorizontal: 5}}
