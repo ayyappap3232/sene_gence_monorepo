@@ -3,7 +3,7 @@ import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {COLORS, FONTS, images, SIZES} from '../../constants';
 import {globalStyles} from '../../globalstyles/GlobalStyles';
-import { miniShoppingCartData } from '../../utils/data/MiniShoppingBagData';
+import {miniShoppingCartData} from '../../utils/data/MiniShoppingBagData';
 import OutlineButton from '../buttons/OutlineButton';
 import Divider from '../dividers/Divider';
 import Spacer from '../Spacer';
@@ -12,17 +12,15 @@ import OutlineTextInput from '../textInputs/OutlineTextInput';
 
 export default function Mainshoppingbag() {
   // const [totalCost, setTotalCost] = useState<number>();
-  
 
   const [shoppingCartData, setShoppingCartData] =
     useState(miniShoppingCartData);
-    const totalPrice = shoppingCartData.reduce(
-      (total, element) => (total += element.price * Number(element.qty)),
-      0,
-    );
+  const totalPrice = shoppingCartData.reduce(
+    (total, element) => (total += element.price * Number(element.qty)),
+    0,
+  );
   const [isError, setisError] = useState<string | null>(null);
   const [couponText, setCouponText] = useState<string>('');
-
 
   // useEffect(() => {
   //   setTotalCost(totalPrice);
@@ -43,51 +41,50 @@ export default function Mainshoppingbag() {
 
     const _rightContent = () => {
       return (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            <View style={{flex: 1.2, flexWrap: 'wrap'}}>
-              <Text
-                containerStyle={[
-                  globalStyles.text_avenir_heavy,
-                  {lineHeight: 26},
-                ]}>
-                {item.name}
-              </Text>
-              <Spacer mt={10} />
-              <Text
-                containerStyle={[
-                  globalStyles.text_avenir_medium,
-                  {textAlign: 'left'},
-                ]}>
-                Color: {item.color}
-              </Text>
-              <Spacer mt={10} />
-              <Text
-                containerStyle={[
-                  globalStyles.text_avenir_medium,
-                  {textAlign: 'left'},
-                ]}>
-                Size: {item.size}
-              </Text>
-              <Spacer mt={10} />
-              <Text
-                containerStyle={[
-                  globalStyles.text_avenir_heavy,
-                  {textAlign: 'left'},
-                ]}>
-                ${item.price * item.qty} USD
-              </Text>
-              <Spacer mt={20} />
-              
-            </View>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <View style={{flex: 1.2, flexWrap: 'wrap'}}>
+            <Text
+              containerStyle={[
+                globalStyles.text_avenir_heavy,
+                {lineHeight: 26},
+              ]}>
+              {item.name}
+            </Text>
+            <Spacer mt={10} />
+            <Text
+              containerStyle={[
+                globalStyles.text_avenir_medium,
+                {textAlign: 'left'},
+              ]}>
+              Color: {item.color}
+            </Text>
+            <Spacer mt={10} />
+            <Text
+              containerStyle={[
+                globalStyles.text_avenir_medium,
+                {textAlign: 'left'},
+              ]}>
+              Size: {item.size}
+            </Text>
+            <Spacer mt={10} />
+            <Text
+              containerStyle={[
+                globalStyles.text_avenir_heavy,
+                {textAlign: 'left'},
+              ]}>
+              ${item.price * item.qty} USD
+            </Text>
             <Spacer mt={20} />
-            {_quantityAddAndDelete()}
           </View>
+          <Spacer mt={20} />
+          {_quantityAddAndDelete()}
+        </View>
       );
     };
 
@@ -114,14 +111,10 @@ export default function Mainshoppingbag() {
                 />
               </TouchableOpacity>
               <OutlineTextInput
+                editable={false}
                 containerStyle={styles.quantityText}
                 placeholder={''}
                 value={item.qty.toString()}
-                //the input got focus
-
-                onChangeText={(text: number) =>
-                  setShoppingCartData({...shoppingCartData, qty: Number(text)})
-                }
               />
               <TouchableOpacity
                 style={(styles.box, styles.rightBox)}
@@ -160,35 +153,39 @@ export default function Mainshoppingbag() {
     };
 
     const handleDelete = (id: any) => {
-      const updatedShoppingCartData = shoppingCartData.filter(el => el.id !== id);
-      setShoppingCartData(updatedShoppingCartData)
-    }
+      const updatedShoppingCartData = shoppingCartData.filter(
+        el => el.id !== id,
+      );
+      setShoppingCartData(updatedShoppingCartData);
+    };
 
     return (
-      <>
+      <React.Fragment key={item.id}>
         <View style={{flexDirection: 'row', paddingHorizontal: 22}}>
           {_leftContent()}
           <Spacer mr={20} />
           {_rightContent()}
         </View>
-        <View style={[globalStyles.row,{justifyContent:'flex-end'}]}>
-                <Text
-                  containerStyle={[
-                    globalStyles.text_avenir_medium,
-                    {textTransform: 'uppercase', fontWeight: 'bold'},
-                  ]}>
-                  Sub Total
-                </Text>
-                <Spacer ml={20} />
-                <Text containerStyle={{fontWeight: 'bold'}}>
-                  ${item.price * item.qty}.00 USD
-                </Text>
-                <Spacer mr={20} />
-                <TouchableOpacity activeOpacity={0.7} onPress={() => handleDelete(item.id)}>
-                <Image source={images.deleteIcon} style={{width: 16, height: 16}} />
-                </TouchableOpacity>
-              </View>
-      </>
+        <View style={[globalStyles.row, {justifyContent: 'flex-end'}]}>
+          <Text
+            containerStyle={[
+              globalStyles.text_avenir_medium,
+              {textTransform: 'uppercase', fontWeight: 'bold'},
+            ]}>
+            Sub Total
+          </Text>
+          <Spacer ml={20} />
+          <Text containerStyle={{fontWeight: 'bold'}}>
+            ${item.price * item.qty}.00 USD
+          </Text>
+          <Spacer mr={20} />
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => handleDelete(item.id)}>
+            <Image source={images.deleteIcon} style={{width: 16, height: 16}} />
+          </TouchableOpacity>
+        </View>
+      </React.Fragment>
     );
   };
 
@@ -365,14 +362,18 @@ export default function Mainshoppingbag() {
         />
         <Spacer mt={20} />
       </View>
-    ): null;
+    ) : null;
   };
 
   const _listEmptyComponent = () => {
-    return <View style={{height: 50}}>
-      <Text containerStyle={{textAlign:'center'}}>No Cart Items in the Shopping bag.</Text>
-    </View>
-  }
+    return (
+      <View style={{height: 50}}>
+        <Text containerStyle={{textAlign: 'center'}}>
+          No Cart Items in the Shopping bag.
+        </Text>
+      </View>
+    );
+  };
 
   return (
     <FlatList

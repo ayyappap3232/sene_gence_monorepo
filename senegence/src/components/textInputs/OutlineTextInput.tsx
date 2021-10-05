@@ -7,8 +7,8 @@ export default function OutlineTextInput({
   placeholder,
   onChangeText,
   containerStyle,
-  restProps,
   value,
+  ...restProps
 }: IOutlineTextProps) {
   return (
     <TextInput
