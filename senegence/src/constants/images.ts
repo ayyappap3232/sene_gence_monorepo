@@ -193,7 +193,29 @@ const sisterhoodcareer = require("../../assets/images/careers/sisterhood.png")
 const toolsforsuccesscareer = require("../../assets/images/careers/toolsforsuccess.png")
 const worklifebalancecareer = require("../../assets/images/careers/worklifebalance.png")
 
+//All Products
+const allproducts = require("../../assets/images/allproducts/allproducts.png")
+const allcollections = require("../../assets/images/allproducts/allcollections.png")
+const body = require("../../assets/images/allproducts/body.png")
+const cosmetics = require("../../assets/images/allproducts/cosmetics.png")
+const eyes = require("../../assets/images/allproducts/eyes.png")
+const face = require("../../assets/images/allproducts/face.png")
+const haircare = require("../../assets/images/allproducts/haircare.png")
+const lips = require("../../assets/images/allproducts/lips.png")
+const men = require("../../assets/images/allproducts/men.png")
+const skincare = require("../../assets/images/allproducts/skincare.png")
+
 export default {
+    allproducts,
+    allcollections,
+    body,
+    cosmetics,
+    eyes,
+    face,
+    haircare,
+    lips,
+    men,
+    skincare,
     additionalincomecareer,
     careeronyourtermscareer,
     exclusiveopportunitycareer,

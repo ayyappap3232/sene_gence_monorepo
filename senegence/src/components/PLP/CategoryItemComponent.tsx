@@ -10,6 +10,7 @@ import { _getCurrencySymbols } from '../../utils/helpers/getSymbolBasedOnCurrenc
 import OutlineButton from '../buttons/OutlineButton';
 import Spacer from '../Spacer';
 import Text from '../text/Text';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 const CategoryItemComponent = (item: Item, containerStyle = {}, gridView : boolean, navigation?: any,url_path="", pathName="") => {
   const {
@@ -121,32 +122,12 @@ const CategoryItemComponent = (item: Item, containerStyle = {}, gridView : boole
     };
 
     const handleCategoryDetailsNavigation = (item:Item) => {
-      //Check Whether the item exists or not in the local storage
-      // const isRecentlyViewedDataExists = _retrieveRecentlyViewedData(item.uid);
-      // isRecentlyViewedDataExists.then(val => {
-      //   console.log('value at 148', val)
-      //   if(val){
-      //     console.log('value on line number 149',val)
-      //     return;
-      //   }else{
-      //     console.log('iam in 152')
-      //     AsyncStorage.removeItem("recently_viewed_products")
-      //     // check if item exists in productsArray
-      //     //AsyncStorage.setItem("recently_viewed_products",JSON.stringify(item))
-      //   }
-      // })
-      // AsyncStorage.getItem('recently_viewed_products').then((products)=>{
-      //   const p = products ? JSON.parse(products) : [];
-      //   p.push(item);
-      //   AsyncStorage.setItem('recently_viewed_products', JSON.stringify(p));
-      // });
-
       navigation.navigate("CategoryDetails",{categoryDetail: item, one_level_url_path: url_path, pathName: pathName})
     }
 
     return (
       <TouchableOpacity
-        activeOpacity={0.7}
+      activeOpacity={0.9}
         key={item.name+second_title}
         style={[
           styles.itemContainer,
