@@ -13,8 +13,8 @@ export const miniShoppingCartData = [
     {
       id: 2,
       name: 'BrowSense®',
-      color: 'Green',
-      size: 'S',
+      color: 'Orange',
+      size: 'M',
       image: images.featureProduct2,
       price: 49,
       qty: 2,

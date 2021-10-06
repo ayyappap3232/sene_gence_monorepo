@@ -23,6 +23,7 @@ export const ScrollToTopContainer = ({
   headerContainerStyle = {},
   showCart = false,
   isBannerShownOnInitialLoad = false,
+  keyboardShouldPersistTaps="always",
   ...restProps
 }: any) => {
   //ScrollTo Top Functionality
@@ -46,7 +47,7 @@ export const ScrollToTopContainer = ({
       <ScrollView
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="always"
+        keyboardShouldPersistTaps={keyboardShouldPersistTaps}
         nestedScrollEnabled={nestedScrollEnabled}
         onScroll={e => {
           setShowPageUp(e.nativeEvent.contentOffset.y > 100 ? true : false);

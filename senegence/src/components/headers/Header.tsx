@@ -187,7 +187,7 @@ export default function Header({
         </TouchableOpacity>
       </View>
 
-      <Minishoppingbag miniShoppingCartData={miniShoppingCartData} />
+      <Minishoppingbag miniShoppingCartData={miniShoppingCartData} setVisible={setVisible} />
     </View>
   </Modal>
   }
@@ -234,8 +234,8 @@ export default function Header({
                 {showCart && (
                   <TouchableOpacity onPress={() => 
                     {
-                      //showModal()
-                      navigation.navigate(ScreenNames.MainShoppingCartBag)
+                      showModal()
+                      // navigation.navigate(ScreenNames.MainShoppingCartBag)
                     }
                   
                   }>

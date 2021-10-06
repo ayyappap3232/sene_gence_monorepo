@@ -1,18 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import {COLORS, FONTS, images, SIZES} from '../../constants';
+import {Close} from '../../../assets/svgs';
+import {COLORS, FONTS, icons, images, SIZES} from '../../constants';
 import {globalStyles} from '../../globalstyles/GlobalStyles';
 import {miniShoppingCartData} from '../../utils/data/MiniShoppingBagData';
+import CircularBackgroundWithIcon from '../buttons/CloseButton';
 import OutlineButton from '../buttons/OutlineButton';
 import Divider from '../dividers/Divider';
 import Spacer from '../Spacer';
 import Text from '../text/Text';
 import OutlineTextInput from '../textInputs/OutlineTextInput';
+import Toast from '../toasts/Toast';
+import Modal from 'react-native-modal';
+import DeleteConfirmationModal from '../modals/DeleteConfirmationModal';
 
 export default function Mainshoppingbag() {
-  // const [totalCost, setTotalCost] = useState<number>();
-
   const [shoppingCartData, setShoppingCartData] =
     useState(miniShoppingCartData);
   const totalPrice = shoppingCartData.reduce(
@@ -21,10 +24,13 @@ export default function Mainshoppingbag() {
   );
   const [isError, setisError] = useState<string | null>(null);
   const [couponText, setCouponText] = useState<string>('');
+  const [showCloseIconWhenClickOnApply, setShowCloseIconWhenClickOnApply] =
+    useState(false);
+  const [status, setStatus] = useState('');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteId, setDeleteId] = useState();
 
-  // useEffect(() => {
-  //   setTotalCost(totalPrice);
-  // }, []);
+  let couponCode = 'abc';
 
   const _renderItem = ({item, i}: any) => {
     const _leftContent = () => {
@@ -130,7 +136,7 @@ export default function Mainshoppingbag() {
       );
     };
 
-    const _handleIncrementQuantity = id => {
+    const _handleIncrementQuantity = (id: any) => {
       let updatedQuantity = shoppingCartData.map(currEn => {
         if (currEn.id === id && currEn.qty >= 1) {
           return {...currEn, qty: currEn.qty + 1};
@@ -141,7 +147,7 @@ export default function Mainshoppingbag() {
       setShoppingCartData(updatedQuantity);
     };
 
-    const _handleDecrementQuantity = id => {
+    const _handleDecrementQuantity = (id: any) => {
       let updatedQuantity = shoppingCartData.map(currEn => {
         if (currEn.id === id && currEn.qty !== 1) {
           return {...currEn, qty: currEn.qty - 1};
@@ -157,6 +163,20 @@ export default function Mainshoppingbag() {
         el => el.id !== id,
       );
       setShoppingCartData(updatedShoppingCartData);
+      setShowDeleteModal(false);
+    };
+
+    const _confirmationModal = () => {
+      return (
+        <DeleteConfirmationModal
+          showModal={showDeleteModal}
+          setShowModal={() => setShowDeleteModal(!showDeleteModal)}
+          title={' Are you sure you want to'}
+          subTitle={'remove this Item'}
+          cancelModal={() => setShowDeleteModal(false)}
+          handleDelete={() => handleDelete(deleteId)}
+        />
+      );
     };
 
     return (
@@ -181,10 +201,13 @@ export default function Mainshoppingbag() {
           <Spacer mr={20} />
           <TouchableOpacity
             activeOpacity={0.7}
-            onPress={() => handleDelete(item.id)}>
+            onPress={() => {
+              setShowDeleteModal(true), setDeleteId(item.id);
+            }}>
             <Image source={images.deleteIcon} style={{width: 16, height: 16}} />
           </TouchableOpacity>
         </View>
+        {deleteId && _confirmationModal()}
       </React.Fragment>
     );
   };
@@ -242,12 +265,22 @@ export default function Mainshoppingbag() {
   const _handleRedeem = () => {
     if (couponText.length === 0) {
       setisError('This is a required field.');
+      setShowCloseIconWhenClickOnApply(false);
+      return;
     }
+    couponText === couponCode ? setStatus('success') : setStatus('error');
+    setShowCloseIconWhenClickOnApply(true);
   };
 
   const handleCouponText = (text: string) => {
     setCouponText(text);
     setisError(null);
+  };
+
+  const handleCloseIcon = () => {
+    setShowCloseIconWhenClickOnApply(false);
+    setCouponText('');
+    setStatus('removed');
   };
 
   const _couponCode = () => {
@@ -261,19 +294,35 @@ export default function Mainshoppingbag() {
           Coupon Code
         </Text>
         <Spacer mt={4} />
-        <OutlineTextInput
-          placeholder={'Enter your coupon code ...'}
-          value={couponText}
-          onChangeText={(text: string) => handleCouponText(text)}
-          containerStyle={[
-            {
-              backgroundColor: 'rgba(244, 244, 244, 0.5)',
-              width: '100%',
-              height: 40,
-            },
-            isError && {borderColor: COLORS.error, borderWidth: 1},
-          ]}
-        />
+        <View>
+          <OutlineTextInput
+            placeholder={'Enter your coupon code ...'}
+            value={couponText}
+            onChangeText={(text: string) => handleCouponText(text)}
+            containerStyle={[
+              {
+                backgroundColor: 'rgba(244, 244, 244, 0.5)',
+                width: '100%',
+                height: 40,
+              },
+              isError && {borderColor: COLORS.error, borderWidth: 1},
+            ]}
+          />
+          {showCloseIconWhenClickOnApply && (
+            <CircularBackgroundWithIcon
+              icon={images.close}
+              containerStyle={{
+                position: 'absolute',
+                top: 10,
+                right: 10,
+                bottom: 0,
+                justifyContent: 'center',
+                alignSelf: 'center',
+              }}
+              onPress={() => handleCloseIcon()}
+            />
+          )}
+        </View>
         <Spacer mt={4} />
         <View style={isError ? globalStyles.row : {}}>
           {isError && (
@@ -295,7 +344,7 @@ export default function Mainshoppingbag() {
                   textAlign: 'right',
                 },
               ]}>
-              Redeem
+              Apply
             </Text>
           </TouchableOpacity>
         </View>
@@ -322,9 +371,50 @@ export default function Mainshoppingbag() {
     );
   };
 
+  const _toastNotification = (status: string) => {
+    switch (status) {
+      case 'success':
+        return (
+          <Toast
+            icon={icons.Check}
+            iconBgColor={COLORS.success}
+            iconColor={COLORS.white}
+            backgroundColor={COLORS.successBackground}
+            color={COLORS.success}
+            message={'Coupon was successfully applied'}
+          />
+        );
+      case 'error':
+        return (
+          <Toast
+            icon={images.close}
+            iconBgColor={COLORS.errorIconBackground}
+            iconColor={COLORS.white}
+            backgroundColor={COLORS.errorBackground}
+            color={COLORS.white}
+            message={'Coupon code is not valid'}
+          />
+        );
+      case 'removed':
+        return (
+          <Toast
+            backgroundColor={COLORS.removedBackground}
+            message={'Coupon code was removed'}
+          />
+        );
+      default:
+        return;
+    }
+  };
+
+  const _handleStatusToast = () => {
+    return _toastNotification(status);
+  };
+
   const _headerContent = () => {
     return shoppingCartData.length > 0 ? (
       <View>
+        {_handleStatusToast()}
         <Spacer mt={19} />
         <View
           style={[

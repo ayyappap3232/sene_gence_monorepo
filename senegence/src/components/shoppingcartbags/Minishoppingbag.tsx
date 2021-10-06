@@ -1,18 +1,26 @@
+import { useNavigation } from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {COLORS, images, SIZES} from '../../constants';
 import {globalStyles} from '../../globalstyles/GlobalStyles';
+import { ScreenNames } from '../../utils/screenNames';
 import OutlineButton from '../buttons/OutlineButton';
 import Divider from '../dividers/Divider';
+import DeleteConfirmationModal from '../modals/DeleteConfirmationModal';
 import Spacer from '../Spacer';
 import Text from '../text/Text';
 import OutlineTextInput from '../textInputs/OutlineTextInput';
 
-export default function Minishoppingbag({miniShoppingCartData}:any) {
+export default function Minishoppingbag({miniShoppingCartData, setVisible}:any) {
+  const navigation = useNavigation<any>();
+  const [shoppingCartData, setShoppingCartData] =
+  useState(miniShoppingCartData);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteId, setDeleteId] = useState();
   const [totalCost, setTotalCost] = useState<number>();
-  const totalPrice = miniShoppingCartData?.reduce(
-    (total, element) => (total += element.price),
+  const totalPrice = shoppingCartData?.reduce(
+    (total, element) => (total += element.price * Number(element.qty)),
     0,
   );
 
@@ -62,7 +70,7 @@ export default function Minishoppingbag({miniShoppingCartData}:any) {
               globalStyles.text_avenir_heavy,
               {textAlign: 'left'},
             ]}>
-            ${item.price} USD
+            ${item.price * item.qty} USD
           </Text>
           <Spacer mt={20} />
           {_quantityAddAndDelete()}
@@ -120,6 +128,49 @@ export default function Minishoppingbag({miniShoppingCartData}:any) {
     //   );
     // };
 
+    const _handleIncrementQuantity = (id: any) => {
+      let updatedQuantity = shoppingCartData.map(currEn => {
+        if (currEn.id === id && currEn.qty >= 1) {
+          return {...currEn, qty: currEn.qty + 1};
+        }
+        return currEn;
+      });
+
+      setShoppingCartData(updatedQuantity);
+    };
+
+    const _handleDecrementQuantity = (id: any) => {
+      let updatedQuantity = shoppingCartData.map(currEn => {
+        if (currEn.id === id && currEn.qty !== 1) {
+          return {...currEn, qty: currEn.qty - 1};
+        }
+        return currEn;
+      });
+
+      setShoppingCartData(updatedQuantity);
+    };
+
+    const handleDelete = (id: any) => {
+      const updatedShoppingCartData = shoppingCartData.filter(
+        el => el.id !== id,
+      );
+      setShoppingCartData(updatedShoppingCartData);
+      setShowDeleteModal(false);
+    };
+
+    const _confirmationModal = () => {
+      return (
+        <DeleteConfirmationModal
+          showModal={showDeleteModal}
+          setShowModal={() => setShowDeleteModal(!showDeleteModal)}
+          title={' Are you sure you want to'}
+          subTitle={'remove this Item'}
+          cancelModal={() => setShowDeleteModal(false)}
+          handleDelete={() => handleDelete(deleteId)}
+        />
+      );
+    };
+
     const _quantityAddAndDelete = () => {
       return (
         <View style={{flex: 1, flexDirection: 'row'}}>
@@ -127,19 +178,19 @@ export default function Minishoppingbag({miniShoppingCartData}:any) {
             <Text>QTY</Text>
             <Spacer mr={10} />
             {/* //Todo Quantity add or delete dynamic */}
-            <TouchableOpacity style={[styles.box, styles.leftBox]}>
+            <TouchableOpacity style={[styles.box, styles.leftBox]} onPress={() => _handleDecrementQuantity(item.id)}>
               <Image
                 source={images.minus}
                 style={{width: 9.4, height: 1.2, tintColor: COLORS.text}}
               />
             </TouchableOpacity>
             <OutlineTextInput
+            editable={false}
               containerStyle={styles.quantityText}
               placeholder={''}
-              value={item.qty}
-              onChangeText={() => {}}
+              value={item.qty.toString()}
             />
-            <TouchableOpacity style={(styles.box, styles.rightBox)}>
+            <TouchableOpacity style={(styles.box, styles.rightBox)} onPress={() => _handleIncrementQuantity(item.id)}>
               <Image
                 source={images.plus}
                 style={{width: 10, height: 10, tintColor: COLORS.text}}
@@ -153,7 +204,9 @@ export default function Minishoppingbag({miniShoppingCartData}:any) {
               <Image source={images.editIcon} style={{width: 20, height: 20}} />
             </TouchableOpacity>
             <Spacer mr={10} /> */}
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => {
+              setShowDeleteModal(true), setDeleteId(item.id);
+            }}>
               <Image
                 source={images.deleteIcon}
                 style={{width: 20, height: 20}}
@@ -169,6 +222,7 @@ export default function Minishoppingbag({miniShoppingCartData}:any) {
         {_leftContent()}
         <Spacer mr={20} />
         {_rightContent()}
+        {deleteId && _confirmationModal()}
       </View>
     );
   };
@@ -181,7 +235,7 @@ export default function Minishoppingbag({miniShoppingCartData}:any) {
             globalStyles.text,
             {lineHeight: 50, textTransform: 'uppercase'},
           ]}>
-          {miniShoppingCartData.length} Items In Cart
+          {shoppingCartData.length} Items In Cart
         </Text>
       </View>
     );
@@ -223,7 +277,7 @@ export default function Minishoppingbag({miniShoppingCartData}:any) {
               Sub Total
             </Text>
             <Text containerStyle={[globalStyles.text_avenir_medium]}>
-              ${totalCost} USD
+              ${totalPrice} USD
             </Text>
           </View>
           <Spacer mt={20} />
@@ -245,15 +299,17 @@ export default function Minishoppingbag({miniShoppingCartData}:any) {
   };
 
   const _listEmptyComponent = () => {
-    return <View style={{flex: 1, justifyContent: 'center', alignItems:'center'}}>
-      <Text>You have no items in your shopping bag.</Text>
+    return <View style={{flex: 1, justifyContent: 'center', alignItems:'center',marginTop: SIZES.height/4}}>
+      <Text containerStyle={{textTransform:'uppercase'}}>You have no items in your shopping bag.</Text>
+      <Spacer mt={20} />
+      <OutlineButton title={"Continue Shopping"} onPress={() => {setVisible(false), navigation.navigate(ScreenNames.StartUpDrawer)}}/>
     </View>
   }
 
   return (
     <FlatList
       contentContainerStyle={{paddingHorizontal: 20}}
-      data={miniShoppingCartData}
+      data={shoppingCartData}
       ItemSeparatorComponent={() => (
         <>
           <Spacer mt={20} />
@@ -264,8 +320,8 @@ export default function Minishoppingbag({miniShoppingCartData}:any) {
       renderItem={_renderItem}
       ListEmptyComponent={_listEmptyComponent()}
       keyExtractor={(item, index) => item.id}
-      ListFooterComponent={() => _footerSection()}
-      ListHeaderComponent={() => _headerSection()}
+      ListFooterComponent={() => shoppingCartData.length > 0 ? _footerSection(): null}
+      ListHeaderComponent={() => shoppingCartData.length > 0 ? _headerSection(): null}
     />
   );
 }
