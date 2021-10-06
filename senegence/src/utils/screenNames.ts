@@ -22,5 +22,6 @@ export const ScreenNames = {
     CopyrightDMCAPolicy:"CopyrightDMCAPolicy",
     MainShoppingCartBag:"MainShoppingCartBag",
     FAQS: "FAQS",
-    Careers:"Careers"
+    Careers:"Careers",
+    AllProducts: "AllProducts"
 }

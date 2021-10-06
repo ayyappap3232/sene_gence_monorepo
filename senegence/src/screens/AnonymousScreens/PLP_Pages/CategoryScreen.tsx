@@ -27,6 +27,8 @@ import FilterDrawer from '../../../components/drawers/FilterDrawer';
 import Drawer from 'react-native-drawer';
 import CustomDrawerContent from '../../../navigation/CustomDrawerContent';
 import { Alert } from 'react-native';
+import RecentlyViewedProducts from '../../../components/RecentlyViewedProducts';
+import { _beautyBook } from '../../../components/BeautyBook';
 
 export default function CategoryScreen() {
   const navigation = useNavigation<any>();
@@ -141,48 +143,7 @@ export default function CategoryScreen() {
     );
   };
 
-  const _beautyBook = () => {
-    return (
-      <ImageBackground
-        source={images.beautyBg}
-        style={{width: 332, height: 421, marginLeft: 5, alignSelf: 'center'}}>
-        <Image
-          source={images.beautyGirls}
-          style={{width: 308, height: 233, margin: 12}}
-        />
-        <Spacer mt={10} />
-        <View style={{marginHorizontal: 7}}>
-          <Text
-            containerStyle={{
-              textAlign: 'center',
-              fontSize: SIZES.h3,
-              fontFamily: FONTS.BebasNeueBold,
-              letterSpacing: 2,
-              color: COLORS.text,
-            }}>
-            Beauty Book
-          </Text>
-          <Spacer mt={4} />
-          <Text
-            containerStyle={{
-              textAlign: 'center',
-              fontSize: SIZES.body4,
-              fontFamily: FONTS.AvenirBook,
-              letterSpacing: 0.7,
-              color: COLORS.text,
-            }}>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna
-          </Text>
-          <Spacer mt={10} />
-          <Image
-            source={images.viewnow}
-            style={{width: 151.9, height: 39, alignSelf: 'center'}}
-          />
-        </View>
-      </ImageBackground>
-    );
-  };
+  
 
   const _recentlyViewedProducts = () => {
     return (
@@ -275,38 +236,7 @@ export default function CategoryScreen() {
       <Spacer mt={40} />
       {_beautyBook()}
       <Spacer mt={40} />
-      
-
-      {recentlyViewedProducts.length > 0 && (
-        <>
-        {_recentlyViewedProducts()}
-      <Spacer mt={26} />
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            horizontal={true}
-            style={{marginHorizontal: 10}}
-            numColumns={1}
-            renderItem={({item}) =>
-              CategoryItemComponent(
-                item,
-                {marginRight: 10},
-                gridView,
-                navigation,
-                url_path,
-                name,
-              )
-            }
-            data={recentlyViewedProducts}
-            keyExtractor={(item, index) => index.toString()}
-            ListEmptyComponent={() => (
-              <View style={styles.listEmpty}>
-                <Text>No Content Found</Text>
-              </View>
-            )}
-          />
-          <Spacer mt={54.1} />
-        </>
-      )}
+      <RecentlyViewedProducts gridView={gridView} navigation={navigation} route={route}/>
     </ScrollToTopContainer>
   );
 }
