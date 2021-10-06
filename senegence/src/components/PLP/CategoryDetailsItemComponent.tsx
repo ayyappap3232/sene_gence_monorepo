@@ -157,19 +157,19 @@ export default function CategoryDetailsItemComponent({
 
   const _findADistributorAndShop = () => {
     return (
-      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+      <View style={{flexDirection: 'row', justifyContent: 'center',alignItems:'center'}}>
         <OutlineButton
           textStyleContainer={{color: COLORS.primary2, fontWeight: '900'}}
           containerStyle={styles.findADistributor}
           title={'find a distributor'}
           onPress={() => Linking.openURL(findADistributor)}
         />
-        <OutlineButton
+        {stock_status !== "OUT_OF_STOCK" ? <OutlineButton
           textStyleContainer={{color: COLORS.white}}
           containerStyle={styles.shop}
           title={'shop'}
-          onPress={() => Linking.openURL(findADistributor)}
-        />
+          onPress={() => Linking.openURL(`https://shop.senegence.com/en-us/product/${sku}/${name}`)}
+        /> : <Text>Out of Stock</Text>}
       </View>
     );
   };

@@ -201,7 +201,6 @@ export default function AboutUs() {
         <Spacer mt={20} />
         {/* Youtube video to place */}
         {/* what is senegence slider */}
-        {/* Meet our executive team */}
         {_meetOurExecutiveTeam()}
         <Spacer mt={40} />
         {_makingADifference()}
