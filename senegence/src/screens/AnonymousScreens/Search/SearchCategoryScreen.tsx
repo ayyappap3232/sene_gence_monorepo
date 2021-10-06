@@ -118,23 +118,6 @@ export default function SearchCategoryScreen({name}: any) {
     );
   };
 
-  const _recentlyViewedProducts = () => {
-    return (
-      <View>
-        <Text
-          containerStyle={{
-            fontSize: SIZES.h1,
-            fontFamily: FONTS.BebasNeueRegular,
-            letterSpacing: 1.5,
-            color: COLORS.black,
-            textAlign: 'center',
-          }}>
-          Recently Viewed
-        </Text>
-      </View>
-    );
-  };
-
   const _filters = () => {
     return (
       <View

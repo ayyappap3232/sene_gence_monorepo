@@ -33,6 +33,7 @@ import Text from '../components/text/Text';
 import OutlineButton from '../components/buttons/OutlineButton';
 import FAQS from '../screens/AnonymousScreens/FreaquentlyAsked_Pages/FAQS';
 import Careers from '../screens/AnonymousScreens/Careers/Careers';
+import CategoryPage from '../screens/AnonymousScreens/Categories_Pages/CategoryPage';
 
 const Drawer = createDrawerNavigator();
 
@@ -171,6 +172,10 @@ const DrawerNavigator = () => {
         <Drawer.Screen
           name={ScreenNames.Careers}
           component={Careers}
+        />
+        <Drawer.Screen
+          name={ScreenNames.AllProducts}
+          component={CategoryPage}
         />
       </Drawer.Group>
       {/* <Drawer.Group screenOptions={{}}>
