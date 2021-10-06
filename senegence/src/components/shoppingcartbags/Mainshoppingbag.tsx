@@ -159,8 +159,6 @@ export default function Mainshoppingbag() {
     };
 
     const handleDelete = (id: any) => {
-      console.log('delete Id on 160', id);
-
       const updatedShoppingCartData = shoppingCartData.filter(
         el => el.id !== id,
       );
