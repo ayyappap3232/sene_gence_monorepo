@@ -23,7 +23,13 @@ export const COLORS = {
     backgroundGrayColor: "#f7f7f7",
     searchTitle: "#605f5f",
     unCheckedColor: "#707070",
-    error: '#ff6e6e'
+    error: '#ff6e6e',
+    errorIconBackground:"#9d0808",
+    closeBackground: '#a0a0a0',
+    success: "#006400",
+    successBackground:"#e5efe5",
+    errorBackground: "#e48989",
+    removedBackground: "#feefd5"
 
 }
 
