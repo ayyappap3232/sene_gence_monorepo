@@ -29,7 +29,8 @@ export const COLORS = {
     success: "#006400",
     successBackground:"#e5efe5",
     errorBackground: "#e48989",
-    removedBackground: "#feefd5"
+    removedBackground: "#feefd5",
+    sideBarBackground: '#fafafa'
 
 }
 
@@ -62,7 +63,7 @@ export const SIZES = {
 export const FONTS = {
     ...Platform.select({
         ios: {
-            AvenirRegular: "Avenir Regular",
+            AvenirRegular: "AvenirNext-Regular",
             BebasNeueBold: "BebasNeue-Bold",
             AvenirBook: "Avenir-Book",
             AvenirMedium:"Avenir-Medium",

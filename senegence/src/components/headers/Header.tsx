@@ -234,8 +234,8 @@ export default function Header({
                 {showCart && (
                   <TouchableOpacity onPress={() => 
                     {
-                      showModal()
-                      // navigation.navigate(ScreenNames.MainShoppingCartBag)
+                      //showModal()
+                       navigation.navigate(ScreenNames.MainShoppingCartBag)
                     }
                   
                   }>
@@ -341,7 +341,7 @@ export default function Header({
 
 const styles = StyleSheet.create({
   header: {
-    height: Platform.OS == 'ios' ? 70 : 60,
+    height: Platform.OS == 'ios' ? 80 : 60,
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',

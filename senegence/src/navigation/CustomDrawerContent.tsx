@@ -41,6 +41,8 @@ import {
 import {ScreenNames} from '../utils/screenNames';
 import Collapsible from 'react-native-collapsible';
 import ActivityIndicator from '../components/spinners/ActivityIndicator';
+import { globalStyles } from '../globalstyles/GlobalStyles';
+import Spacer from '../components/Spacer';
 
 const CustomDrawerContent = (props: any) => {
   const navigation = useNavigation<any>();
@@ -118,24 +120,39 @@ const CustomDrawerContent = (props: any) => {
     navigation.navigate('CategoryItem', {categoryData: item});
   };
 
+  const _applyBackgroundBasedOnStatus = (status: string) => {
+    switch (status) {
+      case "parent":
+        return {backgroundColor:'transparent'};
+      case "child": 
+        return {backgroundColor:COLORS.sideBarBackground,paddingHorizontal: 10,justifyContent:'center'};
+      case "subchild":
+        return {backgroundColor:COLORS.sideBarBackground, paddingHorizontal: 10};
+      default:
+        return {backgroundColor:'white'};
+    }
+  }
+
   const _renderMenuItem = (
     item: any,
     index: any,
     setSelectedItem?: any,
     selectedItem?: any,
-    collapsed?: boolean
+    collapsed?: boolean,
+    status = "parent"
   ) => {
     return (
-      <Collapsible collapsed={collapsed}>
+      <Collapsible collapsed={collapsed} style={[_applyBackgroundBasedOnStatus(status),(index === 0 && status === "child") && {paddingTop: 10}]} >
+      <View style={status === "subchild" && {backgroundColor: COLORS.white, paddingTop: index === 0 ? 10 : 0, paddingLeft: 12}}>
       <TouchableOpacity
         key={`${index}${item.name}`}
         style={[
           styles.categoryListItem,
-          item.name == selectedTitle && {
-            borderLeftWidth: 8,
-            borderLeftColor: '#ff5501',
-            paddingLeft: 5,
-          },
+          // item.name == selectedTitle && {
+          //   borderLeftWidth: 8,
+          //   borderLeftColor: '#ff5501',
+          //   paddingLeft: 5,
+          // },
         ]}
         onPress={() => _handleSingleItem(item, item.name)}>
         <Text containerStyle={styles.categoriesList}>{item.name}</Text>
@@ -169,6 +186,7 @@ const CustomDrawerContent = (props: any) => {
           </TouchableOpacity>
         )}
       </TouchableOpacity>
+      </View>
       </Collapsible>
     );
   };
@@ -186,7 +204,8 @@ const CustomDrawerContent = (props: any) => {
                   index,
                   setSelectedItemIndex,
                   selectedItemIndex,
-                  false
+                  false,
+                  "parent"
                 )}
                 {index + item.name == selectedItemIndex.id &&
                           selectedItemIndex.toggle &&
@@ -202,6 +221,7 @@ const CustomDrawerContent = (props: any) => {
                           (index+item.name == selectedItemIndex.id) &&
                           selectedItemIndex.toggle &&
                           item.children.length > 0,
+                          "child"
                         )}
                         {index + item.name == selectedChildItemIndex.id &&
                               selectedChildItemIndex.toggle &&
@@ -209,7 +229,7 @@ const CustomDrawerContent = (props: any) => {
                           item.children.map((item, index) => {
                             return _renderMenuItem(item, index ,undefined,undefined,(index+item.name == selectedChildItemIndex.id) &&
                               selectedChildItemIndex.toggle &&
-                              item.children.length > 0);
+                              item.children.length > 0,"subchild");
                           })}
                       </React.Fragment>
                     );
@@ -225,6 +245,8 @@ const CustomDrawerContent = (props: any) => {
   const _loginContent = () => {
     return (
       <>
+      <Spacer mt={11}/>
+      <Text containerStyle={[globalStyles.text_avenir_medium,{letterSpacing: 4.8,textAlign: 'left',textTransform:'uppercase'}]}>Select User Login type</Text>
         <TouchableOpacity
           onPress={() => {}}
           activeOpacity={0.7}
@@ -232,7 +254,7 @@ const CustomDrawerContent = (props: any) => {
           <Text>LOGIN AS A CUSTOMER</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={() => Linking.openURL("http://integration-5ojmyuq-yhtn2v2qno5pk.us-a1.magentosite.cloud/distributor-login")}
           activeOpacity={0.7}
           style={styles.loginText}>
           <Text>LOGIN AS A DISTRIBUTOR</Text>

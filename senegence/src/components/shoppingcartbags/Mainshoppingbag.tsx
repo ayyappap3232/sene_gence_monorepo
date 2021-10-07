@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Alert, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import {Close} from '../../../assets/svgs';
 import {COLORS, FONTS, icons, images, SIZES} from '../../constants';
 import {globalStyles} from '../../globalstyles/GlobalStyles';
@@ -296,8 +296,11 @@ export default function Mainshoppingbag() {
         <Spacer mt={4} />
         <View>
           <OutlineTextInput
+            autoFocus
+            blurOnSubmit={false}
             placeholder={'Enter your coupon code ...'}
             value={couponText}
+            autoCapitalize="none" 
             onChangeText={(text: string) => handleCouponText(text)}
             containerStyle={[
               {

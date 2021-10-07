@@ -91,7 +91,6 @@ type SPCResult = {
 
 export const useSearchProductCount = (props: SPCProps): SPCResult => {
     const [searchProductCount, setSearchProductCount] = useState()
-    console.log('props',props)
     const [getSearchProductCount, { data}] = useLazyQuery(GET_SEARCH_PRODUCT_COUNT, {
         variables: {
             name: props?.name,
@@ -100,7 +99,6 @@ export const useSearchProductCount = (props: SPCProps): SPCResult => {
     })
 
     useEffect(() => {
-        console.log('data count',data)
         if(data){
             setSearchProductCount(data)
         }
