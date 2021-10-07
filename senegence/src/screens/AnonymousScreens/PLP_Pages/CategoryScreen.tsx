@@ -24,11 +24,11 @@ import {filterNames} from '../../../utils/data/FilterData';
 import SortByFilter from '../../../components/filters/SortByFilter';
 import {ScreenNames} from '../../../utils/screenNames';
 import FilterDrawer from '../../../components/drawers/FilterDrawer';
-import Drawer from 'react-native-drawer';
 import CustomDrawerContent from '../../../navigation/CustomDrawerContent';
-import { Alert } from 'react-native';
+import {Alert} from 'react-native';
 import RecentlyViewedProducts from '../../../components/RecentlyViewedProducts';
-import { _beautyBook } from '../../../components/BeautyBook';
+import {_beautyBook} from '../../../components/BeautyBook';
+import { _breadCrumbs } from '../../../components/breadCrumbs/BreadCrumbWithInfinityLoop';
 
 export default function CategoryScreen() {
   const navigation = useNavigation<any>();
@@ -48,14 +48,12 @@ export default function CategoryScreen() {
   const [gridView, setgridView] = useState<boolean>(false);
 
   useEffect(() => {
-      setPageSize(10);
-      setCurrentIndex(1);
-      setCurrentPage(1);
-    
-  }, [url_path])
+    setPageSize(10);
+    setCurrentIndex(1);
+    setCurrentPage(1);
+  }, [url_path]);
 
   console.log('navigation currentPage', currentPage);
-  
 
   const {getCategoryList, loading, error, categoryList} = useCategoryList({
     url_path: url_path,
@@ -143,8 +141,6 @@ export default function CategoryScreen() {
     );
   };
 
-  
-
   const _recentlyViewedProducts = () => {
     return (
       <View>
@@ -198,17 +194,25 @@ export default function CategoryScreen() {
     );
   };
 
+
+  const breadCrumbs = categoryList?.categoryList[0]?.breadcrumbs;
+
+  
+
   return (
     <ScrollToTopContainer showCart={false}>
       <View style={{marginLeft: 20}}>
-        <BreadCrumbWithOneLevelUp title={name} />
+        {/* <BreadCrumbWithOneLevelUp title={name} /> */}
+
+        {_breadCrumbs(breadCrumbs,name, navigation)}
       </View>
       {total_count > 0 && (
         <>
           <Spacer mt={10} />
           <Text containerStyle={{marginLeft: 20}}>
-          ITEMS {(currentPage - 1) * pageSize + 1} - {(total_count > 10 ? pageSize : total_count )* currentPage}{' '}
-            OF {total_count}{' '}
+            ITEMS {(currentPage - 1) * pageSize + 1} -{' '}
+            {(total_count > 10 ? pageSize : total_count) * currentPage} OF{' '}
+            {total_count}{' '}
           </Text>
         </>
       )}
@@ -236,7 +240,11 @@ export default function CategoryScreen() {
       <Spacer mt={40} />
       {_beautyBook()}
       <Spacer mt={40} />
-      <RecentlyViewedProducts gridView={gridView} navigation={navigation} route={route}/>
+      <RecentlyViewedProducts
+        gridView={gridView}
+        navigation={navigation}
+        route={route}
+      />
     </ScrollToTopContainer>
   );
 }
