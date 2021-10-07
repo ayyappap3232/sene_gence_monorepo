@@ -23,6 +23,10 @@ export const CATEGORY_LIST = gql`
       product_count
       image
       url_path
+      breadcrumbs{
+          category_name
+          category_url_path
+        }
       products(pageSize: $pageSize, currentPage: $currentPage) {
         total_count
         items {
