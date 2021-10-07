@@ -65,7 +65,7 @@ export default function Footer({containerStyle = {}}) {
               />
         </TouchableOpacity>
         {childItem?.children.map((item,index) => {
-          return <Collapsible collapsed={!(childItem.name == selectedState.id && selectedState.toggle)}>
+          return <Collapsible collapsed={!(childItem.name === selectedState.id && selectedState.toggle)}>
           <TouchableOpacity onPress={() => navigation.navigate('CategoryItem', {categoryData: item})}>
             <Text containerStyle={[styles.childName, {textTransform:'capitalize'}]}>{item.children.length > 0 && item.name}</Text>
           </TouchableOpacity>
@@ -127,7 +127,7 @@ export default function Footer({containerStyle = {}}) {
             {
               item.children.map((childItem: IFooterChildData, index) => {
                 return (
-                  <Collapsible collapsed={!(item.title == selectedState.id &&
+                  <Collapsible collapsed={!(item.title === selectedState.id &&
                     selectedState.toggle)}>
                   <TouchableOpacity
                     onPress={() =>
