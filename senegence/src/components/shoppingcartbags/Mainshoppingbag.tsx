@@ -14,8 +14,10 @@ import OutlineTextInput from '../textInputs/OutlineTextInput';
 import Toast from '../toasts/Toast';
 import Modal from 'react-native-modal';
 import DeleteConfirmationModal from '../modals/DeleteConfirmationModal';
+import {ScreenNames} from '../../utils/screenNames';
+import {useNavigation} from '@react-navigation/native';
 
-export default function Mainshoppingbag() {
+export default function Mainshoppingbag({navigation}: any) {
   const [shoppingCartData, setShoppingCartData] =
     useState(miniShoppingCartData);
   const totalPrice = shoppingCartData.reduce(
@@ -26,11 +28,16 @@ export default function Mainshoppingbag() {
   const [couponText, setCouponText] = useState<string>('');
   const [showCloseIconWhenClickOnApply, setShowCloseIconWhenClickOnApply] =
     useState(false);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState<any>("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState();
 
   let couponCode = 'abc';
+
+  useEffect(() => {
+    setStatus("")
+    setCouponText("")
+  }, []);
 
   const _renderItem = ({item, i}: any) => {
     const _leftContent = () => {
@@ -265,9 +272,11 @@ export default function Mainshoppingbag() {
   const _handleRedeem = () => {
     if (couponText.length === 0) {
       setisError('This is a required field.');
+      setStatus(null);
       setShowCloseIconWhenClickOnApply(false);
       return;
     }
+    console.log(couponCode, couponText)
     couponText === couponCode ? setStatus('success') : setStatus('error');
     setShowCloseIconWhenClickOnApply(true);
   };
@@ -296,11 +305,10 @@ export default function Mainshoppingbag() {
         <Spacer mt={4} />
         <View>
           <OutlineTextInput
-            autoFocus
             blurOnSubmit={false}
             placeholder={'Enter your coupon code ...'}
             value={couponText}
-            autoCapitalize="none" 
+            autoCapitalize="none"
             onChangeText={(text: string) => handleCouponText(text)}
             containerStyle={[
               {
@@ -460,11 +468,28 @@ export default function Mainshoppingbag() {
 
   const _listEmptyComponent = () => {
     return (
-      <View style={{height: 50}}>
-        <Text containerStyle={{textAlign: 'center'}}>
-          No Cart Items in the Shopping bag.
-        </Text>
-      </View>
+      <>
+        <Spacer mt={100} />
+        <View>
+        <Spacer mt={52} />
+
+          <Text containerStyle={{textAlign: 'center'}}>
+            You have no items in your shopping bag.
+          </Text>
+          <Spacer mt={24} />
+          <OutlineButton
+            title={'Continue Shopping'}
+            containerStyle={{
+              alignSelf: 'center',
+              width: 214,
+              backgroundColor: COLORS.footerColor,
+              borderColor: COLORS.footerColor,
+            }}
+            textStyleContainer={{color: COLORS.white}}
+            onPress={() => navigation.navigate(ScreenNames.StartUpDrawer)}
+          />
+        </View>
+      </>
     );
   };
 

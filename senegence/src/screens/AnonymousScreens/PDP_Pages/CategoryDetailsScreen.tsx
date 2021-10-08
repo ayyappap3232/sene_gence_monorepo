@@ -19,7 +19,7 @@ export default function CategoryDetailsScreen() {
   return (
     <ScrollToTopContainer>
         <View style={{flex: 1}}>
-            <CategoryDetailsItemComponent url_path={url_path} categoryDetailsData = {item} />
+            <CategoryDetailsItemComponent url_path={url_path} categoryDetailsData = {item}/>
         </View>
     </ScrollToTopContainer>
   );

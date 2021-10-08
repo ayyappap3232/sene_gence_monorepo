@@ -11,6 +11,7 @@ import OutlineButton from '../buttons/OutlineButton';
 import Spacer from '../Spacer';
 import Text from '../text/Text';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { ScreenNames } from '../../utils/screenNames';
 
 const CategoryItemComponent = (item: Item, containerStyle = {}, gridView : boolean, navigation?: any,url_path="", pathName="") => {
   const {
@@ -122,7 +123,7 @@ const CategoryItemComponent = (item: Item, containerStyle = {}, gridView : boole
     };
 
     const handleCategoryDetailsNavigation = (item:Item) => {
-      navigation.navigate("CategoryDetails",{categoryDetail: item, one_level_url_path: url_path, pathName: pathName})
+      navigation.navigate(ScreenNames.CategoryDetails,{categoryDetail: item, one_level_url_path: url_path, pathName: pathName})
     }
 
     return (

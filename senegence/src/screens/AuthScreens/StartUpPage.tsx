@@ -111,6 +111,7 @@ export default function StartUpPage() {
   const _renderTrendingOnSocial = (item: ITrendingOnSocialData) => {
     return (
       <ImageBackground
+      key={item.id}
         source={item.image}
         style={{
           width: 248,
