@@ -282,6 +282,12 @@ export default function Mainshoppingbag({navigation}: any) {
   };
 
   const handleCouponText = (text: string) => {
+    if(text === ""){
+      setCouponText("");
+      setisError(null);
+      setStatus("");
+      setShowCloseIconWhenClickOnApply(false);
+    }
     setCouponText(text);
     setisError(null);
   };
@@ -422,12 +428,9 @@ export default function Mainshoppingbag({navigation}: any) {
     return _toastNotification(status);
   };
 
-  const _headerContent = () => {
-    return shoppingCartData.length > 0 ? (
-      <View>
-        {_handleStatusToast()}
-        <Spacer mt={19} />
-        <View
+  const _proceedToCheckOutContainer = () => {
+    return <>
+    <View
           style={[
             globalStyles.shadowEffect,
             {
@@ -454,6 +457,15 @@ export default function Mainshoppingbag({navigation}: any) {
           {_couponCode()}
           {_proceedToCheckOut()}
         </View>
+    </>
+  }
+
+  const _headerContent = () => {
+    return shoppingCartData.length > 0 ? (
+      <View>
+        {_handleStatusToast()}
+        <Spacer mt={19} />
+        {_proceedToCheckOutContainer()}
         <Spacer mt={39.5} />
 
         <Divider
@@ -494,6 +506,10 @@ export default function Mainshoppingbag({navigation}: any) {
   };
 
   return (
+    <>
+    <View style={{paddingHorizontal: 20}}>
+      {_headerContent()}
+    </View>
     <FlatList
       contentContainerStyle={{paddingHorizontal: 20}}
       data={shoppingCartData}
@@ -511,8 +527,8 @@ export default function Mainshoppingbag({navigation}: any) {
       ListEmptyComponent={() => _listEmptyComponent()}
       renderItem={_renderItem}
       keyExtractor={(item, index) => item.id}
-      ListHeaderComponent={() => _headerContent()}
     />
+    </>
   );
 }
 
