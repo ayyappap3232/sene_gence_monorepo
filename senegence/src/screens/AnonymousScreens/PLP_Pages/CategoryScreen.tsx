@@ -28,7 +28,7 @@ import CustomDrawerContent from '../../../navigation/CustomDrawerContent';
 import {Alert} from 'react-native';
 import RecentlyViewedProducts from '../../../components/RecentlyViewedProducts';
 import {_beautyBook} from '../../../components/BeautyBook';
-import { _breadCrumbs } from '../../../components/breadCrumbs/BreadCrumbWithInfinityLoop';
+import {_breadCrumbs} from '../../../components/breadCrumbs/BreadCrumbWithInfinityLoop';
 
 export default function CategoryScreen() {
   const navigation = useNavigation<any>();
@@ -194,17 +194,14 @@ export default function CategoryScreen() {
     );
   };
 
-
   const breadCrumbs = categoryList?.categoryList[0]?.breadcrumbs;
-
-  
 
   return (
     <ScrollToTopContainer showCart={false}>
       <View style={{marginLeft: 20}}>
         {/* <BreadCrumbWithOneLevelUp title={name} /> */}
 
-        {_breadCrumbs(breadCrumbs,name, navigation)}
+        {_breadCrumbs(breadCrumbs, name, navigation)}
       </View>
       {total_count > 0 && (
         <>
@@ -223,9 +220,18 @@ export default function CategoryScreen() {
         contentContainerStyle={{paddingLeft: 22}}
         numColumns={gridView ? 1 : 2}
         key={gridView ? 1 : 0}
-        renderItem={({item}) =>
-          CategoryItemComponent(item, {}, gridView, navigation, url_path, name)
-        }
+        renderItem={({item}) => (
+          <React.Fragment key={item.uid}>
+            {CategoryItemComponent(
+              item,
+              {},
+              gridView,
+              navigation,
+              url_path,
+              name,
+            )}
+          </React.Fragment>
+        )}
         data={categoryList?.categoryList[0]?.products?.items}
         keyExtractor={(item, index) => index.toString()}
         ListEmptyComponent={() => (
