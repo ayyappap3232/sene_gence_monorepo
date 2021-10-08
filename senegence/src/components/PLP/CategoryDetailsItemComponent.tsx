@@ -15,6 +15,7 @@ import {useCategoryList} from '../../apollo/controllers/getCategoryList.Controll
 import {useSearchCategoryList} from '../../apollo/controllers/getSearchCategoryList.Controller';
 import {Item} from '../../apollo/services/apollo/queries/categories/categoryList';
 import {COLORS, FONTS, images, SIZES} from '../../constants';
+import { useCart } from '../../hooks/cart/useCart';
 import SimilarProducts from '../../screens/AnonymousScreens/PDP_Pages/SimilarProductsScreen';
 import {
   carouselTypes,
@@ -36,7 +37,7 @@ import CategoryItemComponent from './CategoryItemComponent';
 
 export default function CategoryDetailsItemComponent({
   categoryDetailsData,
-  url_path,
+  url_path
 }: any) {
   const navigation = useNavigation();
   const route = useRoute();
@@ -44,6 +45,26 @@ export default function CategoryDetailsItemComponent({
   const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
 
   const {one_level_url_path, pathName} = route?.params;
+  
+
+  const [existingCartId, setExistingCartId] = useState("")  
+  const {cartId} = useCart();
+        
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+
+    AsyncStorage.getItem('cartId').then(value => {
+      if(value != null){
+        setExistingCartId(value);
+        return;
+      }else {
+        AsyncStorage.setItem('cartId', cartId);
+      }
+    })
+  }, [])
+
+  console.log("existing cart id",existingCartId)
+
 
   useEffect(() => {
     AsyncStorage.getItem('recently_viewed_products').then(products => {

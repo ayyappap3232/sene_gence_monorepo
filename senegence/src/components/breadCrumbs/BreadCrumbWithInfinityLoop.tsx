@@ -34,7 +34,7 @@ export const _breadCrumbs = (breadCrumbs: any, name: any, navigation: any) => {
       {breadCrumbs &&
         breadCrumbs.map((item: any, index: any) => {
           return (
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View key={index} style={{flexDirection: 'row', alignItems: 'center'}}>
               {_breadCrumbItem(item.category_name, () =>
                 navigation.navigate(ScreenNames.CategoryItem, {
                   categoryData: {
