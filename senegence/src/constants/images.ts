@@ -207,8 +207,12 @@ const skincare = require("../../assets/images/allproducts/skincare.png")
 
 //Order Confirmation
 const approvedChecked = require("../../assets/images/confirmations/approvedchecked.png")
+const error_404 = require("../../assets/images/errors/error_404.png")
+const error_503 = require("../../assets/images/errors/error_503.png")
 
 export default {
+    error_404,
+    error_503,
     approvedChecked,
     allproducts,
     allcollections,

@@ -1,11 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
 import Spacer from '../../../components/Spacer';
 import Text from '../../../components/text/Text';
-import {COLORS, FONTS, SIZES} from '../../../constants';
+import {COLORS, FONTS, images, SIZES} from '../../../constants';
 import {globalStyles} from '../../../globalstyles/GlobalStyles';
 import {ScreenNames} from '../../../utils/screenNames';
 
@@ -15,6 +15,8 @@ export default function Error_404() {
     <ScrollToTopContainer>
       <View style={{flex: 1, paddingHorizontal: 20}}>
         {/* image content */}
+        <Image source={images.error_404} style={{width:246,height:125,alignSelf:'center'}}/>
+        <Spacer mt={20} />
         <View style={{alignItems: 'center'}}>
           <Text containerStyle={styles.text_404}>404</Text>
           <Text containerStyle={styles.subText_404}>
@@ -44,6 +46,7 @@ export default function Error_404() {
             containerStyle={styles.btn}
             textStyleContainer={styles.btnText}
           />
+          <Spacer mt={30} />
         </View>
       </View>
     </ScrollToTopContainer>

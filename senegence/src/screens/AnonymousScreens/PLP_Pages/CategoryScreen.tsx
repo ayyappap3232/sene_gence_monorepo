@@ -208,7 +208,7 @@ export default function CategoryScreen() {
           <Spacer mt={10} />
           <Text containerStyle={{marginLeft: 20}}>
             ITEMS {(currentPage - 1) * pageSize + 1} -{' '}
-            {(total_count > 10 ? pageSize : total_count) * currentPage} OF{' '}
+            {(total_count > 10 ? pageSize : total_count)*currentPage} OF{' '}
             {total_count}{' '}
           </Text>
         </>

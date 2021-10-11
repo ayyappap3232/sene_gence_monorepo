@@ -12,6 +12,7 @@ export const SEARCH_CATEGORY_LIST = gql`
             category_url_path
           }
         }
+        product_tag
         stock_status
         name
         application_techniques
@@ -150,6 +151,7 @@ export interface Item {
   uid: string;
   categories: Categories;
   stock_status: string;
+  product_tag: number;
   name: string;
   application_techniques: string;
   benefits: string;

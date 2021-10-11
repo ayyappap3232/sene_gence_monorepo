@@ -4,7 +4,7 @@ import {COLORS, images} from '../../constants';
 import {filterNames} from '../../utils/data/FilterData';
 import FilterOptionItem from './FilterOptionItem';
 import ModalSelector from 'react-native-modal-selector';
-import { globalStyles } from '../../globalstyles/GlobalStyles';
+import {globalStyles} from '../../globalstyles/GlobalStyles';
 
 export default function SortByFilter({textInputValue, setTextInputValue}: any) {
   //filter Selector Options
@@ -13,61 +13,73 @@ export default function SortByFilter({textInputValue, setTextInputValue}: any) {
   const data = [
     {
       key: index++,
-      label: filterNames.NEWARRIVALS,
+      label: filterNames.POSITION,
       component: (
         <FilterOptionItem
           index={index}
           checked={checked}
           setChecked={setChecked}
-          title={filterNames.NEWARRIVALS}
+          title={filterNames.POSITION}
         />
       ),
     },
     {
       key: index++,
-      label: filterNames.POPULARITY,
+      label: filterNames.PRODUCTNAME,
       component: (
         <FilterOptionItem
           index={index}
           checked={checked}
           setChecked={setChecked}
-          title={filterNames.POPULARITY}
+          title={filterNames.PRODUCTNAME}
         />
       ),
     },
     {
       key: index++,
-      label: filterNames.TOPRATED,
+      label: filterNames.PRICE,
       component: (
         <FilterOptionItem
           index={index}
           checked={checked}
           setChecked={setChecked}
-          title={filterNames.TOPRATED}
+          title={filterNames.PRICE}
         />
       ),
     },
     {
       key: index++,
-      label: filterNames.PRICEHIGHTOLOW,
+      label: filterNames.NEWESTARRIVAL,
       component: (
         <FilterOptionItem
           index={index}
           checked={checked}
           setChecked={setChecked}
-          title={filterNames.PRICEHIGHTOLOW}
+          title={filterNames.NEWESTARRIVAL}
         />
       ),
     },
     {
       key: index++,
-      label: filterNames.PRICELOWTOHIGHT,
+      label: filterNames.FEATUREDPRODUCT,
       component: (
         <FilterOptionItem
           index={index}
           checked={checked}
           setChecked={setChecked}
-          title={filterNames.PRICELOWTOHIGHT}
+          title={filterNames.FEATUREDPRODUCT}
+        />
+      ),
+    },
+    {
+      key: index++,
+      label: filterNames.RECOMMENDED,
+      component: (
+        <FilterOptionItem
+          index={index}
+          checked={checked}
+          setChecked={setChecked}
+          title={filterNames.RECOMMENDED}
         />
       ),
     },
@@ -81,10 +93,13 @@ export default function SortByFilter({textInputValue, setTextInputValue}: any) {
         accessible={true}
         scrollViewAccessibilityLabel={'Scrollable options'}
         backdropPressToClose={true}
-        overlayStyle={{backgroundColor:'transparent'}}
-        optionContainerStyle={[globalStyles.shadowEffect,{backgroundColor:COLORS.white,marginBottom: 0}]}
-        cancelText={""}
-        cancelStyle={{backgroundColor:'transparent'}}
+        overlayStyle={{backgroundColor: 'transparent'}}
+        optionContainerStyle={[
+          globalStyles.shadowEffect,
+          {backgroundColor: COLORS.white, marginBottom: 0},
+        ]}
+        cancelText={''}
+        cancelStyle={{backgroundColor: 'transparent'}}
         onChange={option => {
           setTextInputValue(option.label);
           setChecked(option.key + 1);

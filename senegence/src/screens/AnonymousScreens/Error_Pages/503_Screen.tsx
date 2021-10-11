@@ -1,13 +1,15 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import Spacer from '../../../components/Spacer';
 import Text from '../../../components/text/Text';
-import { COLORS, FONTS, SIZES } from '../../../constants';
+import { COLORS, FONTS, images, SIZES } from '../../../constants';
 
 export default function Error_503() {
   return (
     <View style={styles.container}>
       {/* image need to be update */}
+      <Image source={images.error_503} style={{width:164,height:212,alignSelf:'center'}}/>
+      <Spacer mt={20.5}/>
       <Text containerStyle={styles.text_503}>503</Text>
       <Text containerStyle={styles.subText_503}>Service not available</Text>
       <Spacer mt={10}/>
