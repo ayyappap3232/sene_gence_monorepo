@@ -34,6 +34,9 @@ import OutlineButton from '../components/buttons/OutlineButton';
 import FAQS from '../screens/AnonymousScreens/FreaquentlyAsked_Pages/FAQS';
 import Careers from '../screens/AnonymousScreens/Careers/Careers';
 import CategoryPage from '../screens/AnonymousScreens/Categories_Pages/CategoryPage';
+import OrderConfirmationScreen from '../screens/AnonymousScreens/OrderConfirmation/OrderConfirmationScreen';
+import Error_404 from '../screens/AnonymousScreens/Error_Pages/404_Screen';
+import Error_503 from '../screens/AnonymousScreens/Error_Pages/503_Screen';
 
 const Drawer = createDrawerNavigator();
 
@@ -176,6 +179,19 @@ const DrawerNavigator = () => {
         <Drawer.Screen
           name={ScreenNames.AllProducts}
           component={CategoryPage}
+        />
+        <Drawer.Screen
+          name={ScreenNames.OrderConfirmation}
+          component={OrderConfirmationScreen}
+        />
+        <Drawer.Screen
+          name={ScreenNames.Error_404}
+          component={Error_404}
+        />
+        <Drawer.Screen
+          name={ScreenNames.Error_503}
+          component={Error_503}
+          options={{headerShown: false}}
         />
       </Drawer.Group>
       {/* <Drawer.Group screenOptions={{}}>

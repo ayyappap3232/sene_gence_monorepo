@@ -30,7 +30,8 @@ export const COLORS = {
     successBackground:"#e5efe5",
     errorBackground: "#e48989",
     removedBackground: "#feefd5",
-    sideBarBackground: '#fafafa'
+    sideBarBackground: '#fafafa',
+    orderSummaryBackground: "#f9f9f9"
 
 }
 

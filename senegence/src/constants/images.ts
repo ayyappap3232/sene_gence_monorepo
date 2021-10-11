@@ -205,7 +205,11 @@ const lips = require("../../assets/images/allproducts/lips.png")
 const men = require("../../assets/images/allproducts/men.png")
 const skincare = require("../../assets/images/allproducts/skincare.png")
 
+//Order Confirmation
+const approvedChecked = require("../../assets/images/confirmations/approvedchecked.png")
+
 export default {
+    approvedChecked,
     allproducts,
     allcollections,
     body,

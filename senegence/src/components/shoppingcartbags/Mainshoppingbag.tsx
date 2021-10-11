@@ -311,7 +311,6 @@ export default function Mainshoppingbag({navigation}: any) {
         <Spacer mt={4} />
         <View>
           <OutlineTextInput
-            blurOnSubmit={false}
             placeholder={'Enter your coupon code ...'}
             value={couponText}
             autoCapitalize="none"
