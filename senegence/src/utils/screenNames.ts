@@ -23,5 +23,8 @@ export const ScreenNames = {
     MainShoppingCartBag:"MainShoppingCartBag",
     FAQS: "FAQS",
     Careers:"Careers",
-    AllProducts: "AllProducts"
+    AllProducts: "AllProducts",
+    OrderConfirmation:"OrderConfirmation",
+    Error_404:"Error_404",
+    Error_503:"Error_503"
 }
