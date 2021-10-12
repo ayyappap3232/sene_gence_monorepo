@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import {COLORS, images} from '../../constants';
-import {filterNames} from '../../utils/data/FilterData';
+import {filterNames, sortingNames} from '../../utils/data/FilterData';
 import FilterOptionItem from './FilterOptionItem';
 import ModalSelector from 'react-native-modal-selector';
 import {globalStyles} from '../../globalstyles/GlobalStyles';
 
-export default function SortByFilter({textInputValue, setTextInputValue}: any) {
+export default function SortByFilter({textInputValue, setTextInputValue,setFilteredValue}: any) {
   //filter Selector Options
   let index = 0;
   const [checked, setChecked] = useState(index);
@@ -14,6 +14,7 @@ export default function SortByFilter({textInputValue, setTextInputValue}: any) {
     {
       key: index++,
       label: filterNames.POSITION,
+      filter: sortingNames.Position,
       component: (
         <FilterOptionItem
           index={index}
@@ -26,6 +27,7 @@ export default function SortByFilter({textInputValue, setTextInputValue}: any) {
     {
       key: index++,
       label: filterNames.PRODUCTNAME,
+      filter: sortingNames.ProductName,
       component: (
         <FilterOptionItem
           index={index}
@@ -38,6 +40,7 @@ export default function SortByFilter({textInputValue, setTextInputValue}: any) {
     {
       key: index++,
       label: filterNames.PRICE,
+      filter: sortingNames.Price,
       component: (
         <FilterOptionItem
           index={index}
@@ -50,6 +53,7 @@ export default function SortByFilter({textInputValue, setTextInputValue}: any) {
     {
       key: index++,
       label: filterNames.NEWESTARRIVAL,
+      filter: sortingNames.NewestArrival,
       component: (
         <FilterOptionItem
           index={index}
@@ -62,6 +66,7 @@ export default function SortByFilter({textInputValue, setTextInputValue}: any) {
     {
       key: index++,
       label: filterNames.FEATUREDPRODUCT,
+      filter: sortingNames.FeaturedProduct,
       component: (
         <FilterOptionItem
           index={index}
@@ -74,6 +79,7 @@ export default function SortByFilter({textInputValue, setTextInputValue}: any) {
     {
       key: index++,
       label: filterNames.RECOMMENDED,
+      filter: sortingNames.Recommended,
       component: (
         <FilterOptionItem
           index={index}
@@ -84,6 +90,8 @@ export default function SortByFilter({textInputValue, setTextInputValue}: any) {
       ),
     },
   ];
+
+
   return (
     <>
       <ModalSelector
@@ -102,6 +110,7 @@ export default function SortByFilter({textInputValue, setTextInputValue}: any) {
         cancelStyle={{backgroundColor: 'transparent'}}
         onChange={option => {
           setTextInputValue(option.label);
+          setFilteredValue(option.filter)
           setChecked(option.key + 1);
         }}>
         <View>

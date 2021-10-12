@@ -34,6 +34,7 @@ export default function SearchCategoryScreen({name}: any) {
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(1);
+  const [filteredValue, setFilteredValue] = useState();
 
   useEffect(() => {
     setPageSize(10);
@@ -146,7 +147,7 @@ export default function SearchCategoryScreen({name}: any) {
         </View>
         <View style={styles.filterWrapper}>
           
-        <SortByFilter textInputValue={textInputValue} setTextInputValue={setTextInputValue}/>
+        <SortByFilter textInputValue={textInputValue} setTextInputValue={setTextInputValue} setFilteredValue={setFilteredValue}/>
         </View>
       </View>
     );

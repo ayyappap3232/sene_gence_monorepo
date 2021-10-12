@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import {values} from 'lodash';
 import React, {useEffect, useState} from 'react';
 import {
   FlatList,
@@ -15,7 +16,9 @@ import {useCategoryList} from '../../apollo/controllers/getCategoryList.Controll
 import {useSearchCategoryList} from '../../apollo/controllers/getSearchCategoryList.Controller';
 import {Item} from '../../apollo/services/apollo/queries/categories/categoryList';
 import {COLORS, FONTS, images, SIZES} from '../../constants';
-import { useCart } from '../../hooks/cart/useCart';
+import {globalStyles} from '../../globalstyles/GlobalStyles';
+import {product_tag_content} from '../../helpers/product_tag';
+import {useCart} from '../../hooks/cart/useCart';
 import SimilarProducts from '../../screens/AnonymousScreens/PDP_Pages/SimilarProductsScreen';
 import {
   carouselTypes,
@@ -37,34 +40,35 @@ import CategoryItemComponent from './CategoryItemComponent';
 
 export default function CategoryDetailsItemComponent({
   categoryDetailsData,
-  url_path
+  url_path,
 }: any) {
   const navigation = useNavigation();
   const route = useRoute();
 
   const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
 
-  const {one_level_url_path, pathName} = route?.params;
-  
+  //Selected Swatch Color
+  const [selectedColorText, setSelectedColorText] = useState<any>();
 
-  const [existingCartId, setExistingCartId] = useState("")  
+  const {one_level_url_path, pathName} = route?.params;
+
+  const [existingCartId, setExistingCartId] = useState('');
   const {cartId} = useCart();
-        
+
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 
     AsyncStorage.getItem('cartId').then(value => {
-      if(value != null){
+      if (value != null) {
         setExistingCartId(value);
         return;
-      }else {
+      } else {
         AsyncStorage.setItem('cartId', cartId);
       }
-    })
-  }, [])
+    });
+  }, []);
 
-  console.log("existing cart id",existingCartId)
-
+  console.log('existing cart id', existingCartId);
 
   useEffect(() => {
     AsyncStorage.getItem('recently_viewed_products').then(products => {
@@ -73,8 +77,8 @@ export default function CategoryDetailsItemComponent({
       let jsonObject = p.map(JSON.stringify);
       let uniqueSet = new Set(jsonObject);
       let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
-      setRecentlyViewedProducts(uniqueArray)
-      
+      setRecentlyViewedProducts(uniqueArray);
+
       AsyncStorage.setItem('recently_viewed_products', JSON.stringify(p));
     });
   }, [route]);
@@ -103,6 +107,9 @@ export default function CategoryDetailsItemComponent({
     application_techniques,
     benefits,
     ingredients,
+    configurable_options,
+    configurable_product_options_selection,
+    product_tag,
     price_range: {
       minimum_price: {
         regular_price: {currency, value},
@@ -117,7 +124,6 @@ export default function CategoryDetailsItemComponent({
     small_image,
     thumbnail,
   } = categoryDetailsData;
-
 
   const _carousel = () => {
     return (
@@ -135,12 +141,15 @@ export default function CategoryDetailsItemComponent({
   const _titleWithSku = () => {
     return (
       <View style={styles.titleSkuWrapper}>
-        <View style={{flex: 1, flexDirection:'row',flexWrap:'wrap'}}>
+        <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap'}}>
           <Text containerStyle={styles.name}>{name}</Text>
           <Text># {sku}</Text>
         </View>
         <TouchableOpacity>
-          <Image source={images.share} style={{width: 22, height: 22, marginRight: 10}}/>
+          <Image
+            source={images.share}
+            style={{width: 22, height: 22, marginRight: 10}}
+          />
         </TouchableOpacity>
       </View>
     );
@@ -178,19 +187,32 @@ export default function CategoryDetailsItemComponent({
 
   const _findADistributorAndShop = () => {
     return (
-      <View style={{flexDirection: 'row', justifyContent: 'center',alignItems:'center'}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
         <OutlineButton
           textStyleContainer={{color: COLORS.primary2, fontWeight: '900'}}
           containerStyle={styles.findADistributor}
           title={'find a distributor'}
           onPress={() => Linking.openURL(findADistributor)}
         />
-        {stock_status !== "OUT_OF_STOCK" ? <OutlineButton
-          textStyleContainer={{color: COLORS.white}}
-          containerStyle={styles.shop}
-          title={'shop'}
-          onPress={() => Linking.openURL(`https://shop.senegence.com/en-us/product/${sku}/${name}`)}
-        /> : <Text>Out of Stock</Text>}
+        {stock_status !== 'OUT_OF_STOCK' ? (
+          <OutlineButton
+            textStyleContainer={{color: COLORS.white}}
+            containerStyle={styles.shop}
+            title={'shop'}
+            onPress={() =>
+              Linking.openURL(
+                `https://shop.senegence.com/en-us/product/${sku}/${name}`,
+              )
+            }
+          />
+        ) : (
+          <Text>Out of Stock</Text>
+        )}
       </View>
     );
   };
@@ -240,6 +262,88 @@ export default function CategoryDetailsItemComponent({
     );
   };
 
+  const getColorValues = () => configurable_product_options_selection?.options_available_for_selection?.map((cv,i) => {
+    return cv.attribute_code === "color" && cv?.option_value_uids;
+  })
+
+  console.log('get colors',getColorValues()[0][0]);
+
+  const _colorSwatchInfo = () => {
+    return configurable_options?.map((item: any, index: number) => {
+      console.log('colors', item?.values?.swatch_data);
+      return item.attribute_code === 'color' ? (
+        <View key={item.attribute_code} style={{marginLeft: 10, marginTop: 20}}>
+          <View style={{flexDirection: 'row', alignItems:'center',flexWrap:'wrap'}}>
+            <Text
+              containerStyle={[
+                globalStyles.text_avenir_medium,
+                {
+                  fontFamily: FONTS.AvenirRegular,
+                  color: COLORS.border1,
+                  fontSize: SIZES.body3,
+                  textAlign: 'left',
+                },
+              ]}>
+              {selectedColorText?.label}
+            </Text>
+            {product_tag && <View style={{marginLeft: 5,backgroundColor: COLORS.border1,paddingVertical: 2, paddingHorizontal: 5}}>
+              <Text containerStyle={{color: COLORS.white}}>{product_tag_content(product_tag)}</Text>
+            </View>}
+          </View>
+          <Spacer mt={10} />
+          <View
+            style={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+            }}>
+            {item?.values?.map((childItem:any, index: number) => {
+              return (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => {
+                    setSelectedColorText({label: childItem.label, option_id: getColorValues()[0][index]})}
+                  }>
+                  <View
+                    style={
+                      childItem.label === selectedColorText.label
+                        ? {
+                            padding: 5,
+                            borderWidth: 1,
+                            borderColor: COLORS.primary2,
+                            marginRight: 15,
+                            marginBottom: 10,
+                          }
+                        : {}
+                    }>
+                    <View
+                      style={
+                        childItem.label === selectedColorText.label
+                          ? {
+                              backgroundColor: childItem?.swatch_data?.value,
+                              width: 20,
+                              height: 20,
+                              borderRadius: 15,
+                            }
+                          : {
+                              backgroundColor: childItem?.swatch_data?.value,
+                              width: 30,
+                              height: 30,
+                              borderRadius: 15,
+                              marginRight: 15,
+                              marginBottom: 10,
+                            }
+                      }></View>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        </View>
+      ) : null;
+    });
+  };
+
   return (
     <View style={styles.container}>
       {/* breadCrumbs */}
@@ -262,8 +366,10 @@ export default function CategoryDetailsItemComponent({
         <Spacer mt={10} />
         <Divider width={330} backgroundColor={COLORS.border} />
         {/* swatch info */}
+
         {/* shades dropdown */}
         {/* swatch attribute label and colors */}
+        {_colorSwatchInfo()}
         <Spacer mt={20} />
         {_findADistributorAndShop()}
         <Spacer mt={16} />

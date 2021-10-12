@@ -210,7 +210,13 @@ const approvedChecked = require("../../assets/images/confirmations/approvedcheck
 const error_404 = require("../../assets/images/errors/error_404.png")
 const error_503 = require("../../assets/images/errors/error_503.png")
 
+//Up and Down arrows
+const chervonup = require("../../assets/images/chervonup.png")
+const chervondown = require("../../assets/images/chervondown.png")
+
 export default {
+    chervonup,
+    chervondown,
     error_404,
     error_503,
     approvedChecked,

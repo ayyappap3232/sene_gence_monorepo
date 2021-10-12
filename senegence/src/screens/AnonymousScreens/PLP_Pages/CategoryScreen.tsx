@@ -38,7 +38,7 @@ export default function CategoryScreen() {
   const [collapsed, setCollapsed] = useState(false);
   let _drawer = useRef(null);
 
-  const route = useRoute();
+  const route = useRoute<any>();
   const {name, url_path} = route?.params?.categoryData;
 
   const [pageSize, setPageSize] = useState(10);
@@ -46,14 +46,13 @@ export default function CategoryScreen() {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
   const [gridView, setgridView] = useState<boolean>(false);
+  const [filteredValue, setFilteredValue] = useState("");
 
   useEffect(() => {
     setPageSize(10);
     setCurrentIndex(1);
     setCurrentPage(1);
   }, [url_path]);
-
-  console.log('navigation currentPage', currentPage);
 
   const {getCategoryList, loading, error, categoryList} = useCategoryList({
     url_path: url_path,
@@ -64,7 +63,7 @@ export default function CategoryScreen() {
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     getCategoryList();
-  }, [getCategoryList, currentPage]);
+  }, [getCategoryList, currentPage,filteredValue]);
 
   //Recently Viewed Products getting from AsyncStorage
   useEffect(() => {
@@ -74,7 +73,7 @@ export default function CategoryScreen() {
       //Removing the duplicates from the array
       let jsonObject = p.map(JSON.stringify);
       let uniqueSet = new Set(jsonObject);
-      let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+      let uniqueArray:any = Array.from(uniqueSet).map(JSON.parse);
       setRecentlyViewedProducts(uniqueArray);
     });
   }, [route]);
@@ -84,6 +83,7 @@ export default function CategoryScreen() {
   }
 
   const total_count = categoryList?.categoryList[0]?.products?.total_count;
+  const children = categoryList?.categoryList[0]?.children;
 
   const paginationLength = Math.ceil(total_count / pageSize);
 
@@ -158,6 +158,9 @@ export default function CategoryScreen() {
     );
   };
 
+  console.log('text input value',filteredValue);
+
+
   const _filters = () => {
     return (
       <View
@@ -167,7 +170,7 @@ export default function CategoryScreen() {
           margin: 20,
         }}>
         <View style={styles.filterWrapper}>
-          <FilterDrawer />
+          <FilterDrawer sideMenuItems={children}/>
           <Text containerStyle={styles.filterText}>Shop By</Text>
           <TouchableOpacity onPress={() => setgridView(false)}>
             <Image
@@ -186,6 +189,7 @@ export default function CategoryScreen() {
         </View>
         <View style={styles.filterWrapper}>
           <SortByFilter
+          setFilteredValue={setFilteredValue}
             textInputValue={textInputValue}
             setTextInputValue={setTextInputValue}
           />
@@ -194,13 +198,12 @@ export default function CategoryScreen() {
     );
   };
 
+
   const breadCrumbs = categoryList?.categoryList[0]?.breadcrumbs;
 
   return (
     <ScrollToTopContainer showCart={false}>
       <View style={{marginLeft: 20}}>
-        {/* <BreadCrumbWithOneLevelUp title={name} /> */}
-
         {_breadCrumbs(breadCrumbs, name, navigation)}
       </View>
       {total_count > 0 && (
