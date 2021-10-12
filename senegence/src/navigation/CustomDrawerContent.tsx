@@ -117,7 +117,7 @@ const CustomDrawerContent = (props: any) => {
 
   const _handleSingleItem = (item: any, selectedTitle: string) => {
     setSelectedTitle(selectedTitle);
-    navigation.navigate('CategoryItem', {categoryData: item});
+    navigation.navigate(ScreenNames.CategoryItem, {categoryData: item});
   };
 
   const _applyBackgroundBasedOnStatus = (status: string) => {

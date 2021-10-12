@@ -18,6 +18,7 @@ import Spacer from '../Spacer';
 import Text from '../text/Text';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {ScreenNames} from '../../utils/screenNames';
+import { product_tag_content } from '../../helpers/product_tag';
 
 const CategoryItemComponent = (
   item: Item,
@@ -36,6 +37,7 @@ const CategoryItemComponent = (
       },
     },
     name,
+    configurable_options,
     product_tag,
     image: {url},
     second_title,
@@ -103,20 +105,6 @@ const CategoryItemComponent = (
     );
   };
 
-  const _product_tag_content = (tag: number) => {
-    console.log('tags-1', tag==317);
-    switch (tag) {
-      case 315:
-        return "New";
-      case 316:
-        return "Featured";
-      case 317:
-        return "Limited Edition";
-      default:
-        return;
-    }
-  };
-
   const _renderImageContent = () => {
     return (
       <ImageBackground
@@ -128,7 +116,7 @@ const CategoryItemComponent = (
             right: 2,
             top: 2,
           }}>
-          <Text containerStyle={product_tag && styles.productTag}>{_product_tag_content(product_tag)}</Text>
+          <Text containerStyle={product_tag && styles.productTag}>{product_tag_content(product_tag)}</Text>
         </View>
         <Image source={{uri: url}} style={styles.image} />
         <OutlineButton
@@ -151,7 +139,9 @@ const CategoryItemComponent = (
             color: COLORS.swatch,
           },
         ]}>
-        16 more colors
+        {configurable_options?.map((item,index) => {
+          return item.attribute_code == "color" ? <Text>{item.values?.length > 0 && item.values.length} more colors</Text> : null;
+        })}
       </Text>
     );
   };

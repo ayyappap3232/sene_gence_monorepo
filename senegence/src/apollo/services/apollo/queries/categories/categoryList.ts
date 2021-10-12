@@ -14,23 +14,44 @@ export interface IProductAttributeSortInput {
   relevance: SortEnum;
 }
 
-const queryObj = {};
-
 export const CATEGORY_LIST = gql`
   query CategoryList($url_path: String!, $pageSize: Int!, $currentPage: Int!) {
     categoryList(filters: {url_path: {eq: $url_path}}) {
       name
       product_count
+      children {
+        name
+        product_count
+        url_path
+      }
       image
       url_path
-      breadcrumbs{
-          category_name
-          category_url_path
-        }
+      breadcrumbs {
+        category_name
+        category_url_path
+      }
       products(pageSize: $pageSize, currentPage: $currentPage) {
         total_count
         items {
           uid
+          ... on ConfigurableProduct {
+            configurable_options {
+              attribute_code
+              label
+              values {
+                label
+                swatch_data {
+                  value
+                }
+              }
+            }
+            configurable_product_options_selection {
+              options_available_for_selection {
+                attribute_code
+                option_value_uids
+              }
+            }
+          }
           categories {
             breadcrumbs {
               category_name
@@ -155,8 +176,10 @@ export interface Item {
   uid: string;
   categories: Categories;
   stock_status: string;
-  product_tag:number;
+  product_tag: number;
   name: string;
+  configurable_options?: ConfigurableOption[];
+  configurable_product_options_selection?: ConfigurableProductOptionsSelection,
   application_techniques: string;
   benefits: string;
   ingredients: string;
@@ -172,6 +195,30 @@ export interface Item {
   price_range: PriceRange;
 }
 
+export interface ConfigurableOption {
+  attribute_code: string;
+  label: string;
+  values: Value[];
+}
+
+export interface Value {
+  label: string;
+  swatch_data?: SwatchData;
+}
+
+export interface SwatchData {
+  value: string;
+}
+
+export interface ConfigurableProductOptionsSelection {
+  options_available_for_selection: OptionsAvailableForSelection[]
+}
+
+export interface OptionsAvailableForSelection {
+  attribute_code: string
+  option_value_uids: string[]
+}
+
 export interface Products {
   total_count: number;
   items: Item[];
@@ -180,9 +227,16 @@ export interface Products {
 export interface CategoryList {
   name: string;
   product_count: number;
+  children: CategoryChildren[];
   image?: any;
   url_path: string;
   products: Products;
+}
+
+export interface CategoryChildren {
+  name: string;
+  product_count: number;
+  url_path: string;
 }
 
 export interface Data {
