@@ -11,15 +11,18 @@ import {
   Animated,
   Image,
   TouchableOpacity,
+  Picker,
+  TextInput,
 } from 'react-native';
 import {useCategoryList} from '../../apollo/controllers/getCategoryList.Controller';
 import {useSearchCategoryList} from '../../apollo/controllers/getSearchCategoryList.Controller';
-import {Item} from '../../apollo/services/apollo/queries/categories/categoryList';
+import {ConfigurableOption, Item, Value} from '../../apollo/services/apollo/queries/categories/categoryList';
 import {COLORS, FONTS, images, SIZES} from '../../constants';
 import {globalStyles} from '../../globalstyles/GlobalStyles';
 import {product_tag_content} from '../../helpers/product_tag';
 import {useCart} from '../../hooks/cart/useCart';
 import SimilarProducts from '../../screens/AnonymousScreens/PDP_Pages/SimilarProductsScreen';
+import { aboutUsData } from '../../utils/data/AboutUsData';
 import {
   carouselTypes,
   productCategoryShippingDetailsData,
@@ -32,6 +35,7 @@ import OutlineButton from '../buttons/OutlineButton';
 import PaginationDots from '../carousels/PaginationDots';
 import PlainCarousel from '../carousels/PlainCarousel';
 import Divider from '../dividers/Divider';
+import ModalPopup from '../filters/ModalPopup';
 import Spacer from '../Spacer';
 import ActivityIndicator from '../spinners/ActivityIndicator';
 import Text from '../text/Text';
@@ -54,7 +58,7 @@ export default function CategoryDetailsItemComponent({
     benefits,
     ingredients,
     configurable_options,
-    configurable_product_options_selection,
+    variants,
     product_tag,
     price_range: {
       minimum_price: {
@@ -73,19 +77,36 @@ export default function CategoryDetailsItemComponent({
 
   const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
 
-  
-
-  const getColorValues = () => configurable_product_options_selection?.options_available_for_selection?.map((cv,i) => {
-    return cv.attribute_code === "color" && cv?.option_value_uids;
-  })
-
-  const initialSelectedColorLabel = configurable_options[0]?.attribute_code == "color" && configurable_options[0]?.values[0]?.label;
-  
-  useEffect(() => {
-    setSelectedColorText({label: initialSelectedColorLabel, option_id: getColorValues()[0][0]})
-   }, [navigation,route])
-  //Selected Swatch Color
+  const [showDropdownShadeOrFinishes, setShowDropdownShadeOrFinishes] =
+    useState({attributeCode: "", toggle: false});
+     //Selected Swatch Color
   const [selectedColorText, setSelectedColorText] = useState<any>();
+  const [selectedShadeValue, setSelectedShadeValue] = useState<any>();
+  const [selectedFinishesValue, setSelectedFinishesValue] = useState<any>();
+
+  const initialSelectedColorLabel =
+    configurable_options?.length > 0
+      ? configurable_options[0]?.attribute_code == 'color' &&
+        configurable_options[0]?.values[0]?.label
+      : '';
+
+      const initialSelectedColorUid = configurable_options?.length > 0
+      ? configurable_options[0]?.attribute_code == 'color' &&
+        configurable_options[0]?.values[0]?.uid
+      : ''
+
+  useEffect(() => {
+    configurable_options &&
+      setSelectedColorText({
+        label: initialSelectedColorLabel,
+        option_id: initialSelectedColorUid,
+      });
+      setShowDropdownShadeOrFinishes({attributeCode: '', toggle: false})
+      setSelectedFinishesValue("");
+      setSelectedShadeValue("")
+    
+  }, [navigation, route]);
+ 
 
   const {one_level_url_path, pathName} = route?.params;
 
@@ -104,8 +125,6 @@ export default function CategoryDetailsItemComponent({
       }
     });
   }, []);
-
-  console.log('existing cart id', existingCartId);
 
   useEffect(() => {
     AsyncStorage.getItem('recently_viewed_products').then(products => {
@@ -134,8 +153,6 @@ export default function CategoryDetailsItemComponent({
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     getCategoryList();
   }, [getCategoryList, currentPage, url_path]);
-
-  
 
   const _carousel = () => {
     return (
@@ -274,13 +291,16 @@ export default function CategoryDetailsItemComponent({
     );
   };
 
-
   const _colorSwatchInfo = () => {
     return configurable_options?.map((item: any, index: number) => {
-      console.log('colors', item?.values?.swatch_data);
       return item.attribute_code === 'color' ? (
         <View key={item.attribute_code} style={{marginLeft: 10, marginTop: 20}}>
-          <View style={{flexDirection: 'row', alignItems:'center',flexWrap:'wrap'}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}>
             <Text
               containerStyle={[
                 globalStyles.text_avenir_medium,
@@ -293,9 +313,19 @@ export default function CategoryDetailsItemComponent({
               ]}>
               {selectedColorText?.label}
             </Text>
-            {product_tag && <View style={{marginLeft: 5,backgroundColor: COLORS.border1,paddingVertical: 2, paddingHorizontal: 5}}>
-              <Text containerStyle={{color: COLORS.white}}>{product_tag_content(product_tag)}</Text>
-            </View>}
+            {product_tag && (
+              <View
+                style={{
+                  marginLeft: 5,
+                  backgroundColor: COLORS.border1,
+                  paddingVertical: 2,
+                  paddingHorizontal: 5,
+                }}>
+                <Text containerStyle={{color: COLORS.white}}>
+                  {product_tag_content(product_tag)}
+                </Text>
+              </View>
+            )}
           </View>
           <Spacer mt={10} />
           <View
@@ -304,13 +334,17 @@ export default function CategoryDetailsItemComponent({
               flexWrap: 'wrap',
               alignItems: 'center',
             }}>
-            {item?.values?.map((childItem:any, index: number) => {
+            {item?.values?.map((childItem: any, index: number) => {
               return (
                 <TouchableOpacity
+                activeOpacity={0.9}
                   key={index}
                   onPress={() => {
-                    setSelectedColorText({label: childItem.label, option_id: getColorValues()[0][index]})}
-                  }>
+                    setSelectedColorText({
+                      label: childItem.label,
+                      option_id: childItem.uid,
+                    });
+                  }}>
                   <View
                     style={
                       childItem.label === selectedColorText?.label
@@ -320,7 +354,7 @@ export default function CategoryDetailsItemComponent({
                             borderColor: COLORS.primary2,
                             marginRight: 15,
                             marginBottom: 10,
-                            borderRadius: 50
+                            borderRadius: 50,
                           }
                         : {}
                     }>
@@ -352,6 +386,103 @@ export default function CategoryDetailsItemComponent({
     });
   };
 
+  const _shadesOrFinishes = (
+    attributeCode: string,
+    pickerInitialValue: string,
+    setSelectedShadeOrFinishes: any,
+    shadeOrFinishesValue: any,
+  ) => {
+    return configurable_options?.map((item: any, index: number) => {
+      return item.attribute_code === attributeCode ? (
+        <View style={{flexDirection: 'column'}}>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            style={{marginHorizontal: 10, marginTop: 10}}
+            onPress={() =>
+              setShowDropdownShadeOrFinishes({attributeCode: attributeCode, toggle: !showDropdownShadeOrFinishes.toggle})
+            }>
+            <TextInput
+              style={{
+                borderWidth: 1,
+                borderColor: COLORS.border1,
+                padding: 10,
+                paddingRight: 30,
+                height: 40,
+                width: SIZES.width / 2 - 40,
+              }}
+              editable={false}
+              placeholder={pickerInitialValue}
+              placeholderTextColor={COLORS.border1}
+              value={shadeOrFinishesValue?.label}
+            />
+            <Image
+              source={images.dropdowncaret}
+              style={{
+                width: 12,
+                height: 12,
+                position: 'absolute',
+                right: 10,
+                top: 15,
+              }}
+            />
+          </TouchableOpacity>
+
+          {showDropdownShadeOrFinishes.attributeCode == attributeCode && showDropdownShadeOrFinishes.toggle && (
+            <View
+              style={[
+                globalStyles.shadowEffect,
+                {
+                  flexDirection: 'column',
+                  marginLeft: 10,
+                  marginVertical: 2,
+                  backgroundColor: COLORS.white,
+                  width: SIZES.width / 2 - 40,
+                },
+              ]}>
+              {item?.values?.map((childItem: any, i: number) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    onPress={() => {
+                      setShowDropdownShadeOrFinishes({attributeCode: attributeCode, toggle: false});
+                      setSelectedShadeOrFinishes({label: childItem.label,option_id: childItem.uid});
+                    }}>
+                    <Text containerStyle={{color: COLORS.border1,marginBottom: 5,paddingLeft: 10}}>
+                      {childItem.label}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          )}
+        </View>
+      ) : null;
+    });
+  };
+
+  const _allShadesAndFinishes = () => {
+    return (
+      <View style={{flexDirection: 'row'}}>
+        {/* All Shades dropdown */}
+
+        {_shadesOrFinishes(
+          'shade',
+          'All Shades',
+          setSelectedShadeValue,
+          selectedShadeValue,
+        )}
+        {_shadesOrFinishes(
+          'finishes',
+          'Finishes',
+          setSelectedFinishesValue,
+          selectedFinishesValue,
+        )}
+
+        {/* All Finishes dropdown */}
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       {/* breadCrumbs */}
@@ -375,7 +506,8 @@ export default function CategoryDetailsItemComponent({
         <Divider width={330} backgroundColor={COLORS.border} />
         {/* swatch info */}
 
-        {/* shades dropdown */}
+        {_allShadesAndFinishes()}
+
         {/* swatch attribute label and colors */}
         {_colorSwatchInfo()}
         <Spacer mt={20} />

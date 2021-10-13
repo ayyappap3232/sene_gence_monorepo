@@ -38,11 +38,13 @@ const CategoryItemComponent = (
     },
     name,
     configurable_options,
+    variants,
     product_tag,
     image: {url},
     second_title,
     stock_status,
   } = item || {};
+
 
   const _priceContent = () => {
     return (
@@ -105,7 +107,17 @@ const CategoryItemComponent = (
     );
   };
 
-  const _renderImageContent = () => {
+
+  const handleCategoryDetailsNavigation = (item: Item) => {
+    console.log("in")
+    navigation.navigate(ScreenNames.CategoryDetails, {
+      categoryDetail: item,
+      one_level_url_path: url_path,
+      pathName: pathName,
+    });
+  };
+
+  const _renderImageContent = (item:any) => {
     return (
       <ImageBackground
         source={images.rectangleGrayBg}
@@ -123,7 +135,7 @@ const CategoryItemComponent = (
           textStyleContainer={styles.outlineButtonText}
           containerStyle={styles.outlineButtonContainer}
           title={_handleStockStatus(stock_status)}
-          onPress={() => {}}
+          onPress={() => handleCategoryDetailsNavigation(item)}
         />
       </ImageBackground>
     );
@@ -146,13 +158,6 @@ const CategoryItemComponent = (
     );
   };
 
-  const handleCategoryDetailsNavigation = (item: Item) => {
-    navigation.navigate(ScreenNames.CategoryDetails, {
-      categoryDetail: item,
-      one_level_url_path: url_path,
-      pathName: pathName,
-    });
-  };
 
   return (
     <TouchableOpacity
@@ -164,7 +169,7 @@ const CategoryItemComponent = (
         {flexDirection: gridView ? 'row' : 'column'},
       ]}
       onPress={() => handleCategoryDetailsNavigation(item)}>
-      <View>{_renderImageContent()}</View>
+      <View>{_renderImageContent(item)}</View>
       <Spacer mb={10.1} />
       <View>
         {_titleAndSecondTitle()}
