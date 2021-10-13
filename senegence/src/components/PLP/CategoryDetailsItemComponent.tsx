@@ -80,13 +80,22 @@ export default function CategoryDetailsItemComponent({
     useState({attributeCode: "", toggle: false});
      //Selected Swatch Color
   const [selectedColorText, setSelectedColorText] = useState<any>();
-  const [selectedShadeValue, setSelectedShadeValue] = useState('');
-  const [selectedFinishesValue, setSelectedFinishesValue] = useState('');
+  const [selectedShadeValue, setSelectedShadeValue] = useState<any>();
+  const [selectedFinishesValue, setSelectedFinishesValue] = useState<any>();
 
-  const getColorValues = () =>
+  const getOptionsAvailableForSelection = () =>
     configurable_product_options_selection?.options_available_for_selection?.map(
       (cv, i) => {
-        return cv.attribute_code === 'color' && cv?.option_value_uids;
+        switch (cv.attribute_code) {
+          case 'color':
+            return cv?.option_value_uids;
+          case 'shade':
+            return cv?.option_value_uids;
+          case 'finishes':
+            return cv?.option_value_uids;
+          default:
+            return;
+        }
       },
     );
 
@@ -100,7 +109,7 @@ export default function CategoryDetailsItemComponent({
     configurable_options &&
       setSelectedColorText({
         label: initialSelectedColorLabel,
-        option_id: getColorValues()[0][0],
+        option_id: getOptionsAvailableForSelection()[0][0],
       });
       setShowDropdownShadeOrFinishes({attributeCode: '', toggle: false})
       setSelectedFinishesValue("");
@@ -342,7 +351,7 @@ export default function CategoryDetailsItemComponent({
                   onPress={() => {
                     setSelectedColorText({
                       label: childItem.label,
-                      option_id: getColorValues()[0][index],
+                      option_id: getOptionsAvailableForSelection()[0][index],
                     });
                   }}>
                   <View
@@ -386,6 +395,8 @@ export default function CategoryDetailsItemComponent({
     });
   };
 
+  console.log('selected shade or finishes', selectedShadeValue)
+
   const _shadesOrFinishes = (
     attributeCode: string,
     pickerInitialValue: string,
@@ -413,7 +424,7 @@ export default function CategoryDetailsItemComponent({
               editable={false}
               placeholder={pickerInitialValue}
               placeholderTextColor={COLORS.border1}
-              value={shadeOrFinishesValue}
+              value={shadeOrFinishesValue.label}
             />
             <Image
               source={images.dropdowncaret}
@@ -445,7 +456,7 @@ export default function CategoryDetailsItemComponent({
                     activeOpacity={0.7}
                     onPress={() => {
                       setShowDropdownShadeOrFinishes(false);
-                      setSelectedShadeOrFinishes(childItem.label);
+                      setSelectedShadeOrFinishes({label: childItem.label,option_id: getOptionsAvailableForSelection()[0][i]});
                     }}>
                     <Text containerStyle={{color: COLORS.border1,marginBottom: 5,paddingLeft: 10}}>
                       {childItem.label}
