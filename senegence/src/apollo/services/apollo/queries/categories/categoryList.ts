@@ -1,6 +1,8 @@
 //Returns an array of categories based on the specified filters.
 
 import {gql} from '@apollo/client';
+import { MEDIA_GALLERY_FRAGMENT } from './mediaGalleryFragment';
+import { PRODUCT_PRICE_FRAGMENT } from './productPriceFragment';
 
 enum SortEnum {
   ASC,
@@ -40,17 +42,25 @@ export const CATEGORY_LIST = gql`
               label
               values {
                 label
+                uid
                 swatch_data {
                   value
                 }
               }
             }
-            configurable_product_options_selection {
-              options_available_for_selection {
-                attribute_code
-                option_value_uids
-              }
+            variants{
+            attributes{
+              code
+              uid
+              value_index
             }
+            product{
+              sku
+              ...MediaGallery
+              ...ProductPrice
+              
+            }
+          }
           }
           categories {
             breadcrumbs {
@@ -109,6 +119,8 @@ export const CATEGORY_LIST = gql`
       }
     }
   }
+  ${MEDIA_GALLERY_FRAGMENT}
+  ${PRODUCT_PRICE_FRAGMENT}
 `;
 
 //Types
@@ -179,7 +191,7 @@ export interface Item {
   product_tag: number;
   name: string;
   configurable_options?: ConfigurableOption[];
-  configurable_product_options_selection?: ConfigurableProductOptionsSelection,
+  variants: ConfigurableProductVarient[];
   application_techniques: string;
   benefits: string;
   ingredients: string;
@@ -195,6 +207,43 @@ export interface Item {
   price_range: PriceRange;
 }
 
+export interface ConfigurableProductVarient {
+  attributes: Attribute[]
+  product: Product
+}
+
+export interface Attribute {
+  code: string
+  uid: string
+  value_index: number
+}
+
+export interface Product {
+  sku: string
+  media_gallery: MediaGallery2[]
+  price_range: PriceRange2
+}
+
+export interface MediaGallery2 {
+  disabled: boolean
+  label: any
+  position: number
+  url: string
+}
+
+export interface PriceRange2 {
+  minimum_price: MinimumPrice2
+}
+
+export interface MinimumPrice2 {
+  final_price: FinalPrice2
+}
+
+export interface FinalPrice2 {
+  currency: string
+  value: number
+}
+
 export interface ConfigurableOption {
   attribute_code: string;
   label: string;
@@ -203,20 +252,12 @@ export interface ConfigurableOption {
 
 export interface Value {
   label: string;
+  uid: string;
   swatch_data?: SwatchData;
 }
 
 export interface SwatchData {
   value: string;
-}
-
-export interface ConfigurableProductOptionsSelection {
-  options_available_for_selection: OptionsAvailableForSelection[]
-}
-
-export interface OptionsAvailableForSelection {
-  attribute_code: string
-  option_value_uids: string[]
 }
 
 export interface Products {

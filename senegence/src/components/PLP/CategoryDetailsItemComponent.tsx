@@ -16,12 +16,13 @@ import {
 } from 'react-native';
 import {useCategoryList} from '../../apollo/controllers/getCategoryList.Controller';
 import {useSearchCategoryList} from '../../apollo/controllers/getSearchCategoryList.Controller';
-import {Item} from '../../apollo/services/apollo/queries/categories/categoryList';
+import {ConfigurableOption, Item, Value} from '../../apollo/services/apollo/queries/categories/categoryList';
 import {COLORS, FONTS, images, SIZES} from '../../constants';
 import {globalStyles} from '../../globalstyles/GlobalStyles';
 import {product_tag_content} from '../../helpers/product_tag';
 import {useCart} from '../../hooks/cart/useCart';
 import SimilarProducts from '../../screens/AnonymousScreens/PDP_Pages/SimilarProductsScreen';
+import { aboutUsData } from '../../utils/data/AboutUsData';
 import {
   carouselTypes,
   productCategoryShippingDetailsData,
@@ -57,7 +58,7 @@ export default function CategoryDetailsItemComponent({
     benefits,
     ingredients,
     configurable_options,
-    configurable_product_options_selection,
+    variants,
     product_tag,
     price_range: {
       minimum_price: {
@@ -83,33 +84,22 @@ export default function CategoryDetailsItemComponent({
   const [selectedShadeValue, setSelectedShadeValue] = useState<any>();
   const [selectedFinishesValue, setSelectedFinishesValue] = useState<any>();
 
-  const getOptionsAvailableForSelection = () =>
-    configurable_product_options_selection?.options_available_for_selection?.map(
-      (cv, i) => {
-        switch (cv.attribute_code) {
-          case 'color':
-            return cv?.option_value_uids;
-          case 'shade':
-            return cv?.option_value_uids;
-          case 'finishes':
-            return cv?.option_value_uids;
-          default:
-            return;
-        }
-      },
-    );
-
   const initialSelectedColorLabel =
     configurable_options?.length > 0
       ? configurable_options[0]?.attribute_code == 'color' &&
         configurable_options[0]?.values[0]?.label
       : '';
 
+      const initialSelectedColorUid = configurable_options?.length > 0
+      ? configurable_options[0]?.attribute_code == 'color' &&
+        configurable_options[0]?.values[0]?.uid
+      : ''
+
   useEffect(() => {
     configurable_options &&
       setSelectedColorText({
         label: initialSelectedColorLabel,
-        option_id: getOptionsAvailableForSelection()[0][0],
+        option_id: initialSelectedColorUid,
       });
       setShowDropdownShadeOrFinishes({attributeCode: '', toggle: false})
       setSelectedFinishesValue("");
@@ -347,11 +337,12 @@ export default function CategoryDetailsItemComponent({
             {item?.values?.map((childItem: any, index: number) => {
               return (
                 <TouchableOpacity
+                activeOpacity={0.9}
                   key={index}
                   onPress={() => {
                     setSelectedColorText({
                       label: childItem.label,
-                      option_id: getOptionsAvailableForSelection()[0][index],
+                      option_id: childItem.uid,
                     });
                   }}>
                   <View
@@ -395,8 +386,6 @@ export default function CategoryDetailsItemComponent({
     });
   };
 
-  console.log('selected shade or finishes', selectedShadeValue)
-
   const _shadesOrFinishes = (
     attributeCode: string,
     pickerInitialValue: string,
@@ -407,7 +396,7 @@ export default function CategoryDetailsItemComponent({
       return item.attribute_code === attributeCode ? (
         <View style={{flexDirection: 'column'}}>
           <TouchableOpacity
-            activeOpacity={0.7}
+            activeOpacity={0.9}
             style={{marginHorizontal: 10, marginTop: 10}}
             onPress={() =>
               setShowDropdownShadeOrFinishes({attributeCode: attributeCode, toggle: !showDropdownShadeOrFinishes.toggle})
@@ -424,7 +413,7 @@ export default function CategoryDetailsItemComponent({
               editable={false}
               placeholder={pickerInitialValue}
               placeholderTextColor={COLORS.border1}
-              value={shadeOrFinishesValue.label}
+              value={shadeOrFinishesValue?.label}
             />
             <Image
               source={images.dropdowncaret}
@@ -453,10 +442,10 @@ export default function CategoryDetailsItemComponent({
               {item?.values?.map((childItem: any, i: number) => {
                 return (
                   <TouchableOpacity
-                    activeOpacity={0.7}
+                    activeOpacity={0.9}
                     onPress={() => {
-                      setShowDropdownShadeOrFinishes(false);
-                      setSelectedShadeOrFinishes({label: childItem.label,option_id: getOptionsAvailableForSelection()[0][i]});
+                      setShowDropdownShadeOrFinishes({attributeCode: attributeCode, toggle: false});
+                      setSelectedShadeOrFinishes({label: childItem.label,option_id: childItem.uid});
                     }}>
                     <Text containerStyle={{color: COLORS.border1,marginBottom: 5,paddingLeft: 10}}>
                       {childItem.label}
