@@ -44,9 +44,46 @@ export default function CategoryDetailsItemComponent({
 }: any) {
   const navigation = useNavigation();
   const route = useRoute();
+  const {
+    media_gallery,
+    description,
+    hover_image,
+    image,
+    name,
+    application_techniques,
+    benefits,
+    ingredients,
+    configurable_options,
+    configurable_product_options_selection,
+    product_tag,
+    price_range: {
+      minimum_price: {
+        regular_price: {currency, value},
+        discount: {amount_off},
+        final_price,
+      },
+    },
+    second_title,
+    sku,
+    stock_status,
+    swatch_image,
+    small_image,
+    thumbnail,
+  } = categoryDetailsData;
 
   const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
 
+  
+
+  const getColorValues = () => configurable_product_options_selection?.options_available_for_selection?.map((cv,i) => {
+    return cv.attribute_code === "color" && cv?.option_value_uids;
+  })
+
+  const initialSelectedColorLabel = configurable_options[0]?.attribute_code == "color" && configurable_options[0]?.values[0]?.label;
+  
+  useEffect(() => {
+    setSelectedColorText({label: initialSelectedColorLabel, option_id: getColorValues()[0][0]})
+   }, [navigation,route])
   //Selected Swatch Color
   const [selectedColorText, setSelectedColorText] = useState<any>();
 
@@ -98,32 +135,7 @@ export default function CategoryDetailsItemComponent({
     getCategoryList();
   }, [getCategoryList, currentPage, url_path]);
 
-  const {
-    media_gallery,
-    description,
-    hover_image,
-    image,
-    name,
-    application_techniques,
-    benefits,
-    ingredients,
-    configurable_options,
-    configurable_product_options_selection,
-    product_tag,
-    price_range: {
-      minimum_price: {
-        regular_price: {currency, value},
-        discount: {amount_off},
-        final_price,
-      },
-    },
-    second_title,
-    sku,
-    stock_status,
-    swatch_image,
-    small_image,
-    thumbnail,
-  } = categoryDetailsData;
+  
 
   const _carousel = () => {
     return (
@@ -262,11 +274,6 @@ export default function CategoryDetailsItemComponent({
     );
   };
 
-  const getColorValues = () => configurable_product_options_selection?.options_available_for_selection?.map((cv,i) => {
-    return cv.attribute_code === "color" && cv?.option_value_uids;
-  })
-
-  console.log('get colors',getColorValues()[0][0]);
 
   const _colorSwatchInfo = () => {
     return configurable_options?.map((item: any, index: number) => {
@@ -306,7 +313,7 @@ export default function CategoryDetailsItemComponent({
                   }>
                   <View
                     style={
-                      childItem.label === selectedColorText.label
+                      childItem.label === selectedColorText?.label
                         ? {
                             padding: 5,
                             borderWidth: 1,
@@ -318,7 +325,7 @@ export default function CategoryDetailsItemComponent({
                     }>
                     <View
                       style={
-                        childItem.label === selectedColorText.label
+                        childItem.label === selectedColorText?.label
                           ? {
                               backgroundColor: childItem?.swatch_data?.value,
                               width: 20,
