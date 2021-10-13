@@ -315,11 +315,12 @@ export default function CategoryDetailsItemComponent({
                     style={
                       childItem.label === selectedColorText?.label
                         ? {
-                            padding: 5,
+                            padding: 2,
                             borderWidth: 1,
                             borderColor: COLORS.primary2,
                             marginRight: 15,
                             marginBottom: 10,
+                            borderRadius: 50
                           }
                         : {}
                     }>
@@ -328,8 +329,8 @@ export default function CategoryDetailsItemComponent({
                         childItem.label === selectedColorText?.label
                           ? {
                               backgroundColor: childItem?.swatch_data?.value,
-                              width: 20,
-                              height: 20,
+                              width: 25,
+                              height: 25,
                               borderRadius: 15,
                             }
                           : {
