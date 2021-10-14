@@ -328,6 +328,7 @@ export default function CategoryDetailsItemComponent({
               </View>
             )}
           </View>
+          {_allShadesAndFinishes()}
           <Spacer mt={10} />
           <View
             style={{
@@ -463,7 +464,7 @@ export default function CategoryDetailsItemComponent({
 
   const _allShadesAndFinishes = () => {
     return (
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row',marginLeft: -10}}>
         {/* All Shades dropdown */}
 
         {_shadesOrFinishes(
@@ -507,7 +508,7 @@ export default function CategoryDetailsItemComponent({
         <Divider width={330} backgroundColor={COLORS.border} />
         {/* swatch info */}
 
-        {_allShadesAndFinishes()}
+       
 
         {/* swatch attribute label and colors */}
         {_colorSwatchInfo()}
