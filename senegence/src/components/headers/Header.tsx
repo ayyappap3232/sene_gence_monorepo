@@ -58,7 +58,6 @@ export default function Header({
 
   //handle search operation when click on search icon
   const onSearchHandler = (name = '') => {
-    console.log('name', name);
     setSearchText(name);
     if (searchText) {
       setIsSearchOpen(false);

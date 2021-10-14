@@ -109,7 +109,6 @@ const CategoryItemComponent = (
 
 
   const handleCategoryDetailsNavigation = (item: Item) => {
-    console.log("in")
     navigation.navigate(ScreenNames.CategoryDetails, {
       categoryDetail: item,
       one_level_url_path: url_path,

@@ -276,7 +276,6 @@ export default function Mainshoppingbag({navigation}: any) {
       setShowCloseIconWhenClickOnApply(false);
       return;
     }
-    console.log(couponCode, couponText)
     couponText === couponCode ? setStatus('success') : setStatus('error');
     setShowCloseIconWhenClickOnApply(true);
   };

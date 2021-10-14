@@ -77,7 +77,6 @@ const DrawerNavigator = () => {
   }
 
   if (error) {
-    console.log('error',error.message)
     return (
       <View
         style={{

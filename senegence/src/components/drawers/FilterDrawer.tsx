@@ -34,7 +34,6 @@ const FilterDrawer = ({
 }: any) => {
   const navigation = useNavigation<any>();
   const [visible, setVisible] = React.useState(false);
-  console.log(sideMenuItems);
 
   const [categoryItemsShow, setCategoryItemsShow] = React.useState(false);
   const [colorCategoryItemsShow, setColorCategoryItemsShow] =
@@ -46,13 +45,6 @@ const FilterDrawer = ({
   const [colorSwatches, setColorSwatches] = React.useState<any>([]);
   const [filterName, setFilterName] = useState(name);
   const [filterUrl_path, setFilterUrl_path] = useState(url_path);
-  console.log(
-    'inside filterthe data',
-    name,
-    url_path,
-    searchValue,
-    attribute_code,
-  );
 
   const handleNavigationFilters = (searchParam: any, attribute_code: any) => {
     setVisible(false);

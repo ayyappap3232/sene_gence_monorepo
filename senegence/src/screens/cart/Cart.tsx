@@ -22,7 +22,6 @@ export default function Cart() {
         return <Text>{error.message}</Text>
     }
 
-    console.log('cart data',cartData);
     return (
         <View>
             <Text>Cart Details</Text>

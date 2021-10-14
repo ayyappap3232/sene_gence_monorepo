@@ -96,6 +96,7 @@ export default function CategoryDetailsItemComponent({
       : ''
 
   useEffect(() => {
+    LogBox.ignoreAllLogs();
     configurable_options &&
       setSelectedColorText({
         label: initialSelectedColorLabel,
@@ -338,7 +339,7 @@ export default function CategoryDetailsItemComponent({
               return (
                 <TouchableOpacity
                 activeOpacity={0.9}
-                  key={index}
+                  key={childItem.label}
                   onPress={() => {
                     setSelectedColorText({
                       label: childItem.label,
