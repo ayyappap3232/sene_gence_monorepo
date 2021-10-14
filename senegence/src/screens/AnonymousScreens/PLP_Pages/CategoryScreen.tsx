@@ -198,7 +198,7 @@ export default function CategoryScreen() {
           margin: 20,
         }}>
         <View style={styles.filterWrapper}>
-          <FilterDrawer sideMenuItems={children} name={name} url_path={url_path} attribute_code={attribute_code} sideMenuProductItems={productItems} searchValue={searchValue}/>
+          <FilterDrawer sideMenuItems={children} name={name} url_path={url_path} attribute_code={attribute_code} sideMenuProductItems={productItems} searchValue={searchParam}/>
           <Text containerStyle={styles.filterText}>Shop By</Text>
           <TouchableOpacity onPress={() => setgridView(false)}>
             <Image

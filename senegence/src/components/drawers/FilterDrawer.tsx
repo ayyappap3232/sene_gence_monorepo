@@ -49,12 +49,16 @@ const FilterDrawer = ({
 
   const handleNavigationFilters = (searchParam: any, attribute_code: any) => {
     setVisible(false);
+    setShadeItemsShow(false);
+    setPriceItemsShow(false);
+    setCategoryItemsShow(false);
+    setCategoryItemsShow(false);
     navigation.navigate(ScreenNames.CategoryItem,{
       categoryData: {
         searchParam: searchParam,
         attribute_code: attribute_code,
-        name: filterName,
-        url_path: filterUrl_path
+        name: name,
+        url_path: url_path
       },
     })
   }
@@ -332,7 +336,7 @@ const FilterDrawer = ({
 
           <Spacer mt={20} />
           <View style={{marginHorizontal: 15}}>
-            {searchValue != "" && attribute_code !==""  && _searchValueRelatedUI()}
+            {attribute_code !==""  && _searchValueRelatedUI()}
             {searchValue == '' && (
               <Text
                 containerStyle={[
