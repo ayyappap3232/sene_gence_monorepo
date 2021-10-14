@@ -29,7 +29,8 @@ const FilterDrawer = ({
   searchValue = '',
   attribute_code = '',
   name,
-  url_path
+  url_path,
+  cameFrom=""
 }: any) => {
   const navigation = useNavigation<any>();
   const [visible, setVisible] = React.useState(false);
@@ -53,14 +54,21 @@ const FilterDrawer = ({
     setPriceItemsShow(false);
     setCategoryItemsShow(false);
     setCategoryItemsShow(false);
-    navigation.navigate(ScreenNames.CategoryItem,{
-      categoryData: {
-        searchParam: searchParam,
-        attribute_code: attribute_code,
-        name: name,
-        url_path: url_path
-      },
-    })
+    if(cameFrom == "search_page"){
+      navigation.navigate(ScreenNames.SearchScreen,{
+        searchQuery: name,
+        searchParam: searchParam
+      })
+    }else{
+      navigation.navigate(ScreenNames.CategoryItem,{
+        categoryData: {
+          searchParam: searchParam,
+          attribute_code: attribute_code,
+          name: name,
+          url_path: url_path
+        },
+      })
+    }
   }
 
   const colorswatches = () =>

@@ -64,6 +64,7 @@ export default function Header({
       setIsSearchOpen(false);
       navigation.navigate(ScreenNames.SearchScreen, {
         searchQuery: name || searchText,
+        searchParam: ""
       });
       // setSearchText('');
       setRelatedSearchItems([]);
