@@ -86,6 +86,7 @@ const FilterDrawer = ({
             childItem.attribute_code == 'color' &&
             subChild.swatch_data?.value && (
               <TouchableOpacity
+                key={subChild.uid}
                 activeOpacity={0.9}
                 style={{
                   marginVertical: 5,
@@ -108,6 +109,7 @@ const FilterDrawer = ({
           return (
             childItem.attribute_code == 'shade' && (
               <TouchableOpacity
+                key={subChild.label}
                 activeOpacity={0.7}
                 style={{
                   marginVertical: 5,
@@ -159,6 +161,7 @@ const FilterDrawer = ({
           {sideMenuItems?.map((item: any, index: any) => {
             return item.product_count > 0 ? (
               <TouchableOpacity
+                key={item.name}
                 style={{marginVertical: 10}}
                 onPress={() => {
                   showModal();

@@ -37,15 +37,10 @@ export default function CategoryScreen() {
 
   const [textInputValue, setTextInputValue] = useState('');
   const [collapsed, setCollapsed] = useState(false);
-  let _drawer = useRef(null);
-
-
 
   const route = useRoute<any>();
   const {name, url_path} = route?.params?.categoryData;
   const {searchParam,attribute_code} = route?.params?.categoryData;
-
-  console.log('after clearing the data', name, url_path, searchParam, attribute_code)
 
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -55,9 +50,6 @@ export default function CategoryScreen() {
   const [gridView, setgridView] = useState<boolean>(false);
   const [filteredValue, setFilteredValue] = useState("");
   const [searchCount, setSearchCount] = useState(0);
-
-
- 
 
   let {getCategoryList, loading, error, categoryList} = useCategoryList({
     url_path: url_path,
