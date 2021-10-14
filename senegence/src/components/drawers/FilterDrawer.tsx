@@ -42,15 +42,13 @@ const FilterDrawer = ({
   const [priceItemsShow, setPriceItemsShow] = React.useState(false);
   const [showSearchItemsList, setShowSearchItemsList] = React.useState(true);
 
-  const [colorSwatches, setColorSwatches] = React.useState<any>([]);
-  const [filterName, setFilterName] = useState(name);
-  const [filterUrl_path, setFilterUrl_path] = useState(url_path);
+  const [selectedFilterColor, setSelectedFilterColor] = useState('');
 
   const handleNavigationFilters = (searchParam: any, attribute_code: any) => {
     setVisible(false);
     setShadeItemsShow(false);
     setPriceItemsShow(false);
-    setCategoryItemsShow(false);
+    setColorCategoryItemsShow(false);
     setCategoryItemsShow(false);
     if (cameFrom == 'search_page') {
       navigation.navigate(ScreenNames.SearchScreen, {
@@ -74,22 +72,43 @@ const FilterDrawer = ({
     sideMenuProductItems?.map((item: Item, index: number) => {
       return item.configurable_options?.map((childItem, ci: number) => {
         return childItem?.values?.map((subChild: Value, i: number) => {
-          return (
-            childItem.attribute_code == 'color' &&
-            subChild.swatch_data?.value && (
-              <TouchableOpacity
-                key={subChild.uid}
-                activeOpacity={0.9}
-                style={{
-                  marginVertical: 5,
-                  marginRight: 8,
-                  width: 20,
-                  height: 20,
-                  borderRadius: 10,
-                  backgroundColor: subChild.swatch_data?.value,
-                }}></TouchableOpacity>
-            )
-          );
+            return (
+              childItem.attribute_code == 'color' &&
+              subChild.swatch_data?.value && (
+                <View
+                  style={
+                    selectedFilterColor === subChild.label && {
+                      borderRadius: 10,
+                      borderWidth: 1,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: 20,
+                      height: 20,
+                      marginTop: 5,
+                      marginRight: 5,
+                      borderColor: COLORS.primary2,
+                    }
+                  }>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setSelectedFilterColor(subChild.label);
+                      handleNavigationFilters(subChild.label, 'Color');
+                    }}
+                    key={subChild.uid}
+                    activeOpacity={0.9}
+                    style={{
+                      marginVertical:
+                        selectedFilterColor === subChild.label ? 0 : 5,
+                      marginRight: selectedFilterColor === subChild.label ? 0 : 8,
+                      width: selectedFilterColor === subChild.label ? 15 : 20,
+                      height: selectedFilterColor === subChild.label ? 15 : 20,
+                      borderRadius: 10,
+                      backgroundColor: subChild?.swatch_data?.value,
+                    }}></TouchableOpacity>
+                </View>
+              )
+            );
+          
         });
       });
     });
@@ -293,7 +312,10 @@ const FilterDrawer = ({
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <TouchableOpacity
                 style={{marginRight: 15}}
-                onPress={() => handleNavigationFilters('', '')}>
+                onPress={() => {
+                  setSelectedFilterColor('');
+                  handleNavigationFilters('', '');
+                }}>
                 <Image source={images.close} style={{width: 24, height: 24}} />
               </TouchableOpacity>
               <Text
@@ -303,6 +325,9 @@ const FilterDrawer = ({
                     fontFamily: FONTS.AvenirBook,
                     textTransform: 'uppercase',
                     color: COLORS.border3,
+                    flexWrap:'wrap',
+                    flex: 1
+
                   },
                 ]}>
                 <Text containerStyle={{fontWeight: '700'}}>
@@ -312,7 +337,11 @@ const FilterDrawer = ({
               </Text>
             </View>
             <Spacer mt={10} />
-            <TouchableOpacity onPress={() => handleNavigationFilters('', '')}>
+            <TouchableOpacity
+              onPress={() => {
+                setSelectedFilterColor('');
+                handleNavigationFilters('', '');
+              }}>
               <Text
                 containerStyle={[
                   globalStyles.text_bebas_bold,
@@ -329,7 +358,14 @@ const FilterDrawer = ({
 
   return (
     <>
-      <TouchableOpacity onPress={() => showModal()}>
+      <TouchableOpacity
+        onPress={() => {
+          setShadeItemsShow(false);
+          setPriceItemsShow(false);
+          setColorCategoryItemsShow(false);
+          setCategoryItemsShow(false);
+          showModal();
+        }}>
         <Image
           source={images.filter1}
           style={{width: 12.6, height: 12.6, marginRight: 4}}
