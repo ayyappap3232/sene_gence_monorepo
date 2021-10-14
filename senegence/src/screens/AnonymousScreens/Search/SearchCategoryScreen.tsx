@@ -26,7 +26,7 @@ import SortByFilter from '../../../components/filters/SortByFilter';
 import { ScreenNames } from '../../../utils/screenNames';
 import FilterDrawer from '../../../components/drawers/FilterDrawer';
 
-export default function SearchCategoryScreen({name,searchParam}: any) {
+export default function SearchCategoryScreen({name,searchParam,attribute_code}: any) {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
 
@@ -134,7 +134,7 @@ export default function SearchCategoryScreen({name,searchParam}: any) {
           margin: 20,
         }}>
         <View style={styles.filterWrapper}>
-        <FilterDrawer  name={name} cameFrom={"search_page"}  sideMenuProductItems={productItems} />
+        <FilterDrawer  name={name} cameFrom={"search_page"} attribute_code={attribute_code} searchValue={searchParam} sideMenuProductItems={productItems} />
           <Text containerStyle={styles.filterText}>Shop By</Text>
           <TouchableOpacity onPress={() => setgridView(false)}>
             <Image
