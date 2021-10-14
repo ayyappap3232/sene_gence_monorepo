@@ -227,7 +227,7 @@ export default function CategoryScreen() {
   };
 
 
-  const breadCrumbs = searchParam ?searchCategoryList?.products?.items?.categories?.breadcrumbs : categoryList?.categoryList[0]?.breadcrumbs;
+  const breadCrumbs =  categoryList?.categoryList[0]?.breadcrumbs;
   const categoriesListItems = searchParam ? searchCategoryList?.products?.items : categoryList?.categoryList[0]?.products?.items
 
   return (
