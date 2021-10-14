@@ -26,8 +26,11 @@ import SortByFilter from '../../../components/filters/SortByFilter';
 import { ScreenNames } from '../../../utils/screenNames';
 import FilterDrawer from '../../../components/drawers/FilterDrawer';
 
-export default function SearchCategoryScreen({name}: any) {
+export default function SearchCategoryScreen({name,searchParam,attribute_code}: any) {
   const navigation = useNavigation<any>();
+  const route = useRoute<any>();
+
+  // const {attribute_code="", searchParam} = route?.params?.categoryData;
 
   const [textInputValue, setTextInputValue] = useState('');
 
@@ -47,7 +50,7 @@ export default function SearchCategoryScreen({name}: any) {
 
   const {getSearchCategoryList, loading, error, searchCategoryList} =
     useSearchCategoryList({
-      name: name,
+      name: searchParam ? searchParam : name,
       pageSize: pageSize,
       currentPage: currentPage,
     });
@@ -119,6 +122,9 @@ export default function SearchCategoryScreen({name}: any) {
     );
   };
 
+  const productItems = searchCategoryList?.products?.items;
+
+
   const _filters = () => {
     return (
       <View
@@ -128,7 +134,7 @@ export default function SearchCategoryScreen({name}: any) {
           margin: 20,
         }}>
         <View style={styles.filterWrapper}>
-        <FilterDrawer/>
+        <FilterDrawer  name={name} cameFrom={"search_page"} attribute_code={attribute_code} searchValue={searchParam} sideMenuProductItems={productItems} />
           <Text containerStyle={styles.filterText}>Shop By</Text>
           <TouchableOpacity onPress={() => setgridView(false)}>
             <Image

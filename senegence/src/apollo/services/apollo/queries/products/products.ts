@@ -1,4 +1,6 @@
 import {gql} from '@apollo/client';
+import { MEDIA_GALLERY_FRAGMENT } from '../categories/mediaGalleryFragment';
+import { PRODUCT_PRICE_FRAGMENT } from '../categories/productPriceFragment';
 
 export const SEARCH_CATEGORY_LIST = gql`
   query GetProducts($name: String!, $pageSize: Int!, $currentPage: Int!) {
@@ -6,6 +8,32 @@ export const SEARCH_CATEGORY_LIST = gql`
       total_count
       items {
         uid
+        ... on ConfigurableProduct {
+            configurable_options {
+              attribute_code
+              label
+              values {
+                label
+                uid
+                swatch_data {
+                  value
+                }
+              }
+            }
+            variants{
+            attributes{
+              code
+              uid
+              value_index
+            }
+            product{
+              sku
+              ...MediaGallery
+              ...ProductPrice
+              
+            }
+          }
+        }
         categories {
           breadcrumbs {
             category_name
@@ -62,6 +90,8 @@ export const SEARCH_CATEGORY_LIST = gql`
       }
     }
   }
+  ${MEDIA_GALLERY_FRAGMENT}
+  ${PRODUCT_PRICE_FRAGMENT}
 `;
 
 //Get Search Product Name and Overall Count

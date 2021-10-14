@@ -12,7 +12,8 @@ import SearchCategoryScreen from './SearchCategoryScreen';
 
 export default function SearchScreen() {
   const route = useRoute();
-  const {searchQuery}: any = route?.params;
+  const {searchQuery,searchParam}: any = route?.params;
+  const {attribute_code} = route?.params;
 
   useEffect(() => {}, [route]);
 
@@ -30,7 +31,7 @@ export default function SearchScreen() {
         </Text>
         </View>
         
-        <SearchCategoryScreen name={searchQuery}/>
+        <SearchCategoryScreen name={searchQuery} searchParam={searchParam} attribute_code={attribute_code}/>
         <Spacer mt={40} />
         {_beautyBook()}
         <Spacer mt={30.2} />

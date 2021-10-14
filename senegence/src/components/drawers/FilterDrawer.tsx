@@ -29,7 +29,8 @@ const FilterDrawer = ({
   searchValue = '',
   attribute_code = '',
   name,
-  url_path
+  url_path,
+  cameFrom = '',
 }: any) => {
   const navigation = useNavigation<any>();
   const [visible, setVisible] = React.useState(false);
@@ -43,9 +44,15 @@ const FilterDrawer = ({
   const [showSearchItemsList, setShowSearchItemsList] = React.useState(true);
 
   const [colorSwatches, setColorSwatches] = React.useState<any>([]);
-  const [filterName, setFilterName] = useState(name)
-  const [filterUrl_path, setFilterUrl_path] = useState(url_path)
-  console.log('inside filterthe data', name, url_path, searchValue, attribute_code)
+  const [filterName, setFilterName] = useState(name);
+  const [filterUrl_path, setFilterUrl_path] = useState(url_path);
+  console.log(
+    'inside filterthe data',
+    name,
+    url_path,
+    searchValue,
+    attribute_code,
+  );
 
   const handleNavigationFilters = (searchParam: any, attribute_code: any) => {
     setVisible(false);
@@ -53,15 +60,23 @@ const FilterDrawer = ({
     setPriceItemsShow(false);
     setCategoryItemsShow(false);
     setCategoryItemsShow(false);
-    navigation.navigate(ScreenNames.CategoryItem,{
-      categoryData: {
+    if (cameFrom == 'search_page') {
+      navigation.navigate(ScreenNames.SearchScreen, {
+        searchQuery: name,
         searchParam: searchParam,
         attribute_code: attribute_code,
-        name: name,
-        url_path: url_path
-      },
-    })
-  }
+      });
+    } else {
+      navigation.navigate(ScreenNames.CategoryItem, {
+        categoryData: {
+          searchParam: searchParam,
+          attribute_code: attribute_code,
+          name: name,
+          url_path: url_path,
+        },
+      });
+    }
+  };
 
   const colorswatches = () =>
     sideMenuProductItems?.map((item: Item, index: number) => {
@@ -99,7 +114,9 @@ const FilterDrawer = ({
                   marginRight: 8,
                   borderRadius: 10,
                 }}
-                onPress={() => handleNavigationFilters(subChild.label,'Shade')}>
+                onPress={() =>
+                  handleNavigationFilters(subChild.label, 'Shade')
+                }>
                 <Text
                   containerStyle={[
                     globalStyles.text_avenir_medium,
@@ -277,36 +294,40 @@ const FilterDrawer = ({
           <Spacer mt={20} />
           <Divider width={'100%'} backgroundColor={COLORS.border} height={1} />
           <Spacer mt={10} />
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <TouchableOpacity style={{marginRight: 15}} onPress={() => handleNavigationFilters("","")}>
-              <Image source={images.close} style={{width: 24, height: 24}} />
+          <Collapsible collapsed={!showSearchItemsList}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <TouchableOpacity
+                style={{marginRight: 15}}
+                onPress={() => handleNavigationFilters('', '')}>
+                <Image source={images.close} style={{width: 24, height: 24}} />
+              </TouchableOpacity>
+              <Text
+                containerStyle={[
+                  globalStyles.text_avenir_heavy,
+                  {
+                    fontFamily: FONTS.AvenirBook,
+                    textTransform: 'uppercase',
+                    color: COLORS.border3,
+                  },
+                ]}>
+                <Text containerStyle={{fontWeight: '700'}}>
+                  {attribute_code}:
+                </Text>{' '}
+                {searchValue}
+              </Text>
+            </View>
+            <Spacer mt={10} />
+            <TouchableOpacity onPress={() => handleNavigationFilters('', '')}>
+              <Text
+                containerStyle={[
+                  globalStyles.text_bebas_bold,
+                  styles.clearAll,
+                ]}>
+                Clear All
+              </Text>
             </TouchableOpacity>
-            <Text
-              containerStyle={[
-                globalStyles.text_avenir_heavy,
-                {
-                  fontFamily: FONTS.AvenirBook,
-                  textTransform: 'uppercase',
-                  color: COLORS.border3,
-                },
-              ]}>
-              <Text containerStyle={{fontWeight: '700'}}>
-                {attribute_code}:
-              </Text>{' '}
-              {searchValue}
-            </Text>
-          </View>
+          </Collapsible>
         </View>
-        <Spacer mt={10} />
-        <TouchableOpacity onPress={() => handleNavigationFilters("","")}>
-          <Text
-            containerStyle={[
-              globalStyles.text_bebas_bold,
-              styles.clearAll,
-            ]}>
-            Clear All
-          </Text>
-        </TouchableOpacity>
       </>
     );
   };
@@ -336,7 +357,7 @@ const FilterDrawer = ({
 
           <Spacer mt={20} />
           <View style={{marginHorizontal: 15}}>
-            {attribute_code !==""  && _searchValueRelatedUI()}
+            {attribute_code !== '' && _searchValueRelatedUI()}
             {searchValue == '' && (
               <Text
                 containerStyle={[
@@ -349,13 +370,17 @@ const FilterDrawer = ({
                 Shopping Options
               </Text>
             )}
-            <Spacer mt={20} />
-            <Divider
-              width={'100%'}
-              backgroundColor={COLORS.border}
-              height={1}
-            />
-            <Spacer mt={10} />
+            {showSearchItemsList && (
+              <>
+                <Spacer mt={20} />
+                <Divider
+                  width={'100%'}
+                  backgroundColor={COLORS.border}
+                  height={1}
+                />
+                <Spacer mt={10} />
+              </>
+            )}
             {sideMenuItems?.length > 0 && _category()}
             <Spacer mt={10} />
             {sideMenuProductItems && _colorCategory()}
@@ -385,10 +410,9 @@ const FilterDrawer = ({
                 />
                 <Spacer mt={10} />
               </>
-            )} 
+            )}
           </View>
         </View>
-       
       </Modal>
     </>
   );
@@ -420,5 +444,5 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     textTransform: 'uppercase',
     color: COLORS.primary2,
-  }
+  },
 });
