@@ -19,6 +19,8 @@ type Result = {
 export const useCategoryList = (props: Props): Result => {
   const [categoryList, setCategoryList] = useState();
 
+  console.log('search param',props?.search)
+
   enum SortEnum {
     ASC,
     DESC,
