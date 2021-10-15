@@ -153,6 +153,7 @@ export default function CategoryDetailsItemComponent({
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     getCategoryList();
+    return () => getCategoryList();
   }, [getCategoryList, currentPage, url_path]);
 
   const _carousel = () => {

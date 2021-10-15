@@ -76,6 +76,7 @@ const FilterDrawer = ({
               childItem.attribute_code == 'color' &&
               subChild.swatch_data?.value && (
                 <View
+                  key={subChild.uid}
                   style={
                     selectedFilterColor === subChild.label && {
                       borderRadius: 10,

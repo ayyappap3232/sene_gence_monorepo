@@ -75,6 +75,8 @@ export default function CategoryScreen() {
     loading = true;
     getSearchCategoryList();
     setSearchCount(searchCategoryList?.products?.total_count)
+
+    return () => getSearchCategoryList();
   }, [searchParam])
 
   if(searchCategoryList){
@@ -85,6 +87,7 @@ export default function CategoryScreen() {
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
      getCategoryList();
+     return () => getCategoryList();
   }, [getCategoryList, currentPage,filteredValue]);
 
   //Recently Viewed Products getting from AsyncStorage
