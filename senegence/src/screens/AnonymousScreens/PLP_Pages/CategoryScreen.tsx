@@ -1,6 +1,7 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {LogBox, TextInput} from 'react-native';
+import RenderHtml from 'react-native-render-html';
 import {
   FlatList,
   Image,
@@ -29,7 +30,8 @@ import {Alert} from 'react-native';
 import RecentlyViewedProducts from '../../../components/RecentlyViewedProducts';
 import {_beautyBook} from '../../../components/BeautyBook';
 import {_breadCrumbs} from '../../../components/breadCrumbs/BreadCrumbWithInfinityLoop';
-import { useSearchCategoryList } from '../../../apollo/controllers/getSearchCategoryList.Controller';
+import {useSearchCategoryList} from '../../../apollo/controllers/getSearchCategoryList.Controller';
+import { globalStyles } from '../../../globalstyles/GlobalStyles';
 
 export default function CategoryScreen() {
   const navigation = useNavigation<any>();
@@ -40,12 +42,12 @@ export default function CategoryScreen() {
 
   const route = useRoute<any>();
   const {name, url_path} = route?.params?.categoryData;
-  const {searchParam,attribute_code} = route?.params?.categoryData;
+  const {searchParam, attribute_code} = route?.params?.categoryData;
 
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(1);
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
   const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
   const [gridView, setgridView] = useState<boolean>(false);
   const [filteredValue, setFilteredValue] = useState();
@@ -58,34 +60,34 @@ export default function CategoryScreen() {
   });
 
   //Start of Search Category List
-  let {getSearchCategoryList,isSearchLoading, searchCategoryList} = useSearchCategoryList({
-    pageSize: pageSize,
-    currentPage: currentPage,
-    name: searchParam
-  })
+  let {getSearchCategoryList, isSearchLoading, searchCategoryList} =
+    useSearchCategoryList({
+      pageSize: pageSize,
+      currentPage: currentPage,
+      name: searchParam,
+    });
 
   useEffect(() => {
     setPageSize(10);
     setCurrentIndex(1);
     setCurrentPage(1);
-    setSearchValue(searchParam ? searchParam : "");
+    setSearchValue(searchParam ? searchParam : '');
   }, [url_path]);
 
   useEffect(() => {
     getSearchCategoryList();
-    setSearchCount(searchCategoryList?.products?.total_count)
+    setSearchCount(searchCategoryList?.products?.total_count);
 
     return () => getSearchCategoryList();
-  }, [searchParam])
+  }, [searchParam]);
 
-  
   //End of Search Category List
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-     getCategoryList();
-     return () => getCategoryList();
-  }, [getCategoryList, currentPage,filteredValue]);
+    getCategoryList();
+    return () => getCategoryList();
+  }, [getCategoryList, currentPage, filteredValue]);
 
   //Recently Viewed Products getting from AsyncStorage
   useEffect(() => {
@@ -95,7 +97,7 @@ export default function CategoryScreen() {
       //Removing the duplicates from the array
       let jsonObject = p.map(JSON.stringify);
       let uniqueSet = new Set(jsonObject);
-      let uniqueArray:any = Array.from(uniqueSet).map(JSON.parse);
+      let uniqueArray: any = Array.from(uniqueSet).map(JSON.parse);
       setRecentlyViewedProducts(uniqueArray);
     });
   }, [route]);
@@ -104,9 +106,13 @@ export default function CategoryScreen() {
     return <ActivityIndicator />;
   }
 
-  const total_count = searchParam ? searchCategoryList?.products?.total_count : categoryList?.categoryList[0]?.products?.total_count;
+  const total_count = searchParam
+    ? searchCategoryList?.products?.total_count
+    : categoryList?.categoryList[0]?.products?.total_count;
   const children = categoryList?.categoryList[0]?.children;
-  const productItems = searchParam ? searchCategoryList?.products?.items : categoryList?.categoryList[0]?.products?.items;
+  const productItems = searchParam
+    ? searchCategoryList?.products?.items
+    : categoryList?.categoryList[0]?.products?.items;
 
   const paginationLength = Math.ceil(total_count / pageSize);
 
@@ -190,7 +196,14 @@ export default function CategoryScreen() {
           margin: 20,
         }}>
         <View style={styles.filterWrapper}>
-          <FilterDrawer sideMenuItems={children} name={name} url_path={url_path} attribute_code={attribute_code} sideMenuProductItems={productItems} searchValue={searchParam}/>
+          <FilterDrawer
+            sideMenuItems={children}
+            name={name}
+            url_path={url_path}
+            attribute_code={attribute_code}
+            sideMenuProductItems={productItems}
+            searchValue={searchParam}
+          />
           <Text containerStyle={styles.filterText}>Shop By</Text>
           <TouchableOpacity onPress={() => setgridView(false)}>
             <Image
@@ -209,7 +222,7 @@ export default function CategoryScreen() {
         </View>
         <View style={styles.filterWrapper}>
           <SortByFilter
-          setFilteredValue={setFilteredValue}
+            setFilteredValue={setFilteredValue}
             textInputValue={textInputValue}
             setTextInputValue={setTextInputValue}
           />
@@ -218,52 +231,91 @@ export default function CategoryScreen() {
     );
   };
 
-
-  const breadCrumbs =  categoryList?.categoryList[0]?.breadcrumbs;
-  const categoriesListItems = searchParam ? searchCategoryList?.products?.items : categoryList?.categoryList[0]?.products?.items
+  const breadCrumbs = categoryList?.categoryList[0]?.breadcrumbs;
+  const categoriesListItems = searchParam
+    ? searchCategoryList?.products?.items
+    : categoryList?.categoryList[0]?.products?.items;
+  const description = categoryList?.categoryList[0]?.description;
+  const source = {
+    html: description,
+  };
+  const renderersProps = {
+    img: {
+      enableExperimentalPercentWidth: true,
+    },
+  };
 
   return (
     <ScrollToTopContainer showCart={false}>
       <View style={{marginLeft: 20}}>
         {_breadCrumbs(breadCrumbs, name, navigation)}
       </View>
+      {description && (
+        <>
+          <Spacer mt={10} />
+          <View
+            style={[globalStyles.shadowEffect,
+              {width: SIZES.width-40, marginTop: 10,marginHorizontal: 20, justifyContent: 'center',backgroundColor: COLORS.white,height: SIZES.height/4, paddingHorizontal: 20},
+            ]}>
+            <RenderHtml
+              contentWidth={SIZES.width}
+              allowedStyles={[
+                'backgroundColor',
+                'justifyContent',
+                'flexDirection',
+              ]}
+              tagsStyles={{h1:{fontSize:70}}}
+              source={source}
+              renderersProps={renderersProps}
+            />
+          </View>
+        </>
+      )}
       {total_count > 0 && (
         <>
           <Spacer mt={10} />
           <Text containerStyle={{marginLeft: 20}}>
             ITEMS {(currentPage - 1) * pageSize + 1} -{' '}
-            {(total_count > 10 ? pageSize : total_count)*currentPage} OF{' '}
+            {(total_count > 10 ? pageSize : total_count) * currentPage} OF{' '}
             {total_count}{' '}
           </Text>
         </>
       )}
       {_filters()}
-      {!isSearchLoading ? <FlatList
-        scrollEnabled={false}
-        // columnWrapperStyle={{alignItems: 'flex-start'}}
-        contentContainerStyle={{paddingLeft: 22}}
-        numColumns={gridView ? 1 : 2}
-        key={gridView ? 1 : 0}
-        renderItem={({item}) => (
-          <React.Fragment key={item.uid}>
-            {CategoryItemComponent(
-              item,
-              {},
-              gridView,
-              navigation,
-              url_path,
-              name,
-            )}
-          </React.Fragment>
-        )}
-        data={categoriesListItems}
-        keyExtractor={(item, index) => index.toString()}
-        ListEmptyComponent={() => (
-          categoriesListItems === undefined ? <ActivityIndicator /> :<View style={styles.listEmpty}>
-            <Text>We can't find products matching the selection.</Text>
-          </View>
-        )}
-      />: <ActivityIndicator/>}
+      {!isSearchLoading ? (
+        <FlatList
+          scrollEnabled={false}
+          // columnWrapperStyle={{alignItems: 'flex-start'}}
+          contentContainerStyle={{paddingLeft: 22}}
+          numColumns={gridView ? 1 : 2}
+          key={gridView ? 1 : 0}
+          renderItem={({item}) => (
+            <React.Fragment key={item.uid}>
+              {CategoryItemComponent(
+                item,
+                {},
+                gridView,
+                navigation,
+                url_path,
+                name,
+              )}
+            </React.Fragment>
+          )}
+          data={categoriesListItems}
+          keyExtractor={(item, index) => index.toString()}
+          ListEmptyComponent={() =>
+            categoriesListItems === undefined ? (
+              <ActivityIndicator />
+            ) : (
+              <View style={styles.listEmpty}>
+                <Text>We can't find products matching the selection.</Text>
+              </View>
+            )
+          }
+        />
+      ) : (
+        <ActivityIndicator />
+      )}
 
       <Spacer mt={20} />
       {_pagination()}

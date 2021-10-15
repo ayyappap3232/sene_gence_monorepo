@@ -27,6 +27,7 @@ export const CATEGORY_LIST = gql`
         url_path
       }
       image
+      description
       url_path
       breadcrumbs {
         category_name
@@ -270,6 +271,7 @@ export interface CategoryList {
   product_count: number;
   children: CategoryChildren[];
   image?: any;
+  description?:any;
   url_path: string;
   products: Products;
 }
