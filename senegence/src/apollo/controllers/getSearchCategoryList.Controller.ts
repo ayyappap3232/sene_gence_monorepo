@@ -11,6 +11,7 @@ type Props = {
 
 type Result = {
     loading: Boolean,
+    isSearchLoading?:Boolean,
     error: any,
     searchCategoryList: any,
     getSearchCategoryList() : void,
@@ -26,6 +27,8 @@ export const useSearchCategoryList = (props: Props): Result => {
         },
         fetchPolicy: "cache-and-network"
     })
+    let [isSearchLoading, setIsSearchLoading] = useState<boolean>()
+
 
     useEffect(() => {
         if(data){
@@ -35,6 +38,7 @@ export const useSearchCategoryList = (props: Props): Result => {
 
     return {
         loading,
+        isSearchLoading : loading,
         error,
         searchCategoryList,
         getSearchCategoryList

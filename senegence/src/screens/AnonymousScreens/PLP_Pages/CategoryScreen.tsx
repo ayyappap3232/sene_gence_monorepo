@@ -58,7 +58,7 @@ export default function CategoryScreen() {
   });
 
   //Start of Search Category List
-  let {getSearchCategoryList, searchCategoryList} = useSearchCategoryList({
+  let {getSearchCategoryList,isSearchLoading, searchCategoryList} = useSearchCategoryList({
     pageSize: pageSize,
     currentPage: currentPage,
     name: searchParam
@@ -72,16 +72,13 @@ export default function CategoryScreen() {
   }, [url_path]);
 
   useEffect(() => {
-    loading = true;
     getSearchCategoryList();
     setSearchCount(searchCategoryList?.products?.total_count)
 
     return () => getSearchCategoryList();
   }, [searchParam])
 
-  if(searchCategoryList){
-    loading = false;
-  }
+  
   //End of Search Category List
 
   useEffect(() => {
@@ -241,7 +238,7 @@ export default function CategoryScreen() {
         </>
       )}
       {_filters()}
-      <FlatList
+      {!isSearchLoading ? <FlatList
         scrollEnabled={false}
         // columnWrapperStyle={{alignItems: 'flex-start'}}
         contentContainerStyle={{paddingLeft: 22}}
@@ -262,11 +259,11 @@ export default function CategoryScreen() {
         data={categoriesListItems}
         keyExtractor={(item, index) => index.toString()}
         ListEmptyComponent={() => (
-          <View style={styles.listEmpty}>
+          categoriesListItems === undefined ? <ActivityIndicator /> :<View style={styles.listEmpty}>
             <Text>We can't find products matching the selection.</Text>
           </View>
         )}
-      />
+      />: <ActivityIndicator/>}
 
       <Spacer mt={20} />
       {_pagination()}
