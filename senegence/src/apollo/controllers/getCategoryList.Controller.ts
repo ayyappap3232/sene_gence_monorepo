@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 //@ts-ignore
 import {useLazyQuery} from '@apollo/client';
-import {CATEGORY_LIST} from '../services/apollo/queries/categories/categoryList';
+import {CATEGORY_LIST, SortEnum} from '../services/apollo/queries/categories/categoryList';
 
 type Props = {
   url_path: string;

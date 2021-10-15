@@ -48,7 +48,7 @@ export default function CategoryScreen() {
   const [searchValue, setSearchValue] = useState("");
   const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
   const [gridView, setgridView] = useState<boolean>(false);
-  const [filteredValue, setFilteredValue] = useState("");
+  const [filteredValue, setFilteredValue] = useState();
   const [searchCount, setSearchCount] = useState(0);
 
   let {getCategoryList, loading, error, categoryList} = useCategoryList({

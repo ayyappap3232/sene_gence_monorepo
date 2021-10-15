@@ -4,7 +4,7 @@ import {gql} from '@apollo/client';
 import { MEDIA_GALLERY_FRAGMENT } from './mediaGalleryFragment';
 import { PRODUCT_PRICE_FRAGMENT } from './productPriceFragment';
 
-enum SortEnum {
+export enum SortEnum {
   ASC,
   DESC,
 }

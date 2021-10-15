@@ -110,7 +110,7 @@ export default function SortByFilter({textInputValue, setTextInputValue,setFilte
         cancelStyle={{backgroundColor: 'transparent'}}
         onChange={option => {
           setTextInputValue(option.label);
-          setFilteredValue(option.filter)
+          setFilteredValue({[option.filter]: option.filter, value: "ASC"})
           setChecked(option.key + 1);
         }}>
         <View>
