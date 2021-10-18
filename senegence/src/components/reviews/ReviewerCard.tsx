@@ -10,7 +10,7 @@ import Text from '../text/Text';
 
 const ReviewCardItem = ({item}: any) => {
   return (
-    <View style={{marginBottom: 10, width: SIZES.width}}>
+    <View key={item.id} style={{marginBottom: 10, width: SIZES.width}}>
       <Text containerStyle={[globalStyles.text_avenir_heavy]}>{item.name}</Text>
       <Spacer mt={10} />
       <View style={styles.mainView}>
