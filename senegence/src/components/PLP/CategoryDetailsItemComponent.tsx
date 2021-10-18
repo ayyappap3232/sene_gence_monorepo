@@ -268,7 +268,7 @@ export default function CategoryDetailsItemComponent({
           contentContainerStyle={{}}
           numColumns={1}
           pagingEnabled
-          scrollEnabled
+          scrollEnabled={true}
           snapToAlignment="center"
           scrollEventThrottle={16}
           decelerationRate="fast"

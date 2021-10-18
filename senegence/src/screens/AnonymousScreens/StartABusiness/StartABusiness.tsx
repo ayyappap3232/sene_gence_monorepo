@@ -28,8 +28,7 @@ export default function StartABusiness() {
         </Text>
         <Spacer mt={10} />
         <Text containerStyle={[globalStyles.bannerBody]}>
-          When you join SeneGence as an Independent Distributor, you’ll enjoy
-          these exclusive benefits
+        What if you could start earning while sharing the products you know and love? 
         </Text>
         <Spacer mt={10} />
         <OutlineButton

@@ -1,20 +1,19 @@
 import React from 'react';
 import {Image, ImageBackground, StyleSheet, View} from 'react-native';
 import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
-import { _buildYourBeautyBusiness } from '../../../components/BuildYourBeautyBusiness';
+import {_buildYourBeautyBusiness} from '../../../components/BuildYourBeautyBusiness';
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import PlainCarousel from '../../../components/carousels/PlainCarousel';
-import { _frequentlyAskedQuestions } from '../../../components/FrequentlyAskedQuestion';
+import {_frequentlyAskedQuestions} from '../../../components/FrequentlyAskedQuestion';
 import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
 import Spacer from '../../../components/Spacer';
 import Text from '../../../components/text/Text';
 import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
 import {globalStyles} from '../../../globalstyles/GlobalStyles';
-import { careersData, ICareersData } from '../../../utils/data/Careers';
+import {careersData, ICareersData} from '../../../utils/data/Careers';
 import {carouselTypes} from '../../../utils/data/CarouselData';
 import {findADistributorData} from '../../../utils/data/FindADistributor';
-
 
 export default function Careers() {
   const _headerImageView = () => {
@@ -27,14 +26,14 @@ export default function Careers() {
         </Text>
         <Spacer mt={10} />
         <Text containerStyle={[globalStyles.bannerBody]}>
-          When you join SeneGence as an Independent Distributor, you’ll enjoy
-          these exclusive benefits
+          What if you could start earning while sharing the products you know
+          and love?
         </Text>
         <Spacer mt={10} />
         <OutlineButton
-          textStyleContainer={[globalStyles.bannerBtnTextBlue]}
-          containerStyle={[globalStyles.bannerBtnWhiteBackground]}
-          title={'Shop Now'}
+          textStyleContainer={[globalStyles.bannerBtnTextWhite]}
+          containerStyle={[globalStyles.bannerBtnBlueBackground]}
+          title={'Enroll Today'}
           onPress={() => {}}
         />
       </ImageBackground>
@@ -107,8 +106,6 @@ export default function Careers() {
       return _businessCardItem(item);
     });
   };
-
-  
 
   const _whereYourJourneyBegins = () => {
     return (
@@ -212,8 +209,6 @@ export default function Careers() {
     );
   };
 
-  
-
   return (
     <ScrollToTopContainer>
       <View style={{flex: 1, paddingHorizontal: 22}}>
@@ -250,7 +245,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 0.5,
-    backgroundColor:'white'
+    backgroundColor: 'white',
   },
   imageMainText: {
     fontSize: SIZES.h3,

@@ -101,6 +101,15 @@ export const globalStyles = StyleSheet.create({
         width: 152,
         alignSelf:'center'
       },
+      bannerBtnTextWhite:{
+        color: COLORS.white
+      },
+      bannerBtnBlueBackground:{
+        borderColor: COLORS.primary2,
+        backgroundColor: COLORS.primary2,
+        width: 152,
+        alignSelf:'center'
+      },
       shadowEffect: {
         elevation: 5,
         shadowColor: COLORS.black,
