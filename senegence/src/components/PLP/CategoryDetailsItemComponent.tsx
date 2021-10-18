@@ -36,6 +36,8 @@ import PaginationDots from '../carousels/PaginationDots';
 import PlainCarousel from '../carousels/PlainCarousel';
 import Divider from '../dividers/Divider';
 import ModalPopup from '../filters/ModalPopup';
+import Rating from '../ratings/Rating';
+import Reviews from '../reviews/Reviews';
 import Spacer from '../Spacer';
 import ActivityIndicator from '../spinners/ActivityIndicator';
 import Text from '../text/Text';
@@ -486,6 +488,18 @@ export default function CategoryDetailsItemComponent({
     );
   };
 
+  const _ratings = () => {
+    return <>
+      <Rating />
+    </>
+  }
+
+  const _reviews = () => {
+    return <>
+      <Reviews />
+    </>
+  }
+
   return (
     <View style={styles.container}>
       {/* breadCrumbs */}
@@ -563,8 +577,10 @@ export default function CategoryDetailsItemComponent({
       <Spacer mb={20} />
       <TextWithUnderLine title={'RECENTLY VIEWED'} />
       {/* Get the Recently Viewed Products from the Async Storage i.e localstorage */}
-      {_renderProductData(recentlyViewedProducts)}
+      {/* {_renderProductData(recentlyViewedProducts)} */}
       <Spacer mb={20} />
+      {_ratings()}
+      {_reviews()}
     </View>
   );
 }

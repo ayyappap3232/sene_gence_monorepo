@@ -214,7 +214,10 @@ const error_503 = require("../../assets/images/errors/error_503.png")
 const chervonup = require("../../assets/images/chervonup.png")
 const chervondown = require("../../assets/images/chervondown.png")
 
+const dot = require("../../assets/images/dot.png")
+
 export default {
+    dot,
     chervonup,
     chervondown,
     error_404,
