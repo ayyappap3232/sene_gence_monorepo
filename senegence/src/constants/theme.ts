@@ -32,7 +32,8 @@ export const COLORS = {
     removedBackground: "#feefd5",
     sideBarBackground: '#fafafa',
     orderSummaryBackground: "#f9f9f9",
-    border3: "#757575"
+    border3: "#757575",
+    primary3: "#3c649b"
 
 }
 

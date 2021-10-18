@@ -128,17 +128,20 @@ export default function FAQS() {
         <TextWithUnderLine title={'GET IN TOUCH'} />
         <Spacer mt={10} />
         <View style={{width: SIZES.width - 100}}>
-          <Text containerStyle={[globalStyles.text, {textAlign: 'center'}]}>
+          <Text containerStyle={[globalStyles.text, {textAlign: 'center', textTransform: 'capitalize'}]}>
             Leave your message and we will get back to you shortly
           </Text>
           <Spacer mt={20} />
-          {_inputItem('Full Name', {}, 'Enter Your Full Name...')}
-          {_inputItem('Email', {}, 'Enter Your Email...')}
-          {_inputItem('Phone', {}, 'Enter Your Phone...')}
+          {_inputItem('Full Name', {}, 'Enter Your Full Name...',true)}
+          {_inputItem('Email', {}, 'Enter Your Email...',true)}
+          {_inputItem('Phone', {}, 'Enter Your Phone...',true)}
+          {/* //Todo: Need to convert the below two inputs to dropdows */}
+          {_inputItem('I Need Information On', {}, 'Please Select...',true)}
+          {_inputItem('I Heard About SeneGence', {}, 'Please Select...',true)}
           {_inputItem(
-            'Address',
+            'What Is In Your Mind?',
             {},
-            'Please Enter Your Address...',
+            'Enter Your Comments...',
             false,
             true,
           )}
@@ -150,8 +153,8 @@ export default function FAQS() {
             containerStyle={{
               alignSelf: 'center',
               width: 180,
-              backgroundColor: COLORS.footerColor,
-              borderColor: COLORS.footerColor,
+              backgroundColor: COLORS.primary3,
+              borderColor: COLORS.primary3,
             }}
           />
           <Spacer mt={4} />

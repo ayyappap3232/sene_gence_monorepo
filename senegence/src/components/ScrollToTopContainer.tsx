@@ -60,7 +60,7 @@ export const ScrollToTopContainer = ({
           containerStyle={{
             paddingHorizontal: 27,
             paddingTop: 28.6,
-            backgroundColor: COLORS.footerColor,
+            backgroundColor: COLORS.primary3,
           }}
         />
       </ScrollView>

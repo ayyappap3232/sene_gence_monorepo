@@ -253,13 +253,13 @@ const CustomDrawerContent = (props: any) => {
           onPress={() => {}}
           activeOpacity={0.7}
           style={[styles.loginText, {marginTop: 15}]}>
-          <Text>LOGIN AS A CUSTOMER</Text>
+          <Text containerStyle={{textTransform: 'capitalize'}}>login as a customer</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => Linking.openURL("http://integration-5ojmyuq-yhtn2v2qno5pk.us-a1.magentosite.cloud/distributor-login")}
           activeOpacity={0.7}
           style={styles.loginText}>
-          <Text>LOGIN AS A DISTRIBUTOR</Text>
+          <Text containerStyle={{textTransform: 'capitalize'}}>LOGIN AS A DISTRIBUTOR</Text>
         </TouchableOpacity>
       </>
     );
@@ -403,6 +403,8 @@ const styles = StyleSheet.create({
     letterSpacing: 1.8,
     fontFamily: FONTS.AvenirMedium,
     fontSize: SIZES.body3,
+    backgroundColor: COLORS.ligthGrey,
+    marginVertical: 5
   },
   categoriesList: {
     fontSize: 14,
