@@ -7,6 +7,7 @@ import ModalSelector from 'react-native-modal-selector';
 import {globalStyles} from '../../globalstyles/GlobalStyles';
 import { useSearchCategoryList } from '../../apollo/controllers/getSearchCategoryList.Controller';
 import { useGetSortFields } from '../../apollo/controllers/getSortFields.Controller';
+import TextInputWithCaretDisable from '../textInputs/TextInputWithCaretDisable';
 
 export default function SortByFilter({textInputValue, setTextInputValue,setFilteredValue}: any) {
   //filter Selector Options
@@ -64,31 +65,8 @@ export default function SortByFilter({textInputValue, setTextInputValue,setFilte
           setFilteredValue(option.filter);
           setChecked(option.key);
         }}>
-        <View>
-          <TextInput
-            style={{
-              borderWidth: 1,
-              borderColor: COLORS.border1,
-              padding: 10,
-              paddingRight: 30,
-              height: 40,
-            }}
-            editable={false}
-            placeholder="Featured Products"
-            placeholderTextColor={COLORS.border1}
-            value={textInputValue}
-          />
-          <Image
-            source={images.dropdowncaret}
-            style={{
-              width: 12,
-              height: 12,
-              position: 'absolute',
-              right: 10,
-              top: 15,
-            }}
-          />
-        </View>
+          <TextInputWithCaretDisable placeholder="Featured Products" textInputValue={textInputValue}/>
+       
       </ModalSelector>
     </>
   );
