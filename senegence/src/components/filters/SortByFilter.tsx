@@ -11,7 +11,7 @@ import { useGetSortFields } from '../../apollo/controllers/getSortFields.Control
 export default function SortByFilter({textInputValue, setTextInputValue,setFilteredValue}: any) {
   //filter Selector Options
   let index = 0;
-  const [checked, setChecked] = useState();
+  const [checked, setChecked] = useState<number>();
 
   //Get Sort Fields
   let {getSortFields, loading, error, sortFields} =useGetSortFields();
@@ -62,7 +62,7 @@ export default function SortByFilter({textInputValue, setTextInputValue,setFilte
           console.log('options', option.filter)
           setTextInputValue(option.label);
           setFilteredValue(option.filter);
-          setChecked(option.key + 1);
+          setChecked(option.key);
         }}>
         <View>
           <TextInput
