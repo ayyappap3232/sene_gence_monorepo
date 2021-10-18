@@ -632,7 +632,7 @@ export default function CategoryDetailsItemComponent({
       <Spacer mb={20} />
       <TextWithUnderLine title={'RECENTLY VIEWED'} />
       {/* Get the Recently Viewed Products from the Async Storage i.e localstorage */}
-      {/* {_renderProductData(recentlyViewedProducts)} */}
+      {_renderProductData(recentlyViewedProducts)}
       <Spacer mb={20} />
       {_ratings()}
       {_reviews()}
