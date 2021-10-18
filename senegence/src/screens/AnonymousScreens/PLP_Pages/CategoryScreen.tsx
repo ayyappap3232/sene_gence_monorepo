@@ -53,6 +53,8 @@ export default function CategoryScreen() {
   const [filteredValue, setFilteredValue] = useState();
   const [searchCount, setSearchCount] = useState(0);
 
+  console.log('filtered Value',filteredValue)
+
   let {getCategoryList, loading, error, categoryList} = useCategoryList({
     url_path: url_path,
     pageSize: pageSize,
