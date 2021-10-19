@@ -4,48 +4,13 @@ import Astrick from '../../../components/Astrick';
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import Spacer from '../../../components/Spacer';
 import Text from '../../../components/text/Text';
+import { _inputItem } from '../../../components/textInputs/InputItemWithAsterik';
 import OutlineTextInput from '../../../components/textInputs/OutlineTextInput';
 import OutlineTextInputMultiline from '../../../components/textInputs/OutlineTextInputMultiline';
 import {COLORS} from '../../../constants';
 
 export default function ContactUsForm() {
-  const _inputItem = (
-    title: string,
-    onChangeText: any,
-    placeholder: string,
-    isMandatory?: boolean,
-    multiline?: boolean,
-  ) => {
-    return (
-      <>
-        <Text>
-          {title} {isMandatory && <Astrick />}
-        </Text>
-        <Spacer mt={4} />
-        {multiline ? (
-          <OutlineTextInputMultiline
-            containerStyle={{
-              backgroundColor: 'rgba(244, 244, 244, 0.5)',
-              width: '100%',
-            }}
-            placeholder={placeholder}
-            onChangeText={() => {}}
-            multiline={multiline}
-          />
-        ) : (
-          <OutlineTextInput
-            containerStyle={{
-              backgroundColor: 'rgba(244, 244, 244, 0.5)',
-              width: '100%',
-            }}
-            placeholder={placeholder}
-            onChangeText={() => {}}
-          />
-        )}
-        <Spacer mt={10} />
-      </>
-    );
-  };
+  
   return (
     <View style={{marginLeft: 33, marginRight: 29}}>
       {_inputItem('Full Name', {}, 'Enter Your Full Name', true)}

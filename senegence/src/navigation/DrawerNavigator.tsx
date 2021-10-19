@@ -37,6 +37,7 @@ import CategoryPage from '../screens/AnonymousScreens/Categories_Pages/CategoryP
 import OrderConfirmationScreen from '../screens/AnonymousScreens/OrderConfirmation/OrderConfirmationScreen';
 import Error_404 from '../screens/AnonymousScreens/Error_Pages/404_Screen';
 import Error_503 from '../screens/AnonymousScreens/Error_Pages/503_Screen';
+import Checkout_As_A_Guest from '../screens/AnonymousScreens/Checkout_Pages/Checkout_As_A_Guest';
 
 const Drawer = createDrawerNavigator();
 
@@ -192,6 +193,11 @@ const DrawerNavigator = () => {
           component={Error_503}
           options={{headerShown: false}}
         />
+        <Drawer.Screen
+          name={ScreenNames.Checkout_As_A_Guest}
+          component={Checkout_As_A_Guest}
+        />
+
       </Drawer.Group>
       {/* <Drawer.Group screenOptions={{}}>
         <Drawer.Screen
