@@ -21,8 +21,9 @@ import {COLORS, FONTS, icons, images, SIZES} from '../../../constants';
 import {globalStyles} from '../../../globalstyles/GlobalStyles';
 import {ScreenNames} from '../../../utils/screenNames';
 import Modal from 'react-native-modal';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import Checkbox from '../../../components/checkboxs/Checkbox';
+import Select from '../../../components/select/Select';
 
 export default function Checkout_As_A_Guest() {
   const navigation = useNavigation();
@@ -41,9 +42,15 @@ export default function Checkout_As_A_Guest() {
   const [checkedIndex, setCheckedIndex] = useState(0);
   const [visible, setVisible] = useState(true);
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const [country, setCountry] = useState()
+  const [state, setState] = useState()
+  const [city, setCity] = useState()
+
   useEffect(() => {
-      setVisible(true)
-  }, [navigation])
+    //setVisible(true)
+  }, [navigation]);
 
   const _headerItem = (
     onPress: any,
@@ -199,6 +206,45 @@ export default function Checkout_As_A_Guest() {
         {_inputItem('Address 2', () => {}, 'Address second line...', true)}
         <Spacer mt={20} />
         {/* //Todo: convertion to dropdowns  */}
+        <Select
+          onPress={() => {
+            setCurrentIndex(1);
+          }}
+          onChangeText={() => setCountry(country)}
+          value={country}
+          currentIndex={currentIndex}
+          index={1}
+          title={'Country'}
+          placeholder={'Please Select…'}
+          isMandatory={true}
+        />
+        <Spacer mt={20} />
+        <Select
+          onPress={() => {
+            setCurrentIndex(2);
+          }}
+          onChangeText={() => setState(state)}
+          value={state}
+          currentIndex={currentIndex}
+          index={2}
+          title={'State'}
+          placeholder={'Please Select…'}
+          isMandatory={true}
+        />
+        <Spacer mt={20} />
+        <Select
+          onPress={() => {
+            setCurrentIndex(3);
+          }}
+          onChangeText={() => setCity(city)}
+          value={city}
+          currentIndex={currentIndex}
+          index={3}
+          title={'City'}
+          placeholder={'Please Select…'}
+          isMandatory={true}
+        />
+        <Spacer mt={20} />
         {/* {_inputItem("Country",() => {},"(555) - 555-5555...",true)}
         <Spacer mt={20}/>
         {_inputItem("Phone (Home)",() => {},"(555) - 555-5555...",false)}
@@ -215,8 +261,7 @@ export default function Checkout_As_A_Guest() {
   const _billingAddress = () => {
     return (
       <Collapsible collapsed={!isBillingAddressCollapsed}>
-        <View
-          style={{flexDirection: 'row', alignItems: 'center',}}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           {/* <Checkbox
             color={COLORS.primary3}
             uncheckedColor={COLORS.primary3}
@@ -225,8 +270,11 @@ export default function Checkout_As_A_Guest() {
               setIsShippingAddressSame(!isShippingAddressSame);
             }}
           /> */}
-          <Checkbox state={isShippingAddressSame} setState={setIsShippingAddressSame}/>
-          <Spacer mr={10}/>
+          <Checkbox
+            state={isShippingAddressSame}
+            setState={setIsShippingAddressSame}
+          />
+          <Spacer mr={10} />
           <Text>Same as a shipping address</Text>
         </View>
         <Spacer mt={20} />
@@ -368,7 +416,18 @@ export default function Checkout_As_A_Guest() {
               onPress={() => {}}
             />
             <Spacer mt={10} />
-            <Text containerStyle={[globalStyles.text_avenir_medium,{textAlign: 'center',letterSpacing: 0.7,textDecorationLine: 'underline',color: COLORS.primary3}]}>I don’t want exclusive offers</Text>
+            <Text
+              containerStyle={[
+                globalStyles.text_avenir_medium,
+                {
+                  textAlign: 'center',
+                  letterSpacing: 0.7,
+                  textDecorationLine: 'underline',
+                  color: COLORS.primary3,
+                },
+              ]}>
+              I don’t want exclusive offers
+            </Text>
           </ScrollView>
         </View>
       </Modal>
@@ -460,14 +519,14 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     flex: 1,
     marginTop: 10,
-    height: SIZES.height/2
+    height: SIZES.height / 2,
   },
   modalWrapper: {
     width: SIZES.width - 16,
     marginTop: 80,
     marginHorizontal: 8,
     backgroundColor: COLORS.white,
-    flex: 0.7
+    flex: 0.7,
   },
   modalClose: {
     width: 24,
