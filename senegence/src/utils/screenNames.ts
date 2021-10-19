@@ -26,5 +26,6 @@ export const ScreenNames = {
     AllProducts: "AllProducts",
     OrderConfirmation:"OrderConfirmation",
     Error_404:"Error_404",
-    Error_503:"Error_503"
+    Error_503:"Error_503",
+    Checkout_As_A_Guest:"Checkout_As_A_Guest"
 }

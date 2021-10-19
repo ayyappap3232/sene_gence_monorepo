@@ -65,8 +65,7 @@ export default function SortByFilter({textInputValue, setTextInputValue,setFilte
           setFilteredValue(option.filter);
           setChecked(option.key);
         }}>
-          <TextInputWithCaretDisable placeholder="Featured Products" textInputValue={textInputValue}/>
-       
+          <TextInputWithCaretDisable placeholder="Featured Products" textInputValue={textInputValue}/>                                                     
       </ModalSelector>
     </>
   );

@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { COLORS } from '../../../constants';
 
-export default function RadioButton({checked, index, containerStyle}: any) {
+export default function RadioButton({checked, index, containerStyle, innerContainerStyle={}}: any) {
     return (
         <View style={[{
           height: 24,
@@ -15,12 +15,12 @@ export default function RadioButton({checked, index, containerStyle}: any) {
         }, containerStyle]}>
           {
             checked === index ?
-              <View style={{
+              <View style={[{
                 height: 12,
                 width: 12,
                 borderRadius: 6,
                 backgroundColor: COLORS.footerColor,
-              }}/>
+              },innerContainerStyle]}/>
               : null
           }
         </View>

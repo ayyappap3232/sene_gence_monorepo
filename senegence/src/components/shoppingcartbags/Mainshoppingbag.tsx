@@ -380,7 +380,7 @@ export default function Mainshoppingbag({navigation}: any) {
             width: 238,
           }}
           title={'Proceed To Checkout'}
-          onPress={() => {}}
+          onPress={() => navigation.navigate(ScreenNames.Checkout_As_A_Guest)}
         />
       </>
     );
