@@ -24,6 +24,7 @@ import Modal from 'react-native-modal';
 import {useNavigation} from '@react-navigation/native';
 import Checkbox from '../../../components/checkboxs/Checkbox';
 import Select from '../../../components/select/Select';
+import { useGetCountries } from '../../../apollo/controllers/getCountries.Controller';
 
 export default function Checkout_As_A_Guest() {
   const navigation = useNavigation();
@@ -48,9 +49,20 @@ export default function Checkout_As_A_Guest() {
   const [state, setState] = useState()
   const [city, setCity] = useState()
 
+  const countries = ['Egypt', 'Canada', 'Australia', 'Ireland'];
+
   useEffect(() => {
     //setVisible(true)
   }, [navigation]);
+
+  const {getCountries,countriesData} = useGetCountries();
+  useEffect(() => {
+    getCountries();
+  }, [getCountries])
+
+  useEffect(() => {
+    setCountry(country)
+  }, [isShippingAddressSame])
 
   const _headerItem = (
     onPress: any,
@@ -207,48 +219,25 @@ export default function Checkout_As_A_Guest() {
         <Spacer mt={20} />
         {/* //Todo: convertion to dropdowns  */}
         <Select
-          onPress={() => {
-            setCurrentIndex(1);
-          }}
-          onChangeText={() => setCountry(country)}
-          value={country}
-          currentIndex={currentIndex}
-          index={1}
+          setSelectedValue={setCountry}
+          selectedValue={country}
+          data = {countriesData?.countries}
           title={'Country'}
-          placeholder={'Please Select…'}
           isMandatory={true}
         />
         <Spacer mt={20} />
         <Select
-          onPress={() => {
-            setCurrentIndex(2);
-          }}
-          onChangeText={() => setState(state)}
-          value={state}
-          currentIndex={currentIndex}
-          index={2}
+          data={[""]}
           title={'State'}
-          placeholder={'Please Select…'}
           isMandatory={true}
         />
         <Spacer mt={20} />
         <Select
-          onPress={() => {
-            setCurrentIndex(3);
-          }}
-          onChangeText={() => setCity(city)}
-          value={city}
-          currentIndex={currentIndex}
-          index={3}
+          data={[""]}
           title={'City'}
-          placeholder={'Please Select…'}
           isMandatory={true}
         />
         <Spacer mt={20} />
-        {/* {_inputItem("Country",() => {},"(555) - 555-5555...",true)}
-        <Spacer mt={20}/>
-        {_inputItem("Phone (Home)",() => {},"(555) - 555-5555...",false)}
-        <Spacer mt={20}/> */}
         {_inputItem('Zip Code', () => {}, 'Enter your zip code', true)}
         <Spacer mt={20} />
         {button(() => {}, 'Next')}
@@ -262,19 +251,12 @@ export default function Checkout_As_A_Guest() {
     return (
       <Collapsible collapsed={!isBillingAddressCollapsed}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          {/* <Checkbox
-            color={COLORS.primary3}
-            uncheckedColor={COLORS.primary3}
-            status={isShippingAddressSame ? 'checked' : 'unchecked'}
-            onPress={() => {
-              setIsShippingAddressSame(!isShippingAddressSame);
-            }}
-          /> */}
           <Checkbox
             state={isShippingAddressSame}
             setState={setIsShippingAddressSame}
           />
           <Spacer mr={10} />
+          {/* //Todo: This logic same as a shipping address */}
           <Text>Same as a shipping address</Text>
         </View>
         <Spacer mt={20} />
@@ -282,11 +264,27 @@ export default function Checkout_As_A_Guest() {
         <Spacer mt={20} />
         {_inputItem('Address 2', () => {}, 'Address second line...', true)}
         <Spacer mt={20} />
-        {/* //Todo: convertion to dropdowns  */}
-        {/* {_inputItem("Country",() => {},"(555) - 555-5555...",true)}
-        <Spacer mt={20}/>
-        {_inputItem("Phone (Home)",() => {},"(555) - 555-5555...",false)}
-        <Spacer mt={20}/> */}
+        <Select
+          setSelectedValue={setCountry}
+          selectedValue={country}
+          checked={isShippingAddressSame}
+          data = {countriesData?.countries}
+          title={'Country'}
+          isMandatory={true}
+        />
+        <Spacer mt={20} />
+        <Select
+          data={[""]}
+          title={'State'}
+          isMandatory={true}
+        />
+        <Spacer mt={20} />
+        <Select
+          data={[""]}
+          title={'City'}
+          isMandatory={true}
+        />
+        <Spacer mt={20} />
         {_inputItem('Zip Code', () => {}, 'Enter your zip code', true)}
         <Spacer mt={20} />
         {button(() => {}, 'Next')}

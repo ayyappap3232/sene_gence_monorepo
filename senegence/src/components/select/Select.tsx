@@ -1,6 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-import { images } from '../../constants';
+import SelectDropdown from 'react-native-select-dropdown';
+import {COLORS, FONTS, images, SIZES} from '../../constants';
 import Astrick from '../Astrick';
 import Spacer from '../Spacer';
 import Text from '../text/Text';
@@ -9,24 +10,20 @@ import OutlineTextInputMultiline from '../textInputs/OutlineTextInputMultiline';
 
 export interface ISelectProps {
   title: string;
-  onChangeText: any;
-  value: any;
-  placeholder: string;
   isMandatory?: boolean;
-  currentIndex: number;
-  index: number;
-  onPress: any;
+  data: Array<string>;
+  setSelectedValue?: any;
+  selectedValue?:any;
+  checked?: boolean;
 }
 
 export default function Select({
   title,
-  onChangeText,
-  value,
-  placeholder,
   isMandatory,
-  currentIndex = 0,
-  index,
-  onPress
+  data = ['No Data'],
+  setSelectedValue,
+  selectedValue,
+  checked=false
 }: ISelectProps) {
   return (
     <View>
@@ -35,23 +32,50 @@ export default function Select({
           {title} {isMandatory && <Astrick />}
         </Text>
         <Spacer mt={4} />
-        <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
-          <OutlineTextInput
-            value={value}
-            editable={false}
-            containerStyle={{
-              backgroundColor: 'rgba(244, 244, 244, 0.5)',
-              width: '100%',
-            }}
-            placeholder={placeholder}
-            onChangeText={onChangeText}
-          />
-          <Image source={images.chervondown} style={{position: 'absolute',top: 15, right: 10,width: 16.9, height: 8.9,resizeMode: 'contain'}}/>
-        </TouchableOpacity>
-        {currentIndex === index && <View>
-            <Text>Data</Text>
-        </View>}
-        <Spacer mt={10} />
+
+        <SelectDropdown
+          renderDropdownIcon={() => (
+            <Image
+              source={images.chervondown}
+              style={{
+                width: 16.9,
+                height: 8.9,
+                resizeMode: 'contain',
+              }}
+            />
+          )}
+          defaultValue={checked ? selectedValue : ""}
+          defaultButtonText={'Please Select...'}
+          buttonStyle={{
+            backgroundColor: 'rgba(244, 244, 244, 0.5)',
+            width: '100%',
+            height: 40,
+          }}
+          buttonTextStyle={{
+            right: 0,
+            position: 'absolute',
+            color: COLORS.swatch,
+            fontSize: SIZES.body4,
+            fontFamily: FONTS.AvenirLight,
+            letterSpacing: 0.7,
+          }}
+          data={data}
+          onSelect={(selectedItem, index) => {
+            console.log("adajfak",checked,selectedItem, index);
+            return checked && selectedValue
+          }}
+          buttonTextAfterSelection={(selectedItem, index) => {
+            // text represented after item is selected
+            // if data array is an array of objects then return selectedItem.property to render after item is selected
+            setSelectedValue(selectedItem?.full_name_locale);
+            return checked ? selectedValue : selectedItem?.full_name_locale;
+          }}
+          rowTextForSelection={(item, index) => {
+            // text represented for each item in dropdown
+            // if data array is an array of objects then return item.property to represent item in dropdown
+            return item?.full_name_locale;
+          }}
+        />
       </>
     </View>
   );
