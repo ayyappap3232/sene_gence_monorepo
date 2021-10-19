@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
+  ScrollView,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import Collapsible from 'react-native-collapsible';
-import {Checkbox} from 'react-native-paper';
 import BreadCrumbWithTwoLevelUpWithoutNavigationParams from '../../../components/breadCrumbs/BreadCrumbWithTwoLevelUpWithoutNavigationParams';
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import RadioButton from '../../../components/buttons/radioButtons/RadioButton';
@@ -17,11 +17,15 @@ import Spacer from '../../../components/Spacer';
 import Text from '../../../components/text/Text';
 import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
 import {_inputItem} from '../../../components/textInputs/InputItemWithAsterik';
-import {COLORS, FONTS, images, SIZES} from '../../../constants';
+import {COLORS, FONTS, icons, images, SIZES} from '../../../constants';
 import {globalStyles} from '../../../globalstyles/GlobalStyles';
 import {ScreenNames} from '../../../utils/screenNames';
+import Modal from 'react-native-modal';
+import { useNavigation } from '@react-navigation/native';
+import Checkbox from '../../../components/checkboxs/Checkbox';
 
 export default function Checkout_As_A_Guest() {
+  const navigation = useNavigation();
   const [isAccountCollapsed, setIsAccountCollapsed] = useState(false);
   const [isDistributorCollapsed, setIsDistributorCollapsed] = useState(false);
   const [isShippingAddressCollapsed, setIsShippingAddressCollapsed] =
@@ -35,6 +39,11 @@ export default function Checkout_As_A_Guest() {
 
   const [isShippingAddressSame, setIsShippingAddressSame] = useState(false);
   const [checkedIndex, setCheckedIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+      setVisible(true)
+  }, [navigation])
 
   const _headerItem = (
     onPress: any,
@@ -43,7 +52,7 @@ export default function Checkout_As_A_Guest() {
   ) => {
     return (
       <View>
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
           <View
             style={{
               flexDirection: 'row',
@@ -207,15 +216,17 @@ export default function Checkout_As_A_Guest() {
     return (
       <Collapsible collapsed={!isBillingAddressCollapsed}>
         <View
-          style={{flexDirection: 'row', alignItems: 'center', marginLeft: -5}}>
-          <Checkbox
+          style={{flexDirection: 'row', alignItems: 'center',}}>
+          {/* <Checkbox
             color={COLORS.primary3}
             uncheckedColor={COLORS.primary3}
             status={isShippingAddressSame ? 'checked' : 'unchecked'}
             onPress={() => {
               setIsShippingAddressSame(!isShippingAddressSame);
             }}
-          />
+          /> */}
+          <Checkbox state={isShippingAddressSame} setState={setIsShippingAddressSame}/>
+          <Spacer mr={10}/>
           <Text>Same as a shipping address</Text>
         </View>
         <Spacer mt={20} />
@@ -241,20 +252,20 @@ export default function Checkout_As_A_Guest() {
     return (
       <Collapsible collapsed={!isShippingMethodCollapsed}>
         <View style={styles.shippingmethodwrapper}>
-            <TouchableOpacity
-              style={styles.radioBtnWrapper}
-              activeOpacity={1}
-              onPress={() => setCheckedIndex(0)}>
-              <RadioButton
-                checked={checkedIndex}
-                index={0}
-                innerContainerStyle={{backgroundColor: COLORS.primary3}}
-                containerStyle={{borderColor: COLORS.primary3}}
-              />
-              <Spacer mr={10} />
-              <Text >$0.00 USD</Text>
-            </TouchableOpacity>
-          <Text containerStyle={{flexWrap: 'wrap',flex: 1}}>
+          <TouchableOpacity
+            style={styles.radioBtnWrapper}
+            activeOpacity={1}
+            onPress={() => setCheckedIndex(0)}>
+            <RadioButton
+              checked={checkedIndex}
+              index={0}
+              innerContainerStyle={{backgroundColor: COLORS.primary3}}
+              containerStyle={{borderColor: COLORS.primary3}}
+            />
+            <Spacer mr={10} />
+            <Text>$0.00 USD</Text>
+          </TouchableOpacity>
+          <Text containerStyle={{flexWrap: 'wrap', flex: 1}}>
             Regular (5-7 business days)
           </Text>
         </View>
@@ -271,9 +282,9 @@ export default function Checkout_As_A_Guest() {
               containerStyle={{borderColor: COLORS.primary3}}
             />
             <Spacer mr={10} />
-            <Text >$15.00 USD</Text>
+            <Text>$15.00 USD</Text>
           </TouchableOpacity>
-          <Text containerStyle={{flexWrap: 'wrap',flex: 1}}>
+          <Text containerStyle={{flexWrap: 'wrap', flex: 1}}>
             Rush (2-3 business days)- Additional $15.00
           </Text>
         </View>
@@ -282,11 +293,87 @@ export default function Checkout_As_A_Guest() {
   };
 
   const _itemsYourMayLike = () => {
-      return <View>
-          <TextWithUnderLine title={"Items you may like"}/>
-          <Text>Items you may like</Text>
+    return (
+      <View>
+        <TextWithUnderLine title={'Items you may like'} />
+        <Text>Items you may like</Text>
       </View>
-  }
+    );
+  };
+
+  const showModal = () => setVisible(false);
+
+  const _offerTextWithCheckMark = (text: string) => {
+    return (
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <Image source={icons.Check} style={{width: 10.8, height: 8.7}} />
+        <Spacer mr={10} />
+        <Text>{text}</Text>
+      </View>
+    );
+  };
+
+  const _modalOfferAlert = () => {
+    return (
+      <Modal
+        style={[globalStyles.shadowEffect, styles.modalWrapper]}
+        supportedOrientations={['portrait']}
+        backdropOpacity={0}
+        presentationStyle="overFullScreen"
+        animationOut="slideOutDown"
+        isVisible={visible}
+        animationIn="slideInUp">
+        <View style={styles.modalContentWrapper}>
+          <View style={{paddingLeft: 20, paddingTop: 5, marginBottom: 10}}>
+            <TouchableOpacity onPress={() => showModal()}>
+              <Image source={images.close} style={styles.modalClose} />
+            </TouchableOpacity>
+          </View>
+          <ScrollView
+            contentContainerStyle={{paddingHorizontal: 20}}
+            showsVerticalScrollIndicator={false}>
+            <TextWithUnderLine title={'shop, save, and collect'} />
+            <Spacer mt={10} />
+            <Text containerStyle={{textAlign: 'center'}}>
+              Would you like to checkout as a Preferred Customer and receive
+              exclusive offers like 10% off every order, free shipping, and
+              more?
+            </Text>
+            <Spacer mt={20} />
+            {/* //Todo: Need to add offer cart image */}
+            <Spacer mt={20} />
+            {_offerTextWithCheckMark(' You get 10% Off All Orders')}
+            {_offerTextWithCheckMark(' Free Shipping on Items Over $xx')}
+            {_offerTextWithCheckMark(
+              ' Kiss Kredits with purchase, for just $10 a year!',
+            )}
+            <Spacer mt={23} />
+            <Text
+              containerStyle={[
+                globalStyles.text_avenir_heavy,
+                {fontSize: SIZES.h3, textAlign: 'center'},
+              ]}>
+              $10/Year
+            </Text>
+            <Spacer mt={23} />
+            <OutlineButton
+              title={'Become a K&T preferred customer'}
+              containerStyle={[
+                {
+                  backgroundColor: COLORS.primary3,
+                  borderColor: COLORS.primary3,
+                },
+              ]}
+              textStyleContainer={[globalStyles.bannerBtnTextWhite]}
+              onPress={() => {}}
+            />
+            <Spacer mt={10} />
+            <Text containerStyle={[globalStyles.text_avenir_medium,{textAlign: 'center',letterSpacing: 0.7,textDecorationLine: 'underline',color: COLORS.primary3}]}>I don’t want exclusive offers</Text>
+          </ScrollView>
+        </View>
+      </Modal>
+    );
+  };
 
   return (
     <ScrollToTopContainer showCart={true}>
@@ -354,6 +441,7 @@ export default function Checkout_As_A_Guest() {
         {_shippingMethod()}
         <Spacer mt={20} />
         {_itemsYourMayLike()}
+        {_modalOfferAlert()}
       </View>
     </ScrollToTopContainer>
   );
@@ -367,5 +455,24 @@ const styles = StyleSheet.create({
   radioBtnWrapper: {
     flexDirection: 'row',
     width: '50%',
+  },
+  modalContentWrapper: {
+    backgroundColor: COLORS.white,
+    flex: 1,
+    marginTop: 10,
+    height: SIZES.height/2
+  },
+  modalWrapper: {
+    width: SIZES.width - 16,
+    marginTop: 80,
+    marginHorizontal: 8,
+    backgroundColor: COLORS.white,
+    flex: 0.7
+  },
+  modalClose: {
+    width: 24,
+    height: 24,
+    marginRight: 10,
+    alignSelf: 'flex-end',
   },
 });
