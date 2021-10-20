@@ -16,6 +16,7 @@ import Modal from 'react-native-modal';
 import DeleteConfirmationModal from '../modals/DeleteConfirmationModal';
 import {ScreenNames} from '../../utils/screenNames';
 import {useNavigation} from '@react-navigation/native';
+import OrderSummaryCard from '../screenComponents/OrderSummaryCard';
 
 export default function Mainshoppingbag({navigation}: any) {
   const [shoppingCartData, setShoppingCartData] =
@@ -24,10 +25,7 @@ export default function Mainshoppingbag({navigation}: any) {
     (total, element) => (total += element.price * Number(element.qty)),
     0,
   );
-  const [isError, setisError] = useState<string | null>(null);
   const [couponText, setCouponText] = useState<string>('');
-  const [showCloseIconWhenClickOnApply, setShowCloseIconWhenClickOnApply] =
-    useState(false);
   const [status, setStatus] = useState<any>("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState();
@@ -219,173 +217,6 @@ export default function Mainshoppingbag({navigation}: any) {
     );
   };
 
-  const _orderSummary = () => {
-    return (
-      <View>
-        <Text containerStyle={[globalStyles.text_avenir_heavy, styles.heading]}>
-          Order Summary
-        </Text>
-        <Spacer mt={11} />
-        <Text containerStyle={{textTransform: 'uppercase'}}>
-          {shoppingCartData.length} Items in cart
-        </Text>
-      </View>
-    );
-  };
-
-  const _estimatedShippingAndTax = () => {
-    return (
-      <View>
-        <Text containerStyle={[globalStyles.text_avenir_heavy, styles.heading]}>
-          Estimated shipping & tax
-        </Text>
-        <Spacer mt={11} />
-        <View style={globalStyles.row}>
-          <Text>Subtotal</Text>
-          <Text>${totalPrice}.00</Text>
-        </View>
-        <Spacer mt={11} />
-        <View style={globalStyles.row}>
-          <Text>Shipping</Text>
-          <Text>$10.00</Text>
-        </View>
-        <Spacer mt={11} />
-      </View>
-    );
-  };
-
-  const _subTotal = () => {
-    return (
-      <View style={globalStyles.row}>
-        <Text
-          containerStyle={[
-            globalStyles.text_avenir_medium,
-            {textTransform: 'uppercase', fontWeight: 'bold'},
-          ]}>
-          Sub Total
-        </Text>
-        <Text containerStyle={{fontWeight: 'bold'}}>${totalPrice}.00 USD</Text>
-      </View>
-    );
-  };
-
-  const _handleRedeem = () => {
-    if (couponText.length === 0) {
-      setisError('This is a required field.');
-      setStatus(null);
-      setShowCloseIconWhenClickOnApply(false);
-      return;
-    }
-    couponText === couponCode ? setStatus('success') : setStatus('error');
-    setShowCloseIconWhenClickOnApply(true);
-  };
-
-  const handleCouponText = (text: string) => {
-    if(text === ""){
-      setCouponText("");
-      setisError(null);
-      setStatus("");
-      setShowCloseIconWhenClickOnApply(false);
-    }
-    setCouponText(text);
-    setisError(null);
-  };
-
-  const handleCloseIcon = () => {
-    setShowCloseIconWhenClickOnApply(false);
-    setCouponText('');
-    setStatus('removed');
-  };
-
-  const _couponCode = () => {
-    return (
-      <View>
-        <Text
-          containerStyle={[
-            globalStyles.text_avenir_medium,
-            {textAlign: 'left', color: COLORS.text},
-          ]}>
-          Coupon Code
-        </Text>
-        <Spacer mt={4} />
-        <View>
-          <OutlineTextInput
-            placeholder={'Enter your coupon code ...'}
-            value={couponText}
-            autoCapitalize="none"
-            onChangeText={(text: string) => handleCouponText(text)}
-            containerStyle={[
-              {
-                backgroundColor: 'rgba(244, 244, 244, 0.5)',
-                width: '100%',
-                height: 40,
-              },
-              isError && {borderColor: COLORS.error, borderWidth: 1},
-            ]}
-          />
-          {showCloseIconWhenClickOnApply && (
-            <CircularBackgroundWithIcon
-              icon={images.close}
-              containerStyle={{
-                position: 'absolute',
-                top: 10,
-                right: 10,
-                bottom: 0,
-                justifyContent: 'center',
-                alignSelf: 'center',
-              }}
-              onPress={() => handleCloseIcon()}
-            />
-          )}
-        </View>
-        <Spacer mt={4} />
-        <View style={isError ? globalStyles.row : {}}>
-          {isError && (
-            <Text
-              containerStyle={[
-                globalStyles.text_avenir_medium,
-                {textAlign: 'left', color: COLORS.error},
-              ]}>
-              {isError}
-            </Text>
-          )}
-          <TouchableOpacity activeOpacity={0.7} onPress={() => _handleRedeem()}>
-            <Text
-              containerStyle={[
-                globalStyles.text,
-                {
-                  fontFamily: FONTS.AvenirBlack,
-                  color: COLORS.footerColor,
-                  textAlign: 'right',
-                },
-              ]}>
-              Apply
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
-
-  const _proceedToCheckOut = () => {
-    return (
-      <>
-        <Spacer mt={40} />
-        <OutlineButton
-          textStyleContainer={{color: COLORS.white}}
-          containerStyle={{
-            backgroundColor: COLORS.footerColor,
-            borderColor: COLORS.footerColor,
-            alignSelf: 'center',
-            width: 238,
-          }}
-          title={'Proceed To Checkout'}
-          onPress={() => navigation.navigate(ScreenNames.Checkout_As_A_Guest)}
-        />
-      </>
-    );
-  };
-
   const _toastNotification = (status: string) => {
     switch (status) {
       case 'success':
@@ -426,44 +257,16 @@ export default function Mainshoppingbag({navigation}: any) {
     return _toastNotification(status);
   };
 
-  const _proceedToCheckOutContainer = () => {
-    return <>
-    <View
-          style={[
-            globalStyles.shadowEffect,
-            {
-              backgroundColor: COLORS.white,
-              paddingLeft: 20,
-              paddingRight: 22,
-              paddingBottom: 22,
-              paddingTop: 20,
-            },
-          ]}>
-          {_orderSummary()}
-          <Spacer mt={20.5} />
-          <Divider backgroundColor={COLORS.border} width={'100%'} height={1} />
-          <Spacer mt={19.5} />
-
-          {_estimatedShippingAndTax()}
-          <Divider backgroundColor={COLORS.border} width={'100%'} height={1} />
-
-          <Spacer mt={20.5} />
-          {_subTotal()}
-          <Spacer mt={19.5} />
-          <Divider backgroundColor={COLORS.border} width={'100%'} height={1} />
-          <Spacer mt={19.5} />
-          {_couponCode()}
-          {_proceedToCheckOut()}
-        </View>
-    </>
-  }
 
   const _headerContent = () => {
     return shoppingCartData.length > 0 ? (
       <View>
         {_handleStatusToast()}
         <Spacer mt={19} />
-        {_proceedToCheckOutContainer()}
+        <OrderSummaryCard cartItemCount={shoppingCartData.length} subTotal={totalPrice} shippingAmount={10}
+        buttonText={'Proceed To Checkout'}
+        onPress={() => navigation.navigate(ScreenNames.Checkout_As_A_Guest)}
+        />
         <Spacer mt={39.5} />
 
         <Divider
