@@ -27,6 +27,7 @@ import Select from '../../../components/select/Select';
 import {useGetCountries} from '../../../apollo/controllers/getCountries.Controller';
 import ShippingAddressDetailsCard from './ShippingAddressDetailsCard';
 import {shippingAddressDetailsArray} from '../../../utils/data/ShippingCardData';
+import OrderSummaryCard from '../../../components/screenComponents/OrderSummaryCard';
 
 export default function Checkout_As_A_Guest() {
   const navigation = useNavigation();
@@ -636,6 +637,8 @@ export default function Checkout_As_A_Guest() {
           isShippingMethodCollapsed,
         )}
         {_shippingMethod()}
+        <Spacer mt={20} />
+        <OrderSummaryCard buttonText={"Place Order"}/>
         <Spacer mt={20} />
         {_itemsYourMayLike()}
         {_modalOfferAlert()}
