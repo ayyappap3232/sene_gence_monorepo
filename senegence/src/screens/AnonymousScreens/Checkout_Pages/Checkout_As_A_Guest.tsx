@@ -222,12 +222,11 @@ export default function Checkout_As_A_Guest() {
 
   const _showAddressCardDetails = (
     data: any,
-    showCardDetails: any,
     setShowCardDetails: any,
     setViewAll: any,
     viewAll: any,
   ) => {
-    return showCardDetails ? (
+    return data.length > 0 ? (
       <>
         <ShippingAddressDetailsCard
           shippingAddressDetailsArray={data}
@@ -255,14 +254,13 @@ export default function Checkout_As_A_Guest() {
         {/* //Todo: Pass Appropriate shippingAddressDetailsArray as ShippingAddressDetails */}
         {_showAddressCardDetails(
           shippingAddressDetailsArray,
-          showShippingCardDetails,
           setShowShippingCardDetails,
           setIsViewAllDetails,
           isViewAllDetails,
         )}
         <Spacer mt={20} />
 
-        {!showShippingCardDetails && (
+
           <>
             {_inputItem(
               'Address 1',
@@ -298,11 +296,11 @@ export default function Checkout_As_A_Guest() {
             {_inputItem('Zip Code', () => {}, 'Enter your zip code', true)}
             <Spacer mt={20} />
             {button(() => {
-              setShowShippingCardDetails(true);
+              
             }, 'Next')}
             <Spacer mt={20} />
           </>
-        )}
+
       </Collapsible>
     );
   };
@@ -314,13 +312,11 @@ export default function Checkout_As_A_Guest() {
         {/* //Todo: Pass Appropriate shippingAddressDetailsArray as BillingAddressDetails */}
         {_showAddressCardDetails(
           shippingAddressDetailsArray,
-          showBillingCardDetails,
           setShowBillingCardDetails,
           setIsBillingViewAllDetails,
           isBillingViewAllDetails,
         )}
         <Spacer mt={20} />
-        {!showBillingCardDetails && (
           <>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Checkbox
@@ -400,7 +396,6 @@ export default function Checkout_As_A_Guest() {
               </>
             )}
           </>
-        )}
       </Collapsible>
     );
   };
