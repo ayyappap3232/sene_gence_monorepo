@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import {COLORS, FONTS, images, SIZES} from '../../constants';
@@ -22,9 +22,14 @@ export default function Select({
   isMandatory,
   data = ['No Data'],
   setSelectedValue,
-  selectedValue,
+  selectedValue="",
   checked=false
 }: ISelectProps) {
+
+  useEffect(() => {
+    
+  }, [checked])
+
   return (
     <View>
       <>
@@ -44,7 +49,7 @@ export default function Select({
               }}
             />
           )}
-          defaultValue={checked ? selectedValue : ""}
+          defaultValue={selectedValue}
           defaultButtonText={'Please Select...'}
           buttonStyle={{
             backgroundColor: 'rgba(244, 244, 244, 0.5)',
@@ -61,7 +66,6 @@ export default function Select({
           }}
           data={data}
           onSelect={(selectedItem, index) => {
-            console.log("adajfak",checked,selectedItem, index);
             return checked && selectedValue
           }}
           buttonTextAfterSelection={(selectedItem, index) => {

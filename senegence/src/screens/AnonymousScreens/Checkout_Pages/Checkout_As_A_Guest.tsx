@@ -24,7 +24,9 @@ import Modal from 'react-native-modal';
 import {useNavigation} from '@react-navigation/native';
 import Checkbox from '../../../components/checkboxs/Checkbox';
 import Select from '../../../components/select/Select';
-import { useGetCountries } from '../../../apollo/controllers/getCountries.Controller';
+import {useGetCountries} from '../../../apollo/controllers/getCountries.Controller';
+import ShippingAddressDetailsCard from './ShippingAddressDetailsCard';
+import {shippingAddressDetailsArray} from '../../../utils/data/ShippingCardData';
 
 export default function Checkout_As_A_Guest() {
   const navigation = useNavigation();
@@ -45,24 +47,33 @@ export default function Checkout_As_A_Guest() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const [country, setCountry] = useState()
-  const [state, setState] = useState()
-  const [city, setCity] = useState()
+  const [country, setCountry] = useState();
+  const [billingAddressCountry, setBillingAddressCountry] = useState<any>();
 
-  const countries = ['Egypt', 'Canada', 'Australia', 'Ireland'];
+  const [state, setState] = useState();
+  const [city, setCity] = useState();
+
+  //Shipping Address initial values
+  const [shippingAddress1, setShippingAddress1] = useState<any>('');
+  const [shippingAddress2, setShippingAddress2] = useState<any>('');
+
+  //Billing Address initial values
+  const [billingAddress1, setBillingAddress1] = useState<any>('');
+  const [billingAddress2, setBillingAddress2] = useState<any>('');
+
+  const [showShippingCardDetails, setShowShippingCardDetails] = useState(false);
+  const [showBillingCardDetails, setShowBillingCardDetails] = useState(false);
+  const [isViewAllDetails, setIsViewAllDetails] = useState(false);
+  const [isBillingViewAllDetails, setIsBillingViewAllDetails] = useState(false);
 
   useEffect(() => {
     //setVisible(true)
   }, [navigation]);
 
-  const {getCountries,countriesData} = useGetCountries();
+  const {getCountries, countriesData} = useGetCountries();
   useEffect(() => {
     getCountries();
-  }, [getCountries])
-
-  useEffect(() => {
-    setCountry(country)
-  }, [isShippingAddressSame])
+  }, [getCountries]);
 
   const _headerItem = (
     onPress: any,
@@ -208,40 +219,89 @@ export default function Checkout_As_A_Guest() {
     );
   };
 
+  const _showAddressCardDetails = (
+    data: any,
+    showCardDetails: any,
+    setShowCardDetails: any,
+    setViewAll: any,
+    viewAll: any,
+  ) => {
+    return showCardDetails ? (
+      <>
+        <ShippingAddressDetailsCard
+          shippingAddressDetailsArray={data}
+          isViewAllDetails={viewAll}
+        />
+        <Spacer mt={20} />
+        <TouchableOpacity onPress={() => setViewAll(!viewAll)}>
+          <Text containerStyle={styles.viewall}>
+            {viewAll ? 'View All' : 'View Less'}
+          </Text>
+        </TouchableOpacity>
+        <Spacer mt={20} />
+        <TouchableOpacity onPress={() => setShowCardDetails(false)}>
+          <Text containerStyle={styles.viewall}>+ Add New</Text>
+        </TouchableOpacity>
+        <Spacer mt={10} />
+      </>
+    ) : null;
+  };
+
   //Shipping Address
   const _shippingAddress = () => {
     return (
       <Collapsible collapsed={!isShippingAddressCollapsed}>
+        {/* //Todo: Pass Appropriate shippingAddressDetailsArray as ShippingAddressDetails */}
+        {_showAddressCardDetails(
+          shippingAddressDetailsArray,
+          showShippingCardDetails,
+          setShowShippingCardDetails,
+          setIsViewAllDetails,
+          isViewAllDetails,
+        )}
         <Spacer mt={20} />
-        {_inputItem('Address 1', () => {}, 'Enter your Address...', true)}
-        <Spacer mt={20} />
-        {_inputItem('Address 2', () => {}, 'Address second line...', true)}
-        <Spacer mt={20} />
-        {/* //Todo: convertion to dropdowns  */}
-        <Select
-          setSelectedValue={setCountry}
-          selectedValue={country}
-          data = {countriesData?.countries}
-          title={'Country'}
-          isMandatory={true}
-        />
-        <Spacer mt={20} />
-        <Select
-          data={[""]}
-          title={'State'}
-          isMandatory={true}
-        />
-        <Spacer mt={20} />
-        <Select
-          data={[""]}
-          title={'City'}
-          isMandatory={true}
-        />
-        <Spacer mt={20} />
-        {_inputItem('Zip Code', () => {}, 'Enter your zip code', true)}
-        <Spacer mt={20} />
-        {button(() => {}, 'Next')}
-        <Spacer mt={20} />
+
+        {!showShippingCardDetails && (
+          <>
+            {_inputItem(
+              'Address 1',
+              (text: string) => {
+                setShippingAddress1(text);
+              },
+              'Enter your Address...',
+              true,
+            )}
+            <Spacer mt={20} />
+            {_inputItem(
+              'Address 2',
+              (text: string) => {
+                setShippingAddress2(text);
+              },
+              'Address second line...',
+              true,
+            )}
+            <Spacer mt={20} />
+            {/* //Todo: convertion to dropdowns  */}
+            <Select
+              setSelectedValue={setCountry}
+              selectedValue={country}
+              data={countriesData?.countries}
+              title={'Country'}
+              isMandatory={true}
+            />
+            <Spacer mt={20} />
+            <Select data={['']} title={'State'} isMandatory={true} />
+            <Spacer mt={20} />
+            <Select data={['']} title={'City'} isMandatory={true} />
+            <Spacer mt={20} />
+            {_inputItem('Zip Code', () => {}, 'Enter your zip code', true)}
+            <Spacer mt={20} />
+            {button(() => {
+              setShowShippingCardDetails(true);
+            }, 'Next')}
+            <Spacer mt={20} />
+          </>
+        )}
       </Collapsible>
     );
   };
@@ -250,45 +310,96 @@ export default function Checkout_As_A_Guest() {
   const _billingAddress = () => {
     return (
       <Collapsible collapsed={!isBillingAddressCollapsed}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Checkbox
-            state={isShippingAddressSame}
-            setState={setIsShippingAddressSame}
-          />
-          <Spacer mr={10} />
-          {/* //Todo: This logic same as a shipping address */}
-          <Text>Same as a shipping address</Text>
-        </View>
+        {/* //Todo: Pass Appropriate shippingAddressDetailsArray as BillingAddressDetails */}
+        {_showAddressCardDetails(
+          shippingAddressDetailsArray,
+          showBillingCardDetails,
+          setShowBillingCardDetails,
+          setIsBillingViewAllDetails,
+          isBillingViewAllDetails,
+        )}
         <Spacer mt={20} />
-        {_inputItem('Address 1', () => {}, 'Enter your Address...', true)}
-        <Spacer mt={20} />
-        {_inputItem('Address 2', () => {}, 'Address second line...', true)}
-        <Spacer mt={20} />
-        <Select
-          setSelectedValue={setCountry}
-          selectedValue={country}
-          checked={isShippingAddressSame}
-          data = {countriesData?.countries}
-          title={'Country'}
-          isMandatory={true}
-        />
-        <Spacer mt={20} />
-        <Select
-          data={[""]}
-          title={'State'}
-          isMandatory={true}
-        />
-        <Spacer mt={20} />
-        <Select
-          data={[""]}
-          title={'City'}
-          isMandatory={true}
-        />
-        <Spacer mt={20} />
-        {_inputItem('Zip Code', () => {}, 'Enter your zip code', true)}
-        <Spacer mt={20} />
-        {button(() => {}, 'Next')}
-        <Spacer mt={20} />
+        {!showBillingCardDetails && (
+          <>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Checkbox
+                state={isShippingAddressSame}
+                setState={() => {
+                  setIsShippingAddressSame(!isShippingAddressSame);
+                  // !isShippingAddressSame
+                  //   ? setBillingAddress1(shippingAddress1)
+                  //   : setBillingAddress1('');
+                  // !isShippingAddressSame
+                  //   ? setBillingAddress2(shippingAddress2)
+                  //   : setBillingAddress2('');
+                  // !isShippingAddressSame
+                  //   ? setBillingAddressCountry(country)
+                  //   : setBillingAddressCountry('');
+                }}
+              />
+              <Spacer mr={10} />
+              {/* //Todo: This logic same as a shipping address */}
+              <Text>Same as a shipping address</Text>
+            </View>
+            <Spacer mt={20} />
+            {!isShippingAddressSame && (
+              <>
+                
+                {_inputItem(
+                  'Address 1',
+                  (text: string) => {
+                    setBillingAddress1(text);
+                  },
+                  'Enter your Address...',
+                  true,
+                  false,
+                  billingAddress1,
+                )}
+                <Spacer mt={20} />
+                {_inputItem(
+                  'Address 2',
+                  (text: string) => {
+                    setBillingAddress2(text);
+                  },
+                  'Address second line...',
+                  true,
+                  false,
+                  billingAddress2,
+                )}
+                <Spacer mt={20} />
+                <Select
+                  setSelectedValue={setBillingAddressCountry}
+                  selectedValue={billingAddressCountry}
+                  checked={isShippingAddressSame}
+                  data={countriesData?.countries}
+                  title={'Country'}
+                  isMandatory={true}
+                />
+                <Spacer mt={20} />
+                <Select
+                  checked={isShippingAddressSame}
+                  data={['']}
+                  title={'State'}
+                  isMandatory={true}
+                />
+                <Spacer mt={20} />
+                <Select
+                  checked={isShippingAddressSame}
+                  data={['']}
+                  title={'City'}
+                  isMandatory={true}
+                />
+                <Spacer mt={20} />
+                {_inputItem('Zip Code', () => {}, 'Enter your zip code', true)}
+                <Spacer mt={20} />
+                {button(() => {
+                  setShowBillingCardDetails(true);
+                }, 'Next')}
+                <Spacer mt={20} />
+              </>
+            )}
+          </>
+        )}
       </Collapsible>
     );
   };
@@ -432,6 +543,33 @@ export default function Checkout_As_A_Guest() {
     );
   };
 
+  const _independentDistributor = () => {
+    return (
+      <View style={{flexDirection: 'row'}}>
+        <Image source={icons.SuccessCheck} style={{width: 20, height: 20}} />
+        <Spacer mr={10} />
+        <View>
+          <Text>Your Independent Distributor</Text>
+          <Text containerStyle={[globalStyles.text_avenir_heavy]}>
+            Kimberly Herzl-Betz
+          </Text>
+          <TouchableOpacity onPress={() => {}}>
+            <Text
+              containerStyle={[
+                {
+                  color: COLORS.primary3,
+                  fontFamily: FONTS.AvenirMedium,
+                  letterSpacing: 0.7,
+                },
+              ]}>
+              Change Distributor?
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <ScrollToTopContainer showCart={true}>
       <View style={{flex: 1, paddingHorizontal: 20}}>
@@ -440,6 +578,8 @@ export default function Checkout_As_A_Guest() {
           screenName={ScreenNames.MainShoppingCartBag}
           title={'Checkout'}
         />
+        <Spacer mt={20} />
+        {_independentDistributor()}
         <Spacer mt={20} />
 
         {_headerItem(
@@ -531,5 +671,11 @@ const styles = StyleSheet.create({
     height: 24,
     marginRight: 10,
     alignSelf: 'flex-end',
+  },
+  viewall: {
+    color: COLORS.primary3,
+    fontFamily: FONTS.AvenirMedium,
+    fontSize: SIZES.body2,
+    letterSpacing: 0.9,
   },
 });

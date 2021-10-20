@@ -8,10 +8,12 @@ export default function OutlineTextInputMultiline({
   onChangeText,
   containerStyle,
   restProps,
+  value
 }: IOutlineTextProps) {
   const [height, setHeight] = useState(40)
   return (
     <TextInput
+      value={value}
       placeholder={placeholder}
       onChangeText={onChangeText}
       {...restProps}

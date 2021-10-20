@@ -13,7 +13,7 @@ export default function Checkbox({
   return (
     <TouchableOpacity
     activeOpacity={0.9}
-    onPress={() => setState(!state)}
+    onPress={setState}
       style={[
         {
           width: 20,
