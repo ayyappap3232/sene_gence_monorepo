@@ -66,7 +66,7 @@ export default function ExecutiveManagementTeam() {
         <Spacer mb={50}/>
         <OutlineButton
           textStyleContainer={{color: COLORS.white}}
-          title={'View More'}
+          title={'Get In Touch'}
           containerStyle={{
             backgroundColor: COLORS.footerColor,
             width: 162,
@@ -74,7 +74,7 @@ export default function ExecutiveManagementTeam() {
             borderWidth: 2,
             borderColor: COLORS.footerColor,
           }}
-          onPress={() => {}}
+          onPress={() => navigation.navigate(ScreenNames.ContactUs)}
         />
       </View>
     );

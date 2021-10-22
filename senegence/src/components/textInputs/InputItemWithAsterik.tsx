@@ -11,7 +11,8 @@ export const _inputItem = (
     placeholder: string,
     isMandatory?: boolean,
     multiline?: boolean,
-    value?: string
+    value?: string,
+    keyboardType = "default"
   ) => {
     return (
       <>
@@ -39,6 +40,8 @@ export const _inputItem = (
             }}
             placeholder={placeholder}
             onChangeText={onChangeText}
+            keyboardType={keyboardType}
+            
           />
         )}
         <Spacer mt={10} />

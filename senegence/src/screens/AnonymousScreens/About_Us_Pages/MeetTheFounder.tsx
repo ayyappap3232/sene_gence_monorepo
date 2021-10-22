@@ -1,5 +1,5 @@
 import React from 'react';
-import {ImageBackground, StyleSheet, View, Image} from 'react-native';
+import {ImageBackground, StyleSheet, View, Image, Linking} from 'react-native';
 import BreadCrumbWithTwoLevelUpWithoutNavigationParams from '../../../components/breadCrumbs/BreadCrumbWithTwoLevelUpWithoutNavigationParams';
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import Overlay from '../../../components/overlays/Overlay';
@@ -7,6 +7,7 @@ import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
 import Spacer from '../../../components/Spacer';
 import Text from '../../../components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
+import { meetTheFoundationDiveDeeper } from '../../../utils/data/links';
 import {ScreenNames} from '../../../utils/screenNames';
 
 export default function MeetTheFounder() {
@@ -142,7 +143,7 @@ export default function MeetTheFounder() {
                 borderColor: COLORS.footerColor,
               }}
               title={buttonTitle}
-              onPress={() => {}}
+              onPress={() => Linking.openURL(meetTheFoundationDiveDeeper)}
             />
             <Spacer mt={20} />
           </>
@@ -225,7 +226,7 @@ export default function MeetTheFounder() {
           images.milliondollarlips,
           'Million Dollar Lips',
           'Million Dollar Lips is a testimonial to Joni’s journey as a businesswoman who built a company of her reams with others and with a strong sense of destiny. This book serves as a practical guide to help others succeed in direct sales using a nonsensical style based upon truth. She makes it evident that we all make choices in life and business and those choices determine all that we achieve. ',
-          'Read an Expert',
+          'Dive Deeper',
         )}
         <Spacer mt={40} />
         {_cardView()}

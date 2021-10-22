@@ -6,6 +6,7 @@ import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumb
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import Overlay from '../../../components/overlays/Overlay';
 import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
+import Select from '../../../components/select/Select';
 import Spacer from '../../../components/Spacer';
 import Text from '../../../components/text/Text';
 import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
@@ -136,8 +137,8 @@ export default function FAQS() {
           {_inputItem('Email', {}, 'Enter Your Email...',true)}
           {_inputItem('Phone', {}, 'Enter Your Phone...',true)}
           {/* //Todo: Need to convert the below two inputs to dropdows */}
-          {_inputItem('I Need Information On', {}, 'Please Select...',true)}
-          {_inputItem('I Heard About SeneGence', {}, 'Please Select...',true)}
+          <Select data={['']} title={'I Need Information On'} isMandatory={true} />
+          <Select data={['']} title={'I Heard About SeneGence'} isMandatory={true} />
           {_inputItem(
             'What Is In Your Mind?',
             {},
