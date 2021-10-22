@@ -7,7 +7,7 @@ import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
 import Spacer from '../../../components/Spacer';
 import Text from '../../../components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import { meetTheFoundationDiveDeeper } from '../../../utils/data/links';
+import { makesensefoundation, meetTheFoundationDiveDeeper } from '../../../utils/data/links';
 import {ScreenNames} from '../../../utils/screenNames';
 
 export default function MeetTheFounder() {
@@ -174,20 +174,17 @@ export default function MeetTheFounder() {
               color: COLORS.text,
               letterSpacing: 2,
             }}>
-            Senegence
+            “Choose positivity to build goodness”
           </Text>
           <Spacer mt={11} />
           <Text containerStyle={[{textAlign: 'center'}]}>
-            SeneGence was created to provide an opportunity for Independent
-            Distributors to build their very own business and the potential to
-            earn additional income by selling products that really work, all
-            from within their own communities.
+          Joni is also the proud founder of SeneGence’s nonprofit organization, the Make Sense Foundation, which supports women and children in need. The funds to support the foundation are gathered from a variety of company-sponsored fundraisers, including a percentage of select product sales, and are distributed on a quarterly basis to those qualifying organizations nominated by our Distributors.
           </Text>
         </View>
         <Spacer mt={30} />
         <OutlineButton
           title={'Learn More'}
-          onPress={() => {}}
+          onPress={() => Linking.openURL(makesensefoundation)}
           containerStyle={{width: 299, alignSelf: 'center', backgroundColor: COLORS.footerColor,borderColor: COLORS.footerColor}}
           textStyleContainer={{color:COLORS.white}}
         />

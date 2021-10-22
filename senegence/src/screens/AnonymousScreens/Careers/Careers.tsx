@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, ImageBackground, StyleSheet, View} from 'react-native';
+import {Image, ImageBackground, Linking, StyleSheet, View} from 'react-native';
 import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
 import {_buildYourBeautyBusiness} from '../../../components/BuildYourBeautyBusiness';
 import OutlineButton from '../../../components/buttons/OutlineButton';
@@ -14,6 +14,7 @@ import {globalStyles} from '../../../globalstyles/GlobalStyles';
 import {careersData, ICareersData} from '../../../utils/data/Careers';
 import {carouselTypes} from '../../../utils/data/CarouselData';
 import {findADistributorData} from '../../../utils/data/FindADistributor';
+import { distributorEnrollToday } from '../../../utils/data/links';
 
 export default function Careers() {
   const _headerImageView = () => {
@@ -34,7 +35,7 @@ export default function Careers() {
           textStyleContainer={[globalStyles.bannerBtnTextWhite]}
           containerStyle={[globalStyles.bannerBtnBlueBackground]}
           title={'Enroll Today'}
-          onPress={() => {}}
+          onPress={() => Linking.openURL(distributorEnrollToday)}
         />
       </ImageBackground>
     );
@@ -172,7 +173,7 @@ export default function Careers() {
           ]}
           textStyleContainer={globalStyles.bannerBtnTextBlue}
           title={'START YOUR BUSINESS'}
-          onPress={() => {}}
+          onPress={() => Linking.openURL(distributorEnrollToday)}
         />
       </>
     );

@@ -1,13 +1,17 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Image, View } from "react-native";
+import { Image, Linking, View } from "react-native";
 import { COLORS, FONTS, images, SIZES } from "../constants";
 import { globalStyles } from "../globalstyles/GlobalStyles";
+import { distributorEnrollToday } from "../utils/data/links";
+import { ScreenNames } from "../utils/screenNames";
 import OutlineButton from "./buttons/OutlineButton";
 import Spacer from "./Spacer";
 import Text from "./text/Text";
 import TextWithUnderLine from "./text/TextWithUnderLine";
 
 export const _buildYourBeautyBusiness = () => {
+  const navigation = useNavigation<any>();
     return (
       <>
         <TextWithUnderLine title={'Build Your Beauty Business'} />
@@ -68,8 +72,8 @@ export const _buildYourBeautyBusiness = () => {
               },
             ]}
             textStyleContainer={{color: COLORS.white}}
-            title={'Get Started'}
-            onPress={() => {}}
+            title={"Let's Begin"}
+            onPress={() => Linking.openURL(distributorEnrollToday)}
           />
           <Spacer mt={10} />
           <OutlineButton
@@ -84,7 +88,7 @@ export const _buildYourBeautyBusiness = () => {
             ]}
             textStyleContainer={{color: COLORS.primary2}}
             title={'Connect w/ an expert'}
-            onPress={() => {}}
+            onPress={() => navigation.navigate(ScreenNames.FindADistributor)}
           />
           <Spacer mt={20} />
         </View>

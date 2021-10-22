@@ -15,6 +15,7 @@ import OutlineTextInputMultiline from '../../../components/textInputs/OutlineTex
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
 import {globalStyles} from '../../../globalstyles/GlobalStyles';
 import {frequentlyAskedQuestionData} from '../../../utils/data/FAQSData';
+import ContactUsForm from '../About_Us_Pages/ContactUsForm';
 
 export default function FAQS() {
   const _headerImageView = () => {
@@ -58,7 +59,7 @@ export default function FAQS() {
   const _faqs = () => {
     return frequentlyAskedQuestionData.map((item, index) => {
       return (
-        <View key={item.id} style={{marginBottom: 20}}>
+        <View key={item.id} style={{marginBottom: 20, alignItems:'center'}}>
           <CustomAccordian
             titleContainerStyle={{
               width: 298,
@@ -128,36 +129,14 @@ export default function FAQS() {
         <Spacer mt={10} />
         <TextWithUnderLine title={'GET IN TOUCH'} />
         <Spacer mt={10} />
-        <View style={{width: SIZES.width - 100}}>
+        <View style={{}}>
           <Text containerStyle={[globalStyles.text, {textAlign: 'center', textTransform: 'capitalize'}]}>
             Leave your message and we will get back to you shortly
           </Text>
           <Spacer mt={20} />
-          {_inputItem('Full Name', {}, 'Enter Your Full Name...',true)}
-          {_inputItem('Email', {}, 'Enter Your Email...',true)}
-          {_inputItem('Phone', {}, 'Enter Your Phone...',true)}
-          {/* //Todo: Need to convert the below two inputs to dropdows */}
-          <Select data={['']} title={'I Need Information On'} isMandatory={true} />
-          <Select data={['']} title={'I Heard About SeneGence'} isMandatory={true} />
-          {_inputItem(
-            'What Is In Your Mind?',
-            {},
-            'Enter Your Comments...',
-            false,
-            true,
-          )}
-          <Spacer mt={30} />
-          <OutlineButton
-            title={'Submit'}
-            textStyleContainer={{color: COLORS.white}}
-            onPress={() => {}}
-            containerStyle={{
-              alignSelf: 'center',
-              width: 180,
-              backgroundColor: COLORS.primary3,
-              borderColor: COLORS.primary3,
-            }}
-          />
+          <View style={{paddingHorizontal: 0}}>
+          <ContactUsForm />
+          </View>
           <Spacer mt={4} />
         </View>
       </View>

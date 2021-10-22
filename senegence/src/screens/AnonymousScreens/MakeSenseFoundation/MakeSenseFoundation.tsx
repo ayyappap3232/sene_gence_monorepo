@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, ImageBackground, StyleSheet, View} from 'react-native';
+import {Image, ImageBackground, Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import PlainCarousel from '../../../components/carousels/PlainCarousel';
 import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
@@ -8,6 +8,7 @@ import Text from '../../../components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
 import {globalStyles} from '../../../globalstyles/GlobalStyles';
 import { foundation } from '../../../utils/data/Foundation';
+import { applyForGrant, makesensefoundation, nominateAnOrganization } from '../../../utils/data/links';
 
 export default function MakeSenseFoundation() {
   const _headerImageView = () => {
@@ -27,7 +28,7 @@ export default function MakeSenseFoundation() {
           <Spacer mt={10} />
           <OutlineButton
             title={'Learn More'}
-            onPress={() => {}}
+            onPress={() => Linking.openURL(makesensefoundation)}
             containerStyle={styles.bannerBtn}
             textStyleContainer={styles.commonBtnText}
           />
@@ -106,10 +107,12 @@ export default function MakeSenseFoundation() {
           consideration by contacting The MSF here:
         </Text>
         <Spacer mt={10} />
+        <TouchableOpacity activeOpacity={0.7} onPress={() => Linking.openURL(nominateAnOrganization)}>
         <Image
           source={images.nominateanorganization}
           style={{width: 329, height: 43, alignSelf: 'center'}}
         />
+        </TouchableOpacity>
       </View>
     );
   };
@@ -138,8 +141,8 @@ export default function MakeSenseFoundation() {
         <Spacer mt={10} />
         <OutlineButton
           title={'Apply for grant'}
-          onPress={() => {}}
-          textStyleContainer={styles.commonBtnText}
+          onPress={() => Linking.openURL(applyForGrant)}
+          textStyleContainer={[styles.commonBtnText]}
           containerStyle={styles.applyForGrantBtn}
         />
       </View>
@@ -186,6 +189,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary2,
     fontSize: SIZES.body4,
     lineHeight: 26,
+    textTransform:'uppercase',
   },
   carrierText: {
     fontSize: SIZES.body3,
