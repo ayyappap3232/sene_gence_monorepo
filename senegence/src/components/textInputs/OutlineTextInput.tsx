@@ -15,8 +15,8 @@ export default function OutlineTextInput({
     value={value}
       placeholder={placeholder}
       onChangeText={onChangeText}
-      {...restProps}
       style={[styles.textInput,containerStyle]}
+      {...restProps}
     />
   );
 }

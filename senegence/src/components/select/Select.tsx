@@ -15,11 +15,13 @@ export interface ISelectProps {
   setSelectedValue?: any;
   selectedValue?:any;
   checked?: boolean;
+  defaultButtonText?: string;
 }
 
 export default function Select({
   title,
   isMandatory,
+  defaultButtonText="Please Select...",
   data = ['No Data'],
   setSelectedValue,
   selectedValue="",
@@ -50,7 +52,7 @@ export default function Select({
             />
           )}
           defaultValue={selectedValue}
-          defaultButtonText={'Please Select...'}
+          defaultButtonText={defaultButtonText}
           buttonStyle={{
             backgroundColor: 'rgba(244, 244, 244, 0.5)',
             width: '100%',
