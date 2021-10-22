@@ -7,9 +7,11 @@ import Text from '../text/Text';
 
 export const _breadCrumbs = (breadCrumbs: any, name: any, navigation: any) => {
   const _breadCrumbItem = (title: string, onPress: any) => {
+    console.log('title',title);
+
     return (
       <>
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={title === "SHOP & SAVE" ? () => {navigation.navigate(ScreenNames.AllProducts)}: onPress}>
           <Text
             containerStyle={[
               styles.commonText,

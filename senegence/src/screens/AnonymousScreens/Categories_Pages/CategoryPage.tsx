@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import ImageWithTitleAndText from '../../../components/banners/ImageWithTitleAndText';
 import {_beautyBook} from '../../../components/BeautyBook';
 import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
@@ -12,6 +12,7 @@ import Text from '../../../components/text/Text';
 import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
 import {images} from '../../../constants';
 import {allProducts} from '../../../utils/data/AllProducts';
+import { ScreenNames } from '../../../utils/screenNames';
 
 export default function CategoryPage() {
   const navigation = useNavigation<any>();
@@ -29,6 +30,11 @@ export default function CategoryPage() {
       </View>
     );
   };
+
+  const handleOnPress = (item: any) => {
+    navigation.navigate(ScreenNames.CategoryItem, {categoryData: item});
+  }
+
   return (
     <ScrollToTopContainer>
       <View style={{flex: 1, paddingHorizontal: 20}}>
@@ -47,10 +53,10 @@ export default function CategoryPage() {
           <Spacer mt={20} />
           {allProducts.map((item, index) => {
             return (
-              <React.Fragment key={item.id}>
+              <TouchableOpacity activeOpacity={0.9} key={item.id} onPress={() => handleOnPress(item)}>
                 <ImageWithTitleAndText image={item.image} title={item.title} />
                 <Spacer mt={11} />
-              </React.Fragment>
+              </TouchableOpacity>
             );
           })}
         </View>
