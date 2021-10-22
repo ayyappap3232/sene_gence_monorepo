@@ -68,12 +68,11 @@ export default function Select({
           }}
           data={data}
           onSelect={(selectedItem, index) => {
-            return checked && selectedValue
+            setSelectedValue(selectedItem?.full_name_locale);
           }}
           buttonTextAfterSelection={(selectedItem, index) => {
             // text represented after item is selected
             // if data array is an array of objects then return selectedItem.property to render after item is selected
-            setSelectedValue(selectedItem?.full_name_locale);
             return checked ? selectedValue : selectedItem?.full_name_locale;
           }}
           rowTextForSelection={(item, index) => {
