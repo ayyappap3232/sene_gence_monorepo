@@ -216,7 +216,25 @@ const chervondown = require("../../assets/images/chervondown.png")
 
 const dot = require("../../assets/images/dot.png")
 
+//Free Sample 
+const freesample0 = require("../../assets/images/freeSamples/freesample0.png")
+const freesample1 = require("../../assets/images/freeSamples/freesample1.png")
+const freesample2 = require("../../assets/images/freeSamples/freesample2.png")
+const freesample3 = require("../../assets/images/freeSamples/freesample3.png")
+const freesample4 = require("../../assets/images/freeSamples/freesample4.png")
+const freesample5 = require("../../assets/images/freeSamples/freesample5.png")
+const freesample6 = require("../../assets/images/freeSamples/freesample6.png")
+const freesample7 = require("../../assets/images/freeSamples/freesample7.png")
+
 export default {
+    freesample0,
+    freesample1,
+    freesample2,
+    freesample3,
+    freesample4,
+    freesample5,
+    freesample6,
+    freesample7,
     dot,
     chervonup,
     chervondown,

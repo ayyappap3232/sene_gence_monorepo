@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-export default function Overlay() {
+export default function Overlay({containerStyle={}}) {
     return (
-        <View style={styles.overlay}></View>
+        <View style={[styles.overlay,containerStyle]}></View>
     )
 }
 

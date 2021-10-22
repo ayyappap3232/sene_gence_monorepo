@@ -105,8 +105,8 @@ export const globalStyles = StyleSheet.create({
         color: COLORS.white
       },
       bannerBtnBlueBackground:{
-        borderColor: COLORS.primary2,
-        backgroundColor: COLORS.primary2,
+        borderColor: COLORS.primary3,
+        backgroundColor: COLORS.primary3,
         width: 152,
         alignSelf:'center'
       },
