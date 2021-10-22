@@ -24,7 +24,7 @@ export default function SortByFilter({textInputValue, setTextInputValue,setFilte
 
   let newFiltersArray = [];
 
-
+  
   for (index = 0;  index < sortFields?.products?.sort_fields?.options?.length; index++){
     newFiltersArray.push({
       key: index,
@@ -44,9 +44,10 @@ export default function SortByFilter({textInputValue, setTextInputValue,setFilte
   }
 
   return (
-    <>
+    newFiltersArray?.length > 0 ? <>
       <ModalSelector
         data={newFiltersArray}
+        ListEmptyComponent={() => <Text>No Data Found</Text>}
         initValue="Featured Products"
         supportedOrientations={['portrait']}
         accessible={true}
@@ -67,7 +68,7 @@ export default function SortByFilter({textInputValue, setTextInputValue,setFilte
         }}>
           <TextInputWithCaretDisable placeholder="Featured Products" textInputValue={textInputValue}/>                                                     
       </ModalSelector>
-    </>
+    </> : null
   );
 }
 

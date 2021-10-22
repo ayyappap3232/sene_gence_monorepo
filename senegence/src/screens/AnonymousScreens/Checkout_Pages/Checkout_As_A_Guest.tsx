@@ -21,7 +21,7 @@ import {COLORS, FONTS, icons, images, SIZES} from '../../../constants';
 import {globalStyles} from '../../../globalstyles/GlobalStyles';
 import {ScreenNames} from '../../../utils/screenNames';
 import Modal from 'react-native-modal';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import Checkbox from '../../../components/checkboxs/Checkbox';
 import Select from '../../../components/select/Select';
 import {useGetCountries} from '../../../apollo/controllers/getCountries.Controller';
@@ -31,6 +31,10 @@ import OrderSummaryCard from '../../../components/screenComponents/OrderSummaryC
 
 export default function Checkout_As_A_Guest() {
   const navigation = useNavigation();
+  const route = useRoute<any>();
+
+  const {cartItemCount, subTotal, shippingAmount} = route?.params;
+
   const [isAccountCollapsed, setIsAccountCollapsed] = useState(false);
   const [isDistributorCollapsed, setIsDistributorCollapsed] = useState(false);
   const [isShippingAddressCollapsed, setIsShippingAddressCollapsed] =
@@ -633,7 +637,7 @@ export default function Checkout_As_A_Guest() {
         )}
         {_shippingMethod()}
         <Spacer mt={20} />
-        <OrderSummaryCard buttonText={"Place Order"}/>
+        <OrderSummaryCard buttonText={"Place Order"} subTotal={subTotal} cartItemCount={cartItemCount} shippingAmount={shippingAmount}/>
         <Spacer mt={20} />
         {_itemsYourMayLike()}
         {_modalOfferAlert()}

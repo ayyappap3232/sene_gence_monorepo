@@ -265,7 +265,7 @@ export default function Mainshoppingbag({navigation}: any) {
         <Spacer mt={19} />
         <OrderSummaryCard cartItemCount={shoppingCartData.length} subTotal={totalPrice} shippingAmount={10}
         buttonText={'Proceed To Checkout'}
-        onPress={() => navigation.navigate(ScreenNames.Checkout_As_A_Guest)}
+        onPress={() => navigation.navigate(ScreenNames.Checkout_As_A_Guest,{cartItemCount: shoppingCartData?.length, subTotal: totalPrice, shippingAmount:""})}
         />
         <Spacer mt={39.5} />
 
