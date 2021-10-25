@@ -661,7 +661,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     flex: 1,
     marginTop: 10,
-    height: SIZES.height / 2,
+    height: SIZES.height,
   },
   modalWrapper: {
     width: SIZES.width - 16,
