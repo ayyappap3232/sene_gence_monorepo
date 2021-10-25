@@ -8,12 +8,14 @@ export default function OutlineTextInput({
   onChangeText,
   containerStyle,
   value,
+  placeholderTextColor=COLORS.swatch,
   ...restProps
 }: IOutlineTextProps) {
   return (
     <TextInput
     value={value}
       placeholder={placeholder}
+      placeholderTextColor={placeholderTextColor}
       onChangeText={onChangeText}
       style={[styles.textInput,containerStyle]}
       {...restProps}
@@ -26,6 +28,7 @@ const styles = StyleSheet.create({
         width: 217,
         height: 39,
         padding: 10,
-        backgroundColor: COLORS.white
+        backgroundColor: COLORS.white,
+        color: COLORS.swatch
     }
 });

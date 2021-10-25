@@ -80,14 +80,16 @@ export default function OrderSummaryCard({
         <View>
           <OutlineTextInput
             placeholder={'Enter your coupon code ...'}
+            placeholderTextColor={COLORS.swatch}
             value={couponText}
             autoCapitalize="none"
-            onChangeText={(text: string) => handleCouponText(text)}
+            onChangeText={(text: string) => handleCouponText(text)}      
             containerStyle={[
               {
                 backgroundColor: 'rgba(244, 244, 244, 0.5)',
                 width: '100%',
                 height: 40,
+                color: COLORS.swatch
               },
               isError && {borderColor: COLORS.error, borderWidth: 1},
             ]}

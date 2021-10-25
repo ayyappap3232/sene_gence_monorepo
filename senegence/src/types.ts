@@ -43,4 +43,5 @@ export interface IOutlineTextProps {
         restProps?: any;
         multiline?: boolean;
         value?: string;
+        placeholderTextColor?:string
 }
