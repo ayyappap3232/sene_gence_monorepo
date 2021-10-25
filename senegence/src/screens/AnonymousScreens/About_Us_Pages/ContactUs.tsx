@@ -18,7 +18,7 @@ export default function ContactUs() {
       <>
         <ImageBackground
           source={images.contactusbanner}
-          style={{width: SIZES.width-60, height: 278,marginHorizontal: 10}}>
+          style={{width: SIZES.width-40, height: 278,marginHorizontal: 10,alignSelf:'center'}}>
           <View>
             <Spacer mt={65} />
             <Text
@@ -183,7 +183,7 @@ export default function ContactUs() {
       <View style={[globalStyles.contactCard,{marginHorizontal:10}]}>
       <View>
         <Divider
-          width={334}
+          width={SIZES.width-40}
           height={7}
           containerStyle={{backgroundColor: COLORS.primary2}}
         />
@@ -244,9 +244,11 @@ export default function ContactUs() {
 
   return (
     <ScrollToTopContainer>
-      <View style={{flex: 1, paddingHorizontal: 20}}>
+      <View style={{flex: 1, }}>
         <Spacer mt={10} />
+        <View style={{marginLeft:20}}>
         <BreadCrumbWithOneLevelUp title={'CONTACT US'} />
+        </View>
         <Spacer mt={10} />
         {_headerImageView()}
         <Spacer mt={30} />

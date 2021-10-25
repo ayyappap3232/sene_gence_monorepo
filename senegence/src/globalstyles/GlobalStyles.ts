@@ -5,14 +5,14 @@ export const globalStyles = StyleSheet.create({
     innerContainer: {flex: 1, alignSelf: 'center',paddingHorizontal: 22},
     contactCard: {
         backgroundColor: COLORS.white,
-        alignSelf: 'flex-start',
+        alignSelf: 'center',
         marginBottom: 20,
         elevation: 5,
         shadowColor: COLORS.black,
         shadowOffset: {width: 0, height: 2},
         shadowRadius: 3.84,
         shadowOpacity: 0.25,
-        width: SIZES.width-60,
+        width: SIZES.width-40,
       },
       bannerHeader: {
         fontFamily: FONTS.BebasNeueBold,
