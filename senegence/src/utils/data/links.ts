@@ -21,3 +21,9 @@ export const chinese_Hongkong = "https://seneweb.senegence.com/zh-hk/";
 export const switzerland_Deutsch="https://www.seneswiss.ch/"
 export const switzerland_French="https://www.seneswiss.ch/fr/"
 export const switzerland_English="https://www.seneswiss.ch/en/"
+
+//
+export const shopAndSave = "https://shop-dev.senegence.com/en-ca/"
+export const becomeAPreferredCustomer = "https://qa1-shop.senegence-qa.com/en-ca/"
+export const startYourOwnBusiness = "https://seneweb.senegence.com/ca/career/"
+export const beautyBookDownload = "https://seneweb.senegence.com/media/11340/can-beauty-book-july-2021.pdf"
