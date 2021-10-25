@@ -11,6 +11,7 @@ export const _renderSectionContent = (
     text2: string,
     text3: string,
     buttonText: string,
+    buttonOnPress:() => void,
     height: number,
   ) => {
     return (
@@ -31,7 +32,7 @@ export const _renderSectionContent = (
           containerStyle={styles.shopSaveBtn}
           title={buttonText}
           textStyleContainer={styles.shopSaveBtnText}
-          onPress={() => {}}
+          onPress={buttonOnPress}
         />
       </>
     );

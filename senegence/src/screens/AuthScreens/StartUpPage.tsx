@@ -10,6 +10,7 @@ import {
   ImageBackground,
   FlatList,
   Animated,
+  Linking,
 } from 'react-native';
 import {
   AppLogo,
@@ -47,6 +48,7 @@ import { ScrollToTopContainer } from '../../components/ScrollToTopContainer';
 import AsSeenIn from '../../components/AsSeenIn';
 import { _renderSectionContent } from '../../components/cards/CardWithSectionContent';
 import { _beautyBook } from '../../components/BeautyBook';
+import { becomeAPreferredCustomer, distributorEnrollToday, shopAndSave, startYourOwnBusiness } from '../../utils/data/links';
 
 export default function StartUpPage() {
   const navigation = useNavigation<any>();
@@ -184,9 +186,9 @@ export default function StartUpPage() {
     <ScrollToTopContainer showCart={true} isBannerShownOnInitialLoad={true}>
       <View style={{paddingHorizontal: 29}}>
         <HomeCarousel carouselData={homeCarouselData} />
-        <OutlineButton title={'SHOP & SAVE'} onPress={() => {}} />
+        <OutlineButton title={'SHOP & SAVE'} onPress={() => Linking.openURL(shopAndSave)} />
         <Spacer mt={10} />
-        <OutlineButton title={'BECOME A DISTRIBUTOR'} onPress={() => {}} />
+        <OutlineButton title={'BECOME A DISTRIBUTOR'} onPress={() => Linking.openURL(distributorEnrollToday)} />
         <Spacer mt={34} />
         <Image source={images.banner1} style={{width: 334, height: 214}} />
         <ImageBackground source={images.path} style={{width: 334, height: 214}}>
@@ -238,6 +240,7 @@ export default function StartUpPage() {
           'Kiss & tell preferred customer program',
           'Save 10% off on all your Favs! Collect Benefits Like Exclusive promos,free samples, and more.',
           'Become a preferred customer',
+          () => Linking.openURL(becomeAPreferredCustomer),
           179,
         )}
         <Spacer mt={40} />
@@ -247,6 +250,7 @@ export default function StartUpPage() {
           'Become a Distributor',
           'Sell SeneGence products while earning discounts, growing your network, and building a career on your own terms.',
           'START YOUR BUSINESS',
+          () => Linking.openURL(startYourOwnBusiness),
           233,
         )}
         <Spacer mt={40} />

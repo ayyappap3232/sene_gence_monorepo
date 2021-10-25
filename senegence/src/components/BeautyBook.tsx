@@ -1,6 +1,7 @@
 import React from 'react'
-import { Image, ImageBackground, StyleSheet, View } from 'react-native'
+import { Image, ImageBackground, Linking, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { COLORS, FONTS, images, SIZES } from '../constants';
+import { beautyBookDownload } from '../utils/data/links';
 import Spacer from './Spacer';
 import Text from './text/Text';
 
@@ -38,10 +39,12 @@ export const _beautyBook = () => {
             nonumy eirmod tempor invidunt ut labore et dolore magna
           </Text>
           <Spacer mt={10} />
+          <TouchableOpacity activeOpacity={0.7} onPress={() => Linking.openURL(beautyBookDownload)}>
           <Image
             source={images.viewnow}
             style={{width: 151.9, height: 39, alignSelf: 'center'}}
           />
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     );
