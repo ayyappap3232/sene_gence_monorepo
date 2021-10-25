@@ -11,7 +11,7 @@ import FAB from 'react-native-fab';
 import {PageUp} from '../../assets/svgs';
 import Footer from './footers/Footer';
 import Header from './headers/Header';
-import {COLORS, images} from '../constants';
+import {COLORS, images, SIZES} from '../constants';
 import {useNavigation} from '@react-navigation/native';
 
 export const ScrollToTopContainer = ({
@@ -56,7 +56,7 @@ export const ScrollToTopContainer = ({
           setShowShadowEffect(e.nativeEvent.contentOffset.y > 0 ? true: false);
         }}
         ref={scrollRef}
-        style={[{backgroundColor: COLORS.white}, scrollContainerStyle]}
+        style={[{backgroundColor: COLORS.white,paddingTop: 20}, scrollContainerStyle]}
         contentContainerStyle={[{flexGrow: 1}, scrollContentContainerStyle]}>
         {children}
         <Footer
@@ -90,5 +90,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.white,
     flex: 1,
+    marginTop: -20,
   },
 });
