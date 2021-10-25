@@ -41,6 +41,7 @@ export default function Header({
   headerContainerStyle = {},
   showCart = false,
   isBannerShownOnInitialLoad = false,
+  showPageUp=false
 }) {
   const navigation = useNavigation<any>();
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
@@ -205,7 +206,7 @@ export default function Header({
                 />
               </SafeAreaView>
             )}
-            <SafeAreaView style={[styles.header, headerContainerStyle]}>
+            <SafeAreaView style={[styles.header, headerContainerStyle, showPageUp && globalStyles.shadowEffect]}>
               <View style={styles.headerContent}>
                 <TouchableOpacity
                   activeOpacity={0.7}
@@ -330,6 +331,7 @@ export default function Header({
     loading,
     relatedSearchItems,
     correspondingProductItemCount,
+    showPageUp
   ]);
 
   return (

@@ -29,6 +29,7 @@ export const ScrollToTopContainer = ({
   //ScrollTo Top Functionality
   const scrollRef = useRef<ScrollView>();
   const [showPageUp, setShowPageUp] = useState(false);
+  const [showShadowEffect, setShowShadowEffect] = useState(false);
 
   const _goToTop = () => {
     scrollRef.current?.scrollTo({
@@ -43,6 +44,7 @@ export const ScrollToTopContainer = ({
         headerContainerStyle={headerContainerStyle}
         showCart={showCart}
         isBannerShownOnInitialLoad={isBannerShownOnInitialLoad}
+        showPageUp={showShadowEffect}
       />
       <ScrollView
         scrollEventThrottle={16}
@@ -51,6 +53,7 @@ export const ScrollToTopContainer = ({
         nestedScrollEnabled={nestedScrollEnabled}
         onScroll={e => {
           setShowPageUp(e.nativeEvent.contentOffset.y > 100 ? true : false);
+          setShowShadowEffect(e.nativeEvent.contentOffset.y > 0 ? true: false);
         }}
         ref={scrollRef}
         style={[{backgroundColor: COLORS.white}, scrollContainerStyle]}
