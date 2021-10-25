@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, ImageBackground, StyleSheet, View, FlatList} from 'react-native';
+import {Image, ImageBackground, StyleSheet, View, FlatList, TouchableOpacity, Linking} from 'react-native';
 import Divider from '../../../components/dividers/Divider';
 import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
 import Spacer from '../../../components/Spacer';
@@ -42,9 +42,13 @@ export default function SelectCountry() {
             />
           </View>
           <Spacer mt={2} />
-          {data?.languages && <View>
-            <Text>{data.languages}</Text>
-          </View>}
+          <View style={{flexDirection:'row',alignItems: 'center'}}>
+          {data?.languages && data.languages.map((item:any,index: number) => {
+            return <TouchableOpacity key={`language_${index}`} activeOpacity={0.7} onPress={() => Linking.openURL(item.onPress)}>
+            <Text>{item.name}</Text>
+          </TouchableOpacity>
+          })}
+          </View>
           <Spacer mt={11} />
           </>
     })
