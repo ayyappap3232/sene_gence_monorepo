@@ -97,14 +97,14 @@ export default function StartUpPage() {
       <ImageBackground
         source={images.translucentLoosePowder}
         style={{
-          width: 332,
+          width: SIZES.width - 62,
           height: 284,
           marginLeft: 5,
           justifyContent: 'center',
         }}>
         <Image
           source={images.translucentLoosePowderInnerContent}
-          style={{width: 334, height: 70}}
+          style={{width: SIZES.width - 60, height: 70}}
         />
       </ImageBackground>
     );
@@ -186,12 +186,12 @@ export default function StartUpPage() {
     <ScrollToTopContainer showCart={true} isBannerShownOnInitialLoad={true}>
       <View style={{paddingHorizontal: 29}}>
         <HomeCarousel carouselData={homeCarouselData} />
-        <OutlineButton title={'SHOP & SAVE'} onPress={() => Linking.openURL(shopAndSave)} />
+        <OutlineButton containerStyle={{width: SIZES.width - 60}} title={'SHOP & SAVE'} onPress={() => Linking.openURL(shopAndSave)} />
         <Spacer mt={10} />
-        <OutlineButton title={'BECOME A DISTRIBUTOR'} onPress={() => Linking.openURL(distributorEnrollToday)} />
+        <OutlineButton containerStyle={{width: SIZES.width - 60}} title={'BECOME A DISTRIBUTOR'} onPress={() => Linking.openURL(distributorEnrollToday)} />
         <Spacer mt={34} />
-        <Image source={images.banner1} style={{width: 334, height: 214}} />
-        <ImageBackground source={images.path} style={{width: 334, height: 214}}>
+        <Image source={images.banner1} style={{width: SIZES.width - 60, height: 214}} />
+        <ImageBackground source={images.path} style={{width: SIZES.width - 60, height: 214}}>
           <View
             style={{marginHorizontal: 20, marginTop: 23.6, marginBottom: 18.4}}>
             <Text

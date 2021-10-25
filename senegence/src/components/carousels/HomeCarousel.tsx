@@ -18,7 +18,7 @@ export default function HomeCarousel({carouselData}: any) {
         key={item.id}
         resizeMode="cover"
         source={item.image}
-        style={{width: SIZES.width-59.5, height: 363}}>
+        style={{width: SIZES.width-60, height: 363}}>
         <View
           style={[
             styles.carouselInnerContent,

@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
-import { COLORS, FONTS } from "../../constants";
+import { COLORS, FONTS, SIZES } from "../../constants";
 import OutlineButton from "../buttons/OutlineButton";
 import Spacer from "../Spacer";
 import Text from "../text/Text";
@@ -18,7 +18,7 @@ export const _renderSectionContent = (
       <>
         <Image
           source={image}
-          style={{width: 334, height: height}}
+          style={{width: SIZES.width - 60, height: height}}
           resizeMode="contain"
         />
         <Spacer mt={10} />
@@ -69,6 +69,7 @@ export const _renderSectionContent = (
         alignSelf: 'center',
         borderWidth: 2,
         borderColor: COLORS.primary2,
+        width: SIZES.width - 60
       },
       shopSaveBtnText: {
         color: COLORS.primary2,
