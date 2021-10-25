@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     marginBottom: 94,
     marginHorizontal: 10,
     padding: 10,
-    width: 314,
+    width: SIZES.width-80,
     height: 174
   },
   title: {

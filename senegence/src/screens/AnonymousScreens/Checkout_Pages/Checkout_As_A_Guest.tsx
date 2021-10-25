@@ -519,6 +519,7 @@ export default function Checkout_As_A_Guest() {
                 {
                   backgroundColor: COLORS.primary3,
                   borderColor: COLORS.primary3,
+                  alignSelf:'center'
                 },
               ]}
               textStyleContainer={[globalStyles.bannerBtnTextWhite]}
@@ -537,6 +538,7 @@ export default function Checkout_As_A_Guest() {
               ]}>
               I don’t want exclusive offers
             </Text>
+            <Spacer mt={30} />
           </ScrollView>
         </View>
       </Modal>
