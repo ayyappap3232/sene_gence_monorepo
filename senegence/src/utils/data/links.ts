@@ -9,3 +9,15 @@ export const makesensefoundation = "https://makesensefoundation.org/";
 export const applyForGrant = "https://makesensefoundation.org/grants/";
 export const nominateAnOrganization= "mailto:info@makesensefoundation.org";
 export const distributorEnrollToday = "https://www.senegence.com/distributorsignup/sponsor?c=2&l=en";
+
+//Country Languages Urls
+export const usa_English = "https://seneweb.senegence.com/us/";
+export const usa_Espanol = "https://seneweb.senegence.com/es-us/";
+export const canada_English="https://seneweb.senegence.com/ca/";
+export const canada_French="https://seneweb.senegence.com/fr-ca/";
+export const mexico_Spanish="https://seneweb.senegence.com/mx/";
+export const english_Hongkong = "https://seneweb.senegence.com/en-hk/";
+export const chinese_Hongkong = "https://seneweb.senegence.com/zh-hk/";
+export const switzerland_Deutsch="https://www.seneswiss.ch/"
+export const switzerland_French="https://www.seneswiss.ch/fr/"
+export const switzerland_English="https://www.seneswiss.ch/en/"
