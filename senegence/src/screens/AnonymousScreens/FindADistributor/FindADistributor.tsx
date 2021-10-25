@@ -17,7 +17,7 @@ export default function FindADistributor() {
     return (
       <ImageBackground
         source={images.findadistributor}
-        style={{width: 335, height: 332}}>
+        style={{width: SIZES.width-60, height: 332,alignSelf:'center'}}>
         <Spacer mt={98} />
         <Text containerStyle={[globalStyles.bannerHeader, {letterSpacing: 3}]}>
           Find a
