@@ -18,7 +18,7 @@ export default function ContactUs() {
       <>
         <ImageBackground
           source={images.contactusbanner}
-          style={{width: 334, height: 278,marginHorizontal: 10}}>
+          style={{width: SIZES.width-60, height: 278,marginHorizontal: 10}}>
           <View>
             <Spacer mt={65} />
             <Text

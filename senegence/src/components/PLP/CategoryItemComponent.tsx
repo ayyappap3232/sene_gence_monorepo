@@ -169,7 +169,7 @@ const CategoryItemComponent = (
                 );
               })}
               <Text>
-                {item.values?.length > 0 && item.values.length} more colors
+                +{item.values?.length > 0 && item.values.length} more colors
               </Text>
             </View>
           ) : null;
