@@ -7,6 +7,7 @@ export default function OutlineTextInputMultiline({
   placeholder,
   onChangeText,
   containerStyle,
+  placeholderTextColor=COLORS.swatch,
   restProps,
   value
 }: IOutlineTextProps) {
@@ -15,6 +16,7 @@ export default function OutlineTextInputMultiline({
     <TextInput
       value={value}
       placeholder={placeholder}
+      placeholderTextColor={placeholderTextColor}
       onChangeText={onChangeText}
       {...restProps}
       style={[styles.textInput,containerStyle]}
