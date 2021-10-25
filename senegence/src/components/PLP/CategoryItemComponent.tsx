@@ -18,7 +18,7 @@ import Spacer from '../Spacer';
 import Text from '../text/Text';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {ScreenNames} from '../../utils/screenNames';
-import { product_tag_content } from '../../helpers/product_tag';
+import {product_tag_content} from '../../helpers/product_tag';
 
 const CategoryItemComponent = (
   item: Item,
@@ -44,7 +44,6 @@ const CategoryItemComponent = (
     second_title,
     stock_status,
   } = item || {};
-
 
   const _priceContent = () => {
     return (
@@ -107,7 +106,6 @@ const CategoryItemComponent = (
     );
   };
 
-
   const handleCategoryDetailsNavigation = (item: Item) => {
     navigation.navigate(ScreenNames.CategoryDetails, {
       categoryDetail: item,
@@ -116,7 +114,7 @@ const CategoryItemComponent = (
     });
   };
 
-  const _renderImageContent = (item:any) => {
+  const _renderImageContent = (item: any) => {
     return (
       <ImageBackground
         source={images.rectangleGrayBg}
@@ -127,7 +125,9 @@ const CategoryItemComponent = (
             right: 2,
             top: 2,
           }}>
-          <Text containerStyle={product_tag && styles.productTag}>{product_tag_content(product_tag)}</Text>
+          <Text containerStyle={product_tag && styles.productTag}>
+            {product_tag_content(product_tag)}
+          </Text>
         </View>
         <Image source={{uri: url}} style={styles.image} />
         <OutlineButton
@@ -150,13 +150,33 @@ const CategoryItemComponent = (
             color: COLORS.swatch,
           },
         ]}>
-        {configurable_options?.map((item,index) => {
-          return item.attribute_code == "color" ? <Text>{item.values?.length > 0 && item.values.length} more colors</Text> : null;
+        {configurable_options?.map((item, index) => {
+          return item.attribute_code == 'color' ? (
+            <View style={{flexDirection: 'row',alignItems:'center',flexWrap: 'wrap'}}>
+              {item.values.map((subItem, index) => {
+                return (
+                  index < 3 && (
+                    <View
+                    key={index}
+                      style={{
+                        backgroundColor: subItem.swatch_data?.value,
+                        width: 15,
+                        height: 15,
+                        borderRadius: 30,
+                        marginRight: 3
+                      }}></View>
+                  )
+                );
+              })}
+              <Text>
+                {item.values?.length > 0 && item.values.length} more colors
+              </Text>
+            </View>
+          ) : null;
         })}
       </Text>
     );
   };
-
 
   return (
     <TouchableOpacity
@@ -262,7 +282,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     paddingVertical: 2,
     fontFamily: FONTS.AvenirBook,
-    fontSize: SIZES.base
+    fontSize: SIZES.base,
   },
 });
 
