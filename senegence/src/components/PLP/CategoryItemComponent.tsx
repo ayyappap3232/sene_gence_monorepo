@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   imageBackground: {
-    width: 162,
+    width: SIZES.width/2-20,
     height: 271,
     justifyContent: 'center',
     alignItems: 'center',

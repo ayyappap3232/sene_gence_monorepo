@@ -288,7 +288,7 @@ export default function CategoryScreen() {
         <FlatList
           scrollEnabled={false}
           // columnWrapperStyle={{alignItems: 'flex-start'}}
-          contentContainerStyle={{paddingLeft: 22}}
+          contentContainerStyle={{paddingHorizontal:15,alignContent:'center',flex:1}}
           numColumns={gridView ? 1 : 2}
           key={gridView ? 1 : 0}
           renderItem={({item}) => (
