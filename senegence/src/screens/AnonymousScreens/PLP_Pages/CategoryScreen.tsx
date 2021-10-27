@@ -43,7 +43,7 @@ export default function CategoryScreen() {
   const [collapsed, setCollapsed] = useState(false);
 
   const route = useRoute<any>();
-  const {name, url_path} = route?.params?.categoryData;
+  const {name, url_path, breadcrumbs} = route?.params?.categoryData;
   const {searchParam, attribute_code} = route?.params?.categoryData;
 
   const [pageSize, setPageSize] = useState(10);
@@ -262,7 +262,7 @@ export default function CategoryScreen() {
   return (
     <ScrollToTopContainer showCart={false}>
       <View style={{marginLeft: 20}}>
-        {_breadCrumbs(breadCrumbs, name, navigation)}
+        {_breadCrumbs(breadcrumbs || breadCrumbs, name, navigation)}
       </View>
       {description && (
         <>
