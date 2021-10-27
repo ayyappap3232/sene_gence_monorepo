@@ -288,8 +288,8 @@ export default function CategoryScreen() {
                 height: 278,
                 alignItems: 'center',
                 marginHorizontal: 20,
-                flex:1,
-                justifyContent:'center'
+                flex: 1,
+                justifyContent: 'center',
               }}>
               <RenderHtml
                 contentWidth={SIZES.width}
@@ -305,6 +305,11 @@ export default function CategoryScreen() {
                     paddingHorizontal: 10,
                   },
                   h2: {fontSize: SIZES.largeTitle},
+                  li: {
+                    fontSize: SIZES.h1,
+                    textAlign: 'center',
+                    paddingHorizontal: 10,
+                  },
                 }}
                 source={source}
                 renderersProps={renderersProps}
@@ -431,6 +436,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: COLORS.removedBackground,
+    paddingVertical: 10,
   },
   paginationContainer: {
     justifyContent: 'center',
