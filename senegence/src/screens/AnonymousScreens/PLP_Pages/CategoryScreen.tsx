@@ -54,7 +54,7 @@ export default function CategoryScreen() {
   const [gridView, setgridView] = useState<boolean>(false);
   const [filteredValue, setFilteredValue] = useState();
   const [searchCount, setSearchCount] = useState(0);
-  const [descriptionImageUrl, setDescriptionImageUrl] = useState('');
+  const [descriptionImageUrl, setDescriptionImageUrl] = useState(null);
 
   console.log('filtered Value', filteredValue);
 
