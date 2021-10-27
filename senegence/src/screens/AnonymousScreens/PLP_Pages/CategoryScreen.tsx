@@ -31,7 +31,9 @@ import RecentlyViewedProducts from '../../../components/RecentlyViewedProducts';
 import {_beautyBook} from '../../../components/BeautyBook';
 import {_breadCrumbs} from '../../../components/breadCrumbs/BreadCrumbWithInfinityLoop';
 import {useSearchCategoryList} from '../../../apollo/controllers/getSearchCategoryList.Controller';
-import { globalStyles } from '../../../globalstyles/GlobalStyles';
+import {globalStyles} from '../../../globalstyles/GlobalStyles';
+import LinkPreview from 'react-native-link-preview';
+import Overlay from '../../../components/overlays/Overlay';
 
 export default function CategoryScreen() {
   const navigation = useNavigation<any>();
@@ -52,8 +54,9 @@ export default function CategoryScreen() {
   const [gridView, setgridView] = useState<boolean>(false);
   const [filteredValue, setFilteredValue] = useState();
   const [searchCount, setSearchCount] = useState(0);
+  const [descriptionImageUrl, setDescriptionImageUrl] = useState('');
 
-  console.log('filtered Value',filteredValue)
+  console.log('filtered Value', filteredValue);
 
   let {getCategoryList, loading, error, categoryList} = useCategoryList({
     url_path: url_path,
@@ -247,6 +250,15 @@ export default function CategoryScreen() {
     },
   };
 
+  let matches = description?.match(/\bhttps?:\/\/\S+/gi);
+
+  LinkPreview.getPreview(matches && matches[0]).then((data: any) => {
+    console.log(data);
+    setDescriptionImageUrl(data?.url?.split('/&quot;')[0]);
+  });
+
+  console.log('desc', description);
+
   return (
     <ScrollToTopContainer showCart={false}>
       <View style={{marginLeft: 20}}>
@@ -256,20 +268,48 @@ export default function CategoryScreen() {
         <>
           <Spacer mt={10} />
           <View
-            style={[globalStyles.shadowEffect,
-              {width: SIZES.width-40, marginTop: 10,marginHorizontal: 20, justifyContent: 'center',backgroundColor: COLORS.white,height: SIZES.height/4, paddingHorizontal: 20},
+            style={[
+              {
+                width: SIZES.width - 40,
+                marginTop: 10,
+                marginHorizontal: 20,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: COLORS.white,
+                height: 278,
+                paddingHorizontal: 20,
+              },
             ]}>
-            <RenderHtml
-              contentWidth={SIZES.width}
-              allowedStyles={[
-                'backgroundColor',
-                'justifyContent',
-                'flexDirection',
-              ]}
-              tagsStyles={{h1:{fontSize:70}}}
-              source={source}
-              renderersProps={renderersProps}
-            />
+            <ImageBackground
+              source={{uri: descriptionImageUrl}}
+              loadingIndicatorSource={{}}
+              style={{
+                width: SIZES.width - 40,
+                height: 278,
+                alignItems: 'center',
+                marginHorizontal: 20,
+                flex:1,
+                justifyContent:'center'
+              }}>
+              <RenderHtml
+                contentWidth={SIZES.width}
+                allowedStyles={[
+                  'backgroundColor',
+                  'justifyContent',
+                  'flexDirection',
+                ]}
+                tagsStyles={{
+                  span: {
+                    color: COLORS.white,
+                    textAlign: 'center',
+                    paddingHorizontal: 10,
+                  },
+                  h2: {fontSize: SIZES.largeTitle},
+                }}
+                source={source}
+                renderersProps={renderersProps}
+              />
+            </ImageBackground>
           </View>
         </>
       )}
@@ -288,7 +328,11 @@ export default function CategoryScreen() {
         <FlatList
           scrollEnabled={false}
           // columnWrapperStyle={{alignItems: 'flex-start'}}
-          contentContainerStyle={{paddingHorizontal:15,alignContent:'center',flex:1}}
+          contentContainerStyle={{
+            paddingHorizontal: 15,
+            alignContent: 'center',
+            flex: 1,
+          }}
           numColumns={gridView ? 1 : 2}
           key={gridView ? 1 : 0}
           renderItem={({item}) => (
