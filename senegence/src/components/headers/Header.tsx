@@ -39,9 +39,9 @@ import {
 
 export default function Header({
   headerContainerStyle = {},
-  showCart = false,
+  showCart = true,
   isBannerShownOnInitialLoad = false,
-  showPageUp=false
+  showPageUp = false,
 }) {
   const navigation = useNavigation<any>();
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
@@ -64,7 +64,7 @@ export default function Header({
       setIsSearchOpen(false);
       navigation.navigate(ScreenNames.SearchScreen, {
         searchQuery: name || searchText,
-        searchParam: ""
+        searchParam: '',
       });
       // setSearchText('');
       setRelatedSearchItems([]);
@@ -166,32 +166,30 @@ export default function Header({
   };
 
   const _shoppingCartModal = () => {
-    return <Modal
-    style={[
-      globalStyles.shadowEffect,
-      styles.modalWrapper,
-    ]}
-    supportedOrientations={['portrait']}
-    backdropOpacity={0}
-    presentationStyle="overFullScreen"
-    animationOut="slideOutDown"
-    isVisible={visible}
-    animationIn="slideInUp">
-    <View style={styles.addToCartWrapper}>
-      <View
-        style={{paddingLeft: 20, paddingTop: 5, marginBottom: 10}}>
-        <TouchableOpacity onPress={() => showModal()}>
-          <Image
-            source={images.close}
-            style={styles.modalClose}
-          />
-        </TouchableOpacity>
-      </View>
+    return (
+      <Modal
+        style={[globalStyles.shadowEffect, styles.modalWrapper]}
+        supportedOrientations={['portrait']}
+        backdropOpacity={0}
+        presentationStyle="overFullScreen"
+        animationOut="slideOutDown"
+        isVisible={visible}
+        animationIn="slideInUp">
+        <View style={styles.addToCartWrapper}>
+          <View style={{paddingLeft: 20, paddingTop: 5, marginBottom: 10}}>
+            <TouchableOpacity onPress={() => showModal()}>
+              <Image source={images.close} style={styles.modalClose} />
+            </TouchableOpacity>
+          </View>
 
-      <Minishoppingbag miniShoppingCartData={miniShoppingCartData} setVisible={setVisible} />
-    </View>
-  </Modal>
-  }
+          <Minishoppingbag
+            miniShoppingCartData={miniShoppingCartData}
+            setVisible={setVisible}
+          />
+        </View>
+      </Modal>
+    );
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -206,7 +204,12 @@ export default function Header({
                 />
               </SafeAreaView>
             )}
-            <SafeAreaView style={[styles.header, headerContainerStyle, showPageUp && globalStyles.shadowEffect]}>
+            <SafeAreaView
+              style={[
+                styles.header,
+                headerContainerStyle,
+                showPageUp && globalStyles.shadowEffect,
+              ]}>
               <View style={styles.headerContent}>
                 <TouchableOpacity
                   activeOpacity={0.7}
@@ -223,8 +226,7 @@ export default function Header({
                   style={{width: 126.1, height: 28.8}}
                 />
               </View>
-              <View
-                style={[styles.headerContent, showCart && {marginRight: 5}]}>
+              <View style={[styles.headerContent, {marginRight: 5}]}>
                 <TouchableOpacity onPress={() => handleSearch()}>
                   <Image
                     source={images.search}
@@ -232,21 +234,18 @@ export default function Header({
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
-                {showCart && (
-                  <TouchableOpacity onPress={() => 
-                    {
+                {
+                  <TouchableOpacity
+                    onPress={() => {
                       //showModal()
-                       navigation.navigate(ScreenNames.MainShoppingCartBag)
-                    }
-                  
-                  }>
+                      navigation.navigate(ScreenNames.MainShoppingCartBag);
+                    }}>
                     <Image
                       source={images.shoppingbag}
                       style={{width: 16, height: 16, marginHorizontal: 5}}
                       resizeMode="contain"
                     />
-                    <View
-                      style={styles.miniShoppingCartIcon}>
+                    <View style={styles.miniShoppingCartIcon}>
                       <Text
                         containerStyle={{
                           fontSize: SIZES.body5,
@@ -256,7 +255,7 @@ export default function Header({
                       </Text>
                     </View>
                   </TouchableOpacity>
-                )}
+                }
                 <View
                   style={[styles.globeWrapper, !showCart && {marginLeft: 10}]}>
                   <Image
@@ -271,8 +270,7 @@ export default function Header({
             <Collapsible collapsed={!isSearchOpen}>
               {isSearchOpen && (
                 <>
-                  <View
-                    style={styles.clearAndSearchWrapper}>
+                  <View style={styles.clearAndSearchWrapper}>
                     <OutlineTextInput
                       value={searchText}
                       containerStyle={{
@@ -331,7 +329,7 @@ export default function Header({
     loading,
     relatedSearchItems,
     correspondingProductItemCount,
-    showPageUp
+    showPageUp,
   ]);
 
   return (
@@ -374,14 +372,14 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 10,
   },
-  searchItemDropdownList:{
+  searchItemDropdownList: {
     paddingHorizontal: 20,
     paddingVertical: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  clearAndSearchWrapper:{
+  clearAndSearchWrapper: {
     flexDirection: 'row',
     marginHorizontal: 10,
     height: 50,
@@ -396,7 +394,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
-  miniShoppingCartIcon:{
+  miniShoppingCartIcon: {
     position: 'absolute',
     bottom: 14,
     right: -5,
@@ -407,7 +405,7 @@ const styles = StyleSheet.create({
     height: 16,
     borderRadius: 10,
   },
-  modalWrapper:{
+  modalWrapper: {
     width: SIZES.width - 16,
     marginTop: 80,
     marginHorizontal: 8,
@@ -418,5 +416,5 @@ const styles = StyleSheet.create({
     height: 24,
     marginRight: 10,
     alignSelf: 'flex-end',
-  }
+  },
 });

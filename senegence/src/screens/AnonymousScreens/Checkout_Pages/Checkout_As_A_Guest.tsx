@@ -49,6 +49,7 @@ export default function Checkout_As_A_Guest() {
   const [isShippingAddressSame, setIsShippingAddressSame] = useState(false);
   const [checkedIndex, setCheckedIndex] = useState(0);
   const [visible, setVisible] = useState(true);
+  const [visible1, setVisible1] = useState(true);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -454,6 +455,7 @@ export default function Checkout_As_A_Guest() {
   };
 
   const showModal = () => setVisible(false);
+  const showModal1 = () => setVisible1(false);
 
   const _offerTextWithCheckMark = (text: string) => {
     return (
@@ -462,6 +464,56 @@ export default function Checkout_As_A_Guest() {
         <Spacer mr={10} />
         <Text>{text}</Text>
       </View>
+    );
+  };
+
+  const _modalCheckoutAsAGuestAlert = () => {
+    return (
+      <Modal
+        style={[globalStyles.shadowEffect, styles.modalWrapper, {flex: 0.4}]}
+        supportedOrientations={['portrait']}
+        backdropOpacity={0}
+        presentationStyle="overFullScreen"
+        animationOut="slideOutDown"
+        isVisible={visible1}
+        animationIn="slideInUp">
+        <View style={styles.modalContentWrapper}>
+          <View style={{paddingLeft: 20, paddingTop: 5, marginBottom: 10}}>
+            <TouchableOpacity onPress={() => showModal1()}>
+              <Image source={images.close} style={styles.modalClose} />
+            </TouchableOpacity>
+          </View>
+          <ScrollView
+            contentContainerStyle={{paddingHorizontal: 20,paddingTop: 20}}
+            showsVerticalScrollIndicator={false}>
+            <Text containerStyle={{textAlign: 'center'}}>
+              Lorem Ipsum is simply dummy text of the printing and typesetting{' '}
+            </Text>
+            <Spacer mt={20} />
+            <OutlineButton
+              title={'Create an account & checkout'}
+              onPress={() => {}}
+              textStyleContainer={[globalStyles.bannerBtnTextWhite]}
+              containerStyle={[
+                globalStyles.bannerBtnBlueBackground,
+                {width: '100%'},
+              ]}
+            />
+            <Spacer mt={20} />
+            <TouchableOpacity>
+              <Text
+                containerStyle={{
+                  textTransform: 'uppercase',
+                  color: COLORS.primary2,
+                  fontFamily: FONTS.AvenirMedium,
+                  textAlign: 'center',
+                }}>
+                No, Checkout as a guest
+              </Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
+      </Modal>
     );
   };
 
@@ -652,6 +704,7 @@ export default function Checkout_As_A_Guest() {
         <Spacer mt={20} />
         {_itemsYourMayLike()}
         {_modalOfferAlert()}
+        {_modalCheckoutAsAGuestAlert()}
       </View>
     </ScrollToTopContainer>
   );
