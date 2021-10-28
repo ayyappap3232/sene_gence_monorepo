@@ -176,6 +176,7 @@ const winnershapebeautyaward_2 = require("../../assets/images/press/winnershapeb
 
 //shopping cart
 const shoppingbag = require("../../assets/images/shoppingcart/shoppingbag.png")
+const giftBox = require("../../assets/images/shoppingcart/giftbox.png")
 
 const faqbanner = require("../../assets/images/faqbanner.png")
 const fabbackgroundimage = require("../../assets/images/fabbackgroundimage.png")
@@ -227,6 +228,7 @@ const freesample6 = require("../../assets/images/freeSamples/freesample6.png")
 const freesample7 = require("../../assets/images/freeSamples/freesample7.png")
 
 export default {
+    giftBox,
     freesample0,
     freesample1,
     freesample2,

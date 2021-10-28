@@ -264,47 +264,43 @@ export default function Checkout_As_A_Guest() {
         )}
         <Spacer mt={20} />
 
-
-          <>
-            {_inputItem(
-              'Address 1',
-              (text: string) => {
-                setShippingAddress1(text);
-              },
-              'Enter your Address...',
-              true,
-            )}
-            <Spacer mt={20} />
-            {_inputItem(
-              'Address 2',
-              (text: string) => {
-                setShippingAddress2(text);
-              },
-              'Address second line...',
-              true,
-            )}
-            <Spacer mt={20} />
-            {/* //Todo: convertion to dropdowns  */}
-            <Select
-              setSelectedValue={setCountry}
-              selectedValue={country}
-              data={countriesData?.countries}
-              title={'Country'}
-              isMandatory={true}
-            />
-            <Spacer mt={20} />
-            <Select data={['']} title={'State'} isMandatory={true} />
-            <Spacer mt={20} />
-            <Select data={['']} title={'City'} isMandatory={true} />
-            <Spacer mt={20} />
-            {_inputItem('Zip Code', () => {}, 'Enter your zip code', true)}
-            <Spacer mt={20} />
-            {button(() => {
-              
-            }, 'Next')}
-            <Spacer mt={20} />
-          </>
-
+        <>
+          {_inputItem(
+            'Address 1',
+            (text: string) => {
+              setShippingAddress1(text);
+            },
+            'Enter your Address...',
+            true,
+          )}
+          <Spacer mt={20} />
+          {_inputItem(
+            'Address 2',
+            (text: string) => {
+              setShippingAddress2(text);
+            },
+            'Address second line...',
+            true,
+          )}
+          <Spacer mt={20} />
+          {/* //Todo: convertion to dropdowns  */}
+          <Select
+            setSelectedValue={setCountry}
+            selectedValue={country}
+            data={countriesData?.countries}
+            title={'Country'}
+            isMandatory={true}
+          />
+          <Spacer mt={20} />
+          <Select data={['']} title={'State'} isMandatory={true} />
+          <Spacer mt={20} />
+          <Select data={['']} title={'City'} isMandatory={true} />
+          <Spacer mt={20} />
+          {_inputItem('Zip Code', () => {}, 'Enter your zip code', true)}
+          <Spacer mt={20} />
+          {button(() => {}, 'Next')}
+          <Spacer mt={20} />
+        </>
       </Collapsible>
     );
   };
@@ -321,85 +317,84 @@ export default function Checkout_As_A_Guest() {
           isBillingViewAllDetails,
         )}
         <Spacer mt={20} />
-          <>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Checkbox
-                state={isShippingAddressSame}
-                setState={() => {
-                  setIsShippingAddressSame(!isShippingAddressSame);
-                  // !isShippingAddressSame
-                  //   ? setBillingAddress1(shippingAddress1)
-                  //   : setBillingAddress1('');
-                  // !isShippingAddressSame
-                  //   ? setBillingAddress2(shippingAddress2)
-                  //   : setBillingAddress2('');
-                  // !isShippingAddressSame
-                  //   ? setBillingAddressCountry(country)
-                  //   : setBillingAddressCountry('');
-                }}
+        <>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Checkbox
+              state={isShippingAddressSame}
+              setState={() => {
+                setIsShippingAddressSame(!isShippingAddressSame);
+                // !isShippingAddressSame
+                //   ? setBillingAddress1(shippingAddress1)
+                //   : setBillingAddress1('');
+                // !isShippingAddressSame
+                //   ? setBillingAddress2(shippingAddress2)
+                //   : setBillingAddress2('');
+                // !isShippingAddressSame
+                //   ? setBillingAddressCountry(country)
+                //   : setBillingAddressCountry('');
+              }}
+            />
+            <Spacer mr={10} />
+            {/* //Todo: This logic same as a shipping address */}
+            <Text>Same as a shipping address</Text>
+          </View>
+          <Spacer mt={20} />
+          {!isShippingAddressSame && (
+            <>
+              {_inputItem(
+                'Address 1',
+                (text: string) => {
+                  setBillingAddress1(text);
+                },
+                'Enter your Address...',
+                true,
+                false,
+                billingAddress1,
+              )}
+              <Spacer mt={20} />
+              {_inputItem(
+                'Address 2',
+                (text: string) => {
+                  setBillingAddress2(text);
+                },
+                'Address second line...',
+                true,
+                false,
+                billingAddress2,
+              )}
+              <Spacer mt={20} />
+              <Select
+                setSelectedValue={setBillingAddressCountry}
+                selectedValue={billingAddressCountry}
+                checked={isShippingAddressSame}
+                data={countriesData?.countries}
+                title={'Country'}
+                isMandatory={true}
               />
-              <Spacer mr={10} />
-              {/* //Todo: This logic same as a shipping address */}
-              <Text>Same as a shipping address</Text>
-            </View>
-            <Spacer mt={20} />
-            {!isShippingAddressSame && (
-              <>
-                
-                {_inputItem(
-                  'Address 1',
-                  (text: string) => {
-                    setBillingAddress1(text);
-                  },
-                  'Enter your Address...',
-                  true,
-                  false,
-                  billingAddress1,
-                )}
-                <Spacer mt={20} />
-                {_inputItem(
-                  'Address 2',
-                  (text: string) => {
-                    setBillingAddress2(text);
-                  },
-                  'Address second line...',
-                  true,
-                  false,
-                  billingAddress2,
-                )}
-                <Spacer mt={20} />
-                <Select
-                  setSelectedValue={setBillingAddressCountry}
-                  selectedValue={billingAddressCountry}
-                  checked={isShippingAddressSame}
-                  data={countriesData?.countries}
-                  title={'Country'}
-                  isMandatory={true}
-                />
-                <Spacer mt={20} />
-                <Select
-                  checked={isShippingAddressSame}
-                  data={['']}
-                  title={'State'}
-                  isMandatory={true}
-                />
-                <Spacer mt={20} />
-                <Select
-                  checked={isShippingAddressSame}
-                  data={['']}
-                  title={'City'}
-                  isMandatory={true}
-                />
-                <Spacer mt={20} />
-                {_inputItem('Zip Code', () => {}, 'Enter your zip code', true)}
-                <Spacer mt={20} />
-                {button(() => {
-                  setShowBillingCardDetails(true);
-                }, 'Next')}
-                <Spacer mt={20} />
-              </>
-            )}
-          </>
+              <Spacer mt={20} />
+              <Select
+                checked={isShippingAddressSame}
+                data={['']}
+                title={'State'}
+                isMandatory={true}
+              />
+              <Spacer mt={20} />
+              <Select
+                checked={isShippingAddressSame}
+                data={['']}
+                title={'City'}
+                isMandatory={true}
+              />
+              <Spacer mt={20} />
+              {_inputItem('Zip Code', () => {}, 'Enter your zip code', true)}
+              <Spacer mt={20} />
+              {button(() => {
+                setShowBillingCardDetails(true);
+              }, 'Next')}
+              <Spacer mt={20} />
+            </>
+          )}
+        </>
       </Collapsible>
     );
   };
@@ -498,6 +493,15 @@ export default function Checkout_As_A_Guest() {
             </Text>
             <Spacer mt={20} />
             {/* //Todo: Need to add offer cart image */}
+            <Image
+              source={images.giftBox}
+              style={{
+                width: 161,
+                height: 175,
+                resizeMode: 'cover',
+                alignSelf: 'center',
+              }}
+            />
             <Spacer mt={20} />
             {_offerTextWithCheckMark(' You get 10% Off All Orders')}
             {_offerTextWithCheckMark(' Free Shipping on Items Over $xx')}
@@ -519,7 +523,7 @@ export default function Checkout_As_A_Guest() {
                 {
                   backgroundColor: COLORS.primary3,
                   borderColor: COLORS.primary3,
-                  alignSelf:'center'
+                  alignSelf: 'center',
                 },
               ]}
               textStyleContainer={[globalStyles.bannerBtnTextWhite]}
@@ -639,7 +643,12 @@ export default function Checkout_As_A_Guest() {
         )}
         {_shippingMethod()}
         <Spacer mt={20} />
-        <OrderSummaryCard buttonText={"Place Order"} subTotal={subTotal} cartItemCount={cartItemCount} shippingAmount={shippingAmount}/>
+        <OrderSummaryCard
+          buttonText={'Place Order'}
+          subTotal={subTotal}
+          cartItemCount={cartItemCount}
+          shippingAmount={shippingAmount}
+        />
         <Spacer mt={20} />
         {_itemsYourMayLike()}
         {_modalOfferAlert()}
@@ -668,7 +677,7 @@ const styles = StyleSheet.create({
     marginTop: 80,
     marginHorizontal: 8,
     backgroundColor: COLORS.white,
-    flex: 0.7,
+    flex: 1,
   },
   modalClose: {
     width: 24,
