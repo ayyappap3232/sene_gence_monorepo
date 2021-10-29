@@ -153,9 +153,9 @@ export default function ContactUsForm() {
               setSelectedValue={setNeedInformation}
               selectedValue={needInformation}
               data={needInformationData}
-              title={'I need information on'}
+              title={'I Need Information On'}
               isMandatory={true}
-              defaultButtonText={'Please Select'}
+              defaultButtonText={'Please Select...'}
             />
             {_errorHandler(needInformation) ? (
               <Error errorMessage={errors.needInformation} />
@@ -166,9 +166,9 @@ export default function ContactUsForm() {
               setSelectedValue={setHeardAboutSenegence}
               selectedValue={heardAboutSenegence}
               data={heardAboutSenegenceData}
-              title={'I heard about SeneGence'}
+              title={'I Heard About SeneGence'}
               isMandatory={true}
-              defaultButtonText={'Please Select'}
+              defaultButtonText={'Please Select...'}
             />
             {_errorHandler(heardAboutSenegence) ? (
               <Error errorMessage={errors.heardAboutSenegence} />
@@ -176,10 +176,10 @@ export default function ContactUsForm() {
 
             <Spacer mt={10} />
             {_inputItem(
-              "What's on your mind?",
+              "What Is In Your Mind?",
               handleChange('comments'),
               'Write Your Comments ',
-              true,
+              false,
               true,
               values.comments,
             )}
