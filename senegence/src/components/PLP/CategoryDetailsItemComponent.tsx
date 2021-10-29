@@ -541,10 +541,10 @@ export default function CategoryDetailsItemComponent({
     );
   };
 
-  const _ratings = () => {
+  const _ratings = (rating: any, containerStyle={}) => {
     return (
       <>
-        <Rating />
+        <Rating ratingText={rating}  containerStyle={containerStyle}/>
       </>
     );
   };
@@ -578,6 +578,10 @@ export default function CategoryDetailsItemComponent({
         {_priceWithDiscount()}
         <Spacer mt={10} />
         <Divider width={330} backgroundColor={COLORS.border} />
+        <Spacer mt={10} />
+        <View style={{marginLeft:10}}>
+            {_ratings("",{flexDirection: 'row',alignItems: 'flex-start'})}
+        </View>
         {/* swatch info */}
 
         {/* swatch attribute label and colors */}
@@ -634,7 +638,7 @@ export default function CategoryDetailsItemComponent({
       {/* Get the Recently Viewed Products from the Async Storage i.e localstorage */}
       {_renderProductData(recentlyViewedProducts)}
       <Spacer mb={20} />
-      {_ratings()}
+      {_ratings("4.1")}
       {_reviews()}
     </View>
   );

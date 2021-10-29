@@ -6,11 +6,11 @@ import Spacer from '../Spacer';
 import Text from '../text/Text';
 import {Rating as Ratings, AirbnbRating} from 'react-native-ratings';
 
-export default function Rating() {
+export default function Rating({ratingText="4.1",containerStyle={}}) {
   return (
-    <View style={{alignItems: 'center'}}>
+    <View style={[{alignItems: 'center'},containerStyle]}>
       {/* Rating Value - 4.1, 4.4 etc */}
-      <Text containerStyle={styles.ratingText}>4.1</Text>
+      {ratingText ? <Text containerStyle={styles.ratingText}>{ratingText}</Text> : null }
       {/* Rating Stars based on the rating value */}
       <AirbnbRating
         isDisabled={true}
