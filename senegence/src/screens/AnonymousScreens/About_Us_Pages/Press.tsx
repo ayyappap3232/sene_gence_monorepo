@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Alert } from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Alert} from 'react-native';
 import {
   Image,
   ScrollView,
@@ -25,10 +25,12 @@ import {carouselTypes} from '../../../utils/data/CarouselData';
 import {pressData, pressDrawerContentData} from '../../../utils/data/PressData';
 
 export default function Press() {
-
   const _menu = () => {
     return (
-      <PressDrawer pressDrawerContentData={pressDrawerContentData} initialId={"PDCD1"}/>
+      <PressDrawer
+        pressDrawerContentData={pressDrawerContentData}
+        initialId={'PDCD1'}
+      />
     );
   };
 
@@ -50,20 +52,102 @@ export default function Press() {
           moreTitle={'Read Full Article'}
           lessTitle={'Read Less Article'}
           text={
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
+            'Shop the Best Makeup, Haircare, Skincare and Other Beauty Must-Haves for 2021'
           }
           image={images.VolumizingBrowGelLifestyle}
           headerTitle={'Us Weekly'}
+          containerStyle={{alignItems: 'center', elevation: 0}}
+          textContainerStyle={{textAlign: 'center'}}
+        />
+        <Spacer mt={20} />
+        <CardWithImageTextAndReadMoreOrLessButton
+          moreTitle={'Read Full Article'}
+          lessTitle={'Read Less Article'}
+          text={'The 2021 Shape Beauty Awards: Best Makeup Products'}
+          image={images.TranslucentPowders_Lifestyle}
+          headerTitle={'Shape'}
+          containerStyle={{alignItems: 'center', elevation: 0}}
+          textContainerStyle={{textAlign: 'center'}}
+        />
+        <Spacer mt={20} />
+        <CardWithImageTextAndReadMoreOrLessButton
+          moreTitle={'Read Full Article'}
+          lessTitle={'Read Less Article'}
+          text={'2021 InStyle Beauty Editors’ Pick'}
+          image={images.Digital_Defense_4}
+          headerTitle={'InStyle'}
+          containerStyle={{alignItems: 'center', elevation: 0}}
+          textContainerStyle={{textAlign: 'center'}}
         />
         <Spacer mt={20} />
         <CardWithImageTextAndReadMoreOrLessButton
           moreTitle={'Read Full Article'}
           lessTitle={'Read Less Article'}
           text={
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
+            '5 Products That’ll Instantly Upgrade Your Nighttime Skin Care Routine'
           }
-          image={images.EnchantedForest_ShadowSenseLifestyle}
-          headerTitle={'Today'}
+          image={images.Digital_Defense}
+          headerTitle={'Total Beauty'}
+          containerStyle={{alignItems: 'center', elevation: 0}}
+          textContainerStyle={{textAlign: 'center'}}
+        />
+        <Spacer mt={20} />
+        <CardWithImageTextAndReadMoreOrLessButton
+          moreTitle={'Read Full Article'}
+          lessTitle={'Read Less Article'}
+          text={'Lip Mask & NeoTight in their Top 10 Beauty Picks'}
+          image={images.Neotight_Lifestyle}
+          headerTitle={'Gladys Magazine'}
+          containerStyle={{alignItems: 'center', elevation: 0}}
+          textContainerStyle={{textAlign: 'center'}}
+        />
+        <Spacer mt={20} />
+        <CardWithImageTextAndReadMoreOrLessButton
+          moreTitle={'Read Full Article'}
+          lessTitle={'Read Less Article'}
+          text={'Facial Oils for any skin type - Nangai Oil'}
+          image={images.Nangai_Oil}
+          headerTitle={'FABFITFUN'}
+          containerStyle={{alignItems: 'center', elevation: 0}}
+          textContainerStyle={{textAlign: 'center'}}
+        />
+        <Spacer mt={20} />
+        <CardWithImageTextAndReadMoreOrLessButton
+          moreTitle={'Read Full Article'}
+          lessTitle={'Read Less Article'}
+          text={
+            '5 Reasons To Be Hopeful During Corona Crisis” by CEO Joni Rogers-Kante'
+          }
+          image={images.JoniDesk_White}
+          headerTitle={'Authority Magazine'}
+          containerStyle={{alignItems: 'center', elevation: 0}}
+          textContainerStyle={{textAlign: 'center'}}
+        />
+        <Spacer mt={20} />
+        <TextWithUnderLine title={'Awards'} />
+        <Spacer mt={20} />
+        <CardWithImageTextAndReadMoreOrLessButton
+          moreTitle={'Read Full Article'}
+          lessTitle={'Read Less Article'}
+          text={
+            'Our Translucent Loose Powders were awarded the 2021 SHAPE Beauty Award for best powder! SHAPE says, “Just a light dusting of SeneGence Translucent Loose Powder soaks up post-workout sweat and excess shine, leaving your skin selfie ready.” Each winning beauty product has been tested by the SHAPE Squad, a group of fitness- and beauty-minded staffers, wellness pros, and dermatologists.'
+          }
+          image={images.winnershapebeautyaward}
+          headerTitle={'2021 Shape Beauty Award – Best Powder'}
+          containerStyle={{alignItems: 'center', elevation: 0}}
+          textContainerStyle={{textAlign: 'center'}}
+        />
+        <Spacer mt={20} />
+        <CardWithImageTextAndReadMoreOrLessButton
+          moreTitle={'Read Full Article'}
+          lessTitle={'Read Less Article'}
+          text={
+            'LipSense color technology has received the Beauty 2020 “ICONS Award” by SHAPE. The winners were selected by editors and The Shape Squad, a group of fitness and beauty-minded staffers, pros, and dermatologists who tested and approved 77 products that not only work but also enhance your physical and mental states.'
+          }
+          image={images.winnershapebeautyaward_2}
+          headerTitle={'LipSense Awarded Shape 2020 Beauty Award'}
+          containerStyle={{alignItems: 'center', elevation: 0}}
+          textContainerStyle={{textAlign: 'center'}}
         />
       </View>
     );
@@ -175,17 +259,6 @@ export default function Press() {
         <Spacer mt={40} />
         {_recentFeatures()}
         <Spacer mt={20} />
-        <View style={{alignSelf: 'center'}}>
-          {_renderSectionContent(
-            images.shopAndSaveGirl,
-            'Shop & Save',
-            'Kiss & tell preferred customer program',
-            'Save 10% off on all your Favs! Collect Benefits Like Exclusive promos,free samples, and more.',
-            'Become a preferred customer',
-            179,
-          )}
-        </View>
-        <Spacer mt={50} />
         {_publications()}
         <Spacer mt={40} />
         {_acclaim()}

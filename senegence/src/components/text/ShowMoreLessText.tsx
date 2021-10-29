@@ -4,7 +4,7 @@ import Collapsible from 'react-native-collapsible';
 import {COLORS, FONTS, SIZES} from '../../constants';
 import Text from './Text';
 
-export default function ShowMoreLessText({text, targetLines, moreTitle, lessTitle}: any) {
+export default function ShowMoreLessText({text, targetLines, moreTitle, lessTitle, textContainerStyle={}}: any) {
   const [showMore, setShowMore] = useState(false);
   const [targetedLines, setTargetedLines] = useState(targetLines);
 
@@ -15,7 +15,7 @@ export default function ShowMoreLessText({text, targetLines, moreTitle, lessTitl
 
   return (
     <>
-      <Text numberOfLines={targetedLines}>{text}</Text>
+      <Text numberOfLines={targetedLines} containerStyle={textContainerStyle}>{text}</Text>
       <TouchableOpacity activeOpacity={0.7} onPress={() => toggleShowMore()}>
         <Text
           containerStyle={{
