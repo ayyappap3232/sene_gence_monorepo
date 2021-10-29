@@ -1,6 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
-import {LogBox, TextInput} from 'react-native';
+import {LogBox, Platform, TextInput} from 'react-native';
 import RenderHtml from 'react-native-render-html';
 import {
   FlatList,
@@ -254,10 +254,8 @@ export default function CategoryScreen() {
 
   LinkPreview.getPreview(matches && matches[0]).then((data: any) => {
     console.log(data);
-    setDescriptionImageUrl(data?.url?.split('/&quot;')[0]);
+    Platform.OS === "ios" ? setDescriptionImageUrl(data?.url?.split('%5C&quot;')[0]) : setDescriptionImageUrl(data?.url?.split('/&quot;')[0]);
   });
-
-  console.log('desc', description);
 
   return (
     <ScrollToTopContainer showCart={false}>
@@ -282,7 +280,6 @@ export default function CategoryScreen() {
             ]}>
             <ImageBackground
               source={{uri: descriptionImageUrl}}
-              loadingIndicatorSource={{}}
               style={{
                 width: SIZES.width - 40,
                 height: 278,
@@ -300,7 +297,7 @@ export default function CategoryScreen() {
                 ]}
                 tagsStyles={{
                   span: {
-                    color: COLORS.white,
+                    color: Platform.OS === "android" ? COLORS.white : COLORS.text,
                     textAlign: 'center',
                     paddingHorizontal: 10,
                   },
