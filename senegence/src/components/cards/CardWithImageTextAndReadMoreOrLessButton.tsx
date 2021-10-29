@@ -7,7 +7,7 @@ import ShowMoreLessText from '../text/ShowMoreLessText';
 import Text from '../text/Text';
 import TextWithUnderLine from '../text/TextWithUnderLine';
 
-export default function CardWithImageTextAndReadMoreOrLessButton({image,headerTitle, text, moreTitle, lessTitle}: any) {
+export default function CardWithImageTextAndReadMoreOrLessButton({image,headerTitle, text, moreTitle, lessTitle,textContainerStyle={},containerStyle={}}: any) {
   return (
       <ScrollView
         contentContainerStyle={[
@@ -18,6 +18,7 @@ export default function CardWithImageTextAndReadMoreOrLessButton({image,headerTi
             padding: 15,
             margin: 10,
           },
+          containerStyle
         ]}>
         <Image
           source={image}
@@ -32,6 +33,7 @@ export default function CardWithImageTextAndReadMoreOrLessButton({image,headerTi
               lineHeight: 50,
               textTransform: 'uppercase',
             },
+            textContainerStyle
           ]}>
           {headerTitle}
         </Text>
@@ -42,6 +44,7 @@ export default function CardWithImageTextAndReadMoreOrLessButton({image,headerTi
           targetLines={6}
           moreTitle={moreTitle}
           lessTitle={lessTitle}
+          textContainerStyle={textContainerStyle}
         />
       </ScrollView>
   );
