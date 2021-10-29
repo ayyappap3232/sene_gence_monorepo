@@ -1,5 +1,13 @@
 import React from 'react';
-import {Image, ImageBackground, StyleSheet, View, FlatList, TouchableOpacity, Linking} from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  View,
+  FlatList,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
 import Divider from '../../../components/dividers/Divider';
 import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
 import Spacer from '../../../components/Spacer';
@@ -7,7 +15,11 @@ import Text from '../../../components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
 import {globalStyles} from '../../../globalstyles/GlobalStyles';
 import {IContactUsData} from '../../../utils/data/ContactUsData';
-import {countriesData, ICountriesData, IData} from '../../../utils/data/CountryData';
+import {
+  countriesData,
+  ICountriesData,
+  IData,
+} from '../../../utils/data/CountryData';
 
 export default function SelectCountry() {
   const _selectYourCountry = () => {
@@ -23,46 +35,67 @@ export default function SelectCountry() {
     );
   };
 
-  const _countryMapsList = (item: IData[]) =>  {
-    return item && item.map((data,index) => {
-        return <><View key={`${index}${data.countryName}`} style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text
-              containerStyle={{
-                fontSize: SIZES.body4,
-                fontFamily: FONTS.AvenirHeavy,
-                letterSpacing: 0.7,
-                color: COLORS.text,
-                textTransform: 'none',
-              }}>
-              {data.countryName}
-            </Text>
-            <Image
-              source={data.flag}
-              style={{width: 24, height: 24, marginLeft: 5}}
-            />
-          </View>
-          <Spacer mt={2} />
-          <View style={{flexDirection:'row',alignItems: 'center'}}>
-          {data?.languages && data.languages.map((item:any,index: number) => {
-            return <TouchableOpacity key={`language_${index}`} activeOpacity={0.7} onPress={() => Linking.openURL(item.onPress)}>
-            <Text>{item.name}</Text>
-          </TouchableOpacity>
-          })}
-          </View>
-          <Spacer mt={11} />
+  const _countryMapsList = (item: IData[]) => {
+    return (
+      item &&
+      item.map((data, index) => {
+        return (
+          <>
+            <View
+              key={`${index}${data.countryName}`}
+              style={{flexDirection: 'column', alignItems: 'center'}}>
+              <Text
+                containerStyle={{
+                  fontSize: SIZES.body4,
+                  fontFamily: FONTS.AvenirHeavy,
+                  letterSpacing: 0.7,
+                  color: COLORS.text,
+                  textTransform: 'none',
+                }}>
+                {data.countryName}
+              </Text>
+              <Image
+                source={data.flag}
+                style={{width: 24, height: 24, marginVertical: 5}}
+              />
+            </View>
+            <Spacer mt={2} />
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              {data?.languages &&
+                data.languages.map((item: any, index: number) => {
+                  return (
+                    <TouchableOpacity
+                      key={`language_${index}`}
+                      activeOpacity={0.7}
+                      onPress={() => Linking.openURL(item.onPress)}>
+                      <Text containerStyle={{color: COLORS.primary4}}>
+                        {item.name}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
+            </View>
+            <Spacer mt={11} />
           </>
-    })
-  
-  }
+        );
+      })
+    );
+  };
 
   const _renderCountriesItem = (item: ICountriesData) => {
     return (
-      <View key={item.id} style={[globalStyles.contactCard,{marginHorizontal: 10}]} key={item.id}>
-        <Divider
-          width={334}
-          height={7}
-          containerStyle={{backgroundColor: COLORS.primary2}}
-        />
+      <View
+        key={item.id}
+        style={[
+          globalStyles.contactCard,
+          {
+            paddingHorizontal: 20,
+            width: SIZES.width - 70,
+            borderWidth: 10,
+            borderColor: COLORS.ligthGrey,
+          },
+        ]}
+        key={item.id}>
         <Spacer mt={25.3} />
         <View style={{alignItems: 'center'}}>
           <Text
@@ -79,7 +112,6 @@ export default function SelectCountry() {
           <Spacer mt={13} />
           {_countryMapsList(item?.data)}
           <Spacer mt={40} />
-
         </View>
       </View>
     );

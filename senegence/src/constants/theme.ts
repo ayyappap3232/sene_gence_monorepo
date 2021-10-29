@@ -33,7 +33,8 @@ export const COLORS = {
     sideBarBackground: '#fafafa',
     orderSummaryBackground: "#f9f9f9",
     border3: "#757575",
-    primary3: "#3c649b"
+    primary3: "#3c649b",
+    primary4: "#1f62c7"
 
 }
 

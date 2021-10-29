@@ -12,20 +12,21 @@ import Text from '../../../components/text/Text';
 import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
 import {images} from '../../../constants';
 import {allProducts} from '../../../utils/data/AllProducts';
-import { ScreenNames } from '../../../utils/screenNames';
+import {ScreenNames} from '../../../utils/screenNames';
 
-export default function CategoryPage() {
-  const navigation = useNavigation<any>();
+export default function CategoryPage({navigation}:any) {
   const _startShopping = () => {
     return (
       <View>
         <TextWithUnderLine title={'Start Shopping'} />
         <Spacer mt={9} />
         <Text containerStyle={{textAlign: 'center'}}>
-          SeneGence® takes unique products formulations to a new level with
-          their revolutionary lines of skin care and cosmetics, based on the
-          SenePlex® anti-aging complex of ingredients and the latest in
-          technologies.
+          Build a career that really pays - on your terms! Join SeneGence as an
+          Independent Distributor and start your own beauty business selling
+          cutting-edge products – your own hours, anywhere you choose, and a
+          competitive compensation plan. The potential to transform your life,
+          career, family and lifestyle has arrived. Become what you inspire to
+          be, a reality.
         </Text>
       </View>
     );
@@ -33,7 +34,7 @@ export default function CategoryPage() {
 
   const handleOnPress = (item: any) => {
     navigation.navigate(ScreenNames.CategoryItem, {categoryData: item});
-  }
+  };
 
   return (
     <ScrollToTopContainer>
@@ -53,7 +54,10 @@ export default function CategoryPage() {
           <Spacer mt={20} />
           {allProducts.map((item, index) => {
             return (
-              <TouchableOpacity activeOpacity={0.9} key={item.id} onPress={() => handleOnPress(item)}>
+              <TouchableOpacity
+                activeOpacity={0.9}
+                key={item.id}
+                onPress={() => handleOnPress(item)}>
                 <ImageWithTitleAndText image={item.image} title={item.title} />
                 <Spacer mt={11} />
               </TouchableOpacity>
