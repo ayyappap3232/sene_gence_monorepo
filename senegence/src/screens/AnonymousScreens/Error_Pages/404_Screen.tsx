@@ -3,13 +3,13 @@ import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import OutlineButton from '../../../components/buttons/OutlineButton';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
+import OutlineButton from 'components/buttons/OutlineButton';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
-import {ScreenNames} from '../../../utils/screenNames';
+import {globalStyles} from 'globalstyles/GlobalStyles';
+import {ScreenNames} from 'utils/screenNames';
 
 export default function Error_404() {
   const navigation = useNavigation<any>();

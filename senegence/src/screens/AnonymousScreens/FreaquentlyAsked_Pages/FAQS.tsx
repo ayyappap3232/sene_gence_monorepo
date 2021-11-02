@@ -2,18 +2,18 @@ import React from 'react';
 import {ImageBackground, StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import CustomAccordian from '../../../components/accordians/Accordian';
-import Astrick from '../../../components/Astrick';
-import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
-import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
-import OutlineTextInput from '../../../components/textInputs/OutlineTextInput';
-import OutlineTextInputMultiline from '../../../components/textInputs/OutlineTextInputMultiline';
+import CustomAccordian from 'components/accordians/Accordian';
+import Astrick from 'components/Astrick';
+import BreadCrumbWithOneLevelUp from 'components/breadCrumbs/BreadCrumbWithOneLevelUp';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
+import TextWithUnderLine from 'components/text/TextWithUnderLine';
+import OutlineTextInput from 'components/textInputs/OutlineTextInput';
+import OutlineTextInputMultiline from 'components/textInputs/OutlineTextInputMultiline';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
-import {frequentlyAskedQuestionData} from '../../../utils/data/FAQSData';
+import {globalStyles} from 'globalstyles/GlobalStyles';
+import {frequentlyAskedQuestionData} from 'utils/data/FAQSData';
 import ContactUsForm from '../About_Us_Pages/ContactUsForm';
 
 export default function FAQS() {

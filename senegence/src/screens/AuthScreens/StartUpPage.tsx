@@ -12,26 +12,26 @@ import {
 //User defined Imports
 import {COLORS, FONTS, images, SIZES} from '../../constants';
 import {ScrollView} from 'react-native-gesture-handler';
-import HomeCarousel from '../../components/carousels/HomeCarousel';
+import HomeCarousel from 'components/carousels/HomeCarousel';
 import {
   homeCarouselData,
-} from '../../utils/data/CarouselData';
-import OutlineButton from '../../components/buttons/OutlineButton';
-import Spacer from '../../components/Spacer';
-import Text from '../../components/text/Text';
+} from 'utils/data/CarouselData';
+import OutlineButton from 'components/buttons/OutlineButton';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
 import {
   featureProductsData,
   IFeatureProductsData,
-} from '../../utils/data/FeatureProductsData';
+} from 'utils/data/FeatureProductsData';
 import {
   ITrendingOnSocialData,
   TrendingOnSocialData,
-} from '../../utils/data/TrendingOnSocialData';
-import { ScrollToTopContainer } from '../../components/ScrollToTopContainer';
-import AsSeenIn from '../../components/AsSeenIn';
-import { _renderSectionContent } from '../../components/cards/CardWithSectionContent';
-import { _beautyBook } from '../../components/BeautyBook';
-import { becomeAPreferredCustomer, distributorEnrollToday, shopAndSave, startYourOwnBusiness } from '../../utils/data/links';
+} from 'utils/data/TrendingOnSocialData';
+import { ScrollToTopContainer } from 'components/ScrollToTopContainer';
+import AsSeenIn from 'components/AsSeenIn';
+import { _renderSectionContent } from 'components/cards/CardWithSectionContent';
+import { _beautyBook } from 'components/BeautyBook';
+import { becomeAPreferredCustomer, distributorEnrollToday, shopAndSave, startYourOwnBusiness } from 'utils/data/links';
 
 export default function StartUpPage() {
   const navigation = useNavigation<any>();

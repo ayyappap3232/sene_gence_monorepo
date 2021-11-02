@@ -2,17 +2,17 @@ import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
-import Divider from '../../../components/dividers/Divider';
-import PressDrawer from '../../../components/drawers/PressDrawer';
-import { _frequentlyAskedQuestions } from '../../../components/FrequentlyAskedQuestion';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
-import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
+import BreadCrumbWithOneLevelUp from 'components/breadCrumbs/BreadCrumbWithOneLevelUp';
+import Divider from 'components/dividers/Divider';
+import PressDrawer from 'components/drawers/PressDrawer';
+import { _frequentlyAskedQuestions } from 'components/FrequentlyAskedQuestion';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
+import TextWithUnderLine from 'components/text/TextWithUnderLine';
 import {COLORS, FONTS, SIZES} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
-import { dmcaDrawerContentData } from '../../../utils/data/CopyrightDMCAData';
+import {globalStyles} from 'globalstyles/GlobalStyles';
+import { dmcaDrawerContentData } from 'utils/data/CopyrightDMCAData';
 
 export default function CopyrightDMCAPolicy() {
   const _copyrightDMCAPolicy = () => {

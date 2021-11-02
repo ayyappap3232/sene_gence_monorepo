@@ -3,9 +3,9 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import { Item } from '../../../apollo/services/apollo/queries/categories/categoryList';
-import CategoryDetailsItemComponent from '../../../components/PLP/CategoryDetailsItemComponent';
-import { ScrollToTopContainer } from '../../../components/ScrollToTopContainer';
+import { Item } from 'apollo/services/apollo/queries/categories/categoryList';
+import CategoryDetailsItemComponent from 'components/PLP/CategoryDetailsItemComponent';
+import { ScrollToTopContainer } from 'components/ScrollToTopContainer';
 import {COLORS} from '../../../constants';
 
 export default function CategoryDetailsScreen() {

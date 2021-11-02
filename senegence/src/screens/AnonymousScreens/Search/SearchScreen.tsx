@@ -3,11 +3,11 @@ import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import { _beautyBook } from '../../../components/BeautyBook';
-import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
+import { _beautyBook } from 'components/BeautyBook';
+import BreadCrumbWithOneLevelUp from 'components/breadCrumbs/BreadCrumbWithOneLevelUp';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
 import {COLORS, FONTS, SIZES} from '../../../constants';
 import SearchCategoryScreen from './SearchCategoryScreen';
 

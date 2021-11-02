@@ -11,12 +11,12 @@ import {
 } from 'react-native';
 
 //User defined Imports
-import CategoryItemComponent from '../../../components/PLP/CategoryItemComponent';
-import ActivityIndicator from '../../../components/spinners/ActivityIndicator';
-import Text from '../../../components/text/Text';
+import CategoryItemComponent from 'components/PLP/CategoryItemComponent';
+import ActivityIndicator from 'components/spinners/ActivityIndicator';
+import Text from 'components/text/Text';
 import {COLORS, FONTS, SIZES} from '../../../constants';
-import {_getCurrencySymbols} from '../../../utils/helpers/getSymbolBasedOnCurrency';
-import {useSearchCategoryList} from '../../../apollo/controllers/getSearchCategoryList.Controller';
+import {_getCurrencySymbols} from 'utils/helpers/getSymbolBasedOnCurrency';
+import {useSearchCategoryList} from 'apollo/controllers/getSearchCategoryList.Controller';
 
 export default function SimilarProducts({name}: any) {
   const navigation = useNavigation();

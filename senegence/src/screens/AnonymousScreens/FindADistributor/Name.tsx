@@ -2,8 +2,8 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import Spacer from '../../../components/Spacer';
-import InputTextBoxWithTitle from '../../../components/textInputs/InputTextBoxWithTitle';
+import Spacer from 'components/Spacer';
+import InputTextBoxWithTitle from 'components/textInputs/InputTextBoxWithTitle';
 import CardTabHeaderWrapper from './CardHeaderWrapper';
 
 export default function Name() {

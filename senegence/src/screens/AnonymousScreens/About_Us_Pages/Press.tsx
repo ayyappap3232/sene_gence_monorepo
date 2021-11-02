@@ -6,20 +6,20 @@ import {
 } from 'react-native';
 
 //User defined Imports
-import AsSeenIn from '../../../components/AsSeenIn';
-import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
-import CardWithImageTextAndReadMoreOrLessButton from '../../../components/cards/CardWithImageTextAndReadMoreOrLessButton';
-import {_renderSectionContent} from '../../../components/cards/CardWithSectionContent';
-import PlainCarousel from '../../../components/carousels/PlainCarousel';
-import PressDrawer from '../../../components/drawers/PressDrawer';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
-import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
+import AsSeenIn from 'components/AsSeenIn';
+import BreadCrumbWithOneLevelUp from 'components/breadCrumbs/BreadCrumbWithOneLevelUp';
+import CardWithImageTextAndReadMoreOrLessButton from 'components/cards/CardWithImageTextAndReadMoreOrLessButton';
+import {_renderSectionContent} from 'components/cards/CardWithSectionContent';
+import PlainCarousel from 'components/carousels/PlainCarousel';
+import PressDrawer from 'components/drawers/PressDrawer';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
+import TextWithUnderLine from 'components/text/TextWithUnderLine';
 import {COLORS, images, SIZES} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
-import {carouselTypes} from '../../../utils/data/CarouselData';
-import {pressData, pressDrawerContentData} from '../../../utils/data/PressData';
+import {globalStyles} from 'globalstyles/GlobalStyles';
+import {carouselTypes} from 'utils/data/CarouselData';
+import {pressData, pressDrawerContentData} from 'utils/data/PressData';
 
 export default function Press() {
   const _menu = () => {

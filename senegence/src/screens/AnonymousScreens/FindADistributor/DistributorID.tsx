@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import OutlineButton from '../../../components/buttons/OutlineButton';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
-import InputTextBoxWithTitle from '../../../components/textInputs/InputTextBoxWithTitle';
+import OutlineButton from 'components/buttons/OutlineButton';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
+import InputTextBoxWithTitle from 'components/textInputs/InputTextBoxWithTitle';
 import {COLORS, images} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
+import {globalStyles} from 'globalstyles/GlobalStyles';
 import CardTabHeaderWrapper from './CardHeaderWrapper';
 
 const distributorIDResults = [

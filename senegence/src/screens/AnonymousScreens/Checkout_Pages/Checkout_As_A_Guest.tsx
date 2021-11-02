@@ -10,25 +10,25 @@ import Collapsible from 'react-native-collapsible';
 import Modal from 'react-native-modal';
 
 //User defined Imports
-import BreadCrumbWithTwoLevelUpWithoutNavigationParams from '../../../components/breadCrumbs/BreadCrumbWithTwoLevelUpWithoutNavigationParams';
-import OutlineButton from '../../../components/buttons/OutlineButton';
-import RadioButton from '../../../components/buttons/radioButtons/RadioButton';
-import Divider from '../../../components/dividers/Divider';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
-import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
-import {_inputItem} from '../../../components/textInputs/InputItemWithAsterik';
+import BreadCrumbWithTwoLevelUpWithoutNavigationParams from 'components/breadCrumbs/BreadCrumbWithTwoLevelUpWithoutNavigationParams';
+import OutlineButton from 'components/buttons/OutlineButton';
+import RadioButton from 'components/buttons/radioButtons/RadioButton';
+import Divider from 'components/dividers/Divider';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
+import TextWithUnderLine from 'components/text/TextWithUnderLine';
+import {_inputItem} from 'components/textInputs/InputItemWithAsterik';
 import {COLORS, FONTS, icons, images, SIZES} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
-import {ScreenNames} from '../../../utils/screenNames';
+import {globalStyles} from 'globalstyles/GlobalStyles';
+import {ScreenNames} from 'utils/screenNames';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import Checkbox from '../../../components/checkboxs/Checkbox';
-import Select from '../../../components/select/Select';
-import {useGetCountries} from '../../../apollo/controllers/getCountries.Controller';
+import Checkbox from 'components/checkboxs/Checkbox';
+import Select from 'components/select/Select';
+import {useGetCountries} from 'apollo/controllers/getCountries.Controller';
 import ShippingAddressDetailsCard from './ShippingAddressDetailsCard';
-import {shippingAddressDetailsArray} from '../../../utils/data/ShippingCardData';
-import OrderSummaryCard from '../../../components/screenComponents/OrderSummaryCard';
+import {shippingAddressDetailsArray} from 'utils/data/ShippingCardData';
+import OrderSummaryCard from 'components/screenComponents/OrderSummaryCard';
 
 export default function Checkout_As_A_Guest() {
   const navigation = useNavigation();

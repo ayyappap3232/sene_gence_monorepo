@@ -10,16 +10,12 @@ import {
 } from 'react-native';
 
 //User defined Imports
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
-import {
-  countriesData,
-  ICountriesData,
-  IData,
-} from '../../../utils/data/CountryData';
+import {globalStyles} from 'globalstyles/GlobalStyles';
+import {countriesData, ICountriesData, IData} from 'utils/data/CountryData';
 
 export default function SelectCountry() {
   const _selectYourCountry = () => {
@@ -94,8 +90,7 @@ export default function SelectCountry() {
             borderWidth: 10,
             borderColor: COLORS.ligthGrey,
           },
-        ]}
-        key={item.id}>
+        ]}>
         <Spacer mt={25.3} />
         <View style={{alignItems: 'center'}}>
           <Text

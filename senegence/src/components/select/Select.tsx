@@ -11,7 +11,7 @@ import OutlineTextInputMultiline from '../textInputs/OutlineTextInputMultiline';
 export interface ISelectProps {
   title: string;
   isMandatory?: boolean;
-  data: Array<string>;
+  data: Array<{full_name_locale: string}>;
   setSelectedValue?: any;
   selectedValue?:any;
   checked?: boolean;
@@ -22,7 +22,7 @@ export default function Select({
   title,
   isMandatory,
   defaultButtonText="Please Select...",
-  data = ['No Data'],
+  data = [{full_name_locale : 'No Data'}],
   setSelectedValue,
   selectedValue="",
   checked=false

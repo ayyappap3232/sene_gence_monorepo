@@ -2,18 +2,18 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 
 //User defined Imports
-import ImageWithTitleAndText from '../../../components/banners/ImageWithTitleAndText';
-import {_beautyBook} from '../../../components/BeautyBook';
-import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
-import {_buildYourBeautyBusiness} from '../../../components/BuildYourBeautyBusiness';
-import RecentlyViewedProducts from '../../../components/RecentlyViewedProducts';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
-import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
+import ImageWithTitleAndText from 'components/banners/ImageWithTitleAndText';
+import {_beautyBook} from 'components/BeautyBook';
+import BreadCrumbWithOneLevelUp from 'components/breadCrumbs/BreadCrumbWithOneLevelUp';
+import {_buildYourBeautyBusiness} from 'components/BuildYourBeautyBusiness';
+import RecentlyViewedProducts from 'components/RecentlyViewedProducts';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
+import TextWithUnderLine from 'components/text/TextWithUnderLine';
 import {images} from '../../../constants';
-import {allProducts} from '../../../utils/data/AllProducts';
-import {ScreenNames} from '../../../utils/screenNames';
+import {allProducts} from 'utils/data/AllProducts';
+import {ScreenNames} from 'utils/screenNames';
 
 export default function CategoryPage({navigation}:any) {
   const _startShopping = () => {

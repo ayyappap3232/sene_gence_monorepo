@@ -3,22 +3,22 @@ import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
-import OutlineButton from '../../../components/buttons/OutlineButton';
-import CardWithImageTextAndButton from '../../../components/cards/CardWithImageTextAndButton';
-import PlainCarousel from '../../../components/carousels/PlainCarousel';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
-import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
-import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import { globalStyles } from '../../../globalstyles/GlobalStyles';
-import {aboutUsData, IAboutUsData} from '../../../utils/data/AboutUsData';
+import BreadCrumbWithOneLevelUp from 'components/breadCrumbs/BreadCrumbWithOneLevelUp';
+import OutlineButton from 'components/buttons/OutlineButton';
+import CardWithImageTextAndButton from 'components/cards/CardWithImageTextAndButton';
+import PlainCarousel from 'components/carousels/PlainCarousel';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
+import TextWithUnderLine from 'components/text/TextWithUnderLine';
+import { globalStyles } from 'globalstyles/GlobalStyles';
+import {aboutUsData, IAboutUsData} from 'utils/data/AboutUsData';
 import {
   advisoryBoardData,
   carouselTypes,
-} from '../../../utils/data/CarouselData';
-import {ScreenNames} from '../../../utils/screenNames';
+} from 'utils/data/CarouselData';
+import {ScreenNames} from 'utils/screenNames';
+import { COLORS, FONTS, images, SIZES } from '../../../constants';
 
 export default function ExecutiveManagementTeam() {
   const navigation = useNavigation<any>();

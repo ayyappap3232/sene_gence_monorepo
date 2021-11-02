@@ -13,16 +13,16 @@ import {
 } from 'react-native';
 
 //User defined Imports
-import CategoryItemComponent from '../../../components/PLP/CategoryItemComponent';
-import Spacer from '../../../components/Spacer';
-import ActivityIndicator from '../../../components/spinners/ActivityIndicator';
-import Text from '../../../components/text/Text';
+import CategoryItemComponent from 'components/PLP/CategoryItemComponent';
+import Spacer from 'components/Spacer';
+import ActivityIndicator from 'components/spinners/ActivityIndicator';
+import Text from 'components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import {_getCurrencySymbols} from '../../../utils/helpers/getSymbolBasedOnCurrency';
-import {useSearchCategoryList} from '../../../apollo/controllers/getSearchCategoryList.Controller';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
-import SortByFilter from '../../../components/filters/SortByFilter';
-import FilterDrawer from '../../../components/drawers/FilterDrawer';
+import {_getCurrencySymbols} from 'utils/helpers/getSymbolBasedOnCurrency';
+import {useSearchCategoryList} from 'apollo/controllers/getSearchCategoryList.Controller';
+import {globalStyles} from 'globalstyles/GlobalStyles';
+import SortByFilter from 'components/filters/SortByFilter';
+import FilterDrawer from 'components/drawers/FilterDrawer';
 
 export default function SearchCategoryScreen({name,searchParam,attribute_code}: any) {
   const navigation = useNavigation<any>();

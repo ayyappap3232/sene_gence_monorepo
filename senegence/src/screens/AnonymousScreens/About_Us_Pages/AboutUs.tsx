@@ -2,16 +2,16 @@ import React from 'react';
 import {FlatList, Image, ImageBackground, StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
-import CardWithImageTextAndButton from '../../../components/cards/CardWithImageTextAndButton';
-import PlainCarousel from '../../../components/carousels/PlainCarousel';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
-import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
+import BreadCrumbWithOneLevelUp from 'components/breadCrumbs/BreadCrumbWithOneLevelUp';
+import CardWithImageTextAndButton from 'components/cards/CardWithImageTextAndButton';
+import PlainCarousel from 'components/carousels/PlainCarousel';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
+import TextWithUnderLine from 'components/text/TextWithUnderLine';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import { aboutUsData } from '../../../utils/data/AboutUsData';
-import {asSeenInCarouselData} from '../../../utils/data/CarouselData';
+import { aboutUsData } from 'utils/data/AboutUsData';
+import {asSeenInCarouselData} from 'utils/data/CarouselData';
 
 export default function AboutUs() {
   const _header = () => {
