@@ -116,7 +116,6 @@ const CustomDrawerContent = (props: any) => {
   };
 
   const _handleSingleItem = (item: any, selectedTitle: string) => {
-    console.log('item.name, item.url_path', item.name, item)
     setSelectedTitle(selectedTitle);
     setSelectedItemIndex({id: -1, toggle: false});
     setSelectedChildItemIndex({id: -1, toggle: false});

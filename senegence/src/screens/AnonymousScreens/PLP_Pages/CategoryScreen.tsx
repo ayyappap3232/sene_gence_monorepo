@@ -52,16 +52,16 @@ export default function CategoryScreen() {
   const [searchValue, setSearchValue] = useState('');
   const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
   const [gridView, setgridView] = useState<boolean>(false);
-  const [filteredValue, setFilteredValue] = useState();
+  const [filteredValue, setFilteredValue] = useState("featured_product");
   const [searchCount, setSearchCount] = useState(0);
   const [descriptionImageUrl, setDescriptionImageUrl] = useState(null);
-
-  console.log('filtered Value', filteredValue);
 
   let {getCategoryList, loading, error, categoryList} = useCategoryList({
     url_path: url_path,
     pageSize: pageSize,
     currentPage: currentPage,
+    sortNameField: filteredValue
+   
   });
 
   //Start of Search Category List
@@ -70,6 +70,7 @@ export default function CategoryScreen() {
       pageSize: pageSize,
       currentPage: currentPage,
       name: searchParam,
+      sortNameField: filteredValue
     });
 
   useEffect(() => {
@@ -253,7 +254,6 @@ export default function CategoryScreen() {
   let matches = description?.match(/\bhttps?:\/\/\S+/gi);
 
   LinkPreview.getPreview(matches && matches[0]).then((data: any) => {
-    console.log(data);
     Platform.OS === "ios" ? setDescriptionImageUrl(data?.url?.split('%5C&quot;')[0]) : setDescriptionImageUrl(data?.url?.split('/&quot;')[0]);
   });
 

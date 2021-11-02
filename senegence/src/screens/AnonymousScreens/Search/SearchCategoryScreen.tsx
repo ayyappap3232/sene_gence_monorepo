@@ -37,7 +37,7 @@ export default function SearchCategoryScreen({name,searchParam,attribute_code}: 
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(1);
-  const [filteredValue, setFilteredValue] = useState();
+  const [filteredValue, setFilteredValue] = useState("name");
 
   useEffect(() => {
     setPageSize(10);
@@ -53,12 +53,13 @@ export default function SearchCategoryScreen({name,searchParam,attribute_code}: 
       name: searchParam ? searchParam : name,
       pageSize: pageSize,
       currentPage: currentPage,
+      sortNameField: filteredValue,
     });
 
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     getSearchCategoryList();
-  }, [getSearchCategoryList, currentPage, name]);
+  }, [getSearchCategoryList, currentPage, name,filteredValue]);
 
   if (loading) {
     return <ActivityIndicator />;

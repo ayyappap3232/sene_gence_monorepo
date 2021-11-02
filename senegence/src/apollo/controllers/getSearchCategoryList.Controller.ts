@@ -2,11 +2,13 @@ import { useEffect,useState } from "react";
 //@ts-ignore
 import {useLazyQuery} from "@apollo/client";
 import { GET_SEARCH_PRODUCT_COUNT, SEARCH_CATEGORY_LIST, SEARCH_PRODUCT_NAME_OVERALL_COUNT } from "../services/apollo/queries/products/products";
+import { getSortField } from "../../helpers/filters";
 
 type Props = {
     name: string;
     pageSize: number;
     currentPage: number;
+    sortNameField: string;
 }
 
 type Result = {
@@ -19,11 +21,13 @@ type Result = {
 
 export const useSearchCategoryList = (props: Props): Result => {
     const [searchCategoryList, setSearchCategoryList] = useState()
+    const {sortNameField, currentPage, pageSize, name} = props;
     const [getSearchCategoryList, {loading, error, data}] = useLazyQuery(SEARCH_CATEGORY_LIST, {
         variables: {
-            name: props?.name,
-            pageSize: props?.pageSize,
-            currentPage: props?.currentPage
+            name: name,
+            pageSize: pageSize,
+            currentPage: currentPage,
+            sortName: getSortField(sortNameField)
         },
         fetchPolicy: "cache-and-network"
     })

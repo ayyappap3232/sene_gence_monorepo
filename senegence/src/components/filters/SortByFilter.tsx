@@ -61,7 +61,6 @@ export default function SortByFilter({textInputValue, setTextInputValue,setFilte
         cancelText={''}
         cancelStyle={{backgroundColor: 'transparent'}}
         onChange={option => {
-          console.log('options', option.filter)
           setTextInputValue(option.label);
           setFilteredValue(option.filter);
           setChecked(option.key);
