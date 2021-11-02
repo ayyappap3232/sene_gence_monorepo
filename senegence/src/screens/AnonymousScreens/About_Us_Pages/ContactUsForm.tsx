@@ -93,7 +93,6 @@ export default function ContactUsForm() {
       onSubmit={values => {
         (values.needInformation = needInformation),
           (values.heardAboutSenegence = heardAboutSenegence);
-        console.log('values', values);
       }}>
       {({
         handleChange,

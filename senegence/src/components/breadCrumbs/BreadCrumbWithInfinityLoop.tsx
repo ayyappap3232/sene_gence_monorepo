@@ -7,7 +7,6 @@ import Text from '../text/Text';
 
 export const _breadCrumbs = (breadCrumbs: any, name: any, navigation: any) => {
   const _breadCrumbItem = (title: string, onPress: any) => {
-    console.log('title',title);
 
     return (
       <>

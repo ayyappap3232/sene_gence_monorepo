@@ -3,8 +3,8 @@ import { MEDIA_GALLERY_FRAGMENT } from '../categories/mediaGalleryFragment';
 import { PRODUCT_PRICE_FRAGMENT } from '../categories/productPriceFragment';
 
 export const SEARCH_CATEGORY_LIST = gql`
-  query GetProducts($name: String!, $pageSize: Int!, $currentPage: Int!) {
-    products(pageSize: $pageSize, currentPage: $currentPage, search: $name) {
+  query GetProducts($name: String!, $pageSize: Int!, $currentPage: Int!,$sortName: ProductAttributeSortInput) {
+    products(pageSize: $pageSize, currentPage: $currentPage, search: $name, sort: $sortName) {
       total_count
       items {
         uid

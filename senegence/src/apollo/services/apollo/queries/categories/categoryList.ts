@@ -17,7 +17,7 @@ export interface IProductAttributeSortInput {
 }
 
 export const CATEGORY_LIST = gql`
-  query CategoryList($url_path: String!, $pageSize: Int!, $currentPage: Int!) {
+  query CategoryList($url_path: String!, $pageSize: Int!, $currentPage: Int!,$sortName: ProductAttributeSortInput) {
     categoryList(filters: {url_path: {eq: $url_path}}) {
       name
       product_count
@@ -33,7 +33,7 @@ export const CATEGORY_LIST = gql`
         category_name
         category_url_path
       }
-      products(pageSize: $pageSize, currentPage: $currentPage) {
+      products(pageSize: $pageSize, currentPage: $currentPage,sort:$sortName) {
         total_count
         items {
           uid
