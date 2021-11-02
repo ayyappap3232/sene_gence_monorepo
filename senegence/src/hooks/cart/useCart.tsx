@@ -15,7 +15,7 @@ export const useCart = () : Result => {
     const [fetchCartId] = useMutation(CREATE_CART);
     const createCart = async () => {
         try {
-            const {data,errors}: {data: CreateCartResponseType, errors: ApolloError[]} = await fetchCartId();
+            const {data,errors}: any = await fetchCartId();
             dispatch(setCartId(data.cartId))
         } catch (error) {
             console.log(error)
