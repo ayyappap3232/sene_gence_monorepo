@@ -64,8 +64,8 @@ const ReviewCardItem = ({item}: any) => {
   );
 };
 
-export default function ReviewerCard() {
-  return ReviewerData.map((item, index) => {
+export default function ReviewerCard({data}: any) {
+  return data.map((item, index) => {
     return <ReviewCardItem key={index} item={item} />;
   });
 }

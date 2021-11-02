@@ -192,6 +192,8 @@ export default function Footer({containerStyle = {}}) {
           ScreenNames.TermsAndConditions,
         )}
       </View>
+      <Spacer mt={20} />
+
     </View>
   );
 }
