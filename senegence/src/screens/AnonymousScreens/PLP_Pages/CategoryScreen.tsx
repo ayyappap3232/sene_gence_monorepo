@@ -15,19 +15,19 @@ import LinkPreview from 'react-native-link-preview';
 
 //User defined Imports
 import {useCategoryList} from '../../../apollo/controllers/getCategoryList.Controller';
-import CategoryItemComponent from '../../../components/PLP/CategoryItemComponent';
-import Spacer from '../../../components/Spacer';
-import ActivityIndicator from '../../../components/spinners/ActivityIndicator';
-import Text from '../../../components/text/Text';
+import CategoryItemComponent from 'components/PLP/CategoryItemComponent';
+import Spacer from 'components/Spacer';
+import ActivityIndicator from 'components/spinners/ActivityIndicator';
+import Text from 'components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
 import {_getCurrencySymbols} from '../../../utils/helpers/getSymbolBasedOnCurrency';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SortByFilter from '../../../components/filters/SortByFilter';
-import FilterDrawer from '../../../components/drawers/FilterDrawer';
-import RecentlyViewedProducts from '../../../components/RecentlyViewedProducts';
-import {_beautyBook} from '../../../components/BeautyBook';
-import {_breadCrumbs} from '../../../components/breadCrumbs/BreadCrumbWithInfinityLoop';
+import SortByFilter from 'components/filters/SortByFilter';
+import FilterDrawer from 'components/drawers/FilterDrawer';
+import RecentlyViewedProducts from 'components/RecentlyViewedProducts';
+import {_beautyBook} from 'components/BeautyBook';
+import {_breadCrumbs} from 'components/breadCrumbs/BreadCrumbWithInfinityLoop';
 import {useSearchCategoryList} from '../../../apollo/controllers/getSearchCategoryList.Controller';
 
 export default function CategoryScreen() {
