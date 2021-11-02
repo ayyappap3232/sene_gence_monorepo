@@ -2,15 +2,15 @@ import React from 'react';
 import {Image, ImageBackground, Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
 
 //User defined Imports
-import OutlineButton from '../../../components/buttons/OutlineButton';
-import PlainCarousel from '../../../components/carousels/PlainCarousel';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
+import OutlineButton from 'components/buttons/OutlineButton';
+import PlainCarousel from 'components/carousels/PlainCarousel';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
-import { foundation } from '../../../utils/data/Foundation';
-import { applyForGrant, makesensefoundation, nominateAnOrganization } from '../../../utils/data/links';
+import {globalStyles} from 'globalstyles/GlobalStyles';
+import { foundation } from 'utils/data/Foundation';
+import { applyForGrant, makesensefoundation, nominateAnOrganization } from 'utils/data/links';
 
 export default function MakeSenseFoundation() {
   const _headerImageView = () => {

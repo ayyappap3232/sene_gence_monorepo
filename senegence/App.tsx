@@ -5,25 +5,20 @@ import {
   DarkTheme,
   DefaultTheme,
 } from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ApolloProvider, InMemoryCache} from '@apollo/client';
+import { useEffect, useState} from 'react';
 //@ts-ignore
 import {Provider} from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
-
-import AppNavigator from './src/navigation/AppNavigator';
-import {store} from './src/redux/store';
-import {useCallback, useEffect, useState} from 'react';
-import AuthNavigator from './src/navigation/AuthNavigator';
-import DrawerNavigator from './src/navigation/DrawerNavigator';
-import {apolloClient} from './src/apollo/services/client';
 import {persistCache, AsyncStorageWrapper} from 'apollo3-cache-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ActivityIndicator from './src/components/spinners/ActivityIndicator';
-import {useCart} from './src/hooks/cart/useCart';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {Text, View} from 'react-native';
-import {COLORS} from './src/constants';
+
+// user defined imports
+import AppNavigator from 'navigation/AppNavigator';
+import DrawerNavigator from 'navigation/DrawerNavigator';
+import {apolloClient} from 'apollo/services/client';
+import ActivityIndicator from 'components/spinners/ActivityIndicator';
+import { store } from './src/redux/store';
 
 
 function App() {

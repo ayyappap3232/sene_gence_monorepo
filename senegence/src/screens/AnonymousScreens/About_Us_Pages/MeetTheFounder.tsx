@@ -2,15 +2,15 @@ import React from 'react';
 import {ImageBackground, StyleSheet, View, Image, Linking} from 'react-native';
 
 //User defined Imports
-import BreadCrumbWithTwoLevelUpWithoutNavigationParams from '../../../components/breadCrumbs/BreadCrumbWithTwoLevelUpWithoutNavigationParams';
-import OutlineButton from '../../../components/buttons/OutlineButton';
-import Overlay from '../../../components/overlays/Overlay';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
+import BreadCrumbWithTwoLevelUpWithoutNavigationParams from 'components/breadCrumbs/BreadCrumbWithTwoLevelUpWithoutNavigationParams';
+import OutlineButton from 'components/buttons/OutlineButton';
+import Overlay from 'components/overlays/Overlay';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import { makesensefoundation, meetTheFoundationDiveDeeper } from '../../../utils/data/links';
-import {ScreenNames} from '../../../utils/screenNames';
+import { makesensefoundation, meetTheFoundationDiveDeeper } from 'utils/data/links';
+import {ScreenNames} from 'utils/screenNames';
 
 export default function MeetTheFounder() {
   const _headerImageView = () => {

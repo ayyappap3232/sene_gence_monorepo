@@ -2,23 +2,23 @@ import React from 'react';
 import {Image, ImageBackground, Linking, StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
-import OutlineButton from '../../../components/buttons/OutlineButton';
-import PlainCarousel from '../../../components/carousels/PlainCarousel';
-import { _frequentlyAskedQuestions } from '../../../components/FrequentlyAskedQuestion';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
-import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
+import BreadCrumbWithOneLevelUp from 'components/breadCrumbs/BreadCrumbWithOneLevelUp';
+import OutlineButton from 'components/buttons/OutlineButton';
+import PlainCarousel from 'components/carousels/PlainCarousel';
+import { _frequentlyAskedQuestions } from 'components/FrequentlyAskedQuestion';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
+import TextWithUnderLine from 'components/text/TextWithUnderLine';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
-import {carouselTypes} from '../../../utils/data/CarouselData';
-import {findADistributorData} from '../../../utils/data/FindADistributor';
-import { distributorEnrollToday } from '../../../utils/data/links';
+import {globalStyles} from 'globalstyles/GlobalStyles';
+import {carouselTypes} from 'utils/data/CarouselData';
+import {findADistributorData} from 'utils/data/FindADistributor';
+import { distributorEnrollToday } from 'utils/data/links';
 import {
   IStartABusinessData,
   startABusinessData,
-} from '../../../utils/data/StartABusinessData';
+} from 'utils/data/StartABusinessData';
 
 export default function StartABusiness() {
   const _headerImageView = () => {

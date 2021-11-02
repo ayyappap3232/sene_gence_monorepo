@@ -2,14 +2,14 @@ import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import OutlineButton from '../../../components/buttons/OutlineButton';
-import Error from '../../../components/errors/Error';
-import Select from '../../../components/select/Select';
-import Spacer from '../../../components/Spacer';
-import {_inputItem} from '../../../components/textInputs/InputItemWithAsterik';
+import OutlineButton from 'components/buttons/OutlineButton';
+import Error from 'components/errors/Error';
+import Select from 'components/select/Select';
+import {_inputItem} from 'components/textInputs/InputItemWithAsterik';
 import {COLORS} from '../../../constants';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import Spacer from 'components/Spacer';
 
 export default function ContactUsForm() {
   const needInformationData = [

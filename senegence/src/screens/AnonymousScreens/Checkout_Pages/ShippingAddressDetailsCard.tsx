@@ -2,9 +2,9 @@ import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 //User defined Imports
-import Spacer from '../../../components/Spacer';
+import Spacer from 'components/Spacer';
 import {COLORS, images} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
+import {globalStyles} from 'globalstyles/GlobalStyles';
 
 export default function ShippingAddressDetailsCard({isViewAllDetails, shippingAddressDetailsArray}: any) {
   

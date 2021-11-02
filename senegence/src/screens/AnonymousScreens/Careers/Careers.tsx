@@ -2,21 +2,21 @@ import React from 'react';
 import {Image, ImageBackground, Linking, StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
-import {_buildYourBeautyBusiness} from '../../../components/BuildYourBeautyBusiness';
-import OutlineButton from '../../../components/buttons/OutlineButton';
-import PlainCarousel from '../../../components/carousels/PlainCarousel';
-import {_frequentlyAskedQuestions} from '../../../components/FrequentlyAskedQuestion';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
-import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
+import BreadCrumbWithOneLevelUp from 'components/breadCrumbs/BreadCrumbWithOneLevelUp';
+import {_buildYourBeautyBusiness} from 'components/BuildYourBeautyBusiness';
+import OutlineButton from 'components/buttons/OutlineButton';
+import PlainCarousel from 'components/carousels/PlainCarousel';
+import {_frequentlyAskedQuestions} from 'components/FrequentlyAskedQuestion';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
+import TextWithUnderLine from 'components/text/TextWithUnderLine';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
-import {careersData, ICareersData} from '../../../utils/data/Careers';
-import {carouselTypes} from '../../../utils/data/CarouselData';
-import {findADistributorData} from '../../../utils/data/FindADistributor';
-import { distributorEnrollToday } from '../../../utils/data/links';
+import {globalStyles} from 'globalstyles/GlobalStyles';
+import {careersData, ICareersData} from 'utils/data/Careers';
+import {carouselTypes} from 'utils/data/CarouselData';
+import {findADistributorData} from 'utils/data/FindADistributor';
+import { distributorEnrollToday } from 'utils/data/links';
 
 export default function Careers() {
   const _headerImageView = () => {

@@ -2,9 +2,9 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
-import InputTextBoxWithTitle from '../../../components/textInputs/InputTextBoxWithTitle';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
+import InputTextBoxWithTitle from 'components/textInputs/InputTextBoxWithTitle';
 import {COLORS, FONTS, SIZES} from '../../../constants';
 import CardTabHeaderWrapper from './CardHeaderWrapper';
 

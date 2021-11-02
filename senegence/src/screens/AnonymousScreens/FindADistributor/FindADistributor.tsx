@@ -2,15 +2,15 @@ import React from 'react';
 import {ImageBackground, StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import PlainCarousel from '../../../components/carousels/PlainCarousel';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
-import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
+import PlainCarousel from 'components/carousels/PlainCarousel';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
+import TextWithUnderLine from 'components/text/TextWithUnderLine';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
-import {carouselTypes} from '../../../utils/data/CarouselData';
-import {findADistributorData} from '../../../utils/data/FindADistributor';
+import {globalStyles} from 'globalstyles/GlobalStyles';
+import {carouselTypes} from 'utils/data/CarouselData';
+import {findADistributorData} from 'utils/data/FindADistributor';
 import DistributorTabSection from './DistributorTabSection';
 
 export default function FindADistributor() {

@@ -2,16 +2,16 @@ import React from 'react';
 import {FlatList, Image, ImageBackground, StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
-import OutlineButton from '../../../components/buttons/OutlineButton';
-import Divider from '../../../components/dividers/Divider';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
-import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
+import BreadCrumbWithOneLevelUp from 'components/breadCrumbs/BreadCrumbWithOneLevelUp';
+import OutlineButton from 'components/buttons/OutlineButton';
+import Divider from 'components/dividers/Divider';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
+import TextWithUnderLine from 'components/text/TextWithUnderLine';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import { globalStyles } from '../../../globalstyles/GlobalStyles';
-import {contactUsData, IContactUsData} from '../../../utils/data/ContactUsData';
+import { globalStyles } from 'globalstyles/GlobalStyles';
+import {contactUsData, IContactUsData} from 'utils/data/ContactUsData';
 import ContactUsForm from './ContactUsForm';
 
 export default function ContactUs() {

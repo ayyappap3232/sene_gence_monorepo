@@ -2,12 +2,12 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import OutlineButton from '../../../components/buttons/OutlineButton';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
-import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
+import OutlineButton from 'components/buttons/OutlineButton';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
+import TextWithUnderLine from 'components/text/TextWithUnderLine';
 import {COLORS, SIZES} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
+import {globalStyles} from 'globalstyles/GlobalStyles';
 
 const Results = ({children}: any) => {
     return <>

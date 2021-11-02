@@ -2,13 +2,13 @@ import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 
 //User defined Imports
-import OutlineButton from '../../../components/buttons/OutlineButton';
-import Divider from '../../../components/dividers/Divider';
-import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
+import OutlineButton from 'components/buttons/OutlineButton';
+import Divider from 'components/dividers/Divider';
+import {ScrollToTopContainer} from 'components/ScrollToTopContainer';
+import Spacer from 'components/Spacer';
+import Text from 'components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
+import {globalStyles} from 'globalstyles/GlobalStyles';
 
 export default function OrderConfirmationScreen() {
   const _orderConfirmation = () => {
