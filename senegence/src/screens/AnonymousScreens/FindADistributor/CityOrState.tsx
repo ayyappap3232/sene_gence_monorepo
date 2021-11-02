@@ -1,13 +1,11 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import OutlineButton from '../../../components/buttons/OutlineButton';
+
+//User defined Imports
 import Spacer from '../../../components/Spacer';
 import Text from '../../../components/text/Text';
-import TextWithUnderLine from '../../../components/text/TextWithUnderLine';
 import InputTextBoxWithTitle from '../../../components/textInputs/InputTextBoxWithTitle';
-import OutlineTextInput from '../../../components/textInputs/OutlineTextInput';
 import {COLORS, FONTS, SIZES} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
 import CardTabHeaderWrapper from './CardHeaderWrapper';
 
 export default function CityOrState() {

@@ -9,14 +9,14 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+
+//User defined Imports
 import CategoryItemComponent from '../../../components/PLP/CategoryItemComponent';
-import Spacer from '../../../components/Spacer';
 import ActivityIndicator from '../../../components/spinners/ActivityIndicator';
 import Text from '../../../components/text/Text';
 import {COLORS, FONTS, SIZES} from '../../../constants';
 import {_getCurrencySymbols} from '../../../utils/helpers/getSymbolBasedOnCurrency';
 import {useSearchCategoryList} from '../../../apollo/controllers/getSearchCategoryList.Controller';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
 
 export default function SimilarProducts({name}: any) {
   const navigation = useNavigation();
@@ -29,6 +29,7 @@ export default function SimilarProducts({name}: any) {
       name: name,
       pageSize: pageSize,
       currentPage: currentPage,
+      sortNameField: "name"
     });
 
   useEffect(() => {

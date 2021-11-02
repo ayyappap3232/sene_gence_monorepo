@@ -4,10 +4,12 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import Collapsible from 'react-native-collapsible';
+import Modal from 'react-native-modal';
+
+//User defined Imports
 import BreadCrumbWithTwoLevelUpWithoutNavigationParams from '../../../components/breadCrumbs/BreadCrumbWithTwoLevelUpWithoutNavigationParams';
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import RadioButton from '../../../components/buttons/radioButtons/RadioButton';
@@ -20,7 +22,6 @@ import {_inputItem} from '../../../components/textInputs/InputItemWithAsterik';
 import {COLORS, FONTS, icons, images, SIZES} from '../../../constants';
 import {globalStyles} from '../../../globalstyles/GlobalStyles';
 import {ScreenNames} from '../../../utils/screenNames';
-import Modal from 'react-native-modal';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Checkbox from '../../../components/checkboxs/Checkbox';
 import Select from '../../../components/select/Select';

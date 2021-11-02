@@ -1,5 +1,7 @@
 import React from 'react';
 import {Image, ImageBackground, Linking, StyleSheet, View} from 'react-native';
+
+//User defined Imports
 import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import PlainCarousel from '../../../components/carousels/PlainCarousel';

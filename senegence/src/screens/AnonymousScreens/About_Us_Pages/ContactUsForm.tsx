@@ -1,16 +1,14 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import Astrick from '../../../components/Astrick';
+
+//User defined Imports
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import Error from '../../../components/errors/Error';
 import Select from '../../../components/select/Select';
 import Spacer from '../../../components/Spacer';
-import Text from '../../../components/text/Text';
 import {_inputItem} from '../../../components/textInputs/InputItemWithAsterik';
-import OutlineTextInput from '../../../components/textInputs/OutlineTextInput';
-import OutlineTextInputMultiline from '../../../components/textInputs/OutlineTextInputMultiline';
 import {COLORS} from '../../../constants';
-import {ErrorMessage, Formik} from 'formik';
+import {Formik} from 'formik';
 import * as Yup from 'yup';
 
 export default function ContactUsForm() {

@@ -1,5 +1,7 @@
 import React from 'react';
 import {Image, ImageBackground, Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
+
+//User defined Imports
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import PlainCarousel from '../../../components/carousels/PlainCarousel';
 import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';

@@ -1,31 +1,19 @@
-import React, {useLayoutEffect, createRef, useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {
   StyleSheet,
   View,
-  SafeAreaView,
-  TouchableOpacity,
-  Button,
   Image,
   ImageBackground,
   FlatList,
-  Animated,
   Linking,
 } from 'react-native';
-import {
-  AppLogo,
-  DownloadIcon,
-  Globe,
-  HamburgerMenu,
-  PageUp,
-  Search,
-} from '../../../assets/svgs';
+
+//User defined Imports
 import {COLORS, FONTS, images, SIZES} from '../../constants';
 import {ScrollView} from 'react-native-gesture-handler';
 import HomeCarousel from '../../components/carousels/HomeCarousel';
-import Header from '../../components/headers/Header';
 import {
-  asSeenInCarouselData,
   homeCarouselData,
 } from '../../utils/data/CarouselData';
 import OutlineButton from '../../components/buttons/OutlineButton';
@@ -35,15 +23,10 @@ import {
   featureProductsData,
   IFeatureProductsData,
 } from '../../utils/data/FeatureProductsData';
-import OutlineButtonWithIcon from '../../components/buttons/OutlineButtonWithIcon';
 import {
   ITrendingOnSocialData,
   TrendingOnSocialData,
 } from '../../utils/data/TrendingOnSocialData';
-import PlainCarousel from '../../components/carousels/PlainCarousel';
-import Footer from '../../components/footers/Footer';
-import {useScrollToTop} from '@react-navigation/native';
-import FAB from 'react-native-fab';
 import { ScrollToTopContainer } from '../../components/ScrollToTopContainer';
 import AsSeenIn from '../../components/AsSeenIn';
 import { _renderSectionContent } from '../../components/cards/CardWithSectionContent';

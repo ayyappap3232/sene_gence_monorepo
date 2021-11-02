@@ -1,12 +1,11 @@
 import React from 'react';
 import {ImageBackground, StyleSheet, View} from 'react-native';
+
+//User defined Imports
 import CustomAccordian from '../../../components/accordians/Accordian';
 import Astrick from '../../../components/Astrick';
 import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
-import OutlineButton from '../../../components/buttons/OutlineButton';
-import Overlay from '../../../components/overlays/Overlay';
 import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
-import Select from '../../../components/select/Select';
 import Spacer from '../../../components/Spacer';
 import Text from '../../../components/text/Text';
 import TextWithUnderLine from '../../../components/text/TextWithUnderLine';

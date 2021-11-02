@@ -1,6 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
-import {LogBox, Platform, TextInput} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {LogBox, Platform} from 'react-native';
 import RenderHtml from 'react-native-render-html';
 import {
   FlatList,
@@ -9,7 +9,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
+  ImageSourcePropType
 } from 'react-native';
+import LinkPreview from 'react-native-link-preview';
+
+//User defined Imports
 import {useCategoryList} from '../../../apollo/controllers/getCategoryList.Controller';
 import CategoryItemComponent from '../../../components/PLP/CategoryItemComponent';
 import Spacer from '../../../components/Spacer';
@@ -18,29 +22,19 @@ import Text from '../../../components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
 import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
 import {_getCurrencySymbols} from '../../../utils/helpers/getSymbolBasedOnCurrency';
-import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import FilterOptionItem from '../../../components/filters/FilterOptionItem';
-import {filterNames} from '../../../utils/data/FilterData';
 import SortByFilter from '../../../components/filters/SortByFilter';
-import {ScreenNames} from '../../../utils/screenNames';
 import FilterDrawer from '../../../components/drawers/FilterDrawer';
-import CustomDrawerContent from '../../../navigation/CustomDrawerContent';
-import {Alert} from 'react-native';
 import RecentlyViewedProducts from '../../../components/RecentlyViewedProducts';
 import {_beautyBook} from '../../../components/BeautyBook';
 import {_breadCrumbs} from '../../../components/breadCrumbs/BreadCrumbWithInfinityLoop';
 import {useSearchCategoryList} from '../../../apollo/controllers/getSearchCategoryList.Controller';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
-import LinkPreview from 'react-native-link-preview';
-import Overlay from '../../../components/overlays/Overlay';
 
 export default function CategoryScreen() {
   const navigation = useNavigation<any>();
   // const [recentlyViewedProducts, setRecentlyViewedProducts] = useState<any>([])
 
   const [textInputValue, setTextInputValue] = useState('');
-  const [collapsed, setCollapsed] = useState(false);
 
   const route = useRoute<any>();
   const {name, url_path, breadcrumbs} = route?.params?.categoryData;
@@ -54,7 +48,7 @@ export default function CategoryScreen() {
   const [gridView, setgridView] = useState<boolean>(false);
   const [filteredValue, setFilteredValue] = useState("featured_product");
   const [searchCount, setSearchCount] = useState(0);
-  const [descriptionImageUrl, setDescriptionImageUrl] = useState(null);
+  const [descriptionImageUrl, setDescriptionImageUrl] = useState<ImageSourcePropType | undefined | null>(null);
 
   let {getCategoryList, loading, error, categoryList} = useCategoryList({
     url_path: url_path,

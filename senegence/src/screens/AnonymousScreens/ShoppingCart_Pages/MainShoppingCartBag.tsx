@@ -1,20 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { Image, LogBox, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { LogBox, StyleSheet, View } from 'react-native'
+
+//User defined Imports
 import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp'
-import OutlineButton from '../../../components/buttons/OutlineButton'
 import Divider from '../../../components/dividers/Divider'
 import RedeemSection from '../../../components/redeem/RedeemSection'
 import { ScrollToTopContainer } from '../../../components/ScrollToTopContainer'
 import Mainshoppingbag from '../../../components/shoppingcartbags/Mainshoppingbag'
 import Spacer from '../../../components/Spacer'
-import Text from '../../../components/text/Text'
 import TextWithUnderLine from '../../../components/text/TextWithUnderLine'
-import { COLORS, images, SIZES } from '../../../constants'
+import { COLORS, SIZES } from '../../../constants'
 import { useCart } from '../../../hooks/cart/useCart'
 
-export default function MainShoppingCartBag({navigation}) {
+export default function MainShoppingCartBag({navigation}: any) {
   const [existingCartId, setExistingCartId] = useState("")  
   const {cartId} = useCart();
         
