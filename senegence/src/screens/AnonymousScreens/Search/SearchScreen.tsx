@@ -1,19 +1,20 @@
 import {useRoute} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
-import {Image, ImageBackground, StyleSheet, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {StyleSheet, View} from 'react-native';
+
+//User defined Imports
 import { _beautyBook } from '../../../components/BeautyBook';
 import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
 import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
 import Spacer from '../../../components/Spacer';
 import Text from '../../../components/text/Text';
-import {COLORS, FONTS, images, SIZES} from '../../../constants';
-import {globalStyles} from '../../../globalstyles/GlobalStyles';
+import {COLORS, FONTS, SIZES} from '../../../constants';
 import SearchCategoryScreen from './SearchCategoryScreen';
 
 export default function SearchScreen() {
   const route = useRoute();
   const {searchQuery,searchParam}: any = route?.params;
-  const {attribute_code} = route?.params;
+  const {attribute_code}: any = route?.params;
 
   useEffect(() => {}, [route]);
 

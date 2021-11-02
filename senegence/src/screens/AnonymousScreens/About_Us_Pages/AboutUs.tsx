@@ -1,7 +1,8 @@
 import React from 'react';
 import {FlatList, Image, ImageBackground, StyleSheet, View} from 'react-native';
+
+//User defined Imports
 import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
-import OutlineButton from '../../../components/buttons/OutlineButton';
 import CardWithImageTextAndButton from '../../../components/cards/CardWithImageTextAndButton';
 import PlainCarousel from '../../../components/carousels/PlainCarousel';
 import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';

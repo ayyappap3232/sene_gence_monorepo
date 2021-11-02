@@ -1,9 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {
-  useCallback,
   useEffect,
-  useLayoutEffect,
-  useRef,
   useState,
 } from 'react';
 import {LogBox} from 'react-native';
@@ -14,6 +11,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
+//User defined Imports
 import CategoryItemComponent from '../../../components/PLP/CategoryItemComponent';
 import Spacer from '../../../components/Spacer';
 import ActivityIndicator from '../../../components/spinners/ActivityIndicator';
@@ -23,7 +22,6 @@ import {_getCurrencySymbols} from '../../../utils/helpers/getSymbolBasedOnCurren
 import {useSearchCategoryList} from '../../../apollo/controllers/getSearchCategoryList.Controller';
 import {globalStyles} from '../../../globalstyles/GlobalStyles';
 import SortByFilter from '../../../components/filters/SortByFilter';
-import { ScreenNames } from '../../../utils/screenNames';
 import FilterDrawer from '../../../components/drawers/FilterDrawer';
 
 export default function SearchCategoryScreen({name,searchParam,attribute_code}: any) {

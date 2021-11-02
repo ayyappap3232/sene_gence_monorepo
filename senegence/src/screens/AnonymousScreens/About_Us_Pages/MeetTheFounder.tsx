@@ -1,5 +1,7 @@
 import React from 'react';
 import {ImageBackground, StyleSheet, View, Image, Linking} from 'react-native';
+
+//User defined Imports
 import BreadCrumbWithTwoLevelUpWithoutNavigationParams from '../../../components/breadCrumbs/BreadCrumbWithTwoLevelUpWithoutNavigationParams';
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import Overlay from '../../../components/overlays/Overlay';
@@ -112,9 +114,9 @@ export default function MeetTheFounder() {
   };
 
   const _imageTextTitleAndContentWrapper = (
-    image,
-    title,
-    description,
+    image:any,
+    title: string,
+    description: string,
     buttonTitle = '',
   ) => {
     return (

@@ -1,6 +1,8 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
+
+//User defined Imports
 import BreadCrumbWithOneLevelUp from '../../../components/breadCrumbs/BreadCrumbWithOneLevelUp';
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import CardWithImageTextAndButton from '../../../components/cards/CardWithImageTextAndButton';

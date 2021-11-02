@@ -1,6 +1,8 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
+
+//User defined Imports
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
 import Spacer from '../../../components/Spacer';

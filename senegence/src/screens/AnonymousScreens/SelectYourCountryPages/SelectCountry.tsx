@@ -8,13 +8,13 @@ import {
   TouchableOpacity,
   Linking,
 } from 'react-native';
-import Divider from '../../../components/dividers/Divider';
+
+//User defined Imports
 import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
 import Spacer from '../../../components/Spacer';
 import Text from '../../../components/text/Text';
 import {COLORS, FONTS, images, SIZES} from '../../../constants';
 import {globalStyles} from '../../../globalstyles/GlobalStyles';
-import {IContactUsData} from '../../../utils/data/ContactUsData';
 import {
   countriesData,
   ICountriesData,

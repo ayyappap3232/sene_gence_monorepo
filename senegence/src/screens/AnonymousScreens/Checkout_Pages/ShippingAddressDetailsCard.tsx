@@ -1,5 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+
+//User defined Imports
 import Spacer from '../../../components/Spacer';
 import {COLORS, images} from '../../../constants';
 import {globalStyles} from '../../../globalstyles/GlobalStyles';
@@ -43,7 +45,7 @@ export default function ShippingAddressDetailsCard({isViewAllDetails, shippingAd
     </View>
   }
 
-  return isViewAllDetails ? _renderItem(shippingAddressDetailsArray[0], 0) : shippingAddressDetailsArray.map((item, index) => {
+  return isViewAllDetails ? _renderItem(shippingAddressDetailsArray[0], 0) : shippingAddressDetailsArray.map((item: any, index: number) => {
     return (
         _renderItem(item, index)
     );

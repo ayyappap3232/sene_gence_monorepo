@@ -1,5 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+
+//User defined Imports
 import OutlineButton from '../../../components/buttons/OutlineButton';
 import Spacer from '../../../components/Spacer';
 import Text from '../../../components/text/Text';

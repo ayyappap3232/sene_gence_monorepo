@@ -19,7 +19,7 @@
          inlineRequires: false,
        },
      }),
-     babelTransformerPath: require.resolve('react-native-svg-transformer')
+     babelTransformerPath: require.resolve('react-native-svg-transformer','react-native-typescript-transformer')
    }, 
    resolver: {
      assetExts: assetExts.filter(ext => ext !== 'svg'),

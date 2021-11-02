@@ -1,5 +1,7 @@
 import React from 'react';
 import {ImageBackground, StyleSheet, View} from 'react-native';
+
+//User defined Imports
 import PlainCarousel from '../../../components/carousels/PlainCarousel';
 import {ScrollToTopContainer} from '../../../components/ScrollToTopContainer';
 import Spacer from '../../../components/Spacer';
@@ -10,7 +12,6 @@ import {globalStyles} from '../../../globalstyles/GlobalStyles';
 import {carouselTypes} from '../../../utils/data/CarouselData';
 import {findADistributorData} from '../../../utils/data/FindADistributor';
 import DistributorTabSection from './DistributorTabSection';
-import TabViewExample from './DistributorTabSection';
 
 export default function FindADistributor() {
   const _headerImageView = () => {

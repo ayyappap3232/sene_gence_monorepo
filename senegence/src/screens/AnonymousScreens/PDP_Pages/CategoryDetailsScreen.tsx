@@ -1,12 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoute } from '@react-navigation/native';
-import React, {useEffect, useRef, useState} from 'react';
-import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
-import FAB from 'react-native-fab';
-import {PageUp} from '../../../../assets/svgs';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
+
+//User defined Imports
 import { Item } from '../../../apollo/services/apollo/queries/categories/categoryList';
-import Footer from '../../../components/footers/Footer';
-import Header from '../../../components/headers/Header';
 import CategoryDetailsItemComponent from '../../../components/PLP/CategoryDetailsItemComponent';
 import { ScrollToTopContainer } from '../../../components/ScrollToTopContainer';
 import {COLORS} from '../../../constants';
