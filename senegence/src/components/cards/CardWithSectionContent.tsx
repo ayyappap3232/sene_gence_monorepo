@@ -1,5 +1,7 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
+
+//User defined Imports
 import { COLORS, FONTS, SIZES } from "../../constants";
 import OutlineButton from "../buttons/OutlineButton";
 import Spacer from "../Spacer";

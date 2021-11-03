@@ -1,9 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {View} from 'react-native';
+
+//User defined Imports
 import {COLORS, SIZES} from '../constants';
-import {globalStyles} from '../globalstyles/GlobalStyles';
-import { ScreenNames } from '../utils/screenNames';
+import {globalStyles} from 'globalstyles/GlobalStyles';
+import { ScreenNames } from 'utils/screenNames';
 import OutlineButton from './buttons/OutlineButton';
 import Spacer from './Spacer';
 import Text from './text/Text';

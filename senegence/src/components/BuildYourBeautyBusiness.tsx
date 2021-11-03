@@ -1,10 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Image, Linking, View } from "react-native";
+
+//User defined Imports
 import { COLORS, FONTS, images, SIZES } from "../constants";
-import { globalStyles } from "../globalstyles/GlobalStyles";
-import { distributorEnrollToday } from "../utils/data/links";
-import { ScreenNames } from "../utils/screenNames";
+import { globalStyles } from "globalstyles/GlobalStyles";
+import { distributorEnrollToday } from "utils/data/links";
+import { ScreenNames } from "utils/screenNames";
 import OutlineButton from "./buttons/OutlineButton";
 import Spacer from "./Spacer";
 import Text from "./text/Text";

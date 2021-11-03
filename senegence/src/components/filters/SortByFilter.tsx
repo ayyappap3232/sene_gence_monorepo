@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
-import {COLORS, images} from '../../constants';
-import {filterNames, sortingNames} from '../../utils/data/FilterData';
-import FilterOptionItem from './FilterOptionItem';
+import {StyleSheet, Text} from 'react-native';
 import ModalSelector from 'react-native-modal-selector';
-import {globalStyles} from '../../globalstyles/GlobalStyles';
-import { useSearchCategoryList } from '../../apollo/controllers/getSearchCategoryList.Controller';
-import { useGetSortFields } from '../../apollo/controllers/getSortFields.Controller';
+
+//User defined Imports
+import {COLORS} from '../../constants';
+import FilterOptionItem from './FilterOptionItem';
+import {globalStyles} from 'globalstyles/GlobalStyles';
+import { useGetSortFields } from 'apollo/controllers/getSortFields.Controller';
 import TextInputWithCaretDisable from '../textInputs/TextInputWithCaretDisable';
 
 export default function SortByFilter({textInputValue, setTextInputValue,setFilteredValue}: any) {

@@ -1,10 +1,11 @@
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import {Image, StyleSheet, TouchableOpacity, View, FlatList} from 'react-native';
+
+//User defined Imports
 import {COLORS, images, SIZES} from '../../constants';
-import {globalStyles} from '../../globalstyles/GlobalStyles';
-import { ScreenNames } from '../../utils/screenNames';
+import {globalStyles} from 'globalstyles/GlobalStyles';
+import {ScreenNames} from 'utils/screenNames';
 import OutlineButton from '../buttons/OutlineButton';
 import Divider from '../dividers/Divider';
 import DeleteConfirmationModal from '../modals/DeleteConfirmationModal';
@@ -12,15 +13,19 @@ import Spacer from '../Spacer';
 import Text from '../text/Text';
 import OutlineTextInput from '../textInputs/OutlineTextInput';
 
-export default function Minishoppingbag({miniShoppingCartData, setVisible}:any) {
+export default function Minishoppingbag({
+  miniShoppingCartData,
+  setVisible,
+}: any) {
   const navigation = useNavigation<any>();
   const [shoppingCartData, setShoppingCartData] =
-  useState(miniShoppingCartData);
+    useState(miniShoppingCartData);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState();
   const [totalCost, setTotalCost] = useState<number>();
   const totalPrice = shoppingCartData?.reduce(
-    (total, element) => (total += element.price * Number(element.qty)),
+    (total, element) =>
+      (total += element?.prices?.price?.value * Number(element.quantity)),
     0,
   );
 
@@ -46,31 +51,39 @@ export default function Minishoppingbag({miniShoppingCartData, setVisible}:any) 
         <View style={{flex: 1}}>
           <Text
             containerStyle={[globalStyles.text_avenir_heavy, {lineHeight: 26}]}>
-            {item.name}
+            {item?.product?.name}
           </Text>
           <Spacer mt={10} />
-          <Text
-            containerStyle={[
-              globalStyles.text_avenir_medium,
-              {textAlign: 'left'},
-            ]}>
-            Color: {item.color}
-          </Text>
-          <Spacer mt={10} />
-          <Text
-            containerStyle={[
-              globalStyles.text_avenir_medium,
-              {textAlign: 'left'},
-            ]}>
-            Size: {item.size}
-          </Text>
-          <Spacer mt={10} />
+          {item.color ? (
+            <>
+              <Text
+                containerStyle={[
+                  globalStyles.text_avenir_medium,
+                  {textAlign: 'left'},
+                ]}>
+                Color: {item.color}
+              </Text>
+              <Spacer mt={10} />
+            </>
+          ) : null}
+          {item.size ? (
+            <>
+              <Text
+                containerStyle={[
+                  globalStyles.text_avenir_medium,
+                  {textAlign: 'left'},
+                ]}>
+                Size: {item.size}
+              </Text>
+              <Spacer mt={10} />
+            </>
+          ) : null}
           <Text
             containerStyle={[
               globalStyles.text_avenir_heavy,
               {textAlign: 'left'},
             ]}>
-            ${item.price * item.qty} USD
+            ${item?.prices?.price?.value * item.quantity} USD
           </Text>
           <Spacer mt={20} />
           {_quantityAddAndDelete()}
@@ -130,8 +143,8 @@ export default function Minishoppingbag({miniShoppingCartData, setVisible}:any) 
 
     const _handleIncrementQuantity = (id: any) => {
       let updatedQuantity = shoppingCartData.map(currEn => {
-        if (currEn.id === id && currEn.qty >= 1) {
-          return {...currEn, qty: currEn.qty + 1};
+        if (currEn.uid === id && currEn.quantity >= 1) {
+          return {...currEn, quantity: currEn.quantity + 1};
         }
         return currEn;
       });
@@ -141,8 +154,8 @@ export default function Minishoppingbag({miniShoppingCartData, setVisible}:any) 
 
     const _handleDecrementQuantity = (id: any) => {
       let updatedQuantity = shoppingCartData.map(currEn => {
-        if (currEn.id === id && currEn.qty !== 1) {
-          return {...currEn, qty: currEn.qty - 1};
+        if (currEn.uid === id && currEn.quantity !== 1) {
+          return {...currEn, quantity: currEn.quantity - 1};
         }
         return currEn;
       });
@@ -152,7 +165,7 @@ export default function Minishoppingbag({miniShoppingCartData, setVisible}:any) 
 
     const handleDelete = (id: any) => {
       const updatedShoppingCartData = shoppingCartData.filter(
-        el => el.id !== id,
+        el => el.uid !== id,
       );
       setShoppingCartData(updatedShoppingCartData);
       setShowDeleteModal(false);
@@ -178,19 +191,23 @@ export default function Minishoppingbag({miniShoppingCartData, setVisible}:any) 
             <Text>QTY</Text>
             <Spacer mr={10} />
             {/* //Todo Quantity add or delete dynamic */}
-            <TouchableOpacity style={[styles.box, styles.leftBox]} onPress={() => _handleDecrementQuantity(item.id)}>
+            <TouchableOpacity
+              style={[styles.box, styles.leftBox]}
+              onPress={() => _handleDecrementQuantity(item.uid)}>
               <Image
                 source={images.minus}
                 style={{width: 9.4, height: 1.2, tintColor: COLORS.text}}
               />
             </TouchableOpacity>
             <OutlineTextInput
-            editable={false}
+              editable={false}
               containerStyle={styles.quantityText}
               placeholder={''}
-              value={item.qty.toString()}
+              value={item?.quantity.toString()}
             />
-            <TouchableOpacity style={(styles.box, styles.rightBox)} onPress={() => _handleIncrementQuantity(item.id)}>
+            <TouchableOpacity
+              style={(styles.box, styles.rightBox)}
+              onPress={() => _handleIncrementQuantity(item.uid)}>
               <Image
                 source={images.plus}
                 style={{width: 10, height: 10, tintColor: COLORS.text}}
@@ -204,9 +221,10 @@ export default function Minishoppingbag({miniShoppingCartData, setVisible}:any) 
               <Image source={images.editIcon} style={{width: 20, height: 20}} />
             </TouchableOpacity>
             <Spacer mr={10} /> */}
-            <TouchableOpacity onPress={() => {
-              setShowDeleteModal(true), setDeleteId(item.id);
-            }}>
+            <TouchableOpacity
+              onPress={() => {
+                setShowDeleteModal(true), setDeleteId(item.uid);
+              }}>
               <Image
                 source={images.deleteIcon}
                 style={{width: 20, height: 20}}
@@ -299,12 +317,27 @@ export default function Minishoppingbag({miniShoppingCartData, setVisible}:any) 
   };
 
   const _listEmptyComponent = () => {
-    return <View style={{flex: 1, justifyContent: 'center', alignItems:'center',marginTop: SIZES.height/4}}>
-      <Text containerStyle={{textTransform:'uppercase'}}>You have no items in your shopping bag.</Text>
-      <Spacer mt={20} />
-      <OutlineButton title={"Continue Shopping"} onPress={() => {setVisible(false), navigation.navigate(ScreenNames.StartUpDrawer)}}/>
-    </View>
-  }
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: SIZES.height / 4,
+        }}>
+        <Text containerStyle={{textTransform: 'uppercase'}}>
+          You have no items in your shopping bag.
+        </Text>
+        <Spacer mt={20} />
+        <OutlineButton
+          title={'Continue Shopping'}
+          onPress={() => {
+            setVisible(false), navigation.navigate(ScreenNames.StartUpDrawer);
+          }}
+        />
+      </View>
+    );
+  };
 
   return (
     <FlatList
@@ -319,9 +352,13 @@ export default function Minishoppingbag({miniShoppingCartData, setVisible}:any) 
       )}
       renderItem={_renderItem}
       ListEmptyComponent={_listEmptyComponent()}
-      keyExtractor={(item, index) => item.id}
-      ListFooterComponent={() => shoppingCartData.length > 0 ? _footerSection(): null}
-      ListHeaderComponent={() => shoppingCartData.length > 0 ? _headerSection(): null}
+      keyExtractor={(item, index) => item.uid}
+      ListFooterComponent={() =>
+        shoppingCartData.length > 0 ? _footerSection() : null
+      }
+      ListHeaderComponent={() =>
+        shoppingCartData.length > 0 ? _headerSection() : null
+      }
     />
   );
 }
@@ -353,6 +390,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: COLORS.ligthGrey,
     paddingVertical: 11,
-    paddingHorizontal: 11.6
+    paddingHorizontal: 11.6,
   },
 });

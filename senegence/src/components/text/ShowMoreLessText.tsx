@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import Collapsible from 'react-native-collapsible';
+
+//User defined Imports
 import {COLORS, FONTS, SIZES} from '../../constants';
 import Text from './Text';
 

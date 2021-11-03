@@ -1,22 +1,23 @@
 import { useNavigation } from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity, View, Linking} from 'react-native';
-import {useCategories} from '../../apollo/controllers/getCategories.Controller';
-import { ItemChildrenCategory } from '../../apollo/services/apollo/queries/categories/getCategories';
+import Collapsible from 'react-native-collapsible';
+
+//User defined Imports
+import {useCategories} from 'apollo/controllers/getCategories.Controller';
+import { ItemChildrenCategory } from 'apollo/services/apollo/queries/categories/getCategories';
 import {COLORS, FONTS, icons, SIZES} from '../../constants';
 import {
   footerData,
   footerSocialIcons,
   IFooterChildData,
   IFooterSocialIcons,
-} from '../../utils/data/FooterData';
-import { ScreenNames } from '../../utils/screenNames';
+} from 'utils/data/FooterData';
+import { ScreenNames } from 'utils/screenNames';
 import Divider from '../dividers/Divider';
 import VerticalDivider from '../dividers/VerticalDivider';
 import Spacer from '../Spacer';
-import ActivityIndicator from '../spinners/ActivityIndicator';
 import Text from '../text/Text';
-import Collapsible from 'react-native-collapsible';
 
 export default function Footer({containerStyle = {}}) {
   const navigation = useNavigation<any>();
@@ -64,7 +65,7 @@ export default function Footer({containerStyle = {}}) {
                 }}
               />
         </TouchableOpacity>
-        {childItem?.children.map((item,index) => {
+        {childItem?.children?.map((item: any,index: number) => {
           return <Collapsible collapsed={!(childItem.name === selectedState.id && selectedState.toggle)}>
           <TouchableOpacity onPress={() => navigation.navigate('CategoryItem', {categoryData: item})}>
             <Text containerStyle={[styles.childName, {textTransform:'capitalize'}]}>{item.children.length > 0 && item.name}</Text>

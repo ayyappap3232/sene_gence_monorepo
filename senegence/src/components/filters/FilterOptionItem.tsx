@@ -1,7 +1,7 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import {StyleSheet, Text, View} from 'react-native';
-// import {RadioButton} from 'react-native-paper';
+
+//User defined Imports
 import { COLORS, FONTS, SIZES } from '../../constants';
 import RadioButton from '../buttons/radioButtons/RadioButton';
 

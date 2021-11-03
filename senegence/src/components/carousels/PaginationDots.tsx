@@ -1,8 +1,10 @@
 import React from 'react'
 import { Animated, StyleSheet, Text, View } from 'react-native'
+
+//User defined Imports
 import { COLORS } from '../../constants';
 
-export default function PaginationDots({data, position}) {
+export default function PaginationDots({data, position}: any) {
     return (
         <View
           style={{

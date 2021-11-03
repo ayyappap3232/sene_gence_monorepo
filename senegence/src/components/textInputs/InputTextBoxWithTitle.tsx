@@ -1,5 +1,7 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
+
+//User defined Imports
 import {COLORS, FONTS, SIZES} from '../../constants';
 import Spacer from '../Spacer';
 import Text from '../text/Text';

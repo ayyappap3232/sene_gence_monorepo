@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
-import {COLORS, images, SIZES} from '../../constants';
-import {filterNames, sortingNames} from '../../utils/data/FilterData';
-import FilterOptionItem from './FilterOptionItem';
 import ModalSelector from 'react-native-modal-selector';
-import {globalStyles} from '../../globalstyles/GlobalStyles';
+
+//User defined Imports
+import {COLORS, images, SIZES} from '../../constants';
+import {globalStyles} from 'globalstyles/GlobalStyles';
 
 export default function ModalPopup({ setTextInputValue,textInputValue, data,placeholder}: any) {
   //filter Selector Options

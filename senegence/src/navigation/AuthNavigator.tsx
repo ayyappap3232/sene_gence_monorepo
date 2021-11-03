@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+//User defined Imports
 import CreateCustomer from '../screens/customers/CreateCustomer';
 import LoginAsCustomer from '../screens/customers/LoginAsCustomer';
 import StartUpPage from '../screens/AuthScreens/StartUpPage';
-import { View } from 'react-native';
-import Text from '../components/text/Text';
 
 const Stack = createNativeStackNavigator();
 
