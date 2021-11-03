@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import { useRoute} from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 
 //User defined imports
 import {COLORS, icons, images, SIZES} from '../../constants';
@@ -16,6 +16,7 @@ import DeleteConfirmationModal from '../modals/DeleteConfirmationModal';
 import {ScreenNames} from 'utils/screenNames';
 import OrderSummaryCard from '../screenComponents/OrderSummaryCard';
 import {useUpdateCartItems} from 'apollo/controllers/updateCartItems.Controller';
+import {useRemoveItemFromACart} from 'apollo/controllers/removeItemFromCart.Controller';
 
 export default function Mainshoppingbag({navigation}: any) {
   const route = useRoute();
@@ -85,6 +86,16 @@ export default function Mainshoppingbag({navigation}: any) {
   useEffect(() => {
     updateCartItem();
   }, [qty.quantity, updateCartItem]);
+
+  //Removing the Items from cart
+  const {removeItemFromCart, customerCart} = useRemoveItemFromACart({
+    cart_id: cart_Id,
+    cart_item_id: Number(deleteId),
+  });
+
+  useEffect(() => {
+    removeItemFromCart();
+  }, [deleteId])
 
   const _renderItem = ({item, i}: any) => {
     const _leftContent = () => {
