@@ -1,28 +1,30 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {FlatList, ScrollView} from 'react-native-gesture-handler';
-import {Close} from '../../../assets/svgs';
-import {COLORS, FONTS, icons, images, SIZES} from '../../constants';
-import {globalStyles} from '../../globalstyles/GlobalStyles';
-import {miniShoppingCartData} from '../../utils/data/MiniShoppingBagData';
-import CircularBackgroundWithIcon from '../buttons/CloseButton';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {FlatList} from 'react-native-gesture-handler';
+import { useRoute} from '@react-navigation/native';
+
+//User defined imports
+import {COLORS, icons, images, SIZES} from '../../constants';
+import {globalStyles} from 'globalstyles/GlobalStyles';
 import OutlineButton from '../buttons/OutlineButton';
 import Divider from '../dividers/Divider';
 import Spacer from '../Spacer';
 import Text from '../text/Text';
 import OutlineTextInput from '../textInputs/OutlineTextInput';
 import Toast from '../toasts/Toast';
-import Modal from 'react-native-modal';
 import DeleteConfirmationModal from '../modals/DeleteConfirmationModal';
-import {ScreenNames} from '../../utils/screenNames';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {ScreenNames} from 'utils/screenNames';
 import OrderSummaryCard from '../screenComponents/OrderSummaryCard';
+import {useUpdateCartItems} from 'apollo/controllers/updateCartItems.Controller';
 
 export default function Mainshoppingbag({navigation}: any) {
   const route = useRoute();
 
   const shoppingCartItems = route?.params?.shoppingCartData;
+  const cart_Id = route?.params?.cart_Id;
 
+  const [cart_item_uid, setCartItemUid] = useState('');
+  const [qty, setQty] = useState<any>({id: '', quantity: 0});
   const [shoppingCartData, setShoppingCartData] = useState(shoppingCartItems);
 
   const totalPrice = shoppingCartData?.reduce(
@@ -42,6 +44,47 @@ export default function Mainshoppingbag({navigation}: any) {
     setStatus('');
     setCouponText('');
   }, []);
+
+  //Increment cart item quantity Logic
+  const _handleIncrementQuantity = (id: any, quantity: number) => {
+    setCartItemUid(id);
+    setQty({id: id, quantity: quantity + 1});
+
+    let updatedQuantity = shoppingCartData.map(currEn => {
+      if (currEn.id === id && currEn.quantity >= 1) {
+        return {...currEn, quantity: currEn.quantity + 1};
+      }
+      return currEn;
+    });
+
+    setShoppingCartData(updatedQuantity);
+  };
+
+  //Decrement cart item quantity Logic
+  const _handleDecrementQuantity = (id: any, quantity: number) => {
+    setCartItemUid(id);
+    setQty({id: id, quantity: quantity - 1});
+
+    let updatedQuantity = shoppingCartData.map(currEn => {
+      if (currEn.id === id && currEn.quantity !== 1) {
+        return {...currEn, quantity: currEn.quantity - 1};
+      }
+      return currEn;
+    });
+
+    setShoppingCartData(updatedQuantity);
+  };
+
+  //Updating the cart items
+  const {updateCartItem, loading, updatedCartItems} = useUpdateCartItems({
+    cart_id: cart_Id,
+    cart_item_uid: Number(cart_item_uid),
+    quantity: qty.id == cart_item_uid && qty.quantity,
+  });
+
+  useEffect(() => {
+    updateCartItem();
+  }, [qty.quantity, updateCartItem]);
 
   const _renderItem = ({item, i}: any) => {
     const _leftContent = () => {
@@ -69,7 +112,13 @@ export default function Mainshoppingbag({navigation}: any) {
             <Text
               containerStyle={[
                 globalStyles.text_avenir_heavy,
-                {lineHeight: 26, flex: 1,width: SIZES.width/2,flexWrap: 'wrap',marginBottom: 10},
+                {
+                  lineHeight: 26,
+                  flex: 1,
+                  width: SIZES.width / 2,
+                  flexWrap: 'wrap',
+                  marginBottom: 10,
+                },
               ]}>
               {item?.product?.name}
             </Text>
@@ -114,6 +163,7 @@ export default function Mainshoppingbag({navigation}: any) {
     };
 
     const _quantityAddAndDelete = () => {
+      console.log('item id, qty id', item.id, qty.id, qty);
       return (
         <View style={{flex: 1, flexDirection: 'row'}}>
           <View>
@@ -129,7 +179,9 @@ export default function Mainshoppingbag({navigation}: any) {
               {/* //Todo Quantity add or delete dynamic */}
               <TouchableOpacity
                 style={[styles.box, styles.leftBox]}
-                onPress={() => _handleDecrementQuantity(item?.uid)}>
+                onPress={() =>
+                  _handleDecrementQuantity(item?.id, item.quantity)
+                }>
                 <Image
                   source={images.minus}
                   style={{width: 9.4, height: 1.2, tintColor: COLORS.text}}
@@ -143,7 +195,9 @@ export default function Mainshoppingbag({navigation}: any) {
               />
               <TouchableOpacity
                 style={(styles.box, styles.rightBox)}
-                onPress={() => _handleIncrementQuantity(item?.uid)}>
+                onPress={() =>
+                  _handleIncrementQuantity(item?.id, item.quantity)
+                }>
                 <Image
                   source={images.plus}
                   style={{width: 10, height: 10, tintColor: COLORS.text}}
@@ -155,31 +209,9 @@ export default function Mainshoppingbag({navigation}: any) {
       );
     };
 
-    const _handleIncrementQuantity = (id: any) => {
-      let updatedQuantity = shoppingCartData.map(currEn => {
-        if (currEn.uid === id && currEn.quantity >= 1) {
-          return {...currEn, quantity: currEn.quantity + 1};
-        }
-        return currEn;
-      });
-
-      setShoppingCartData(updatedQuantity);
-    };
-
-    const _handleDecrementQuantity = (id: any) => {
-      let updatedQuantity = shoppingCartData.map(currEn => {
-        if (currEn.uid === id && currEn.quantity !== 1) {
-          return {...currEn, quantity: currEn.quantity - 1};
-        }
-        return currEn;
-      });
-
-      setShoppingCartData(updatedQuantity);
-    };
-
     const handleDelete = (id: any) => {
       const updatedShoppingCartData = shoppingCartData.filter(
-        el => el.uid !== id,
+        el => el.id !== id,
       );
       setShoppingCartData(updatedShoppingCartData);
       setShowDeleteModal(false);
@@ -199,7 +231,7 @@ export default function Mainshoppingbag({navigation}: any) {
     };
 
     return (
-      <React.Fragment key={item.uid}>
+      <React.Fragment key={item.id}>
         <View style={{flexDirection: 'row', paddingHorizontal: 22}}>
           {_leftContent()}
           <Spacer mr={20} />
@@ -221,7 +253,7 @@ export default function Mainshoppingbag({navigation}: any) {
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
-              setShowDeleteModal(true), setDeleteId(item.uid);
+              setShowDeleteModal(true), setDeleteId(item.id);
             }}>
             <Image source={images.deleteIcon} style={{width: 16, height: 16}} />
           </TouchableOpacity>
@@ -286,7 +318,7 @@ export default function Mainshoppingbag({navigation}: any) {
               cartItemCount: shoppingCartData?.length,
               subTotal: totalPrice,
               shippingAmount: '',
-              shoppingCartData : shoppingCartItems,
+              shoppingCartData: shoppingCartItems,
             })
           }
         />
@@ -348,7 +380,7 @@ export default function Mainshoppingbag({navigation}: any) {
         )}
         ListEmptyComponent={() => _listEmptyComponent()}
         renderItem={_renderItem}
-        keyExtractor={(item, index) => item.uid}
+        keyExtractor={(item, index) => item.id}
       />
     </>
   );

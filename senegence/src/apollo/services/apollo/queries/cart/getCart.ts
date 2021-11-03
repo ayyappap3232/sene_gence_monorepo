@@ -7,7 +7,7 @@ export const GET_CART_ITEMS = gql`
 query GetCart($cart_id: String!){
   cart(cart_id:$cart_id){
     items {
-      uid
+      id
         product {
           name
           sku 
@@ -55,7 +55,7 @@ export interface Prices {
 }
 
 export interface Item {
-  uid: string;
+  id: string;
   product: Product;
   quantity: number;
   prices: Prices;

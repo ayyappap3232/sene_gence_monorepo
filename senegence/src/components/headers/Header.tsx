@@ -149,6 +149,7 @@ export default function Header({
 
   const cartItemCount = cartData?.cart?.items?.length;
   const cartItemsData = cartData?.cart?.items;
+  const cart_Id = existingCartId || cartId;
 
   // ! End of get cart items
 
@@ -273,6 +274,7 @@ export default function Header({
                       //showModal()
                       navigation.navigate(ScreenNames.MainShoppingCartBag,{
                         shoppingCartData: cartItemsData,
+                        cart_Id: cart_Id
                       });
                     }}>
                     <Image
@@ -366,7 +368,8 @@ export default function Header({
     correspondingProductItemCount,
     showPageUp,
     cartItemCount,
-    cartItemsData
+    cartItemsData,
+    cart_Id
   ]);
 
   return (
