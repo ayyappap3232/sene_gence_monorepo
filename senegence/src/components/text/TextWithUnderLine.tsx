@@ -1,5 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+
+//User defined Imports
 import {COLORS, FONTS, SIZES} from '../../constants';
 import Divider from '../dividers/Divider';
 import Spacer from '../Spacer';

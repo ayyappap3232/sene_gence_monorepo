@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 import { StyleSheet, View, Animated } from 'react-native'
+
+//User defined Imports
 import { COLORS, SIZES } from '../../constants'
-import { globalStyles } from '../../globalstyles/GlobalStyles'
+import { globalStyles } from 'globalstyles/GlobalStyles'
 import CircularBackgroundWithIcon from '../buttons/CloseButton'
 import Text from '../text/Text'
 

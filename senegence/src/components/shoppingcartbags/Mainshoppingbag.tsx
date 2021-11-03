@@ -221,7 +221,7 @@ export default function Mainshoppingbag({navigation}: any) {
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
-              setShowDeleteModal(true), setDeleteId(item.id);
+              setShowDeleteModal(true), setDeleteId(item.uid);
             }}>
             <Image source={images.deleteIcon} style={{width: 16, height: 16}} />
           </TouchableOpacity>
@@ -348,7 +348,7 @@ export default function Mainshoppingbag({navigation}: any) {
         )}
         ListEmptyComponent={() => _listEmptyComponent()}
         renderItem={_renderItem}
-        keyExtractor={(item, index) => item.id}
+        keyExtractor={(item, index) => item.uid}
       />
     </>
   );

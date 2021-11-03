@@ -6,13 +6,14 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
+  Platform
 } from 'react-native';
-import {Close} from '../../../assets/svgs';
+import Modal from 'react-native-modal';
+
+//User defined Imports
 import {COLORS, FONTS, images, SIZES} from '../../constants';
 import Text from '../text/Text';
-import Modal from 'react-native-modal';
-import {Platform} from 'react-native';
-import {globalStyles} from '../../globalstyles/GlobalStyles';
+import {globalStyles} from 'globalstyles/GlobalStyles';
 import SideDrawerHeader from '../headers/SideDrawerHeader';
 
 const PressDrawer = ({pressDrawerContentData, initialId,onScrollCallback}: any) => {

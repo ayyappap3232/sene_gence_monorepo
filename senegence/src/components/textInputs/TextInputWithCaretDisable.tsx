@@ -1,5 +1,7 @@
 import React from 'react'
-import { Image, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Image, StyleSheet, TextInput, View } from 'react-native'
+
+//User defined Imports
 import { COLORS, images } from '../../constants'
 
 export default function TextInputWithCaretDisable({textInputValue, placeholder}: any) {

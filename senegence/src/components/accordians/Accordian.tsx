@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, useWindowDimensions, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
 import RenderHtml from 'react-native-render-html';
+
+//User defined Imports
 import {COLORS, FONTS, images, SIZES} from '../../constants';
 import Text from '../text/Text';
 

@@ -1,12 +1,13 @@
 import React from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   ActivityIndicator as Indicator,
 } from 'react-native';
+
+//User defined Imports
 import {COLORS} from '../../constants';
-import { globalStyles } from '../../globalstyles/GlobalStyles';
+import { globalStyles } from 'globalstyles/GlobalStyles';
 
 export default function ActivityIndicator() {
   return (

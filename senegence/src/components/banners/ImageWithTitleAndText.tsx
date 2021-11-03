@@ -1,6 +1,8 @@
 import React from 'react'
 import { ImageBackground, StyleSheet, View } from 'react-native'
-import { globalStyles } from '../../globalstyles/GlobalStyles'
+
+//User defined Imports
+import { globalStyles } from 'globalstyles/GlobalStyles'
 import Text from '../text/Text'
 
 export default function ImageWithTitleAndText({image, title=null, subTitle=null, onPress={}}: any) {

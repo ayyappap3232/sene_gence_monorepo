@@ -1,5 +1,7 @@
 import React from 'react';
-import {Keyboard, StyleSheet, Text, TextInput, View} from 'react-native';
+import {StyleSheet, TextInput} from 'react-native';
+
+//User defined Imports
 import { COLORS } from '../../constants';
 import {IOutlineTextProps} from '../../types';
 

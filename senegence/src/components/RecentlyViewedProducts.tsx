@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
-import {COLORS, FONTS, SIZES} from '../constants';
+
+//User defined Imports
 import CategoryItemComponent from './PLP/CategoryItemComponent';
 import Spacer from './Spacer';
 import Text from './text/Text';

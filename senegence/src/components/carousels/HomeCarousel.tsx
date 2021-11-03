@@ -7,8 +7,9 @@ import {
   View,
 } from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
+
+//User defined Imports
 import { COLORS, FONTS, SIZES } from '../../constants';
-import {IHomeCarouselData} from '../../types';
 
 export default function HomeCarousel({carouselData}: any) {
   const [activeSlide, setActiveSlide] = useState(0);

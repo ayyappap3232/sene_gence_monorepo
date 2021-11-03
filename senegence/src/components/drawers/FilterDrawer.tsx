@@ -1,27 +1,27 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import {
   Image,
-  StatusBar,
   StyleSheet,
   TouchableOpacity,
   View,
+  Platform
 } from 'react-native';
+import Modal from 'react-native-modal';
+import {useNavigation} from '@react-navigation/native';
+import Collapsible from 'react-native-collapsible';
+
+//User defined Imports
 import {Close} from '../../../assets/svgs';
 import {COLORS, FONTS, images, SIZES} from '../../constants';
 import Text from '../text/Text';
-import Modal from 'react-native-modal';
-import {Platform} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {ScreenNames} from '../../utils/screenNames';
-import Collapsible from 'react-native-collapsible';
-import {globalStyles} from '../../globalstyles/GlobalStyles';
+import {ScreenNames} from 'utils/screenNames';
+import {globalStyles} from 'globalstyles/GlobalStyles';
 import Spacer from '../Spacer';
 import Divider from '../dividers/Divider';
-import {useCallback, useEffect, useState} from 'react';
 import {
   Item,
   Value,
-} from '../../apollo/services/apollo/queries/categories/categoryList';
+} from 'apollo/services/apollo/queries/categories/categoryList';
 
 const FilterDrawer = ({
   sideMenuItems = [],

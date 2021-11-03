@@ -1,7 +1,9 @@
 import React from 'react'
 import { Image, ImageBackground, Linking, StyleSheet, TouchableOpacity, View } from 'react-native'
+
+//User defined Imports
 import { COLORS, FONTS, images, SIZES } from '../constants';
-import { beautyBookDownload } from '../utils/data/links';
+import { beautyBookDownload } from 'utils/data/links';
 import Spacer from './Spacer';
 import Text from './text/Text';
 

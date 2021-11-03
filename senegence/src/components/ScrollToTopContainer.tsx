@@ -5,14 +5,13 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  View,
 } from 'react-native';
+
+//User defined Imports
 import FAB from 'react-native-fab';
-import {PageUp} from '../../assets/svgs';
 import Footer from './footers/Footer';
 import Header from './headers/Header';
-import {COLORS, images, SIZES} from '../constants';
-import {useNavigation} from '@react-navigation/native';
+import {COLORS, images} from '../constants';
 
 export const ScrollToTopContainer = ({
   children,

@@ -1,7 +1,9 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
+
+//User defined Imports
 import {COLORS, FONTS, SIZES} from '../../constants';
-import {ScreenNames} from '../../utils/screenNames';
+import {ScreenNames} from 'utils/screenNames';
 import Spacer from '../Spacer';
 import Text from '../text/Text';
 

@@ -12,10 +12,12 @@ import {
   ScrollView,
   TouchableOpacity,
   View,
+  StyleSheet
 } from 'react-native';
+import Collapsible from 'react-native-collapsible';
+
+//User defined Imports
 import {
-  AppLogo,
-  Chevron,
   Close,
   Facebook,
   Instagram,
@@ -24,25 +26,20 @@ import {
   Youtube,
 } from '../../assets/svgs';
 import {COLORS, FONTS, icons, images, SIZES} from '../constants';
-import {StyleSheet} from 'react-native';
-import Text from '../components/text/Text';
-//@ts-ignore
-import CollapsibleView from '@eliav2/react-native-collapsible-view';
-import OutlineTextInput from '../components/textInputs/OutlineTextInput';
-import OutlineButton from '../components/buttons/OutlineButton';
-import {Platform} from 'react-native';
+import Text from 'components/text/Text';
+import OutlineTextInput from 'components/textInputs/OutlineTextInput';
+import OutlineButton from 'components/buttons/OutlineButton';
 import {
   facebookUrl,
   instagramUrl,
   pinterestUrl,
   twitterUrl,
   youtubeUrl,
-} from '../utils/data/links';
-import {ScreenNames} from '../utils/screenNames';
-import Collapsible from 'react-native-collapsible';
-import ActivityIndicator from '../components/spinners/ActivityIndicator';
-import { globalStyles } from '../globalstyles/GlobalStyles';
-import Spacer from '../components/Spacer';
+} from 'utils/data/links';
+import {ScreenNames} from 'utils/screenNames';
+import ActivityIndicator from 'components/spinners/ActivityIndicator';
+import { globalStyles } from 'globalstyles/GlobalStyles';
+import Spacer from 'components/Spacer';
 
 const CustomDrawerContent = (props: any) => {
   const navigation = useNavigation<any>();
@@ -201,8 +198,8 @@ const CustomDrawerContent = (props: any) => {
   const _menuContent = () => {
     return (
       <View style={{marginTop: 13}}>
-        {props?.categoryData?.categories?.items?.map((item, index) => {
-          return item.children.map((item, index) => {
+        {props?.categoryData?.categories?.items?.map((item:any, index: number) => {
+          return item.children.map((item:any, index: number) => {
             return (
               <React.Fragment key={item.name+index}>
                 {_renderMenuItem(
@@ -216,7 +213,7 @@ const CustomDrawerContent = (props: any) => {
                 {index + item.name == selectedItemIndex.id &&
                           selectedItemIndex.toggle &&
                           item.children.length > 0 &&
-                  item.children.map((item, index) => {
+                  item.children.map((item: any, index: number) => {
                     return (
                       <React.Fragment key={item.name+index}>
                         {_renderMenuItem(
@@ -232,7 +229,7 @@ const CustomDrawerContent = (props: any) => {
                         {index + item.name == selectedChildItemIndex.id &&
                               selectedChildItemIndex.toggle &&
                               item.children.length > 0 && 
-                          item.children.map((item, index) => {
+                          item.children.map((item: any, index: number) => {
                             return _renderMenuItem(item, index ,undefined,undefined,(index+item.name == selectedChildItemIndex.id) &&
                               selectedChildItemIndex.toggle &&
                               item.children.length > 0,"subchild");

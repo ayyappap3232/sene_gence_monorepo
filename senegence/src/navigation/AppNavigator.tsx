@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+//User defined Imports
 import UpdateCustomer from '../screens/customers/UpdateCustomer';
 import CustomerProfile from '../screens/customers/CustomerProfile';
 import HomePage from '../screens/AppScreens/HomePage';

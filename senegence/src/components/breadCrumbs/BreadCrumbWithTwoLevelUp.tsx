@@ -1,8 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
+
+//User defined Imports
 import { COLORS, FONTS, SIZES } from '../../constants';
-import { ScreenNames } from '../../utils/screenNames'
+import { ScreenNames } from 'utils/screenNames'
 import Text from '../text/Text'
 
 export default function BreadCrumbWithTwoLevelUp({oneLevelTitle, oneLevelUrlPath, title}: any) {

@@ -8,8 +8,10 @@ import {
   View,
 } from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
+
+//User defined Imports
 import {COLORS, FONTS, SIZES} from '../../constants';
-import {carouselTypes} from '../../utils/data/CarouselData';
+import {carouselTypes} from 'utils/data/CarouselData';
 
 export default function PlainCarousel({
   carouselData,

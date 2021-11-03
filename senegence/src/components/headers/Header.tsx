@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useEffect, useLayoutEffect, useState, useCallback} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -11,28 +11,22 @@ import {
   Alert,
   LogBox,
 } from 'react-native';
+import Collapsible from 'react-native-collapsible';
+import Modal from 'react-native-modal';
+
+//User defined Imports
 import {
-  AppLogo,
-  Close,
-  Globe,
   HamburgerMenu,
-  Search,
 } from '../../../assets/svgs';
 import {COLORS, FONTS, images, SIZES} from '../../constants';
 import Spacer from '../Spacer';
 import OutlineTextInput from '../textInputs/OutlineTextInput';
-import Collapsible from 'react-native-collapsible';
-import {ScreenNames} from '../../utils/screenNames';
-import Modal from 'react-native-modal';
-import {globalStyles} from '../../globalstyles/GlobalStyles';
-import OutlineButton from '../buttons/OutlineButton';
+import {ScreenNames} from 'utils/screenNames';
+import {globalStyles} from 'globalstyles/GlobalStyles';
 import Text from '../text/Text';
-import Divider from '../dividers/Divider';
 import IntroBanner from '../banners/IntroBanner';
-import minishoppingbag from '../shoppingcartbags/Minishoppingbag';
 import Minishoppingbag from '../shoppingcartbags/Minishoppingbag';
-import {miniShoppingCartData} from '../../utils/data/MiniShoppingBagData';
-import {debounce} from 'lodash';
+import {miniShoppingCartData} from 'utils/data/MiniShoppingBagData';
 import {
   useSearchProductCount,
   useSearchProductNameWithCount,
@@ -222,7 +216,7 @@ export default function Header({
           </View>
 
           <Minishoppingbag
-            miniShoppingCartData={miniShoppingCartData}
+            miniShoppingCartData={cartItemsData}
             setVisible={setVisible}
           />
         </View>

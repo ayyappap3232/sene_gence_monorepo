@@ -2,10 +2,9 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {Image, Modal, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {Close} from '../../../assets/svgs';
+
+//User defined Imports
 import {COLORS, FONTS, images, SIZES} from '../../constants';
-import {IAboutUsData} from '../../utils/data/AboutUsData';
-import {ScreenNames} from '../../utils/screenNames';
 import Spacer from '../Spacer';
 import Text from '../text/Text';
 

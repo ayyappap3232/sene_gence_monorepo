@@ -1,4 +1,6 @@
 import { StyleSheet } from "react-native";
+
+//User defined Imports
 import { COLORS, FONTS, SIZES } from "../constants";
 
 export const globalStyles = StyleSheet.create({
