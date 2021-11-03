@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 //@ts-ignore
 import { useLazyQuery } from '@apollo/client'
-import {GET_CART} from '../services/apollo/queries/cart/getCart'
+import { GET_CART_ITEMS } from '../services/apollo/queries/cart/getCart'
 
 type Props = {
     cartId : String;
@@ -9,14 +9,14 @@ type Props = {
 
 type Result = {
     loading: Boolean;
-    getCart(): void;
+    getCartItems(): void;
     error: any;
     cartData: any;
 }
 
-export const useCart = (props: Props): Result => {
+export const useGetCartItems = (props: Props): Result => {
     const [cartData, setCartData] = useState()
-    const [getCart,{loading,error,data}] = useLazyQuery(GET_CART,{
+    const [getCartItems,{loading,error,data}] = useLazyQuery(GET_CART_ITEMS,{
         variables:{
             cart_id: props.cartId
         }
@@ -30,7 +30,7 @@ export const useCart = (props: Props): Result => {
 
     return {
         loading,
-        getCart,
+        getCartItems,
         error,
         cartData
     }

@@ -9,6 +9,7 @@ import {
   Platform,
   ScrollView,
   Alert,
+  LogBox,
 } from 'react-native';
 import {
   AppLogo,
@@ -36,6 +37,9 @@ import {
   useSearchProductCount,
   useSearchProductNameWithCount,
 } from '../../apollo/controllers/getSearchCategoryList.Controller';
+import { useCart } from '../../hooks/cart/useCart';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useGetCartItems } from 'apollo/controllers/getCart.Controller';
 
 export default function Header({
   headerContainerStyle = {},
@@ -119,6 +123,41 @@ export default function Header({
       ]);
     }
   }, [productName]);
+
+
+  // ! Start of Get Cart Items
+  const [existingCartId, setExistingCartId] = useState("")  
+
+  const {cartId} = useCart();
+
+  console.log('cartId', cartId,existingCartId)
+        
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+
+    AsyncStorage.getItem('cartId').then(value => {
+      if(value != null){
+        setExistingCartId(value);
+        return;
+      }else {
+        AsyncStorage.setItem('cartId', cartId);
+      }
+    })
+  }, [])
+
+  const {getCartItems, cartData} = useGetCartItems({
+    cartId: existingCartId || cartId
+  })
+
+  useEffect(() => {
+    getCartItems();
+  }, [])
+
+  const cartItemCount = cartData?.cart?.items?.length;
+  const cartItemsData = cartData?.cart?.items;
+
+  // ! End of get cart items
+
 
   const _getRelatedProductItemCount = (name: string) => {
     setProductName(name);
@@ -238,7 +277,9 @@ export default function Header({
                   <TouchableOpacity
                     onPress={() => {
                       //showModal()
-                      navigation.navigate(ScreenNames.MainShoppingCartBag);
+                      navigation.navigate(ScreenNames.MainShoppingCartBag,{
+                        shoppingCartData: cartItemsData,
+                      });
                     }}>
                     <Image
                       source={images.shoppingbag}
@@ -251,7 +292,7 @@ export default function Header({
                           fontSize: SIZES.body5,
                           color: COLORS.white,
                         }}>
-                        {miniShoppingCartData?.length}
+                        {cartItemCount}
                       </Text>
                     </View>
                   </TouchableOpacity>
@@ -330,6 +371,8 @@ export default function Header({
     relatedSearchItems,
     correspondingProductItemCount,
     showPageUp,
+    cartItemCount,
+    cartItemsData
   ]);
 
   return (
