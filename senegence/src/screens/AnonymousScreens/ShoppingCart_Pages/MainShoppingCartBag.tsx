@@ -14,23 +14,6 @@ import { COLORS, SIZES } from '../../../constants'
 import { useCart } from '../../../hooks/cart/useCart'
 
 export default function MainShoppingCartBag({navigation}: any) {
-  const [existingCartId, setExistingCartId] = useState("")  
-  const {cartId} = useCart();
-        
-  useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-
-    AsyncStorage.getItem('cartId').then(value => {
-      if(value != null){
-        setExistingCartId(value);
-        return;
-      }else {
-        AsyncStorage.setItem('cartId', cartId);
-      }
-    })
-  }, [])
-
-
     return (
         <ScrollToTopContainer showCart={true}>
             <View style={{flex: 1, }}>

@@ -34,7 +34,7 @@ export default function Checkout_As_A_Guest() {
   const navigation = useNavigation();
   const route = useRoute<any>();
 
-  const {cartItemCount, subTotal, shippingAmount} = route?.params;
+  const {cartItemCount, subTotal, shippingAmount,shoppingCartData} = route?.params;
 
   const [isAccountCollapsed, setIsAccountCollapsed] = useState(false);
   const [isDistributorCollapsed, setIsDistributorCollapsed] = useState(false);
