@@ -8,7 +8,7 @@ const cartSlice = createSlice({
     reducers: {
         setCartId(state,action){
             state.cartId = action.payload
-        }
+        },
     }
 });
 
