@@ -23,7 +23,8 @@ export const useRemoveItemFromACart =  (props:Props) : Result => {
         variables: {
             cart_id: props.cart_id,
             cart_item_id: props.cart_item_id
-        }
+        },
+        fetchPolicy: "network-only",
     })
 
     useEffect(() => {

@@ -17,9 +17,13 @@ import {ScreenNames} from 'utils/screenNames';
 import OrderSummaryCard from '../screenComponents/OrderSummaryCard';
 import {useUpdateCartItems} from 'apollo/controllers/updateCartItems.Controller';
 import {useRemoveItemFromACart} from 'apollo/controllers/removeItemFromCart.Controller';
+import {useDispatch} from 'react-redux';
+import { cartCount } from '../../redux/cartItems';
 
 export default function Mainshoppingbag({navigation}: any) {
   const route = useRoute();
+
+  const dispatch = useDispatch();
 
   const shoppingCartItems = route?.params?.shoppingCartData;
   const cart_Id = route?.params?.cart_Id;
@@ -77,7 +81,7 @@ export default function Mainshoppingbag({navigation}: any) {
   };
 
   //Updating the cart items
-  const {updateCartItem, loading, updatedCartItems} = useUpdateCartItems({
+  const {updateCartItem} = useUpdateCartItems({
     cart_id: cart_Id,
     cart_item_uid: Number(cart_item_uid),
     quantity: qty.id == cart_item_uid && qty.quantity,
@@ -88,14 +92,14 @@ export default function Mainshoppingbag({navigation}: any) {
   }, [qty.quantity, updateCartItem]);
 
   //Removing the Items from cart
-  const {removeItemFromCart, customerCart} = useRemoveItemFromACart({
+  const {removeItemFromCart} = useRemoveItemFromACart({
     cart_id: cart_Id,
     cart_item_id: Number(deleteId),
   });
 
   useEffect(() => {
     removeItemFromCart();
-  }, [deleteId])
+  }, [deleteId]);
 
   const _renderItem = ({item, i}: any) => {
     const _leftContent = () => {
@@ -225,6 +229,9 @@ export default function Mainshoppingbag({navigation}: any) {
         el => el.id !== id,
       );
       setShoppingCartData(updatedShoppingCartData);
+      console.log('shop cart data', shoppingCartData?.length, shoppingCartData)
+      const shoppingCartDataCount = shoppingCartData?.length > 0 && shoppingCartData?.length - 1
+      dispatch(cartCount(shoppingCartDataCount))
       setShowDeleteModal(false);
     };
 

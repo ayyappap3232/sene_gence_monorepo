@@ -15,9 +15,7 @@ import Collapsible from 'react-native-collapsible';
 import Modal from 'react-native-modal';
 
 //User defined Imports
-import {
-  HamburgerMenu,
-} from '../../../assets/svgs';
+import {HamburgerMenu} from '../../../assets/svgs';
 import {COLORS, FONTS, images, SIZES} from '../../constants';
 import Spacer from '../Spacer';
 import OutlineTextInput from '../textInputs/OutlineTextInput';
@@ -31,9 +29,11 @@ import {
   useSearchProductCount,
   useSearchProductNameWithCount,
 } from '../../apollo/controllers/getSearchCategoryList.Controller';
-import { useCart } from '../../hooks/cart/useCart';
+import {useCart} from '../../hooks/cart/useCart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useGetCartItems } from 'apollo/controllers/getCart.Controller';
+import {useGetCartItems} from 'apollo/controllers/getCart.Controller';
+import { useSelector } from 'react-redux';
+import { getCartItemsCount } from '../../redux/cartItems';
 
 export default function Header({
   headerContainerStyle = {},
@@ -54,6 +54,10 @@ export default function Header({
   const handleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
   };
+
+  let cartItemCount = useSelector(getCartItemsCount)
+
+  console.log('cartItemCount',cartItemCount)
 
   //handle search operation when click on search icon
   const onSearchHandler = (name = '') => {
@@ -118,41 +122,38 @@ export default function Header({
     }
   }, [productName]);
 
-
   // ! Start of Get Cart Items
-  const [existingCartId, setExistingCartId] = useState("")  
+  const [existingCartId, setExistingCartId] = useState('');
 
   const {cartId} = useCart();
 
-  console.log('cartId', cartId,existingCartId)
-        
+  console.log('cartId', cartId, existingCartId);
+
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 
     AsyncStorage.getItem('cartId').then(value => {
-      if(value != null){
+      if (value != null) {
         setExistingCartId(value);
         return;
-      }else {
+      } else {
         AsyncStorage.setItem('cartId', cartId);
       }
-    })
-  }, [])
+    });
+  }, []);
 
   const {getCartItems, cartData} = useGetCartItems({
-    cartId: existingCartId || cartId
-  })
+    cartId: existingCartId || cartId,
+  });
 
   useEffect(() => {
     getCartItems();
-  }, [])
+  }, [navigation]);
 
-  const cartItemCount = cartData?.cart?.items?.length;
   const cartItemsData = cartData?.cart?.items;
   const cart_Id = existingCartId || cartId;
 
   // ! End of get cart items
-
 
   const _getRelatedProductItemCount = (name: string) => {
     setProductName(name);
@@ -272,9 +273,9 @@ export default function Header({
                   <TouchableOpacity
                     onPress={() => {
                       //showModal()
-                      navigation.navigate(ScreenNames.MainShoppingCartBag,{
+                      navigation.navigate(ScreenNames.MainShoppingCartBag, {
                         shoppingCartData: cartItemsData,
-                        cart_Id: cart_Id
+                        cart_Id: cart_Id,
                       });
                     }}>
                     <Image
@@ -282,7 +283,16 @@ export default function Header({
                       style={{width: 16, height: 16, marginHorizontal: 5}}
                       resizeMode="contain"
                     />
-                    <View style={styles.miniShoppingCartIcon}>
+                    <View
+                      style={[
+                        styles.miniShoppingCartIcon,
+                        cartItemCount > 0 && {
+                          backgroundColor: COLORS.footerColor,
+                          width: 16,
+                          height: 16,
+                          borderRadius: 10,
+                        },
+                      ]}>
                       <Text
                         containerStyle={{
                           fontSize: SIZES.body5,
@@ -369,7 +379,7 @@ export default function Header({
     showPageUp,
     cartItemCount,
     cartItemsData,
-    cart_Id
+    cart_Id,
   ]);
 
   return (
@@ -440,10 +450,7 @@ const styles = StyleSheet.create({
     right: -5,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.footerColor,
-    width: 16,
-    height: 16,
-    borderRadius: 10,
+
   },
   modalWrapper: {
     width: SIZES.width - 16,
