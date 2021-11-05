@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PRODUCT_TO_CART } from "../services/apollo/mutations/cart/addProductToCart";
 import { UPDATE_CART_ITEMS } from "../services/apollo/mutations/cart/updateCartItems";
+import { useDispatch } from "react-redux";
 
 type Props = {
   cart_id: string;
@@ -18,6 +19,7 @@ type Result = {
 };
 
 export const useUpdateCartItems = (props: Props): Result => {
+  const dispatch = useDispatch()
   const [updatedCartItems, setUpdatedCartItems] = useState();
   const [updateCartItem, { loading, error, data }] = useMutation(
     UPDATE_CART_ITEMS,

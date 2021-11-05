@@ -30,7 +30,7 @@ export default function Mainshoppingbag({navigation}: any) {
 
   const [cart_item_uid, setCartItemUid] = useState('');
   const [qty, setQty] = useState<any>({id: '', quantity: 0});
-  const [shoppingCartData, setShoppingCartData] = useState(shoppingCartItems);
+  const [shoppingCartData, setShoppingCartData] = useState(route?.params?.shoppingCartData);
 
   const totalPrice = shoppingCartData?.reduce(
     (total: any, element: any) =>
@@ -48,6 +48,7 @@ export default function Mainshoppingbag({navigation}: any) {
   useEffect(() => {
     setStatus('');
     setCouponText('');
+    setShoppingCartData(shoppingCartItems)
   }, []);
 
   //Increment cart item quantity Logic
@@ -178,7 +179,6 @@ export default function Mainshoppingbag({navigation}: any) {
     };
 
     const _quantityAddAndDelete = () => {
-      console.log('item id, qty id', item.id, qty.id, qty);
       return (
         <View style={{flex: 1, flexDirection: 'row'}}>
           <View>
@@ -229,7 +229,6 @@ export default function Mainshoppingbag({navigation}: any) {
         el => el.id !== id,
       );
       setShoppingCartData(updatedShoppingCartData);
-      console.log('shop cart data', shoppingCartData?.length, shoppingCartData)
       const shoppingCartDataCount = shoppingCartData?.length > 0 && shoppingCartData?.length - 1
       dispatch(cartCount(shoppingCartDataCount))
       setShowDeleteModal(false);
@@ -378,6 +377,8 @@ export default function Mainshoppingbag({navigation}: any) {
       </>
     );
   };
+
+  console.log('shopping cart data', shoppingCartData,"shoppingCartItems",shoppingCartItems)
 
   return (
     <>
