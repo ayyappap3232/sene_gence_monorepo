@@ -14,7 +14,7 @@ import {
   Picker,
   TextInput,
 } from 'react-native';
-import { useAddProductsToCart } from 'apollo/controllers/addProductToCart.Controller';
+import {useAddProductsToCart} from 'apollo/controllers/addProductToCart.Controller';
 import {useCategoryList} from '../../apollo/controllers/getCategoryList.Controller';
 import {useSearchCategoryList} from '../../apollo/controllers/getSearchCategoryList.Controller';
 import {
@@ -48,9 +48,9 @@ import ActivityIndicator from '../spinners/ActivityIndicator';
 import Text from '../text/Text';
 import TextWithUnderLine from '../text/TextWithUnderLine';
 import CategoryItemComponent from './CategoryItemComponent';
-import { useGetCartItems } from 'apollo/controllers/getCart.Controller';
-import { useDispatch, useSelector } from 'react-redux';
-import { cartCount, getCartItemsCount } from '../../redux/cartItems';
+import {useGetCartItems} from 'apollo/controllers/getCart.Controller';
+import {useDispatch, useSelector} from 'react-redux';
+import {cartCount, getCartItemsCount} from '../../redux/cartItems';
 
 export default function CategoryDetailsItemComponent({
   categoryDetailsData,
@@ -565,30 +565,30 @@ export default function CategoryDetailsItemComponent({
     );
   };
 
-  const [selectedOptions, setSelectedOptions] = useState([])
-
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
   const {getCartItems} = useGetCartItems({
     cartId: existingCartId,
   });
 
   //Add Products To Cart
-  const {addProductToCart,addLoading,addProductError,productsToCart} = useAddProductsToCart({
-    cart_id: existingCartId,
-    sku: sku,
-    quantity: 1,
-  })
+  const {addProductToCart, addLoading, addProductError, productsToCart} =
+    useAddProductsToCart({
+      cart_id: existingCartId,
+      sku: sku,
+      quantity: 1,
+    });
   const dispatch = useDispatch();
   useEffect(() => {
-    productsToCart && dispatch(cartCount(productsToCart?.cart?.items?.length))
-  }, [productsToCart])
+    productsToCart && dispatch(cartCount(productsToCart?.cart?.items?.length));
+  }, [productsToCart]);
 
-  const getCartCount = useSelector(getCartItemsCount)
-  
+  const getCartCount = useSelector(getCartItemsCount);
+
   const handleAddToCart = () => {
     addProductToCart();
-    dispatch(cartCount(getCartCount))
-  }
+    dispatch(cartCount(getCartCount));
+  };
 
   return (
     <View style={styles.container}>
@@ -610,16 +610,20 @@ export default function CategoryDetailsItemComponent({
         <Spacer mt={10} />
         {_priceWithDiscount()}
         <Spacer mt={10} />
-        <OutlineButton
-          title={addLoading ? 'Adding To Cart':'Add To Cart'}
-          onPress={() => handleAddToCart()}
-          textStyleContainer={[globalStyles.bannerBtnTextWhite]}
-          containerStyle={[
-            globalStyles.bannerBtnBlueBackground,
-            {width: 150, alignSelf: 'flex-end'},
-          ]}
-        />
-        <Spacer mt={10} />
+        {stock_status !== 'OUT_OF_STOCK' ? (
+          <>
+            <OutlineButton
+              title={addLoading ? 'Adding To Cart' : 'Add To Cart'}
+              onPress={() => handleAddToCart()}
+              textStyleContainer={[globalStyles.bannerBtnTextWhite]}
+              containerStyle={[
+                globalStyles.bannerBtnBlueBackground,
+                {width: 150, alignSelf: 'flex-end'},
+              ]}
+            />
+            <Spacer mt={10} />
+          </>
+        ) : null}
         <Divider width={330} backgroundColor={COLORS.border} />
         <Spacer mt={10} />
         <View style={{marginLeft: 10}}>
