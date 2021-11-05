@@ -169,7 +169,7 @@ export default function StartUpPage() {
     <ScrollToTopContainer showCart={true} isBannerShownOnInitialLoad={true}>
       <View style={{paddingHorizontal: 29}}>
         <HomeCarousel carouselData={homeCarouselData} />
-        <OutlineButton containerStyle={{width: SIZES.width - 60}} title={'SHOP & SAVE'} onPress={() => Linking.openURL(shopAndSave)} />
+        <OutlineButton containerStyle={{width: SIZES.width - 60,marginTop: -60}} title={'SHOP & SAVE'} onPress={() => Linking.openURL(shopAndSave)} />
         <Spacer mt={10} />
         <OutlineButton containerStyle={{width: SIZES.width - 60}} title={'BECOME A DISTRIBUTOR'} onPress={() => Linking.openURL(distributorEnrollToday)} />
         <Spacer mt={34} />

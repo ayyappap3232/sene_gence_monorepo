@@ -19,7 +19,7 @@ export default function HomeCarousel({carouselData}: any) {
         key={item.id}
         resizeMode="cover"
         source={item.image}
-        style={{width: SIZES.width-60, height: 363}}>
+        style={{width: SIZES.width, height: 363}}>
         <View
           style={[
             styles.carouselInnerContent,
@@ -31,7 +31,28 @@ export default function HomeCarousel({carouselData}: any) {
             <Text>{item.buttonText}</Text>
           </TouchableOpacity>
         </View>
-        <Pagination
+        
+      </ImageBackground>
+    );
+  };
+
+  return (
+    <>
+    <Carousel
+      data={carouselData}
+      renderItem={_renderItem}
+      sliderWidth={SIZES.width-60}
+      itemWidth={363}
+      onSnapToItem={index => setActiveSlide(index)}
+      autoplay={false}
+      autoplayDelay={200}
+      layout={"default"}
+      activeAnimationType={"timing"}
+      inactiveSlideScale={1}
+      inactiveSlideOpacity={1}
+      
+    />
+    <Pagination
           dotsLength={carouselData.length}
           activeDotIndex={activeSlide}
           containerStyle={styles.pagination}
@@ -42,20 +63,7 @@ export default function HomeCarousel({carouselData}: any) {
           dotStyle={{width: 14,height: 14, borderRadius: 10,borderWidth: 3,borderColor: COLORS.border}}
           dotContainerStyle={{width: 14,height: 14, borderRadius: 10, borderWidth: 2,borderColor: 'red'}}
         />
-      </ImageBackground>
-    );
-  };
-
-  return (
-    <Carousel
-      data={carouselData}
-      renderItem={_renderItem}
-      sliderWidth={353}
-      itemWidth={363}
-      onSnapToItem={index => setActiveSlide(index)}
-      autoplay={true}
-      autoplayInterval={200}
-    />
+        </>
   );
 }
 
@@ -98,8 +106,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     width: 24,
     height: 14,
-    position: 'absolute',
-    bottom: 0,
+    position: 'relative',
+    bottom: 60,
     alignSelf: 'center',
   }
 });
