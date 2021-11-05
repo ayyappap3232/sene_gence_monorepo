@@ -33,14 +33,14 @@ import {useCart} from '../../hooks/cart/useCart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useGetCartItems} from 'apollo/controllers/getCart.Controller';
 import { useSelector } from 'react-redux';
-import { getCartItemsCount } from '../../redux/cartItems';
+import { getCartItemsCount, success } from '../../redux/cartItems';
 
 export default function Header({
   headerContainerStyle = {},
   showCart = true,
   isBannerShownOnInitialLoad = false,
   showPageUp = false,
-}) {
+}:any) {
   const navigation = useNavigation<any>();
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [searchText, setSearchText] = useState('');
@@ -56,8 +56,42 @@ export default function Header({
   };
 
   let cartItemCount = useSelector(getCartItemsCount)
+  let isSuccess = useSelector(success)
 
-  console.log('cartItemCount',cartItemCount)
+  // ! Start of Get Cart Items
+  const [existingCartId, setExistingCartId] = useState('');
+
+  const {cartId} = useCart();
+
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+
+    AsyncStorage.getItem('cartId').then(value => {
+      if (value != null) {
+        setExistingCartId(value);
+        return;
+      } else {
+        AsyncStorage.setItem('cartId', cartId);
+      }
+    });
+  }, []);
+
+  const {getCartItems, cartData} = useGetCartItems({
+    cartId: existingCartId || cartId,
+  });
+
+  useEffect(() => {
+    getCartItems();
+  }, [cartItemCount]);
+
+
+
+  const cartItemsData = cartData?.cart?.items;
+  const cart_Id = existingCartId || cartId;
+
+
+  // ! End of get cart items
+
 
   //handle search operation when click on search icon
   const onSearchHandler = (name = '') => {
@@ -122,38 +156,7 @@ export default function Header({
     }
   }, [productName]);
 
-  // ! Start of Get Cart Items
-  const [existingCartId, setExistingCartId] = useState('');
-
-  const {cartId} = useCart();
-
-  console.log('cartId', cartId, existingCartId);
-
-  useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-
-    AsyncStorage.getItem('cartId').then(value => {
-      if (value != null) {
-        setExistingCartId(value);
-        return;
-      } else {
-        AsyncStorage.setItem('cartId', cartId);
-      }
-    });
-  }, []);
-
-  const {getCartItems, cartData} = useGetCartItems({
-    cartId: existingCartId || cartId,
-  });
-
-  useEffect(() => {
-    getCartItems();
-  }, [navigation]);
-
-  const cartItemsData = cartData?.cart?.items;
-  const cart_Id = existingCartId || cartId;
-
-  // ! End of get cart items
+  
 
   const _getRelatedProductItemCount = (name: string) => {
     setProductName(name);

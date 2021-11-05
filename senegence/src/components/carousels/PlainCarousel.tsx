@@ -100,6 +100,8 @@ export default function PlainCarousel({
         loop={loop}
         layout={'default'}
         containerCustomStyle={{flexGrow: 0, marginBottom: -10}}
+        inactiveSlideScale={1}
+      inactiveSlideOpacity={1}
       />
       <Pagination
         dotsLength={carouselData.length}

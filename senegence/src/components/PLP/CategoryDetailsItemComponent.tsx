@@ -573,16 +573,19 @@ export default function CategoryDetailsItemComponent({
   });
 
   //Add Products To Cart
-  const {addProductToCart} = useAddProductsToCart({
+  const {addProductToCart,addLoading,addProductError,productsToCart} = useAddProductsToCart({
     cart_id: existingCartId,
     sku: sku,
     quantity: 1,
   })
   const dispatch = useDispatch();
+  useEffect(() => {
+    productsToCart && dispatch(cartCount(productsToCart?.cart?.items?.length))
+  }, [productsToCart])
+
   const getCartCount = useSelector(getCartItemsCount)
   
   const handleAddToCart = () => {
-    console.log('cartId: ', existingCartId)
     addProductToCart();
     dispatch(cartCount(getCartCount))
   }
@@ -608,7 +611,7 @@ export default function CategoryDetailsItemComponent({
         {_priceWithDiscount()}
         <Spacer mt={10} />
         <OutlineButton
-          title={'Add To Cart'}
+          title={addLoading ? 'Adding To Cart':'Add To Cart'}
           onPress={() => handleAddToCart()}
           textStyleContainer={[globalStyles.bannerBtnTextWhite]}
           containerStyle={[

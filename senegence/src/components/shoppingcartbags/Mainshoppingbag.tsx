@@ -49,7 +49,7 @@ export default function Mainshoppingbag({navigation}: any) {
     setStatus('');
     setCouponText('');
     setShoppingCartData(shoppingCartItems)
-  }, []);
+  }, [route]);
 
   //Increment cart item quantity Logic
   const _handleIncrementQuantity = (id: any, quantity: number) => {
@@ -378,7 +378,6 @@ export default function Mainshoppingbag({navigation}: any) {
     );
   };
 
-  console.log('shopping cart data', shoppingCartData,"shoppingCartItems",shoppingCartItems)
 
   return (
     <>

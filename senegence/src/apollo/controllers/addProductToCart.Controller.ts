@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PRODUCT_TO_CART } from "../services/apollo/mutations/cart/addProductToCart";
 import { useDispatch } from "react-redux";
-import {productsInCart} from '../../redux/cartItems'
+import {productsInCart, success} from '../../redux/cartItems'
 
 type Props = {
   cart_id: string;
@@ -12,8 +12,8 @@ type Props = {
 };
 
 type Result = {
-  loading: Boolean;
-  error: any;
+  addLoading: Boolean;
+  addProductError: any;
   addProductToCart(): void;
   productsToCart: any;
 };
@@ -41,9 +41,13 @@ export const useAddProductsToCart = (props: Props): Result => {
     }
   }, [data]);
 
+  if(!loading){
+    dispatch(success(true))
+  }
+
   return {
-    loading,
-    error,
+    addLoading: loading,
+    addProductError: error,
     addProductToCart,
     productsToCart,
   };
