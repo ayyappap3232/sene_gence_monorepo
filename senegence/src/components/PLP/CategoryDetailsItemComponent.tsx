@@ -14,6 +14,7 @@ import {
   Picker,
   TextInput,
 } from 'react-native';
+import { useAddProductsToCart } from 'apollo/controllers/addProductToCart.Controller';
 import {useCategoryList} from '../../apollo/controllers/getCategoryList.Controller';
 import {useSearchCategoryList} from '../../apollo/controllers/getSearchCategoryList.Controller';
 import {
@@ -47,6 +48,9 @@ import ActivityIndicator from '../spinners/ActivityIndicator';
 import Text from '../text/Text';
 import TextWithUnderLine from '../text/TextWithUnderLine';
 import CategoryItemComponent from './CategoryItemComponent';
+import { useGetCartItems } from 'apollo/controllers/getCart.Controller';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartCount, getCartItemsCount } from '../../redux/cartItems';
 
 export default function CategoryDetailsItemComponent({
   categoryDetailsData,
@@ -153,6 +157,7 @@ export default function CategoryDetailsItemComponent({
     url_path: url_path,
     pageSize: pageSize,
     currentPage: currentPage,
+    sortNameField: 'featured_product',
   });
 
   useEffect(() => {
@@ -502,7 +507,10 @@ export default function CategoryDetailsItemComponent({
                       }}>
                       <Text
                         containerStyle={{
-                          color: shadeOrFinishesValue?.label == childItem.label ? COLORS.text:COLORS.border1,
+                          color:
+                            shadeOrFinishesValue?.label == childItem.label
+                              ? COLORS.text
+                              : COLORS.border1,
                           marginVertical: 5,
                           paddingLeft: 10,
                         }}>
@@ -541,10 +549,10 @@ export default function CategoryDetailsItemComponent({
     );
   };
 
-  const _ratings = (rating: any, containerStyle={}) => {
+  const _ratings = (rating: any, containerStyle = {}) => {
     return (
       <>
-        <Rating ratingText={rating}  containerStyle={containerStyle}/>
+        <Rating ratingText={rating} containerStyle={containerStyle} />
       </>
     );
   };
@@ -556,6 +564,28 @@ export default function CategoryDetailsItemComponent({
       </>
     );
   };
+
+  const [selectedOptions, setSelectedOptions] = useState([])
+
+
+  const {getCartItems} = useGetCartItems({
+    cartId: existingCartId,
+  });
+
+  //Add Products To Cart
+  const {addProductToCart} = useAddProductsToCart({
+    cart_id: existingCartId,
+    sku: sku,
+    quantity: 1,
+  })
+  const dispatch = useDispatch();
+  const getCartCount = useSelector(getCartItemsCount)
+  
+  const handleAddToCart = () => {
+    console.log('cartId: ', existingCartId)
+    addProductToCart();
+    dispatch(cartCount(getCartCount))
+  }
 
   return (
     <View style={styles.container}>
@@ -577,10 +607,20 @@ export default function CategoryDetailsItemComponent({
         <Spacer mt={10} />
         {_priceWithDiscount()}
         <Spacer mt={10} />
+        <OutlineButton
+          title={'Add To Cart'}
+          onPress={() => handleAddToCart()}
+          textStyleContainer={[globalStyles.bannerBtnTextWhite]}
+          containerStyle={[
+            globalStyles.bannerBtnBlueBackground,
+            {width: 150, alignSelf: 'flex-end'},
+          ]}
+        />
+        <Spacer mt={10} />
         <Divider width={330} backgroundColor={COLORS.border} />
         <Spacer mt={10} />
-        <View style={{marginLeft:10}}>
-            {_ratings("",{flexDirection: 'row',alignItems: 'flex-start'})}
+        <View style={{marginLeft: 10}}>
+          {_ratings('', {flexDirection: 'row', alignItems: 'flex-start'})}
         </View>
         {/* swatch info */}
 
@@ -638,7 +678,7 @@ export default function CategoryDetailsItemComponent({
       {/* Get the Recently Viewed Products from the Async Storage i.e localstorage */}
       {_renderProductData(recentlyViewedProducts)}
       <Spacer mb={20} />
-      {_ratings("4.1")}
+      {_ratings('4.1')}
       {_reviews()}
     </View>
   );
