@@ -15,7 +15,7 @@ const cartItemsSlice = createSlice({
             state.items = action.payload
         },
         success(state,action){
-            state.success = true
+            state.success = action.payload
         }
     }
 });
