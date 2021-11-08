@@ -82,7 +82,7 @@ export const useProductDetails = ({sku}: Props): Result => {
       variables: {
         sku: sku,
       },
-      fetchPolicy: 'cache-and-network',
+      fetchPolicy: "cache-and-network",
     },
   );
 
@@ -99,6 +99,20 @@ export const useProductDetails = ({sku}: Props): Result => {
       setProductDetailsData(data?.products?.items?.[0])
     }
   }, [data])
+
+
+  useEffect(() => {
+    if(productDetailsData) {
+      if(selectedVariant){
+        setSelectedPrice(selectedVariant.product.price_range);
+        setSelectedMediaGallery([...selectedVariant.product.media_gallery, ...productDetailsData.media_gallery]);
+      }else{
+        setSelectedPrice(productDetailsData.price_range);
+        setSelectedMediaGallery(productDetailsData.media_gallery);
+      }
+    }
+  }, [selectedVariant, productDetailsData])
+
 
   useEffect(() => {
     if (

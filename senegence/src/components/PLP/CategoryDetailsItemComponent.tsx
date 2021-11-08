@@ -70,6 +70,8 @@ export default function CategoryDetailsItemComponent() {
     sku: sku,
   });
 
+  console.log('price range', price);
+
   useEffect(() => {
     sku && getProductDetails();
     return () => getProductDetails();
@@ -165,7 +167,7 @@ export default function CategoryDetailsItemComponent() {
   const _carousel = () => {
     return (
       <PlainCarousel
-        carouselData={productDetailsData?.media_gallery}
+        carouselData={mediaGallery}
         borderWidth={1}
         borderColor="#d2d7e2"
         uri={true}
@@ -197,42 +199,27 @@ export default function CategoryDetailsItemComponent() {
       <View style={styles.priceWrapper}>
         <Text
           containerStyle={[
-            productDetailsData?.price_range?.minimum_price?.discount
-              ?.amount_off > 0 && {
+            price?.minimum_price?.discount?.amount_off > 0 && {
               textDecorationLine: 'line-through',
             },
             styles.regularPrice,
           ]}>
-          {_getCurrencySymbols(
-            productDetailsData?.price_range?.minimum_price?.regular_price
-              ?.currency,
-          )}
-          {productDetailsData?.price_range?.minimum_price?.regular_price?.value}{' '}
-          {
-            productDetailsData?.price_range?.minimum_price?.regular_price
-              ?.currency
-          }
+          {_getCurrencySymbols(price?.minimum_price?.regular_price?.currency)}
+          {price?.minimum_price?.regular_price?.value}{' '}
+          {price?.minimum_price?.regular_price?.currency}
         </Text>
-        {productDetailsData?.price_range?.minimum_price?.discount?.amount_off >
-          0 && (
+        {price?.minimum_price?.discount?.amount_off > 0 && (
           <>
             <Text containerStyle={styles.finalPrice}>
               {_getCurrencySymbols(
-                productDetailsData?.price_range?.minimum_price?.regular_price
-                  ?.currency,
+                price?.minimum_price?.regular_price?.currency,
               )}
-              {
-                productDetailsData?.price_range?.minimum_price?.final_price
-                  .value
-              }{' '}
-              {
-                productDetailsData?.price_range?.minimum_price?.regular_price
-                  ?.currency
-              }
+              {price?.minimum_price?.final_price.value}{' '}
+              {price?.minimum_price?.regular_price?.currency}
             </Text>
             <View style={styles.discountWrapper}>
               <Text containerStyle={styles.discountText}>
-                {`${productDetailsData?.price_range?.minimum_price?.discount?.amount_off}% Discount`}
+                {`${price?.minimum_price?.discount?.amount_off}% Discount`}
               </Text>
             </View>
           </>
