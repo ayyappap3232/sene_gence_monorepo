@@ -12,7 +12,7 @@ type Props = {
 
 type Result = {
     loading: Boolean,
-    error: any,
+    removeItemFromCarterror: any,
     removeItemFromCart() : void,
     customerCart: any
 }
@@ -21,10 +21,10 @@ export const useRemoveItemFromACart =  (props:Props) : Result => {
     const [customerCart, setCustomerCart] = useState()
     const [removeItemFromCart, {loading, data, error}] = useMutation(REMOVE_ITEM_FROM_CART, {
         variables: {
-            cart_id: props.cart_id,
-            cart_item_id: props.cart_item_id
+            cart_id: props?.cart_id,
+            cart_item_id: props?.cart_item_id
         },
-        fetchPolicy: "network-only",
+        fetchPolicy: "no-cache",
     })
 
     useEffect(() => {
@@ -36,7 +36,7 @@ export const useRemoveItemFromACart =  (props:Props) : Result => {
 
     return {
         loading,
-        error,
+        removeItemFromCarterror: error,
         removeItemFromCart,
         customerCart
     }

@@ -101,7 +101,7 @@ const CustomDrawerContent = (props: any) => {
                 paddingLeft: 20,
                 flex: item.name == 'LOGIN' ? 1 : 0,
               }}
-              key={item.id}
+              key={`${item.id}${item.name}`}
               activeOpacity={0.7}
               onPress={() => _handleTabSelectedOption(item.name)}>
               <Text containerStyle={styles.topTabMenu}>{item.name}</Text>

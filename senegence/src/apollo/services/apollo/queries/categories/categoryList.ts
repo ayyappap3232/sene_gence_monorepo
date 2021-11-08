@@ -37,6 +37,7 @@ export const CATEGORY_LIST = gql`
         total_count
         items {
           uid
+          __typename
           ... on ConfigurableProduct {
             configurable_options {
               attribute_code
@@ -44,6 +45,7 @@ export const CATEGORY_LIST = gql`
               values {
                 label
                 uid
+                value_index
                 swatch_data {
                   value
                 }
@@ -187,6 +189,7 @@ export interface Categories {
 
 export interface Item {
   uid: string;
+  __typename: string;
   categories: Categories;
   stock_status: string;
   product_tag: number;

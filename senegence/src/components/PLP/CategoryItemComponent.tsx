@@ -39,6 +39,7 @@ const CategoryItemComponent = (
     name,
     configurable_options,
     variants,
+    __typename,
     product_tag,
     image: {url},
     second_title,

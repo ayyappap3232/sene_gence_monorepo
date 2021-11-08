@@ -635,6 +635,7 @@ export default function Checkout_As_A_Guest() {
         <BreadCrumbWithTwoLevelUpWithoutNavigationParams
           oneLevelTitle={'Shopping Cart'}
           screenName={ScreenNames.MainShoppingCartBag}
+          params={{shoppingCartData: shoppingCartData}}
           title={'Checkout'}
         />
         <Spacer mt={20} />

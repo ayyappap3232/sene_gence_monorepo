@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {values} from 'lodash';
 import React, {useEffect, useState} from 'react';
 import {
   FlatList,
@@ -19,7 +18,6 @@ import {useCategoryList} from '../../apollo/controllers/getCategoryList.Controll
 import {useSearchCategoryList} from '../../apollo/controllers/getSearchCategoryList.Controller';
 import {
   ConfigurableOption,
-  Item,
   Value,
 } from '../../apollo/services/apollo/queries/categories/categoryList';
 import {COLORS, FONTS, images, SIZES} from '../../constants';
@@ -51,6 +49,8 @@ import CategoryItemComponent from './CategoryItemComponent';
 import {useGetCartItems} from 'apollo/controllers/getCart.Controller';
 import {useDispatch, useSelector} from 'react-redux';
 import {cartCount, getCartItemsCount} from '../../redux/cartItems';
+import {useProductDetails} from '../../hooks/products/useProductDetails';
+import {useAddConfigurableProductsToCart} from 'apollo/controllers/addConfigurableProductsToCart.Controller';
 
 export default function CategoryDetailsItemComponent({
   categoryDetailsData,
@@ -58,6 +58,7 @@ export default function CategoryDetailsItemComponent({
 }: any) {
   const navigation = useNavigation();
   const route = useRoute();
+
   const {
     media_gallery,
     description,
@@ -79,11 +80,12 @@ export default function CategoryDetailsItemComponent({
     },
     second_title,
     sku,
+    __typename,
     stock_status,
     swatch_image,
     small_image,
     thumbnail,
-  } = categoryDetailsData;
+  }: any = categoryDetailsData;
 
   const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
 
@@ -93,6 +95,7 @@ export default function CategoryDetailsItemComponent({
   const [selectedColorText, setSelectedColorText] = useState<any>();
   const [selectedShadeValue, setSelectedShadeValue] = useState<any>();
   const [selectedFinishesValue, setSelectedFinishesValue] = useState<any>();
+  const [selectedIndex, setSelectedIndex] = useState(-1);
 
   const initialSelectedColorLabel =
     configurable_options?.length > 0
@@ -108,11 +111,15 @@ export default function CategoryDetailsItemComponent({
 
   useEffect(() => {
     LogBox.ignoreAllLogs();
-    configurable_options &&
-      setSelectedColorText({
-        label: initialSelectedColorLabel,
-        option_id: initialSelectedColorUid,
-      });
+    configurable_options?.length > 0
+      ? setSelectedColorText({
+          label: initialSelectedColorLabel,
+          option_id: initialSelectedColorUid,
+        })
+      : setSelectedColorText({
+          label: '',
+          option_id: '',
+        });
     setShowDropdownShadeOrFinishes({attributeCode: '', toggle: false});
     setSelectedFinishesValue('');
     setSelectedShadeValue('');
@@ -303,6 +310,8 @@ export default function CategoryDetailsItemComponent({
     );
   };
 
+
+
   const _colorSwatchInfo = () => {
     return configurable_options?.map((item: any, index: number) => {
       return item.attribute_code === 'color' ? (
@@ -357,6 +366,7 @@ export default function CategoryDetailsItemComponent({
                       label: childItem.label,
                       option_id: childItem.uid,
                     });
+                    setSelectedIndex(childItem.value_index)
                   }}>
                   <View
                     style={
@@ -565,7 +575,7 @@ export default function CategoryDetailsItemComponent({
     );
   };
 
-  const [selectedOptions, setSelectedOptions] = useState([]);
+
 
   const {getCartItems} = useGetCartItems({
     cartId: existingCartId,
@@ -578,15 +588,42 @@ export default function CategoryDetailsItemComponent({
       sku: sku,
       quantity: 1,
     });
+
+  let selectedOptionsArray = [selectedShadeValue?.option_id,selectedFinishesValue?.option_id,selectedColorText?.option_id]
+  selectedOptionsArray = selectedOptionsArray.filter(element => element !== undefined)
+
+  //Add Configurable Products To Cart
+  const {
+    addConfigurableProductToCart,
+    addConfigurableLoading,
+    addConfigurableProductError,
+    configurableProductsToCart,
+  } = useAddConfigurableProductsToCart({
+    cart_id: existingCartId,
+    sku: sku,
+    quantity: 1,
+    selectedOptions: selectedOptionsArray,
+  });
+
   const dispatch = useDispatch();
+
   useEffect(() => {
-    productsToCart && dispatch(cartCount(productsToCart?.cart?.items?.length));
+    productsToCart?.cart?.items?.length > 0 && dispatch(cartCount(productsToCart?.cart?.items?.length));
   }, [productsToCart]);
+
+  useEffect(() => {
+    configurableProductsToCart?.cart?.items?.length > 0 &&
+      dispatch(cartCount(configurableProductsToCart?.cart?.items?.length));
+  }, [configurableProductsToCart]);
 
   const getCartCount = useSelector(getCartItemsCount);
 
   const handleAddToCart = () => {
-    addProductToCart();
+    if (__typename === 'ConfigurableProduct') {
+      addConfigurableProductToCart();
+    } else {
+      addProductToCart();
+    }
     dispatch(cartCount(getCartCount));
   };
 
@@ -613,7 +650,7 @@ export default function CategoryDetailsItemComponent({
         {stock_status !== 'OUT_OF_STOCK' ? (
           <>
             <OutlineButton
-              title={addLoading ? 'Adding To Cart' : 'Add To Cart'}
+              title={addLoading || addConfigurableLoading ? 'Adding To Cart' : 'Add To Cart'}
               onPress={() => handleAddToCart()}
               textStyleContainer={[globalStyles.bannerBtnTextWhite]}
               containerStyle={[

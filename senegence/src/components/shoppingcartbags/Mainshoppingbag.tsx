@@ -51,6 +51,13 @@ export default function Mainshoppingbag({navigation}: any) {
     setShoppingCartData(shoppingCartItems)
   }, [route]);
 
+  //Updating the cart items
+  const {updateCartItem} = useUpdateCartItems({
+    cart_id: cart_Id,
+    cart_item_uid: Number(cart_item_uid),
+    quantity: qty.id == cart_item_uid && qty.quantity,
+  });
+
   //Increment cart item quantity Logic
   const _handleIncrementQuantity = (id: any, quantity: number) => {
     setCartItemUid(id);
@@ -62,6 +69,8 @@ export default function Mainshoppingbag({navigation}: any) {
       }
       return currEn;
     });
+
+    updateCartItem();
 
     setShoppingCartData(updatedQuantity);
   };
@@ -78,29 +87,34 @@ export default function Mainshoppingbag({navigation}: any) {
       return currEn;
     });
 
+    updateCartItem();
     setShoppingCartData(updatedQuantity);
   };
 
-  //Updating the cart items
-  const {updateCartItem} = useUpdateCartItems({
-    cart_id: cart_Id,
-    cart_item_uid: Number(cart_item_uid),
-    quantity: qty.id == cart_item_uid && qty.quantity,
-  });
+  
 
-  useEffect(() => {
-    updateCartItem();
-  }, [qty.quantity, updateCartItem]);
 
   //Removing the Items from cart
-  const {removeItemFromCart} = useRemoveItemFromACart({
+  const {removeItemFromCart,removeItemFromCarterror} = useRemoveItemFromACart({
     cart_id: cart_Id,
     cart_item_id: Number(deleteId),
   });
 
-  useEffect(() => {
-    removeItemFromCart();
-  }, [deleteId]);
+   const handleDelete = (id: any) => {
+      setDeleteId(id)
+      const updatedShoppingCartData = shoppingCartData.filter(
+        el => el.id !== id,
+      );
+      setShoppingCartData(updatedShoppingCartData);
+      removeItemFromCart();
+      const shoppingCartDataCount = shoppingCartData?.length > 0 && shoppingCartData?.length - 1
+      dispatch(cartCount(shoppingCartDataCount))
+      setShowDeleteModal(false);
+    };
+
+  console.log('remove item from cart error', removeItemFromCarterror)
+
+
 
   const _renderItem = ({item, i}: any) => {
     const _leftContent = () => {
@@ -224,15 +238,7 @@ export default function Mainshoppingbag({navigation}: any) {
       );
     };
 
-    const handleDelete = (id: any) => {
-      const updatedShoppingCartData = shoppingCartData.filter(
-        el => el.id !== id,
-      );
-      setShoppingCartData(updatedShoppingCartData);
-      const shoppingCartDataCount = shoppingCartData?.length > 0 && shoppingCartData?.length - 1
-      dispatch(cartCount(shoppingCartDataCount))
-      setShowDeleteModal(false);
-    };
+   
 
     const _confirmationModal = () => {
       return (
@@ -335,7 +341,7 @@ export default function Mainshoppingbag({navigation}: any) {
               cartItemCount: shoppingCartData?.length,
               subTotal: totalPrice,
               shippingAmount: '',
-              shoppingCartData: shoppingCartItems,
+              shoppingCartData: shoppingCartData,
             })
           }
         />
