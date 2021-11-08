@@ -7,7 +7,7 @@ import {productsInCart, success} from '../../redux/cartItems'
 
 type Props = {
   cart_id: string;
-  sku: string;
+  sku: string | undefined;
   quantity: number;
 };
 

@@ -8,7 +8,7 @@ import { ADD_CONFIGURABLE_PRODUCT_TO_CART } from "../services/apollo/mutations/c
 
 type Props = {
   cart_id: string;
-  sku: string;
+  sku: string | undefined;
   quantity: number;
   selectedOptions: Array<string>;
 };

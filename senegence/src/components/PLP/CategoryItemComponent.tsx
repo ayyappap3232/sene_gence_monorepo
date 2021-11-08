@@ -108,11 +108,17 @@ const CategoryItemComponent = (
   };
 
   const handleCategoryDetailsNavigation = (item: Item) => {
-    navigation.navigate(ScreenNames.CategoryDetails, {
-      categoryDetail: item,
+    // navigation.navigate(ScreenNames.CategoryDetails, {
+    //   categoryDetail: item,
+    //   one_level_url_path: url_path,
+    //   pathName: pathName,
+    // });
+    navigation.navigate(ScreenNames.CategoryDetails,{
+      sku: item.sku,
+      url_path: url_path,
       one_level_url_path: url_path,
       pathName: pathName,
-    });
+    })
   };
 
   const _renderImageContent = (item: any) => {

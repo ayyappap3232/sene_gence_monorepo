@@ -24,7 +24,7 @@ type HandleSelectConfigurableOption = (
 type Result = {
   getProductDetails: () => void,
   productDetailsLoading: boolean,
-  productDetailsData: Item | null,
+  productDetailsData: Item | undefined,
   selectedConfigurableProductOption: SelectedConfigurableProductOption,
   handleSelectConfigurableOption: HandleSelectConfigurableOption,
   price: PriceRange | null,
@@ -51,8 +51,10 @@ const findSelectProductVariant  = (
 };
 
 export const useProductDetails = ({sku}: Props): Result => {
-  const [productDetailsData, setProductDetailsData] = useState<Item | null>(
-    null,
+
+  console.log('sku',sku)
+  const [productDetailsData, setProductDetailsData] = useState<Item | undefined>(
+    
   );
   const [
     selectedConfigurableProductOption,
@@ -74,27 +76,28 @@ export const useProductDetails = ({sku}: Props): Result => {
     setSelectedMediaGallery,
   ] = useState<MediaGalleryItemType[]>([]);
 
-  const [getProductDetailsQuery, responseObject] = useLazyQuery(
+  const [getProductDetailsQuery, {loading,error,data}] = useLazyQuery(
     GET_PRODUCT_DETAILS_QUERY,
     {
       variables: {
         sku: sku,
       },
-      
-      fetchPolicy: "no-cache",
+      fetchPolicy: 'cache-and-network',
     },
   );
 
-  const {loading, data} = responseObject;
 
-  console.log('loading product details', loading);
+  console.log('loading product details', loading,data);
 
   const getProductDetails = () => {
     getProductDetailsQuery();
   };
 
   useEffect(() => {
-    setProductDetailsData(data?.products?.items?.[0])
+    if(data){
+
+      setProductDetailsData(data?.products?.items?.[0])
+    }
   }, [data])
 
   useEffect(() => {

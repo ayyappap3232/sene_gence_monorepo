@@ -214,7 +214,7 @@ export interface Item {
   stock_status: string;
   product_tag: number;
   name: string;
-  configurable_options?: ConfigurableOption[];
+  configurable_options?: ConfigurableOption[] | undefined;
   variants: ConfigurableProductVarient[];
   application_techniques: string;
   benefits: string;
