@@ -14,7 +14,7 @@ type Props = {
 };
 
 type Result = {
-  addConfigurableLoading: Boolean;
+  addConfigurableLoading: boolean;
   addConfigurableProductError: any;
   addConfigurableProductToCart(): void;
   configurableProductsToCart: any;

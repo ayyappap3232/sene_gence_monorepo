@@ -137,7 +137,7 @@ export default function CategoryDetailsItemComponent() {
   useEffect(() => {
     AsyncStorage.getItem('recently_viewed_products').then(products => {
       const p = products ? JSON.parse(products) : [];
-      p.push(categoryDetailsData);
+      p.push(productDetailsData);
       let jsonObject = p.map(JSON.stringify);
       let uniqueSet = new Set(jsonObject);
       let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
@@ -660,16 +660,15 @@ export default function CategoryDetailsItemComponent() {
             {productDetailsData?.stock_status !== 'OUT_OF_STOCK' ? (
               <>
                 <OutlineButton
+                loading={addLoading || addConfigurableLoading}
                   title={
-                    addLoading || addConfigurableLoading
-                      ? 'Adding To Cart'
-                      : 'Add To Cart'
+                    'Add To Cart'
                   }
                   onPress={() => handleAddToCart()}
                   textStyleContainer={[globalStyles.bannerBtnTextWhite]}
                   containerStyle={[
                     globalStyles.bannerBtnBlueBackground,
-                    {width: 150, alignSelf: 'flex-end'},
+                    {width: 150, alignSelf: 'flex-end', marginRight: 20},
                   ]}
                 />
                 <Spacer mt={10} />
