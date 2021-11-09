@@ -14,6 +14,7 @@ export const GET_PRODUCT_DETAILS_QUERY = gql`
               attribute_code
               label
               values {
+                value_index
                 label
                 uid
                 swatch_data {

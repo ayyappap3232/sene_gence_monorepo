@@ -39,7 +39,7 @@ const findSelectProductVariant  = (
   if (productDetailsData.__typename !== 'ConfigurableProduct') {
     return null;
   }
-  let variants = productDetailsData.variants;
+  let variants = productDetailsData?.variants;
   Object.keys(selectedConfigurableProductOption).forEach(code => {
     variants = variants.filter(variant => {
       const attribute = variant.attributes.find(attr => attr.code === code);
@@ -82,12 +82,9 @@ export const useProductDetails = ({sku}: Props): Result => {
       variables: {
         sku: sku,
       },
-      fetchPolicy: "cache-and-network",
+      fetchPolicy: "network-only",
     },
   );
-
-
-  console.log('loading product details', loading,data);
 
   const getProductDetails = () => {
     getProductDetailsQuery();
@@ -131,6 +128,7 @@ export const useProductDetails = ({sku}: Props): Result => {
     optionCode,
     valueIndex,
   ) => {
+    console.log('option code', optionCode, 'value index',valueIndex)
     setSelectedConfigurableProductOption({
       ...selectedConfigurableProductOption,
       [optionCode]: valueIndex,

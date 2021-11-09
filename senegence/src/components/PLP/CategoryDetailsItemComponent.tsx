@@ -52,6 +52,8 @@ import {cartCount, getCartItemsCount} from '../../redux/cartItems';
 import {useProductDetails} from '../../hooks/products/useProductDetails';
 import {useAddConfigurableProductsToCart} from 'apollo/controllers/addConfigurableProductsToCart.Controller';
 import {ScrollToTopContainer} from '../ScrollToTopContainer';
+import Name from 'src/screens/AnonymousScreens/FindADistributor/Name';
+import { getCartId } from '../../redux/cart';
 
 export default function CategoryDetailsItemComponent() {
   const navigation = useNavigation();
@@ -70,7 +72,7 @@ export default function CategoryDetailsItemComponent() {
     sku: sku,
   });
 
-  console.log('price range', price);
+  const {addToCart, addProductLoading} = useCart()
 
   useEffect(() => {
     sku && getProductDetails();
@@ -118,21 +120,7 @@ export default function CategoryDetailsItemComponent() {
 
   const {one_level_url_path, pathName} = route?.params;
 
-  const [existingCartId, setExistingCartId] = useState('');
-  const {cartId} = useCart();
-
-  useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-
-    AsyncStorage.getItem('cartId').then(value => {
-      if (value != null) {
-        setExistingCartId(value);
-        return;
-      } else {
-        AsyncStorage.setItem('cartId', cartId);
-      }
-    });
-  }, []);
+  const cartId = useSelector(getCartId);
 
   useEffect(() => {
     AsyncStorage.getItem('recently_viewed_products').then(products => {
@@ -363,6 +351,8 @@ export default function CategoryDetailsItemComponent() {
                         option_id: childItem.uid,
                       });
                       setSelectedIndex(childItem.value_index);
+                      // selectedConfigurableProductOption[item.attribute_code];
+                      // handleSelectConfigurableOption(item.attribute_code, childItem.value_index)
                     }}>
                     <View
                       style={
@@ -574,18 +564,6 @@ export default function CategoryDetailsItemComponent() {
     );
   };
 
-  const {getCartItems} = useGetCartItems({
-    cartId: existingCartId,
-  });
-
-  //Add Products To Cart
-  const {addProductToCart, addLoading, addProductError, productsToCart} =
-    useAddProductsToCart({
-      cart_id: existingCartId,
-      sku: productDetailsData?.sku,
-      quantity: 1,
-    });
-
   let selectedOptionsArray = [
     selectedShadeValue?.option_id,
     selectedFinishesValue?.option_id,
@@ -602,7 +580,7 @@ export default function CategoryDetailsItemComponent() {
     addConfigurableProductError,
     configurableProductsToCart,
   } = useAddConfigurableProductsToCart({
-    cart_id: existingCartId,
+    cart_id: cartId,
     sku: productDetailsData?.sku,
     quantity: 1,
     selectedOptions: selectedOptionsArray,
@@ -611,22 +589,18 @@ export default function CategoryDetailsItemComponent() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    productsToCart?.cart?.items?.length > 0 &&
-      dispatch(cartCount(productsToCart?.cart?.items?.length));
-  }, [productsToCart]);
-
-  useEffect(() => {
     configurableProductsToCart?.cart?.items?.length > 0 &&
       dispatch(cartCount(configurableProductsToCart?.cart?.items?.length));
-  }, [configurableProductsToCart]);
+  }, []);
 
   const getCartCount = useSelector(getCartItemsCount);
 
   const handleAddToCart = () => {
+    console.log('coming to 626 line')
     if (productDetailsData?.__typename === 'ConfigurableProduct') {
       addConfigurableProductToCart();
     } else {
-      addProductToCart();
+      addToCart(sku, productDetailsData?.name ?? 'Product',)
     }
     dispatch(cartCount(getCartCount));
   };
@@ -660,7 +634,7 @@ export default function CategoryDetailsItemComponent() {
             {productDetailsData?.stock_status !== 'OUT_OF_STOCK' ? (
               <>
                 <OutlineButton
-                loading={addLoading || addConfigurableLoading}
+                loading={addProductLoading || addConfigurableLoading}
                   title={
                     'Add To Cart'
                   }

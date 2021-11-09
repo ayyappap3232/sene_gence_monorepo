@@ -10,6 +10,7 @@ export const shippingAddressDetailsArray = [
       zipcode: '530020',
       phoneMobile: '893-829-3843',
       phoneHome: '893-829-9089',
+      isSelected: true,
     },
     {
       id: 2,
@@ -22,6 +23,7 @@ export const shippingAddressDetailsArray = [
       zipcode: '530020',
       phoneMobile: '893-829-3843',
       phoneHome: '893-829-9089',
+      isSelected: false,
     },
     {
       id: 3,
@@ -34,5 +36,6 @@ export const shippingAddressDetailsArray = [
       zipcode: '530020',
       phoneMobile: '893-829-3843',
       phoneHome: '893-829-9089',
+      isSelected: false,
     },
   ];

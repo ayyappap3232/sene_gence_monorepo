@@ -34,6 +34,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useGetCartItems} from 'apollo/controllers/getCart.Controller';
 import { useSelector } from 'react-redux';
 import { getCartItemsCount, success } from '../../redux/cartItems';
+import { getCartId } from '../../redux/cart';
 
 export default function Header({
   headerContainerStyle = {},
@@ -59,25 +60,11 @@ export default function Header({
   let isSuccess = useSelector(success)
 
   // ! Start of Get Cart Items
-  const [existingCartId, setExistingCartId] = useState('');
 
-  const {cartId} = useCart();
-
-  useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-
-    AsyncStorage.getItem('cartId').then(value => {
-      if (value != null) {
-        setExistingCartId(value);
-        return;
-      } else {
-        AsyncStorage.setItem('cartId', cartId);
-      }
-    });
-  }, []);
+  const cartId = useSelector(getCartId);
 
   const {getCartItems, cartData} = useGetCartItems({
-    cartId: existingCartId || cartId,
+    cartId: cartId,
   });
 
   useEffect(() => {
@@ -87,7 +74,8 @@ export default function Header({
 
 
   const cartItemsData = cartData?.cart?.items;
-  const cart_Id = existingCartId || cartId;
+
+  console.log('cartItemsData',cartItemsData,cartId)
 
 
   // ! End of get cart items
@@ -278,7 +266,7 @@ export default function Header({
                       //showModal()
                       navigation.navigate(ScreenNames.MainShoppingCartBag, {
                         shoppingCartData: cartItemsData,
-                        cart_Id: cart_Id,
+                        cart_Id: cartId,
                       });
                     }}>
                     <Image
@@ -382,7 +370,7 @@ export default function Header({
     showPageUp,
     cartItemCount,
     cartItemsData,
-    cart_Id,
+    cartId,
   ]);
 
   return (
