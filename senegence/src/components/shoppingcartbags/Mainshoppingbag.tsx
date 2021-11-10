@@ -44,7 +44,7 @@ export default function Mainshoppingbag({navigation}: any) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState();
 
-  const {updateCartItems, updateProductLoading} = useCart()
+  const {updateCartItems, updateProductLoading, deleteCartItem, deleteProductLoading} = useCart()
 
   let couponCode = 'abc';
 
@@ -56,7 +56,6 @@ export default function Mainshoppingbag({navigation}: any) {
 
   //Increment cart item quantity Logic
   const _handleIncrementQuantity = (id: any, quantity: number) => {
-    setCartItemUid(id);
     setQty({id: id, quantity: quantity + 1});
 
     let updatedQuantity = shoppingCartData.map(currEn => {
@@ -66,14 +65,13 @@ export default function Mainshoppingbag({navigation}: any) {
       return currEn;
     });
 
-    updateCartItems(Number(cart_item_uid), qty.id == cart_item_uid && qty.quantity);
+    updateCartItems(Number(id), qty.id == cart_item_uid && qty.quantity);
 
     setShoppingCartData(updatedQuantity);
   };
 
   //Decrement cart item quantity Logic
   const _handleDecrementQuantity = (id: any, quantity: number) => {
-    setCartItemUid(id);
     setQty({id: id, quantity: quantity - 1});
 
     let updatedQuantity = shoppingCartData.map(currEn => {
@@ -83,23 +81,22 @@ export default function Mainshoppingbag({navigation}: any) {
       return currEn;
     });
 
-    updateCartItems(Number(cart_item_uid), qty.id == cart_item_uid && qty.quantity);
+    updateCartItems(Number(id), qty.id == cart_item_uid && qty.quantity);
     setShoppingCartData(updatedQuantity);
   };
 
   //Removing the Items from cart
-  const {removeItemFromCart,removeItemFromCarterror} = useRemoveItemFromACart({
-    cart_id: cart_Id,
-    cart_item_id: Number(deleteId),
-  });
+  // const {removeItemFromCart,removeItemFromCarterror} = useRemoveItemFromACart({
+  //   cart_id: cart_Id,
+  //   cart_item_id: Number(deleteId),
+  // });
 
    const handleDelete = (id: any) => {
-      setDeleteId(id)
       const updatedShoppingCartData = shoppingCartData.filter(
         el => el.id !== id,
       );
       setShoppingCartData(updatedShoppingCartData);
-      removeItemFromCart();
+      deleteCartItem(Number(id));
       const shoppingCartDataCount = shoppingCartData?.length > 0 && shoppingCartData?.length - 1
       dispatch(cartCount(shoppingCartDataCount))
       setShowDeleteModal(false);
