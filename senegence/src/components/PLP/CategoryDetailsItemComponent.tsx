@@ -600,7 +600,7 @@ export default function CategoryDetailsItemComponent() {
     if (productDetailsData?.__typename === 'ConfigurableProduct') {
       addConfigurableProductToCart();
     } else {
-      addToCart(sku, productDetailsData?.name ?? 'Product',)
+      addToCart(sku, productDetailsData?.name ?? 'Product')
     }
     dispatch(cartCount(getCartCount));
   };

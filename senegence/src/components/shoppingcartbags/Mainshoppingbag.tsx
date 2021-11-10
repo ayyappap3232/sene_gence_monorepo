@@ -19,6 +19,7 @@ import {useUpdateCartItems} from 'apollo/controllers/updateCartItems.Controller'
 import {useRemoveItemFromACart} from 'apollo/controllers/removeItemFromCart.Controller';
 import {useDispatch} from 'react-redux';
 import { cartCount } from '../../redux/cartItems';
+import { useCart } from '../../hooks/cart/useCart';
 
 export default function Mainshoppingbag({navigation}: any) {
   const route = useRoute();
@@ -43,6 +44,8 @@ export default function Mainshoppingbag({navigation}: any) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState();
 
+  const {updateCartItems, updateProductLoading} = useCart()
+
   let couponCode = 'abc';
 
   useEffect(() => {
@@ -50,13 +53,6 @@ export default function Mainshoppingbag({navigation}: any) {
     setCouponText('');
     setShoppingCartData(shoppingCartItems)
   }, [route]);
-
-  //Updating the cart items
-  const {updateCartItem} = useUpdateCartItems({
-    cart_id: cart_Id,
-    cart_item_uid: Number(cart_item_uid),
-    quantity: qty.id == cart_item_uid && qty.quantity,
-  });
 
   //Increment cart item quantity Logic
   const _handleIncrementQuantity = (id: any, quantity: number) => {
@@ -70,7 +66,7 @@ export default function Mainshoppingbag({navigation}: any) {
       return currEn;
     });
 
-    updateCartItem();
+    updateCartItems(Number(cart_item_uid), qty.id == cart_item_uid && qty.quantity);
 
     setShoppingCartData(updatedQuantity);
   };
@@ -87,12 +83,9 @@ export default function Mainshoppingbag({navigation}: any) {
       return currEn;
     });
 
-    updateCartItem();
+    updateCartItems(Number(cart_item_uid), qty.id == cart_item_uid && qty.quantity);
     setShoppingCartData(updatedQuantity);
   };
-
-  
-
 
   //Removing the Items from cart
   const {removeItemFromCart,removeItemFromCarterror} = useRemoveItemFromACart({
@@ -111,9 +104,6 @@ export default function Mainshoppingbag({navigation}: any) {
       dispatch(cartCount(shoppingCartDataCount))
       setShowDeleteModal(false);
     };
-
-  console.log('remove item from cart error', removeItemFromCarterror)
-
 
 
   const _renderItem = ({item, i}: any) => {

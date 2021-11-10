@@ -6,11 +6,14 @@ import { CreateCartResponseType, CREATE_CART } from '../../apollo/services/apoll
 import { getCartId, setCartId } from '../../redux/cart'
 import {showMessage} from 'react-native-flash-message'
 import { productsInCart } from '../../redux/cartItems'
+import { UpdateProductsInCartResponseType, UPDATE_CART_ITEMS } from 'apollo/services/apollo/mutations/cart/updateCartItems'
 
 type Result = {
     cartId: string;
     addToCart : (sku: string, name: string, quantity?: number) => Promise<void>;
     addProductLoading: boolean;
+    updateCartItems :  (cart_item_id: number, quantity: number) => Promise<void>;
+    updateProductLoading: boolean;
 }
 
 export const useCart = () : Result => {
@@ -19,6 +22,7 @@ export const useCart = () : Result => {
 
     const [fetchCartId] = useMutation(CREATE_CART);
     const [addProductsToCart, {loading: addProductLoading}] = useMutation(ADD_PRODUCT_TO_CART)
+    const [updateProductsInCart, {loading: updateProductLoading}] = useMutation(UPDATE_CART_ITEMS)
 
     //Create Empty Cart
     const createCart = async () => {
@@ -57,6 +61,22 @@ export const useCart = () : Result => {
     }
 
     //Update Cart Item
+    const updateCartItems = async (cart_item_id: number, quantity: number) => {
+        console.log('cart item id, quantity', cart_item_id, quantity)
+        try {
+            const {data,errors}: {data: UpdateProductsInCartResponseType, errors: ApolloError[]} = await updateProductsInCart({
+                variables:{
+                    cart_id : cartId,
+                    cart_item_id: cart_item_id,
+                    quantity
+                }
+            });
+            console.log('in 74 , ', errors)
+            dispatch(productsInCart(data?.updateCartItems?.cart?.items));
+        } catch (error) {
+            console.log("error in 77 usecart",error)
+        }
+    }
 
     //Delete Cart Item
 
@@ -68,7 +88,9 @@ export const useCart = () : Result => {
 
     return {
         cartId,
+        addToCart,
         addProductLoading,
-        addToCart
+        updateProductLoading,
+        updateCartItems
     };
 }

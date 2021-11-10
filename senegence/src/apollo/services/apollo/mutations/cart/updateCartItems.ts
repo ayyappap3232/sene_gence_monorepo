@@ -5,7 +5,7 @@ import {gql} from '@apollo/client';
 export const UPDATE_CART_ITEMS = gql`
   mutation UpdateCartItems(
     $cart_id: String!,
-    $cart_item_id: Int,
+    $cart_item_id: Int!,
     $quantity: Float!
   ) {
     updateCartItems(
@@ -32,3 +32,23 @@ export const UPDATE_CART_ITEMS = gql`
     }
   }
 `;
+
+export type UpdateProductsInCartResponseType = {
+  updateCartItems: {
+    cart: {
+      items: {
+        id: string,
+        product: {
+          name: string,
+        },
+        quantity: number,
+      }
+      prices : {
+        grand_total : {
+          value : number,
+          currency : string,
+        }
+      }
+    }
+  }
+}
