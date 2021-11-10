@@ -34,7 +34,8 @@ export const COLORS = {
     orderSummaryBackground: "#f9f9f9",
     border3: "#757575",
     primary3: "#3c649b",
-    primary4: "#1f62c7"
+    primary4: "#1f62c7",
+    grey: '#ccc'
 
 }
 
