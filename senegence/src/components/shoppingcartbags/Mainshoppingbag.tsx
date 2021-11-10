@@ -86,11 +86,6 @@ export default function Mainshoppingbag({navigation}: any) {
   };
 
   //Removing the Items from cart
-  // const {removeItemFromCart,removeItemFromCarterror} = useRemoveItemFromACart({
-  //   cart_id: cart_Id,
-  //   cart_item_id: Number(deleteId),
-  // });
-
    const handleDelete = (id: any) => {
       const updatedShoppingCartData = shoppingCartData.filter(
         el => el.id !== id,
