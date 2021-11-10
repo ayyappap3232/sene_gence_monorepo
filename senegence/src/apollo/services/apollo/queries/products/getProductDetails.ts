@@ -2,9 +2,9 @@ import {gql} from '@apollo/client';
 import { MEDIA_GALLERY_FRAGMENT } from '../categories/mediaGalleryFragment';
 import { PRODUCT_PRICE_FRAGMENT } from '../categories/productPriceFragment';
 
-export const SEARCH_CATEGORY_LIST = gql`
-  query GetProducts($name: String!, $pageSize: Int!, $currentPage: Int!,$sortName: ProductAttributeSortInput) {
-    products(pageSize: $pageSize, currentPage: $currentPage, search: $name, sort: $sortName) {
+export const GET_PRODUCT_DETAILS_QUERY = gql`
+  query GetProductDetails($sku: String!) {
+    products(filter: {sku: {eq: $sku}}) {
       total_count
       items {
         uid
@@ -14,6 +14,7 @@ export const SEARCH_CATEGORY_LIST = gql`
               attribute_code
               label
               values {
+                value_index
                 label
                 uid
                 swatch_data {
@@ -95,30 +96,6 @@ export const SEARCH_CATEGORY_LIST = gql`
   ${PRODUCT_PRICE_FRAGMENT}
 `;
 
-//Get Search Product Name and Overall Count
-export const SEARCH_PRODUCT_NAME_OVERALL_COUNT = gql`
-  query GetProductNameWithOverallCount($name: String!, $pageSize: Int!) {
-    products(search: $name,pageSize: $pageSize) {
-      total_count
-      items {
-        name
-      }
-    }
-  }
-`;
-
-//Get Individual product count
-export const GET_SEARCH_PRODUCT_COUNT = gql`
-  query GetProductNameWithOverallCount($name: String!) {
-    products(search: $name) {
-      total_count
-    }
-  }
-`;
-
-
-//Types
-
 export interface Thumbnail {
   label: string;
   url: string;
@@ -178,6 +155,59 @@ export interface Categories {
   breadcrumbs: BreadCrumbs;
 }
 
+export interface ConfigurableOption {
+  attribute_code: string;
+  label: string;
+  values: Value[];
+}
+
+export interface Value {
+  label: string;
+  uid: string;
+  swatch_data?: SwatchData;
+}
+
+export interface SwatchData {
+  value: string;
+}
+
+export interface ConfigurableProductVarient {
+  attributes: Attribute[]
+  product: Product
+}
+
+export interface Attribute {
+  code: string
+  uid: string
+  value_index: number
+}
+
+export interface Product {
+  sku: string
+  media_gallery: MediaGallery2[]
+  price_range: PriceRange2
+}
+
+export interface MediaGallery2 {
+  disabled: boolean
+  label: any
+  position: number
+  url: string
+}
+
+export interface PriceRange2 {
+  minimum_price: MinimumPrice2
+}
+
+export interface MinimumPrice2 {
+  final_price: FinalPrice2
+}
+
+export interface FinalPrice2 {
+  currency: string
+  value: number
+}
+
 export interface Item {
   uid: string;
   __typename: string;
@@ -185,6 +215,8 @@ export interface Item {
   stock_status: string;
   product_tag: number;
   name: string;
+  configurable_options?: ConfigurableOption[] | undefined;
+  variants: ConfigurableProductVarient[];
   application_techniques: string;
   benefits: string;
   ingredients: string;

@@ -3,9 +3,9 @@
 import {gql} from '@apollo/client';
 
 export const ADD_PRODUCT_TO_CART = gql`
-    mutation AddProductToCart($cart_id: String!, $quantity: Float!, $sku: String!){
+    mutation addProductToCart($cartId: String!, $quantity: Float!, $sku: String!){
   addProductsToCart(
-    cartId: $cart_id
+    cartId: $cartId
     cartItems: [
       {
         quantity: $quantity
@@ -26,3 +26,18 @@ export const ADD_PRODUCT_TO_CART = gql`
   }
 }
 `
+
+export type AddProductsToCartResponseType = {
+  addProductsToCart: {
+    cart: {
+      items: {
+        id: string,
+        product: {
+          name: string,
+          sku: string,
+        },
+        quantity: number,
+      }
+    }
+  }
+}

@@ -37,6 +37,7 @@ import OrderConfirmationScreen from 'screens/AnonymousScreens/OrderConfirmation/
 import Error_404 from 'screens/AnonymousScreens/Error_Pages/404_Screen';
 import Error_503 from 'screens/AnonymousScreens/Error_Pages/503_Screen';
 import Checkout_As_A_Guest from 'screens/AnonymousScreens/Checkout_Pages/Checkout_As_A_Guest';
+import CategoryDetailsItemComponent from 'components/PLP/CategoryDetailsItemComponent';
 
 const Drawer = createDrawerNavigator();
 
@@ -115,7 +116,7 @@ const DrawerNavigator = () => {
         />
         <Drawer.Screen
           name={ScreenNames.CategoryDetails}
-          component={CategoryDetailsScreen}
+          component={CategoryDetailsItemComponent}
         />
         <Drawer.Screen
           name={ScreenNames.ExecutiveManagementTeam}

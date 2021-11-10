@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {values} from 'lodash';
 import React, {useEffect, useState} from 'react';
 import {
   FlatList,
@@ -19,7 +18,6 @@ import {useCategoryList} from '../../apollo/controllers/getCategoryList.Controll
 import {useSearchCategoryList} from '../../apollo/controllers/getSearchCategoryList.Controller';
 import {
   ConfigurableOption,
-  Item,
   Value,
 } from '../../apollo/services/apollo/queries/categories/categoryList';
 import {COLORS, FONTS, images, SIZES} from '../../constants';
@@ -51,39 +49,35 @@ import CategoryItemComponent from './CategoryItemComponent';
 import {useGetCartItems} from 'apollo/controllers/getCart.Controller';
 import {useDispatch, useSelector} from 'react-redux';
 import {cartCount, getCartItemsCount} from '../../redux/cartItems';
+import {useProductDetails} from '../../hooks/products/useProductDetails';
+import {useAddConfigurableProductsToCart} from 'apollo/controllers/addConfigurableProductsToCart.Controller';
+import {ScrollToTopContainer} from '../ScrollToTopContainer';
+import Name from 'src/screens/AnonymousScreens/FindADistributor/Name';
+import { getCartId } from '../../redux/cart';
 
-export default function CategoryDetailsItemComponent({
-  categoryDetailsData,
-  url_path,
-}: any) {
+export default function CategoryDetailsItemComponent() {
   const navigation = useNavigation();
   const route = useRoute();
+  const {sku, url_path} = route?.params;
+
   const {
-    media_gallery,
-    description,
-    hover_image,
-    image,
-    name,
-    application_techniques,
-    benefits,
-    ingredients,
-    configurable_options,
-    variants,
-    product_tag,
-    price_range: {
-      minimum_price: {
-        regular_price: {currency, value},
-        discount: {amount_off},
-        final_price,
-      },
-    },
-    second_title,
-    sku,
-    stock_status,
-    swatch_image,
-    small_image,
-    thumbnail,
-  } = categoryDetailsData;
+    productDetailsData,
+    productDetailsLoading,
+    getProductDetails,
+    price,
+    mediaGallery,
+    selectedConfigurableProductOption,
+    handleSelectConfigurableOption,
+  } = useProductDetails({
+    sku: sku,
+  });
+
+  const {addToCart, addProductLoading} = useCart()
+
+  useEffect(() => {
+    sku && getProductDetails();
+    return () => getProductDetails();
+  }, [route]);
 
   const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
 
@@ -93,26 +87,32 @@ export default function CategoryDetailsItemComponent({
   const [selectedColorText, setSelectedColorText] = useState<any>();
   const [selectedShadeValue, setSelectedShadeValue] = useState<any>();
   const [selectedFinishesValue, setSelectedFinishesValue] = useState<any>();
+  const [selectedIndex, setSelectedIndex] = useState(-1);
 
   const initialSelectedColorLabel =
-    configurable_options?.length > 0
-      ? configurable_options[0]?.attribute_code == 'color' &&
-        configurable_options[0]?.values[0]?.label
+    productDetailsData?.configurable_options?.length > 0
+      ? productDetailsData?.configurable_options[0]?.attribute_code ==
+          'color' &&
+        productDetailsData?.configurable_options[0]?.values[0]?.label
       : '';
 
   const initialSelectedColorUid =
-    configurable_options?.length > 0
-      ? configurable_options[0]?.attribute_code == 'color' &&
-        configurable_options[0]?.values[0]?.uid
+    productDetailsData?.configurable_options?.length > 0
+      ? productDetailsData?.configurable_options[0]?.attribute_code ==
+          'color' && productDetailsData?.configurable_options[0]?.values[0]?.uid
       : '';
 
   useEffect(() => {
     LogBox.ignoreAllLogs();
-    configurable_options &&
-      setSelectedColorText({
-        label: initialSelectedColorLabel,
-        option_id: initialSelectedColorUid,
-      });
+    productDetailsData?.configurable_options?.length > 0
+      ? setSelectedColorText({
+          label: initialSelectedColorLabel,
+          option_id: initialSelectedColorUid,
+        })
+      : setSelectedColorText({
+          label: '',
+          option_id: '',
+        });
     setShowDropdownShadeOrFinishes({attributeCode: '', toggle: false});
     setSelectedFinishesValue('');
     setSelectedShadeValue('');
@@ -120,26 +120,12 @@ export default function CategoryDetailsItemComponent({
 
   const {one_level_url_path, pathName} = route?.params;
 
-  const [existingCartId, setExistingCartId] = useState('');
-  const {cartId} = useCart();
-
-  useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-
-    AsyncStorage.getItem('cartId').then(value => {
-      if (value != null) {
-        setExistingCartId(value);
-        return;
-      } else {
-        AsyncStorage.setItem('cartId', cartId);
-      }
-    });
-  }, []);
+  const cartId = useSelector(getCartId);
 
   useEffect(() => {
     AsyncStorage.getItem('recently_viewed_products').then(products => {
       const p = products ? JSON.parse(products) : [];
-      p.push(categoryDetailsData);
+      p.push(productDetailsData);
       let jsonObject = p.map(JSON.stringify);
       let uniqueSet = new Set(jsonObject);
       let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
@@ -169,7 +155,7 @@ export default function CategoryDetailsItemComponent({
   const _carousel = () => {
     return (
       <PlainCarousel
-        carouselData={media_gallery}
+        carouselData={mediaGallery}
         borderWidth={1}
         borderColor="#d2d7e2"
         uri={true}
@@ -183,8 +169,8 @@ export default function CategoryDetailsItemComponent({
     return (
       <View style={styles.titleSkuWrapper}>
         <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap'}}>
-          <Text containerStyle={styles.name}>{name}</Text>
-          <Text># {sku}</Text>
+          <Text containerStyle={styles.name}>{productDetailsData?.name}</Text>
+          <Text># {productDetailsData?.sku}</Text>
         </View>
         <TouchableOpacity>
           <Image
@@ -201,23 +187,27 @@ export default function CategoryDetailsItemComponent({
       <View style={styles.priceWrapper}>
         <Text
           containerStyle={[
-            amount_off > 0 && {
+            price?.minimum_price?.discount?.amount_off > 0 && {
               textDecorationLine: 'line-through',
             },
             styles.regularPrice,
           ]}>
-          {_getCurrencySymbols(currency)}
-          {value} {currency}
+          {_getCurrencySymbols(price?.minimum_price?.regular_price?.currency)}
+          {price?.minimum_price?.regular_price?.value}{' '}
+          {price?.minimum_price?.regular_price?.currency}
         </Text>
-        {amount_off > 0 && (
+        {price?.minimum_price?.discount?.amount_off > 0 && (
           <>
             <Text containerStyle={styles.finalPrice}>
-              {_getCurrencySymbols(currency)}
-              {final_price.value} {currency}
+              {_getCurrencySymbols(
+                price?.minimum_price?.regular_price?.currency,
+              )}
+              {price?.minimum_price?.final_price.value}{' '}
+              {price?.minimum_price?.regular_price?.currency}
             </Text>
             <View style={styles.discountWrapper}>
               <Text containerStyle={styles.discountText}>
-                {`${amount_off}% Discount`}
+                {`${price?.minimum_price?.discount?.amount_off}% Discount`}
               </Text>
             </View>
           </>
@@ -240,7 +230,7 @@ export default function CategoryDetailsItemComponent({
           title={'find a distributor'}
           onPress={() => Linking.openURL(findADistributor)}
         />
-        {stock_status !== 'OUT_OF_STOCK' ? (
+        {productDetailsData?.stock_status !== 'OUT_OF_STOCK' ? (
           <OutlineButton
             textStyleContainer={{color: COLORS.white}}
             containerStyle={styles.shop}
@@ -304,99 +294,106 @@ export default function CategoryDetailsItemComponent({
   };
 
   const _colorSwatchInfo = () => {
-    return configurable_options?.map((item: any, index: number) => {
-      return item.attribute_code === 'color' ? (
-        <View key={item.attribute_code} style={{marginLeft: 10, marginTop: 20}}>
+    return productDetailsData?.configurable_options?.map(
+      (item: any, index: number) => {
+        return item.attribute_code === 'color' ? (
           <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-            }}>
-            <Text
-              containerStyle={[
-                globalStyles.text_avenir_medium,
-                {
-                  fontFamily: FONTS.AvenirRegular,
-                  color: COLORS.border1,
-                  fontSize: SIZES.body3,
-                  textAlign: 'left',
-                },
-              ]}>
-              {selectedColorText?.label}
-            </Text>
-            {product_tag && (
-              <View
-                style={{
-                  marginLeft: 5,
-                  backgroundColor: COLORS.border1,
-                  paddingVertical: 2,
-                  paddingHorizontal: 5,
-                }}>
-                <Text containerStyle={{color: COLORS.white}}>
-                  {product_tag_content(product_tag)}
-                </Text>
-              </View>
-            )}
-          </View>
-          {_allShadesAndFinishes()}
-          <Spacer mt={10} />
-          <View
-            style={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              alignItems: 'center',
-            }}>
-            {item?.values?.map((childItem: any, index: number) => {
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  key={childItem.label}
-                  onPress={() => {
-                    setSelectedColorText({
-                      label: childItem.label,
-                      option_id: childItem.uid,
-                    });
+            key={item.attribute_code}
+            style={{marginLeft: 10, marginTop: 20}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+              }}>
+              <Text
+                containerStyle={[
+                  globalStyles.text_avenir_medium,
+                  {
+                    fontFamily: FONTS.AvenirRegular,
+                    color: COLORS.border1,
+                    fontSize: SIZES.body3,
+                    textAlign: 'left',
+                  },
+                ]}>
+                {selectedColorText?.label}
+              </Text>
+              {productDetailsData?.product_tag && (
+                <View
+                  style={{
+                    marginLeft: 5,
+                    backgroundColor: COLORS.border1,
+                    paddingVertical: 2,
+                    paddingHorizontal: 5,
                   }}>
-                  <View
-                    style={
-                      childItem.label === selectedColorText?.label
-                        ? {
-                            padding: 2,
-                            borderWidth: 1,
-                            borderColor: COLORS.primary2,
-                            marginRight: 15,
-                            marginBottom: 10,
-                            borderRadius: 50,
-                          }
-                        : {}
-                    }>
+                  <Text containerStyle={{color: COLORS.white}}>
+                    {product_tag_content(productDetailsData?.product_tag)}
+                  </Text>
+                </View>
+              )}
+            </View>
+            {_allShadesAndFinishes()}
+            <Spacer mt={10} />
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+              }}>
+              {item?.values?.map((childItem: any, index: number) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    key={childItem.label}
+                    onPress={() => {
+                      setSelectedColorText({
+                        label: childItem.label,
+                        option_id: childItem.uid,
+                      });
+                      setSelectedIndex(childItem.value_index);
+                      // selectedConfigurableProductOption[item.attribute_code];
+                      // handleSelectConfigurableOption(item.attribute_code, childItem.value_index)
+                    }}>
                     <View
                       style={
                         childItem.label === selectedColorText?.label
                           ? {
-                              backgroundColor: childItem?.swatch_data?.value,
-                              width: 25,
-                              height: 25,
-                              borderRadius: 15,
-                            }
-                          : {
-                              backgroundColor: childItem?.swatch_data?.value,
-                              width: 30,
-                              height: 30,
-                              borderRadius: 15,
+                              padding: 2,
+                              borderWidth: 1,
+                              borderColor: COLORS.primary2,
                               marginRight: 15,
                               marginBottom: 10,
+                              borderRadius: 50,
                             }
-                      }></View>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+                          : {}
+                      }>
+                      <View
+                        style={
+                          childItem.label === selectedColorText?.label
+                            ? {
+                                backgroundColor: childItem?.swatch_data?.value,
+                                width: 25,
+                                height: 25,
+                                borderRadius: 15,
+                              }
+                            : {
+                                backgroundColor: childItem?.swatch_data?.value,
+                                width: 30,
+                                height: 30,
+                                borderRadius: 15,
+                                marginRight: 15,
+                                marginBottom: 10,
+                              }
+                        }></View>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
           </View>
-        </View>
-      ) : null;
-    });
+        ) : null;
+      },
+    );
   };
 
   const _shadesOrFinishes = (
@@ -405,125 +402,127 @@ export default function CategoryDetailsItemComponent({
     setSelectedShadeOrFinishes: any,
     shadeOrFinishesValue: any,
   ) => {
-    return configurable_options?.map((item: any, index: number) => {
-      return item.attribute_code === attributeCode ? (
-        <View style={{flexDirection: 'column'}}>
-          <TouchableOpacity
-            activeOpacity={0.9}
-            style={{marginHorizontal: 10, marginTop: 10}}
-            onPress={() =>
-              setShowDropdownShadeOrFinishes({
-                attributeCode: attributeCode,
-                toggle: !showDropdownShadeOrFinishes.toggle,
-              })
-            }>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor: COLORS.border1,
-                padding: 10,
-                paddingRight: 30,
-                height: 40,
-                width: SIZES.width / 2 - 40,
-              }}
-              editable={false}
-              placeholder={pickerInitialValue}
-              placeholderTextColor={COLORS.border1}
-              value={shadeOrFinishesValue?.label}
-            />
-            <Image
-              source={images.dropdowncaret}
-              style={{
-                width: 12,
-                height: 12,
-                position: 'absolute',
-                right: 10,
-                top: 15,
-              }}
-            />
-          </TouchableOpacity>
+    return productDetailsData?.configurable_options?.map(
+      (item: any, index: number) => {
+        return item.attribute_code === attributeCode ? (
+          <View style={{flexDirection: 'column'}}>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              style={{marginHorizontal: 10, marginTop: 10}}
+              onPress={() =>
+                setShowDropdownShadeOrFinishes({
+                  attributeCode: attributeCode,
+                  toggle: !showDropdownShadeOrFinishes.toggle,
+                })
+              }>
+              <TextInput
+                style={{
+                  borderWidth: 1,
+                  borderColor: COLORS.border1,
+                  padding: 10,
+                  paddingRight: 30,
+                  height: 40,
+                  width: SIZES.width / 2 - 40,
+                }}
+                editable={false}
+                placeholder={pickerInitialValue}
+                placeholderTextColor={COLORS.border1}
+                value={shadeOrFinishesValue?.label}
+              />
+              <Image
+                source={images.dropdowncaret}
+                style={{
+                  width: 12,
+                  height: 12,
+                  position: 'absolute',
+                  right: 10,
+                  top: 15,
+                }}
+              />
+            </TouchableOpacity>
 
-          {showDropdownShadeOrFinishes.attributeCode == attributeCode &&
-            showDropdownShadeOrFinishes.toggle && (
-              <View
-                style={[
-                  globalStyles.shadowEffect,
-                  {
-                    flexDirection: 'column',
-                    marginLeft: 10,
-                    marginVertical: 2,
-                    backgroundColor: COLORS.white,
-                    width: SIZES.width / 2 - 40,
-                  },
-                ]}>
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  style={{
-                    justifyContent: 'center',
-                    backgroundColor:
-                      shadeOrFinishesValue?.label == pickerInitialValue
-                        ? COLORS.ligthGrey
-                        : COLORS.white,
-                  }}
-                  onPress={() => {
-                    setShowDropdownShadeOrFinishes({
-                      attributeCode: attributeCode,
-                      toggle: false,
-                    });
-                    setSelectedShadeOrFinishes({
-                      label: pickerInitialValue,
-                      option_id: '',
-                    });
-                  }}>
-                  <Text
-                    containerStyle={{
-                      color: COLORS.border1,
-                      marginBottom: 5,
-                      paddingLeft: 10,
+            {showDropdownShadeOrFinishes.attributeCode == attributeCode &&
+              showDropdownShadeOrFinishes.toggle && (
+                <View
+                  style={[
+                    globalStyles.shadowEffect,
+                    {
+                      flexDirection: 'column',
+                      marginLeft: 10,
+                      marginVertical: 2,
+                      backgroundColor: COLORS.white,
+                      width: SIZES.width / 2 - 40,
+                    },
+                  ]}>
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    style={{
+                      justifyContent: 'center',
+                      backgroundColor:
+                        shadeOrFinishesValue?.label == pickerInitialValue
+                          ? COLORS.ligthGrey
+                          : COLORS.white,
+                    }}
+                    onPress={() => {
+                      setShowDropdownShadeOrFinishes({
+                        attributeCode: attributeCode,
+                        toggle: false,
+                      });
+                      setSelectedShadeOrFinishes({
+                        label: pickerInitialValue,
+                        option_id: '',
+                      });
                     }}>
-                    {pickerInitialValue}
-                  </Text>
-                </TouchableOpacity>
-                {item?.values?.map((childItem: any, i: number) => {
-                  return (
-                    <TouchableOpacity
-                      activeOpacity={0.9}
-                      style={{
-                        justifyContent: 'center',
-                        backgroundColor:
-                          shadeOrFinishesValue?.label == childItem.label
-                            ? COLORS.ligthGrey
-                            : COLORS.white,
-                      }}
-                      onPress={() => {
-                        setShowDropdownShadeOrFinishes({
-                          attributeCode: attributeCode,
-                          toggle: false,
-                        });
-                        setSelectedShadeOrFinishes({
-                          label: childItem.label,
-                          option_id: childItem.uid,
-                        });
+                    <Text
+                      containerStyle={{
+                        color: COLORS.border1,
+                        marginBottom: 5,
+                        paddingLeft: 10,
                       }}>
-                      <Text
-                        containerStyle={{
-                          color:
+                      {pickerInitialValue}
+                    </Text>
+                  </TouchableOpacity>
+                  {item?.values?.map((childItem: any, i: number) => {
+                    return (
+                      <TouchableOpacity
+                        activeOpacity={0.9}
+                        style={{
+                          justifyContent: 'center',
+                          backgroundColor:
                             shadeOrFinishesValue?.label == childItem.label
-                              ? COLORS.text
-                              : COLORS.border1,
-                          marginVertical: 5,
-                          paddingLeft: 10,
+                              ? COLORS.ligthGrey
+                              : COLORS.white,
+                        }}
+                        onPress={() => {
+                          setShowDropdownShadeOrFinishes({
+                            attributeCode: attributeCode,
+                            toggle: false,
+                          });
+                          setSelectedShadeOrFinishes({
+                            label: childItem.label,
+                            option_id: childItem.uid,
+                          });
                         }}>
-                        {childItem.label}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
-            )}
-        </View>
-      ) : null;
-    });
+                        <Text
+                          containerStyle={{
+                            color:
+                              shadeOrFinishesValue?.label == childItem.label
+                                ? COLORS.text
+                                : COLORS.border1,
+                            marginVertical: 5,
+                            paddingLeft: 10,
+                          }}>
+                          {childItem.label}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+              )}
+          </View>
+        ) : null;
+      },
+    );
   };
 
   const _allShadesAndFinishes = () => {
@@ -565,129 +564,171 @@ export default function CategoryDetailsItemComponent({
     );
   };
 
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  let selectedOptionsArray = [
+    selectedShadeValue?.option_id,
+    selectedFinishesValue?.option_id,
+    selectedColorText?.option_id,
+  ];
+  selectedOptionsArray = selectedOptionsArray.filter(
+    element => element !== undefined,
+  );
 
-  const {getCartItems} = useGetCartItems({
-    cartId: existingCartId,
+  //Add Configurable Products To Cart
+  const {
+    addConfigurableProductToCart,
+    addConfigurableLoading,
+    addConfigurableProductError,
+    configurableProductsToCart,
+  } = useAddConfigurableProductsToCart({
+    cart_id: cartId,
+    sku: productDetailsData?.sku,
+    quantity: 1,
+    selectedOptions: selectedOptionsArray,
   });
 
-  //Add Products To Cart
-  const {addProductToCart, addLoading, addProductError, productsToCart} =
-    useAddProductsToCart({
-      cart_id: existingCartId,
-      sku: sku,
-      quantity: 1,
-    });
   const dispatch = useDispatch();
+
   useEffect(() => {
-    productsToCart && dispatch(cartCount(productsToCart?.cart?.items?.length));
-  }, [productsToCart]);
+    configurableProductsToCart?.cart?.items?.length > 0 &&
+      dispatch(cartCount(configurableProductsToCart?.cart?.items?.length));
+  }, []);
 
   const getCartCount = useSelector(getCartItemsCount);
 
   const handleAddToCart = () => {
-    addProductToCart();
+    console.log('coming to 626 line')
+    if (productDetailsData?.__typename === 'ConfigurableProduct') {
+      addConfigurableProductToCart();
+    } else {
+      addToCart(sku, productDetailsData?.name ?? 'Product')
+    }
     dispatch(cartCount(getCartCount));
   };
 
+  if (productDetailsLoading) {
+    return <ActivityIndicator />;
+  }
+
   return (
-    <View style={styles.container}>
-      {/* breadCrumbs */}
-      <View style={{marginHorizontal: 10, alignSelf: 'flex-start'}}>
-        <BreadCrumbWithTwoLevelUp
-          oneLevelTitle={pathName}
-          oneLevelUrlPath={one_level_url_path}
-          title={name}
-        />
-      </View>
-      <Spacer mt={10} />
-      {_carousel()}
-      <Spacer mt={10} />
-      <View style={{alignSelf: 'flex-start', paddingLeft: 5}}>
-        {_titleWithSku()}
-        {/* product weight */}
-        {/* product price */}
-        <Spacer mt={10} />
-        {_priceWithDiscount()}
-        <Spacer mt={10} />
-        {stock_status !== 'OUT_OF_STOCK' ? (
-          <>
-            <OutlineButton
-              title={addLoading ? 'Adding To Cart' : 'Add To Cart'}
-              onPress={() => handleAddToCart()}
-              textStyleContainer={[globalStyles.bannerBtnTextWhite]}
-              containerStyle={[
-                globalStyles.bannerBtnBlueBackground,
-                {width: 150, alignSelf: 'flex-end'},
+    <ScrollToTopContainer>
+      <View style={{flex: 1}}>
+        <View style={styles.container}>
+          {/* breadCrumbs */}
+          <View style={{marginHorizontal: 10, alignSelf: 'flex-start'}}>
+            <BreadCrumbWithTwoLevelUp
+              oneLevelTitle={pathName}
+              oneLevelUrlPath={one_level_url_path}
+              title={productDetailsData?.name}
+            />
+          </View>
+          <Spacer mt={10} />
+          {_carousel()}
+          <Spacer mt={10} />
+          <View style={{alignSelf: 'flex-start', paddingLeft: 5}}>
+            {_titleWithSku()}
+            {/* product weight */}
+            {/* product price */}
+            <Spacer mt={10} />
+            {_priceWithDiscount()}
+            <Spacer mt={10} />
+            {productDetailsData?.stock_status !== 'OUT_OF_STOCK' ? (
+              <>
+                <OutlineButton
+                loading={addProductLoading || addConfigurableLoading}
+                  title={
+                    'Add To Cart'
+                  }
+                  onPress={() => handleAddToCart()}
+                  textStyleContainer={[globalStyles.bannerBtnTextWhite]}
+                  containerStyle={[
+                    globalStyles.bannerBtnBlueBackground,
+                    {width: 150, alignSelf: 'flex-end', marginRight: 20},
+                  ]}
+                />
+                <Spacer mt={10} />
+              </>
+            ) : null}
+            <Divider width={330} backgroundColor={COLORS.border} />
+            <Spacer mt={10} />
+            <View style={{marginLeft: 10}}>
+              {_ratings('', {flexDirection: 'row', alignItems: 'flex-start'})}
+            </View>
+            {/* swatch info */}
+
+            {/* swatch attribute label and colors */}
+            {_colorSwatchInfo()}
+            <Spacer mt={20} />
+            {_findADistributorAndShop()}
+            <Spacer mt={16} />
+
+            <PlainCarousel
+              width={30}
+              height={30}
+              carouselData={productCategoryShippingDetailsData}
+              typeOfCarousel={carouselTypes.HorizontalTextWithIcon}
+            />
+
+            {/* //Update the collapsible panel with appropriate data */}
+            <CustomAccordian
+              noContentTextFound={'No Description Found!'}
+              borderTopWidth={2}
+              borderBottomWidth={2}
+              marginHorizontal={5}
+              collapsibleData={[
+                {
+                  title: 'Description',
+                  content: productDetailsData?.description.html,
+                },
               ]}
             />
-            <Spacer mt={10} />
-          </>
-        ) : null}
-        <Divider width={330} backgroundColor={COLORS.border} />
-        <Spacer mt={10} />
-        <View style={{marginLeft: 10}}>
-          {_ratings('', {flexDirection: 'row', alignItems: 'flex-start'})}
+            <CustomAccordian
+              noContentTextFound={'No Application Techniques Found!'}
+              borderBottomWidth={2}
+              marginHorizontal={5}
+              collapsibleData={[
+                {
+                  title: 'Application Techniques',
+                  content: productDetailsData?.application_techniques,
+                },
+              ]}
+            />
+            <CustomAccordian
+              noContentTextFound={'No Benefits Found!'}
+              borderBottomWidth={2}
+              marginHorizontal={5}
+              collapsibleData={[
+                {title: 'Benifits', content: productDetailsData?.benefits},
+              ]}
+            />
+            <CustomAccordian
+              noContentTextFound={'No Ingredients Found!'}
+              borderBottomWidth={2}
+              marginHorizontal={5}
+              collapsibleData={[
+                {
+                  title: 'Ingredients',
+                  content: productDetailsData?.ingredients,
+                },
+              ]}
+            />
+            <Spacer mb={40} />
+          </View>
+          <TextWithUnderLine title={'USE IT WITH'} />
+          {_renderProductData(categoryList?.categoryList[0]?.products?.items)}
+          <Spacer mb={20} />
+          <TextWithUnderLine title={'SIMILAR PRODUCTS'} />
+          {/* Get the similar products and show */}
+          <SimilarProducts name={productDetailsData?.name} />
+          <Spacer mb={20} />
+          <TextWithUnderLine title={'RECENTLY VIEWED'} />
+          {/* Get the Recently Viewed Products from the Async Storage i.e localstorage */}
+          {_renderProductData(recentlyViewedProducts)}
+          <Spacer mb={20} />
+          {_ratings('4.1')}
+          {_reviews()}
         </View>
-        {/* swatch info */}
-
-        {/* swatch attribute label and colors */}
-        {_colorSwatchInfo()}
-        <Spacer mt={20} />
-        {_findADistributorAndShop()}
-        <Spacer mt={16} />
-
-        <PlainCarousel
-          width={30}
-          height={30}
-          carouselData={productCategoryShippingDetailsData}
-          typeOfCarousel={carouselTypes.HorizontalTextWithIcon}
-        />
-
-        {/* //Update the collapsible panel with appropriate data */}
-        <CustomAccordian
-          noContentTextFound={'No Description Found!'}
-          borderTopWidth={2}
-          borderBottomWidth={2}
-          marginHorizontal={5}
-          collapsibleData={[{title: 'Description', content: description.html}]}
-        />
-        <CustomAccordian
-          noContentTextFound={'No Application Techniques Found!'}
-          borderBottomWidth={2}
-          marginHorizontal={5}
-          collapsibleData={[
-            {title: 'Application Techniques', content: application_techniques},
-          ]}
-        />
-        <CustomAccordian
-          noContentTextFound={'No Benefits Found!'}
-          borderBottomWidth={2}
-          marginHorizontal={5}
-          collapsibleData={[{title: 'Benifits', content: benefits}]}
-        />
-        <CustomAccordian
-          noContentTextFound={'No Ingredients Found!'}
-          borderBottomWidth={2}
-          marginHorizontal={5}
-          collapsibleData={[{title: 'Ingredients', content: ingredients}]}
-        />
-        <Spacer mb={40} />
       </View>
-      <TextWithUnderLine title={'USE IT WITH'} />
-      {_renderProductData(categoryList?.categoryList[0]?.products?.items)}
-      <Spacer mb={20} />
-      <TextWithUnderLine title={'SIMILAR PRODUCTS'} />
-      {/* Get the similar products and show */}
-      <SimilarProducts name={name} />
-      <Spacer mb={20} />
-      <TextWithUnderLine title={'RECENTLY VIEWED'} />
-      {/* Get the Recently Viewed Products from the Async Storage i.e localstorage */}
-      {_renderProductData(recentlyViewedProducts)}
-      <Spacer mb={20} />
-      {_ratings('4.1')}
-      {_reviews()}
-    </View>
+    </ScrollToTopContainer>
   );
 }
 

@@ -632,11 +632,17 @@ export default function Checkout_As_A_Guest() {
   return (
     <ScrollToTopContainer showCart={true}>
       <View style={{flex: 1, paddingHorizontal: 20}}>
+        <View style={{flex: 1, flexDirection: 'row',justifyContent:'space-between',alignItems:'center'}}>
         <BreadCrumbWithTwoLevelUpWithoutNavigationParams
           oneLevelTitle={'Shopping Cart'}
           screenName={ScreenNames.MainShoppingCartBag}
+          params={{shoppingCartData: shoppingCartData}}
           title={'Checkout'}
         />
+        <TouchableOpacity>
+          <Image source={icons.NounSearch} style={{width: 22, height: 22}}/>
+        </TouchableOpacity>
+        </View>
         <Spacer mt={20} />
         {_independentDistributor()}
         <Spacer mt={20} />

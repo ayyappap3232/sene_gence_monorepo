@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 //User defined Imports
 import Spacer from 'components/Spacer';
-import {COLORS, images} from '../../../constants';
+import {COLORS, icons, images} from '../../../constants';
 import {globalStyles} from 'globalstyles/GlobalStyles';
 
 export default function ShippingAddressDetailsCard({isViewAllDetails, shippingAddressDetailsArray}: any) {
@@ -18,10 +18,12 @@ export default function ShippingAddressDetailsCard({isViewAllDetails, shippingAd
         justifyContent: 'space-between',
       }}>
       <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
-        <Image
-          source={images.dot}
+        <View style={{borderWidth: 1, borderColor: COLORS.primary3, borderRadius: 100,padding: item.isSelected ? 3 : 10}}>
+        {item.isSelected ? <Image
+          source={icons.Check}
           style={{width: 15, height: 15, tintColor: COLORS.primary3}}
-        />
+        /> : null }
+        </View>
         <Spacer mr={10} />
         <View style={{marginTop: -4}}>
           <Text>{item.name}</Text>

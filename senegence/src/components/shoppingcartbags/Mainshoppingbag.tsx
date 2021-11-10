@@ -15,10 +15,9 @@ import Toast from '../toasts/Toast';
 import DeleteConfirmationModal from '../modals/DeleteConfirmationModal';
 import {ScreenNames} from 'utils/screenNames';
 import OrderSummaryCard from '../screenComponents/OrderSummaryCard';
-import {useUpdateCartItems} from 'apollo/controllers/updateCartItems.Controller';
-import {useRemoveItemFromACart} from 'apollo/controllers/removeItemFromCart.Controller';
 import {useDispatch} from 'react-redux';
 import { cartCount } from '../../redux/cartItems';
+import { useCart } from '../../hooks/cart/useCart';
 
 export default function Mainshoppingbag({navigation}: any) {
   const route = useRoute();
@@ -43,6 +42,8 @@ export default function Mainshoppingbag({navigation}: any) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState();
 
+  const {updateCartItems, updateProductLoading, deleteCartItem, deleteProductLoading} = useCart()
+
   let couponCode = 'abc';
 
   useEffect(() => {
@@ -53,7 +54,6 @@ export default function Mainshoppingbag({navigation}: any) {
 
   //Increment cart item quantity Logic
   const _handleIncrementQuantity = (id: any, quantity: number) => {
-    setCartItemUid(id);
     setQty({id: id, quantity: quantity + 1});
 
     let updatedQuantity = shoppingCartData.map(currEn => {
@@ -63,12 +63,13 @@ export default function Mainshoppingbag({navigation}: any) {
       return currEn;
     });
 
+    updateCartItems(Number(id), qty.id == cart_item_uid && qty.quantity);
+
     setShoppingCartData(updatedQuantity);
   };
 
   //Decrement cart item quantity Logic
   const _handleDecrementQuantity = (id: any, quantity: number) => {
-    setCartItemUid(id);
     setQty({id: id, quantity: quantity - 1});
 
     let updatedQuantity = shoppingCartData.map(currEn => {
@@ -78,29 +79,22 @@ export default function Mainshoppingbag({navigation}: any) {
       return currEn;
     });
 
+    updateCartItems(Number(id), qty.id == cart_item_uid && qty.quantity);
     setShoppingCartData(updatedQuantity);
   };
 
-  //Updating the cart items
-  const {updateCartItem} = useUpdateCartItems({
-    cart_id: cart_Id,
-    cart_item_uid: Number(cart_item_uid),
-    quantity: qty.id == cart_item_uid && qty.quantity,
-  });
-
-  useEffect(() => {
-    updateCartItem();
-  }, [qty.quantity, updateCartItem]);
-
   //Removing the Items from cart
-  const {removeItemFromCart} = useRemoveItemFromACart({
-    cart_id: cart_Id,
-    cart_item_id: Number(deleteId),
-  });
+   const handleDelete = (id: any) => {
+      const updatedShoppingCartData = shoppingCartData.filter(
+        el => el.id !== id,
+      );
+      setShoppingCartData(updatedShoppingCartData);
+      deleteCartItem(Number(id));
+      const shoppingCartDataCount = shoppingCartData?.length > 0 && shoppingCartData?.length - 1
+      dispatch(cartCount(shoppingCartDataCount))
+      setShowDeleteModal(false);
+    };
 
-  useEffect(() => {
-    removeItemFromCart();
-  }, [deleteId]);
 
   const _renderItem = ({item, i}: any) => {
     const _leftContent = () => {
@@ -224,15 +218,7 @@ export default function Mainshoppingbag({navigation}: any) {
       );
     };
 
-    const handleDelete = (id: any) => {
-      const updatedShoppingCartData = shoppingCartData.filter(
-        el => el.id !== id,
-      );
-      setShoppingCartData(updatedShoppingCartData);
-      const shoppingCartDataCount = shoppingCartData?.length > 0 && shoppingCartData?.length - 1
-      dispatch(cartCount(shoppingCartDataCount))
-      setShowDeleteModal(false);
-    };
+   
 
     const _confirmationModal = () => {
       return (
@@ -335,7 +321,7 @@ export default function Mainshoppingbag({navigation}: any) {
               cartItemCount: shoppingCartData?.length,
               subTotal: totalPrice,
               shippingAmount: '',
-              shoppingCartData: shoppingCartItems,
+              shoppingCartData: shoppingCartData,
             })
           }
         />

@@ -104,7 +104,7 @@ export default function PlainCarousel({
       inactiveSlideOpacity={1}
       />
       <Pagination
-        dotsLength={carouselData.length}
+        dotsLength={carouselData?.length}
         activeDotIndex={activeSlide}
         //   containerStyle={styles.pagination}
         dotColor={'blue'}

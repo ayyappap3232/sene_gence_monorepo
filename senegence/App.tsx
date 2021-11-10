@@ -1,25 +1,27 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
+import {View} from 'react-native';
 import {
   NavigationContainer,
   DarkTheme,
   DefaultTheme,
 } from '@react-navigation/native';
 import {ApolloProvider, InMemoryCache} from '@apollo/client';
-import { useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 //@ts-ignore
 import {Provider} from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
 import {persistCache, AsyncStorageWrapper} from 'apollo3-cache-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import FlashMessage from 'react-native-flash-message';
+import {PersistGate} from 'redux-persist/integration/react';
 
 // user defined imports
 import AppNavigator from 'navigation/AppNavigator';
 import DrawerNavigator from 'navigation/DrawerNavigator';
 import {apolloClient} from 'apollo/services/client';
 import ActivityIndicator from 'components/spinners/ActivityIndicator';
-import { store } from './src/redux/store';
-
+import {persistor, store} from './src/redux/store';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -32,7 +34,7 @@ function App() {
   const cache = new InMemoryCache();
 
   useEffect(() => {
-       SplashScreen.hide();
+    SplashScreen.hide();
   }, []);
 
   useEffect(() => {
@@ -40,10 +42,9 @@ function App() {
       cache,
       storage: AsyncStorage,
       trigger: 'background',
-    })
-      .then(() => {
-        setClient(apolloClient);
-      })
+    }).then(() => {
+      setClient(apolloClient);
+    });
   }, []);
 
   if (!client) {
@@ -52,11 +53,16 @@ function App() {
 
   return (
     <Provider store={store}>
-      <ApolloProvider client={client}>
-        <NavigationContainer theme={appTheme}>
-          {user ? <AppNavigator /> : <DrawerNavigator />}
-        </NavigationContainer>
-      </ApolloProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <ApolloProvider client={client}>
+          <NavigationContainer theme={appTheme}>
+            <View style={{flex: 1}}>
+              {user ? <AppNavigator /> : <DrawerNavigator />}
+              <FlashMessage position="top" />
+            </View>
+          </NavigationContainer>
+        </ApolloProvider>
+      </PersistGate>
     </Provider>
   );
 }
