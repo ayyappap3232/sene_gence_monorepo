@@ -1,6 +1,8 @@
 const carousel1 = require("../../assets/images/carousel1.png");
 const carousel2 = require("../../assets/images/carousel2.png");
 const carousel3 = require("../../assets/images/carousel3.png");
+const carousel4 = require("../../assets/images/carousel4.png");
+const carousel5 = require("../../assets/images/carousel5.png");
 const logo = require("../../assets/images/LOGO.png")
 const drawerContentImage1 = require("../../assets/images/DrawerContentImage1.png")
 const banner1 = require("../../assets/images/banners/banners3x.png")
@@ -284,6 +286,8 @@ export default {
     carousel1,
     carousel2,
     carousel3,
+    carousel4,
+    carousel5,
     logo,
     drawerContentImage1,
     banner1,
