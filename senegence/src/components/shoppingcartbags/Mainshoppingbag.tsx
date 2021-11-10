@@ -15,8 +15,6 @@ import Toast from '../toasts/Toast';
 import DeleteConfirmationModal from '../modals/DeleteConfirmationModal';
 import {ScreenNames} from 'utils/screenNames';
 import OrderSummaryCard from '../screenComponents/OrderSummaryCard';
-import {useUpdateCartItems} from 'apollo/controllers/updateCartItems.Controller';
-import {useRemoveItemFromACart} from 'apollo/controllers/removeItemFromCart.Controller';
 import {useDispatch} from 'react-redux';
 import { cartCount } from '../../redux/cartItems';
 import { useCart } from '../../hooks/cart/useCart';

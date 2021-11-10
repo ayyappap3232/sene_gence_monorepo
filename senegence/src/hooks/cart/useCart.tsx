@@ -1,6 +1,8 @@
 import {ApolloError, useMutation} from '@apollo/client';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+
+//user defined imports
 import {
   AddProductsToCartResponseType,
   ADD_PRODUCT_TO_CART,
@@ -8,7 +10,7 @@ import {
 import {
   CreateCartResponseType,
   CREATE_CART,
-} from '../../apollo/services/apollo/mutations/cart/createCart';
+} from 'apollo/services/apollo/mutations/cart/createCart';
 import {getCartId, setCartId} from '../../redux/cart';
 import {showMessage} from 'react-native-flash-message';
 import {productsInCart} from '../../redux/cartItems';

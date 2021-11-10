@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 //@ts-ignore
 import { useMutation } from "@apollo/client";
-import { ADD_PRODUCT_TO_CART } from "../services/apollo/mutations/cart/addProductToCart";
 import { useDispatch } from "react-redux";
 import {productsInCart, success} from '../../redux/cartItems'
 import { ADD_CONFIGURABLE_PRODUCT_TO_CART } from "../services/apollo/mutations/cart/addConfigurableProductsToCart";
