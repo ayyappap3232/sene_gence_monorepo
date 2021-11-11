@@ -54,7 +54,6 @@ export default function Mainshoppingbag({navigation}: any) {
 
   //Increment cart item quantity Logic
   const _handleIncrementQuantity = (id: any, quantity: number) => {
-    setQty({id: id, quantity: quantity + 1});
 
     let updatedQuantity = shoppingCartData.map(currEn => {
       if (currEn.id === id && currEn.quantity >= 1) {
@@ -63,14 +62,13 @@ export default function Mainshoppingbag({navigation}: any) {
       return currEn;
     });
 
-    updateCartItems(Number(id), qty.id == cart_item_uid && qty.quantity);
+    updateCartItems(Number(id),  quantity + 1);
 
     setShoppingCartData(updatedQuantity);
   };
 
   //Decrement cart item quantity Logic
   const _handleDecrementQuantity = (id: any, quantity: number) => {
-    setQty({id: id, quantity: quantity - 1});
 
     let updatedQuantity = shoppingCartData.map(currEn => {
       if (currEn.id === id && currEn.quantity !== 1) {
@@ -79,7 +77,7 @@ export default function Mainshoppingbag({navigation}: any) {
       return currEn;
     });
 
-    updateCartItems(Number(id), qty.id == cart_item_uid && qty.quantity);
+    updateCartItems(Number(id),  quantity - 1);
     setShoppingCartData(updatedQuantity);
   };
 
