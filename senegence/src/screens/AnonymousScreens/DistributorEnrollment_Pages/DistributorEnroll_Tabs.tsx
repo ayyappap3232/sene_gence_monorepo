@@ -7,7 +7,7 @@ import DTab3 from './DTab3';
 import DTab4 from './DTab4';
 import DTab5 from './DTab5';
 import DTab6 from './DTab6';
-import {COLORS, icons} from '../../../constants';
+import {COLORS, icons, SIZES} from '../../../constants';
 import Svg, { Path } from 'react-native-svg'
 
 const DistributorTabs = createMaterialTopTabNavigator();
