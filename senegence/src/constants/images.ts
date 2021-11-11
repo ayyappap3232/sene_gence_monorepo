@@ -229,7 +229,11 @@ const freesample5 = require("../../assets/images/freeSamples/freesample5.png")
 const freesample6 = require("../../assets/images/freeSamples/freesample6.png")
 const freesample7 = require("../../assets/images/freeSamples/freesample7.png")
 
+//Distributor Enrollment
+const christopher = require("../../assets/images/distributorenrollment/christopher.png")
+
 export default {
+    christopher,
     giftBox,
     freesample0,
     freesample1,

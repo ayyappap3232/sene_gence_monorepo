@@ -17,8 +17,8 @@ import FlashMessage from 'react-native-flash-message';
 import {PersistGate} from 'redux-persist/integration/react';
 
 // user defined imports
-import AppNavigator from 'navigation/AppNavigator';
-import DrawerNavigator from 'navigation/DrawerNavigator';
+import AppNavigator from './src/navigation/AppNavigator';
+import DrawerNavigator from './src/navigation/DrawerNavigator';
 import {apolloClient} from 'apollo/services/client';
 import ActivityIndicator from 'components/spinners/ActivityIndicator';
 import {persistor, store} from './src/redux/store';

@@ -38,6 +38,7 @@ import Error_404 from 'screens/AnonymousScreens/Error_Pages/404_Screen';
 import Error_503 from 'screens/AnonymousScreens/Error_Pages/503_Screen';
 import Checkout_As_A_Guest from 'screens/AnonymousScreens/Checkout_Pages/Checkout_As_A_Guest';
 import CategoryDetailsItemComponent from 'components/PLP/CategoryDetailsItemComponent';
+import DistributorEnrollment_Page from 'screens/AnonymousScreens/DistributorEnrollment_Pages/DistributorEnrollment_Page';
 
 const Drawer = createDrawerNavigator();
 
@@ -109,6 +110,10 @@ const DrawerNavigator = () => {
             title: undefined,
           }}
           component={StartUpPage}
+        />
+        <Drawer.Screen
+          name={ScreenNames.DistributorEnrollment}
+          component={DistributorEnrollment_Page}
         />
         <Drawer.Screen
           name={ScreenNames.CategoryItem}
