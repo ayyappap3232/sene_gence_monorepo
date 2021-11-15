@@ -8,13 +8,41 @@ export const REMOVE_ITEM_FROM_CART = gql`
       input: {cart_id: $cart_id, cart_item_id: $cart_item_id}
     ) {
       cart {
-        id
         items {
+          id
           product {
             name
+          }
+          quantity
+        }
+        prices {
+          grand_total {
+            value
+            currency
           }
         }
       }
     }
   }
 `;
+
+export type RemoveProductsInCartResponseType = {
+  removeItemFromCart: {
+    cart: {
+      id: string,
+      items: {
+        id: string,
+        product: {
+          name: string,
+        },
+        quantity: number,
+      }
+      prices : {
+        grand_total : {
+          value : number,
+          currency : string,
+        }
+      }
+    }
+  }
+}

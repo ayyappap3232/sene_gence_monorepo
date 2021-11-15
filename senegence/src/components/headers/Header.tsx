@@ -33,7 +33,7 @@ import {useCart} from '../../hooks/cart/useCart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useGetCartItems} from 'apollo/controllers/getCart.Controller';
 import { useSelector } from 'react-redux';
-import { getCartItemsCount, success } from '../../redux/cartItems';
+import { getCartItemsCount, getProductsInCart, success } from '../../redux/cartItems';
 import { getCartId } from '../../redux/cart';
 
 export default function Header({
@@ -57,7 +57,7 @@ export default function Header({
   };
 
   let cartItemCount = useSelector(getCartItemsCount)
-  let isSuccess = useSelector(success)
+  let productData = useSelector(getProductsInCart)
 
   // ! Start of Get Cart Items
 
@@ -69,14 +69,10 @@ export default function Header({
 
   useEffect(() => {
     getCartItems();
+    return () => getCartItems();
   }, [cartItemCount,navigation]);
 
-
-
   const cartItemsData = cartData?.cart?.items;
-
-  console.log('cartItemsData',cartItemsData,cartId)
-
 
   // ! End of get cart items
 
