@@ -6590,6 +6590,11 @@ react-native-collapsible@^1.5.3, react-native-collapsible@^1.6.0:
   resolved "https://registry.yarnpkg.com/react-native-collapsible/-/react-native-collapsible-1.6.0.tgz#ca261ffff16914f872059bb0972e3a78c4b37f9c"
   integrity sha512-beZjdgbT9Y/Pg591Xy5XkKG20HffJiVad4n9bfcUF/f783A+tvOVXnqvbS58Lkaym93mi4jcDPMuW9Vc1t6rqg==
 
+react-native-date-picker@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-date-picker/-/react-native-date-picker-4.1.1.tgz#7f41b86e5b625c0c695686eea538677fe84fc4a6"
+  integrity sha512-2KzwFZoPNmGCgDFP8FrrtIBrKMEzTkLG5Zq68CbyUxG7aFPmeP7ik//lSB0gPwfO9TKQyKFVqTod5jTp0PTnbw==
+
 react-native-fab@^1.0.18:
   version "1.0.18"
   resolved "https://registry.yarnpkg.com/react-native-fab/-/react-native-fab-1.0.18.tgz#a3079f6d91250d57eccec34f34aa2551312fdb8b"
