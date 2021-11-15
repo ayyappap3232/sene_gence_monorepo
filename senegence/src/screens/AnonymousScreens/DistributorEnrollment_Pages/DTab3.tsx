@@ -18,6 +18,7 @@ import {_inputItem} from 'components/textInputs/InputItemWithAsterik';
 import Checkbox from 'components/checkboxs/Checkbox';
 import Astrick from 'components/Astrick';
 import Select from 'components/select/Select';
+import DateTimePicker from 'components/dateTime/DateTimePicker';
 
 export default function DTab3() {
   const [collapseAccountInformation, setAccountInformation] = useState(false);
@@ -187,14 +188,11 @@ export default function DTab3() {
           )}
           <Spacer mt={10} />
           {/* Replace with Date Picker */}
-          {_inputItem(
-            'Date Of Birth',
-            () => {},
-            'DD/MM/YYYY',
-            true,
-            false,
-            '',
-          )}
+          <Text>
+            Date Of Birth <Astrick />
+          </Text>
+          <Spacer mt={10} />
+          <DateTimePicker />
           <Spacer mt={10} />
           {_inputItem('Password', () => {}, 'Enter Password', true, false, '')}
           <Spacer mt={10} />
