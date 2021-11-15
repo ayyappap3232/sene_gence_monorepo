@@ -21,7 +21,6 @@ type Result = {
 };
 
 export const useAddConfigurableProductsToCart = (props: Props): Result => {
-  console.log('iam in 25, useAddconfigurableProducts')
   const dispatch = useDispatch();
 
   const [configurableProductsToCart, setConfigurableProductsToCart] = useState();

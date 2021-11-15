@@ -13,12 +13,15 @@ import {
 } from 'apollo/services/apollo/mutations/cart/createCart';
 import {getCartId, setCartId} from '../../redux/cart';
 import {showMessage} from 'react-native-flash-message';
-import {productsInCart} from '../../redux/cartItems';
+import {cartCount, productsInCart} from '../../redux/cartItems';
 import {
   UpdateProductsInCartResponseType,
   UPDATE_CART_ITEMS,
 } from 'apollo/services/apollo/mutations/cart/updateCartItems';
-import {REMOVE_ITEM_FROM_CART} from 'apollo/services/apollo/mutations/cart/removeItemFromCart';
+import {
+  RemoveProductsInCartResponseType,
+  REMOVE_ITEM_FROM_CART,
+} from 'apollo/services/apollo/mutations/cart/removeItemFromCart';
 
 type Result = {
   cartId: string;
@@ -57,7 +60,6 @@ export const useCart = (): Result => {
     }
   };
 
-  console.log('cart id', cartId);
 
   //Create Add To Cart
   const addToCart = async (sku: string, name: string, quantity: number = 1) => {
@@ -65,7 +67,7 @@ export const useCart = (): Result => {
       const {
         data,
         errors,
-      }: {data: AddProductsToCartResponseType; errors: ApolloError[]} =
+      }: {data: any; errors: ApolloError[]} =
         await addProductsToCart({
           variables: {
             cartId,
@@ -73,8 +75,8 @@ export const useCart = (): Result => {
             quantity,
           },
         });
-      console.log('data');
       dispatch(productsInCart(data?.addProductsToCart?.cart?.items));
+      dispatch(cartCount(data?.addProductsToCart?.cart?.items?.length));
       showMessage({
         message: 'Success',
         description: `${name} is added to the cart`,
@@ -87,7 +89,6 @@ export const useCart = (): Result => {
 
   //Update Cart Item
   const updateCartItems = async (cart_item_id: number, quantity: number) => {
-    console.log('cart item id, quantity', cart_item_id, quantity);
     try {
       const {
         data,
@@ -100,8 +101,8 @@ export const useCart = (): Result => {
             quantity,
           },
         });
-      console.log('in 74 , ', errors);
       dispatch(productsInCart(data?.updateCartItems?.cart?.items));
+      dispatch(cartCount(data?.updateCartItems?.cart?.items?.length));
     } catch (error) {
       console.log('error in 77 usecart', error);
     }
@@ -109,9 +110,11 @@ export const useCart = (): Result => {
 
   //Delete Cart Item
   const deleteCartItem = async (cart_item_id: number) => {
-    console.log('cart item id on 83', cart_item_id);
     try {
-      const {data, errors}: {data: any; errors: ApolloError[]} =
+      const {
+        data,
+        errors,
+      }: {data: RemoveProductsInCartResponseType; errors: ApolloError[]} =
         await removeItemFromCart({
           variables: {
             cart_id: cartId,
@@ -123,7 +126,8 @@ export const useCart = (): Result => {
         description: `Deleted the item from the cart`,
         type: 'success',
       });
-      dispatch(productsInCart(data?.updateCartItems?.cart?.items));
+      dispatch(productsInCart(data?.removeItemFromCart?.cart?.items));
+      dispatch(cartCount(data?.removeItemFromCart?.cart?.items?.length));
     } catch (error) {
       console.log('error in 77 usecart', error);
       showMessage({

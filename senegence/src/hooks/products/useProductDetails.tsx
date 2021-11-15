@@ -52,7 +52,6 @@ const findSelectProductVariant  = (
 
 export const useProductDetails = ({sku}: Props): Result => {
 
-  console.log('sku',sku)
   const [productDetailsData, setProductDetailsData] = useState<Item | undefined>(
     
   );
@@ -128,7 +127,6 @@ export const useProductDetails = ({sku}: Props): Result => {
     optionCode,
     valueIndex,
   ) => {
-    console.log('option code', optionCode, 'value index',valueIndex)
     setSelectedConfigurableProductOption({
       ...selectedConfigurableProductOption,
       [optionCode]: valueIndex,

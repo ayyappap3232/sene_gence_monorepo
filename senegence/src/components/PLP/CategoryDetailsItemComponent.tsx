@@ -596,7 +596,6 @@ export default function CategoryDetailsItemComponent() {
   const getCartCount = useSelector(getCartItemsCount);
 
   const handleAddToCart = () => {
-    console.log('coming to 626 line')
     if (productDetailsData?.__typename === 'ConfigurableProduct') {
       addConfigurableProductToCart();
     } else {
