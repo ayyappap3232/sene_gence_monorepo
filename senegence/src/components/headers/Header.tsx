@@ -63,16 +63,7 @@ export default function Header({
 
   const cartId = useSelector(getCartId);
 
-  const {getCartItems, cartData} = useGetCartItems({
-    cartId: cartId,
-  });
 
-  useEffect(() => {
-    getCartItems();
-    return () => getCartItems();
-  }, [cartItemCount,navigation]);
-
-  const cartItemsData = cartData?.cart?.items;
 
   // ! End of get cart items
 
@@ -205,7 +196,7 @@ export default function Header({
           </View>
 
           <Minishoppingbag
-            miniShoppingCartData={cartItemsData}
+            miniShoppingCartData={productData}
             setVisible={setVisible}
           />
         </View>
@@ -261,7 +252,7 @@ export default function Header({
                     onPress={() => {
                       //showModal()
                       navigation.navigate(ScreenNames.MainShoppingCartBag, {
-                        shoppingCartData: cartItemsData,
+                        shoppingCartData: productData,
                         cart_Id: cartId,
                       });
                     }}>
@@ -365,7 +356,7 @@ export default function Header({
     correspondingProductItemCount,
     showPageUp,
     cartItemCount,
-    cartItemsData,
+    productData,
     cartId,
   ]);
 

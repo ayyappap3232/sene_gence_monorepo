@@ -15,20 +15,14 @@ import Toast from '../toasts/Toast';
 import DeleteConfirmationModal from '../modals/DeleteConfirmationModal';
 import {ScreenNames} from 'utils/screenNames';
 import OrderSummaryCard from '../screenComponents/OrderSummaryCard';
-import {useDispatch} from 'react-redux';
-import { cartCount } from '../../redux/cartItems';
+import {useDispatch, useSelector} from 'react-redux';
+import { cartCount, getProductsInCart } from '../../redux/cartItems';
 import { useCart } from '../../hooks/cart/useCart';
 
 export default function Mainshoppingbag({navigation}: any) {
   const route = useRoute();
-
   const dispatch = useDispatch();
-
   const shoppingCartItems = route?.params?.shoppingCartData;
-  const cart_Id = route?.params?.cart_Id;
-
-  const [cart_item_uid, setCartItemUid] = useState('');
-  const [qty, setQty] = useState<any>({id: '', quantity: 0});
   const [shoppingCartData, setShoppingCartData] = useState(route?.params?.shoppingCartData);
 
   const totalPrice = shoppingCartData?.reduce(

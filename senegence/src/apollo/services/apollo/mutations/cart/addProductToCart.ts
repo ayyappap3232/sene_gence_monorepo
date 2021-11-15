@@ -23,6 +23,16 @@ export const ADD_PRODUCT_TO_CART = gql`
             }
           }
           quantity
+          prices {
+            price {
+              currency
+              value
+            }
+            row_total {
+              value
+              currency
+            }
+          }
         }
         prices {
           grand_total {
@@ -39,6 +49,12 @@ export type AddProductsToCartResponseType = {
   addProductsToCart: {
     cart: {
       id: string;
+      prices: {
+        grand_total: {
+          value: number;
+          currency: string;
+        };
+      };
       items: {
         id: string;
         product: {
@@ -46,16 +62,21 @@ export type AddProductsToCartResponseType = {
           sku: string;
           image: {
             url: string;
-          }
+          };
         };
         quantity: number;
-      };
-      prices: {
-        grand_total: {
-          value: number;
-          currency: string;
+        prices: {
+          price: {
+            currency: string;
+            value: number;
+          };
+          row_total:{
+            value: number;
+            currency: string;
+          }
         };
       };
+      
     };
   };
 };
