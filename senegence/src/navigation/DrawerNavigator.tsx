@@ -97,7 +97,7 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       screenOptions={{drawerType: 'front', drawerStyle: {width: 293}}}
-      initialRouteName={ScreenNames.DistributorEnrollment}
+      initialRouteName={ScreenNames.StartUpDrawer}
       drawerContent={props => (
         <CustomDrawerContent {...props} categoryData={categoryData} />
       )}>
