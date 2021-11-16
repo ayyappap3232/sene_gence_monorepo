@@ -129,7 +129,7 @@ export default function DTab4() {
           <TouchableOpacity
             onPress={() => {
               carouselScrollRef.current.scrollTo({
-                x:  -10,
+                x:  selectedCarouselIndex * 120 - 120,
                 y: 0,
                 animated: true,
               });
