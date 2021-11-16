@@ -35,7 +35,8 @@ export const COLORS = {
     border3: "#757575",
     primary3: "#3c649b",
     primary4: "#1f62c7",
-    grey: '#ccc'
+    grey: '#ccc',
+    border4: '#ededed'
 
 }
 

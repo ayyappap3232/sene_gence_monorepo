@@ -4,17 +4,17 @@ import { Image, StyleSheet, TextInput, View } from 'react-native'
 //User defined Imports
 import { COLORS, images } from '../../constants'
 
-export default function TextInputWithCaretDisable({textInputValue, placeholder}: any) {
+export default function TextInputWithCaretDisable({textInputValue, placeholder,viewContainerStyle={},containerStyle={}}: any) {
     return (
-        <View>
+        <View style={[viewContainerStyle]}>
           <TextInput
-            style={{
+            style={[{
               borderWidth: 1,
               borderColor: COLORS.border1,
               padding: 10,
               paddingRight: 30,
               height: 40,
-            }}
+            },containerStyle]}
             editable={false}
             placeholder={placeholder}
             placeholderTextColor={COLORS.border1}

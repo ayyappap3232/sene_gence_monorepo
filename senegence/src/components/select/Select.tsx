@@ -9,13 +9,14 @@ import OutlineTextInput from '../textInputs/OutlineTextInput';
 import OutlineTextInputMultiline from '../textInputs/OutlineTextInputMultiline';
 
 export interface ISelectProps {
-  title: string;
+  title?: string;
   isMandatory?: boolean;
-  data: Array<{full_name_locale: string}>;
+  data?: Array<{full_name_locale: string}>;
   setSelectedValue?: any;
   selectedValue?:any;
   checked?: boolean;
   defaultButtonText?: string;
+  containerButtonStyle?:{}
 }
 
 export default function Select({
@@ -25,7 +26,8 @@ export default function Select({
   data = [{full_name_locale : 'No Data'}],
   setSelectedValue,
   selectedValue="",
-  checked=false
+  checked=false,
+  containerButtonStyle={}
 }: ISelectProps) {
 
   useEffect(() => {
@@ -53,11 +55,11 @@ export default function Select({
           )}
           defaultValue={selectedValue}
           defaultButtonText={defaultButtonText}
-          buttonStyle={{
+          buttonStyle={[{
             backgroundColor: 'rgba(244, 244, 244, 0.5)',
             width: '100%',
             height: 40,
-          }}
+          },containerButtonStyle]}
           buttonTextStyle={{
             right: 0,
             position: 'absolute',
@@ -65,10 +67,15 @@ export default function Select({
             fontSize: SIZES.body4,
             fontFamily: FONTS.AvenirLight,
             letterSpacing: 0.7,
+            flex: 1,
+            flexWrap: 'wrap'
           }}
           data={data}
           onSelect={(selectedItem, index) => {
-            setSelectedValue(selectedItem?.full_name_locale);
+            if(selectedItem === undefined){
+              return ;
+            }
+            selectedItem ? setSelectedValue(selectedItem?.full_name_locale) : setSelectedValue("");
           }}
           buttonTextAfterSelection={(selectedItem, index) => {
             // text represented after item is selected
