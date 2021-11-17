@@ -29,8 +29,10 @@ export default function UserProfile() {
   const [twoFactorSwitch, setTwoFactorSwitch] = useState(false);
   const [newsLetterSwitch, setNewsLetterSwitch] = useState(false);
   const [editPersonalInformation, setEditPersonalInformation] = useState(false);
-  const [defaultShippingAddressShow, setDefaultShippingAddressShow] =
-    useState(false);
+  const [
+    defaultShippingAndBillingAddress,
+    setDefaultShippingAndBillingAddressShow,
+  ] = useState({show: false, title: ''});
 
   const _orderHistory = () => {
     return (
@@ -280,7 +282,7 @@ export default function UserProfile() {
     );
   };
 
-  const _addressCard = () => {
+  const _addressCard = (title: string) => {
     return (
       <View
         style={[
@@ -306,7 +308,10 @@ export default function UserProfile() {
             <Text containerStyle={{marginRight: 10}}>Edit</Text>
             <TouchableOpacity
               onPress={() => {
-                setDefaultShippingAddressShow(true);
+                setDefaultShippingAndBillingAddressShow({
+                  show: true,
+                  title: title,
+                });
               }}>
               <Image
                 source={images.editIcon}
@@ -329,12 +334,12 @@ Oakland, SC South Carolina 29150
     );
   };
 
-  const _defaultShippingAddress = () => {
+  const _defaultShippingAndBillingAddress = (title: string) => {
     return (
       <>
         <Spacer mt={20} />
         <Text containerStyle={[globalStyles.text_avenir_heavy]}>
-          Default Shipping Address
+          Default {defaultShippingAndBillingAddress.title} Address
         </Text>
         <Spacer mt={20} />
         {_inputItem(
@@ -420,7 +425,10 @@ Oakland, SC South Carolina 29150
             ]}
             textStyleContainer={[globalStyles.bannerBtnTextWhite]}
             onPress={() => {
-              setDefaultShippingAddressShow(false);
+              setDefaultShippingAndBillingAddressShow({
+                show: false,
+                title: defaultShippingAndBillingAddress.title,
+              });
             }}
           />
         </View>
@@ -432,7 +440,7 @@ Oakland, SC South Carolina 29150
     return (
       <View>
         {addressHeader('Shipping Address')}
-        {_addressCard()}
+        {_addressCard('Shipping')}
         <Spacer mt={16} />
         <View style={[globalStyles.row, {marginHorizontal: 5}]}>
           <TouchableOpacity>
@@ -440,7 +448,10 @@ Oakland, SC South Carolina 29150
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              setDefaultShippingAddressShow(true);
+              setDefaultShippingAndBillingAddressShow({
+                show: true,
+                title: 'Shipping',
+              });
             }}>
             <Text containerStyle={{color: COLORS.primary4}}>+ Add New</Text>
           </TouchableOpacity>
@@ -453,7 +464,7 @@ Oakland, SC South Carolina 29150
     return (
       <View>
         {addressHeader('Billing Address')}
-        {_addressCard()}
+        {_addressCard('Billing')}
         <Spacer mt={16} />
         <View style={[globalStyles.row, {marginHorizontal: 5}]}>
           <TouchableOpacity>
@@ -461,7 +472,10 @@ Oakland, SC South Carolina 29150
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              setDefaultShippingAddressShow(true);
+              setDefaultShippingAndBillingAddressShow({
+                show: true,
+                title: 'Billing',
+              });
             }}>
             <Text containerStyle={{color: COLORS.primary4}}>+ Add New</Text>
           </TouchableOpacity>
@@ -498,7 +512,7 @@ Oakland, SC South Carolina 29150
           />
         </TouchableOpacity>
         <Collapsible collapsed={!collapseAddress}>
-          {!defaultShippingAddressShow && (
+          {!defaultShippingAndBillingAddress.show && (
             <>
               <Spacer mt={20} />
               {_shippingAddress()}
@@ -506,7 +520,10 @@ Oakland, SC South Carolina 29150
               {_billingAddress()}
             </>
           )}
-          {defaultShippingAddressShow && _defaultShippingAddress()}
+          {defaultShippingAndBillingAddress.show &&
+            _defaultShippingAndBillingAddress(
+              defaultShippingAndBillingAddress.title,
+            )}
         </Collapsible>
       </>
     );
