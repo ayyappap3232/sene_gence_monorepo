@@ -16,6 +16,10 @@ import {_inputItem} from 'components/textInputs/InputItemWithAsterik';
 import DateTimePicker from 'components/dateTime/DateTimePicker';
 import Astrick from 'components/Astrick';
 import Select from 'components/select/Select';
+import {
+  cardNumberFormatter,
+  expirationDateFormatter,
+} from '../../utils/helpers/formatters';
 
 export default function UserProfile() {
   const [collapsePersonalInformation, setPersonalInformation] = useState(false);
@@ -26,13 +30,22 @@ export default function UserProfile() {
   const [collapseTwoFactorAuthentication, setCollapseTwoFactorAuthentication] =
     useState(false);
   const [collapseNewsLetterInfo, setCollapseNewsLetterInfo] = useState(false);
+
   const [twoFactorSwitch, setTwoFactorSwitch] = useState(false);
   const [newsLetterSwitch, setNewsLetterSwitch] = useState(false);
+
+  //Show hide forms
   const [editPersonalInformation, setEditPersonalInformation] = useState(false);
   const [
     defaultShippingAndBillingAddress,
     setDefaultShippingAndBillingAddressShow,
   ] = useState({show: false, title: ''});
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const [showBeautyProfileEditForm, setShowBeautyProfileEditForm] =
+    useState(false);
+
+  const [creditCardValue, setCreditCardValue] = useState('');
+  const [creditCardExpiryDate, setCreditCardExpiry] = useState('');
 
   const _orderHistory = () => {
     return (
@@ -529,6 +542,82 @@ Oakland, SC South Carolina 29150
     );
   };
 
+  const _paymentForm = () => {
+    return (
+      <>
+        {_inputItem(
+          'First Name',
+          () => {},
+          'Enter your first name...',
+          true,
+          false,
+          '',
+        )}
+        {_inputItem(
+          'Last Name',
+          () => {},
+          'Enter your last name...',
+          true,
+          false,
+          '',
+        )}
+        {/* Todo: like credit card input */}
+        {_inputItem(
+          'Credit Card',
+          (text: string) => {
+            const newValue = cardNumberFormatter
+              ? cardNumberFormatter(creditCardValue, text)
+              : text;
+            setCreditCardValue(newValue);
+          },
+          '**** **** **** ****',
+          true,
+          false,
+          creditCardValue,
+        )}
+        {_inputItem('CVV', () => {}, 'Enter CVV...', true, false, '')}
+        {/* Todo: like credit card expiry date */}
+        {_inputItem(
+          'Expiration',
+          (text: string) => {
+            const newValue = expirationDateFormatter
+              ? expirationDateFormatter(creditCardExpiryDate, text)
+              : text;
+            setCreditCardExpiry(newValue);
+          },
+          'MM/YY',
+          true,
+          false,
+          creditCardExpiryDate,
+          'number-pad',
+        )}
+        <Spacer mt={20} />
+        <View style={[globalStyles.row, {justifyContent: 'flex-end'}]}>
+          <OutlineButton
+            title={'Cancel'}
+            containerStyle={[
+              globalStyles.bannerBtnBlueOutline,
+              {width: 76, height: 36, marginRight: 20, alignSelf: 'flex-start'},
+            ]}
+            textStyleContainer={[globalStyles.bannerBtnTextBlue]}
+            onPress={() => {}}
+          />
+          <OutlineButton
+            title={'Save'}
+            containerStyle={[
+              globalStyles.bannerBtnBlueBackground,
+              {width: 89, height: 36, alignSelf: 'flex-start'},
+            ]}
+            textStyleContainer={[globalStyles.bannerBtnTextWhite]}
+            onPress={() => {
+              setShowPaymentForm(false);
+            }}
+          />
+        </View>
+      </>
+    );
+  };
+
   const _payment = () => {
     return (
       <>
@@ -558,7 +647,32 @@ Oakland, SC South Carolina 29150
         </TouchableOpacity>
         <Collapsible collapsed={!collapsePayment}>
           <Spacer mt={20} />
-          <Text>Payment need to implement</Text>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Text>Payment need to implement</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                alignSelf: 'flex-end',
+              }}>
+              {!showPaymentForm && (
+                <>
+                  <Text containerStyle={{marginRight: 10}}>Edit</Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setShowPaymentForm(true);
+                    }}>
+                    <Image
+                      source={images.editIcon}
+                      style={{width: 15, height: 15, tintColor: COLORS.border1}}
+                    />
+                  </TouchableOpacity>
+                </>
+              )}
+            </View>
+          </View>
+          <Spacer mt={20} />
+          {showPaymentForm && _paymentForm()}
         </Collapsible>
       </>
     );
@@ -585,6 +699,77 @@ Oakland, SC South Carolina 29150
         </Text>
       </View>
     ) : null;
+  };
+
+  const _beautyProfileEditForm = () => {
+    return (
+      <>
+        <Select
+          checked={false}
+          data={['']}
+          title={'Skin Type'}
+          isMandatory={true}
+        />
+        <Spacer mt={10} />
+        <Select
+          checked={false}
+          data={['']}
+          title={'Undertone'}
+          isMandatory={true}
+        />
+        <Spacer mt={10} />
+        <Select
+          checked={false}
+          data={['']}
+          title={'Foundation'}
+          isMandatory={true}
+        />
+        <Spacer mt={10} />
+        <Select
+          checked={false}
+          data={['']}
+          title={'Hair Type'}
+          isMandatory={true}
+        />
+        <Spacer mt={10} />
+        <Select
+          checked={false}
+          data={['']}
+          title={'Skin Concern'}
+          isMandatory={true}
+        />
+        <Spacer mt={10} />
+        <Select
+          checked={false}
+          data={['']}
+          title={'Hair Concern'}
+          isMandatory={true}
+        />
+        <Spacer mt={20} />
+        <View style={[globalStyles.row, {justifyContent: 'flex-end'}]}>
+          <OutlineButton
+            title={'Cancel'}
+            containerStyle={[
+              globalStyles.bannerBtnBlueOutline,
+              {width: 76, height: 36, marginRight: 20, alignSelf: 'flex-start'},
+            ]}
+            textStyleContainer={[globalStyles.bannerBtnTextBlue]}
+            onPress={() => {}}
+          />
+          <OutlineButton
+            title={'Save'}
+            containerStyle={[
+              globalStyles.bannerBtnBlueBackground,
+              {width: 89, height: 36, alignSelf: 'flex-start'},
+            ]}
+            textStyleContainer={[globalStyles.bannerBtnTextWhite]}
+            onPress={() => {
+              setShowBeautyProfileEditForm(false);
+            }}
+          />
+        </View>
+      </>
+    );
   };
 
   const _beautyProfile = () => {
@@ -618,31 +803,37 @@ Oakland, SC South Carolina 29150
         </TouchableOpacity>
         <Collapsible collapsed={!collapseBeautyProfile}>
           <Spacer mt={20} />
-          <View>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                alignSelf: 'flex-end',
-              }}>
-              <Text containerStyle={{marginRight: 10}}>Edit</Text>
-              <TouchableOpacity>
-                <Image
-                  source={images.editIcon}
-                  style={{width: 15, height: 15, tintColor: COLORS.border1}}
-                />
-              </TouchableOpacity>
+          {!showBeautyProfileEditForm && (
+            <View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  alignSelf: 'flex-end',
+                }}>
+                <Text containerStyle={{marginRight: 10}}>Edit</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    setShowBeautyProfileEditForm(true);
+                  }}>
+                  <Image
+                    source={images.editIcon}
+                    style={{width: 15, height: 15, tintColor: COLORS.border1}}
+                  />
+                </TouchableOpacity>
+              </View>
+              {_beautyProfileItem('Skin type', 'Dry')}
+              {_beautyProfileItem('Undertone', 'Warm')}
+              {_beautyProfileItem('Foundation', 'Fair CCTM')}
+              {_beautyProfileItem('Hair type', 'Curly')}
+              {_beautyProfileItem(
+                'Skin Concern',
+                'Fine Line Wrinkles, Dark Spots',
+              )}
+              {_beautyProfileItem('Hair Concern', 'Damaged')}
             </View>
-            {_beautyProfileItem('Skin type', 'Dry')}
-            {_beautyProfileItem('Undertone', 'Warm')}
-            {_beautyProfileItem('Foundation', 'Fair CCTM')}
-            {_beautyProfileItem('Hair type', 'Curly')}
-            {_beautyProfileItem(
-              'Skin Concern',
-              'Fine Line Wrinkles, Dark Spots',
-            )}
-            {_beautyProfileItem('Hair Concern', 'Damaged')}
-          </View>
+          )}
+          {showBeautyProfileEditForm && _beautyProfileEditForm()}
         </Collapsible>
       </>
     );

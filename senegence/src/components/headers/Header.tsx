@@ -281,9 +281,9 @@ export default function Header({
                     </View>
                   </TouchableOpacity>
                 }
-                <View style={{height: 26, padding: 4, borderRadius: 100,marginLeft: 8, borderWidth: 1, borderColor: COLORS.primary3}}>
+                <TouchableOpacity onPress={()=> navigation.navigate(ScreenNames.UserProfile)} style={{height: 26, padding: 4, borderRadius: 100,marginLeft: 8, borderWidth: 1, borderColor: COLORS.primary3}}>
                   <Image source={images.loginUser} style={{width: 16, height: 16}}/>
-                </View>
+                </TouchableOpacity>
                 <View
                   style={[styles.globeWrapper, !showCart && {marginLeft: 10}]}>
                   <Image
