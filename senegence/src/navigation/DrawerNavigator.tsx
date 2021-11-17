@@ -40,6 +40,7 @@ import Checkout_As_A_Guest from 'screens/AnonymousScreens/Checkout_Pages/Checkou
 import CategoryDetailsItemComponent from 'components/PLP/CategoryDetailsItemComponent';
 import DistributorEnrollment_Page from 'screens/AnonymousScreens/DistributorEnrollment_Pages/DistributorEnrollment_Page';
 import UserProfile from 'screens/AuthScreens/UserProfile';
+import UserOrders from 'screens/AnonymousScreens/Orders/UserOrders';
 
 const Drawer = createDrawerNavigator();
 
@@ -118,6 +119,10 @@ const DrawerNavigator = () => {
         <Drawer.Screen
           name={ScreenNames.DistributorEnrollment}
           component={DistributorEnrollment_Page}
+        />
+        <Drawer.Screen
+          name={ScreenNames.UserOrders}
+          component={UserOrders}
         />
         <Drawer.Screen
           name={ScreenNames.CategoryItem}

@@ -32,16 +32,22 @@ import {
 import {useCart} from '../../hooks/cart/useCart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useGetCartItems} from 'apollo/controllers/getCart.Controller';
-import { useSelector } from 'react-redux';
-import { getCartItemsCount, getProductsInCart, success } from '../../redux/cartItems';
-import { getCartId } from '../../redux/cart';
+import {useSelector} from 'react-redux';
+import {
+  getCartItemsCount,
+  getProductsInCart,
+  success,
+} from '../../redux/cartItems';
+import {getCartId} from '../../redux/cart';
 
 export default function Header({
   headerContainerStyle = {},
   showCart = true,
   isBannerShownOnInitialLoad = false,
   showPageUp = false,
-}:any) {
+  menuCallBack,
+  userProfileState
+}: any) {
   const navigation = useNavigation<any>();
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [searchText, setSearchText] = useState('');
@@ -56,17 +62,14 @@ export default function Header({
     setIsSearchOpen(!isSearchOpen);
   };
 
-  let cartItemCount = useSelector(getCartItemsCount)
-  let productData = useSelector(getProductsInCart)
+  let cartItemCount = useSelector(getCartItemsCount);
+  let productData = useSelector(getProductsInCart);
 
   // ! Start of Get Cart Items
 
   const cartId = useSelector(getCartId);
 
-
-
   // ! End of get cart items
-
 
   //handle search operation when click on search icon
   const onSearchHandler = (name = '') => {
@@ -130,8 +133,6 @@ export default function Header({
       ]);
     }
   }, [productName]);
-
-  
 
   const _getRelatedProductItemCount = (name: string) => {
     setProductName(name);
@@ -203,6 +204,10 @@ export default function Header({
       </Modal>
     );
   };
+
+  const handleUserProfileLogin = () => {
+    menuCallBack(!userProfileState);
+  }
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -281,8 +286,20 @@ export default function Header({
                     </View>
                   </TouchableOpacity>
                 }
-                <TouchableOpacity onPress={()=> navigation.navigate(ScreenNames.UserProfile)} style={{height: 26, padding: 4, borderRadius: 100,marginLeft: 8, borderWidth: 1, borderColor: COLORS.primary3}}>
-                  <Image source={images.loginUser} style={{width: 16, height: 16}}/>
+                <TouchableOpacity
+                  onPress={() => handleUserProfileLogin()}
+                  style={{
+                    height: 26,
+                    padding: 4,
+                    borderRadius: 100,
+                    marginLeft: 8,
+                    borderWidth: 1,
+                    borderColor: COLORS.primary3,
+                  }}>
+                  <Image
+                    source={images.loginUser}
+                    style={{width: 16, height: 16}}
+                  />
                 </TouchableOpacity>
                 <View
                   style={[styles.globeWrapper, !showCart && {marginLeft: 10}]}>
@@ -361,6 +378,7 @@ export default function Header({
     cartItemCount,
     productData,
     cartId,
+    userProfileState
   ]);
 
   return (
@@ -431,7 +449,6 @@ const styles = StyleSheet.create({
     right: -5,
     justifyContent: 'center',
     alignItems: 'center',
-
   },
   modalWrapper: {
     width: SIZES.width - 16,

@@ -47,16 +47,6 @@ export default function UserProfile() {
   const [creditCardValue, setCreditCardValue] = useState('');
   const [creditCardExpiryDate, setCreditCardExpiry] = useState('');
 
-  const _orderHistory = () => {
-    return (
-      <>
-        <Text containerStyle={{fontSize: SIZES.h1 + 2}}>Order History</Text>
-        <Spacer mt={10} />
-        <OrderHistoryTable />
-      </>
-    );
-  };
-
   const _memberShip = () => {
     return (
       <>
