@@ -232,7 +232,11 @@ const freesample7 = require("../../assets/images/freeSamples/freesample7.png")
 //Distributor Enrollment
 const christopher = require("../../assets/images/distributorenrollment/christopher.png")
 
+//Login User
+const loginUser = require("../../assets/images/userprofile/loginuser.png")
+
 export default {
+    loginUser,
     christopher,
     giftBox,
     freesample0,

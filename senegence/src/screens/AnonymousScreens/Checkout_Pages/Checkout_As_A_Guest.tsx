@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   Image,
   ScrollView,
@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import Modal from 'react-native-modal';
+import Recaptcha , { RecaptchaHandles } from 'react-native-recaptcha-that-works';
 
 //User defined Imports
 import BreadCrumbWithTwoLevelUpWithoutNavigationParams from 'components/breadCrumbs/BreadCrumbWithTwoLevelUpWithoutNavigationParams';
@@ -34,7 +35,10 @@ export default function Checkout_As_A_Guest() {
   const navigation = useNavigation();
   const route = useRoute<any>();
 
-  const {cartItemCount, subTotal, shippingAmount,shoppingCartData} = route?.params;
+  const recaptcha = useRef<RecaptchaHandles>();
+
+  const {cartItemCount, subTotal, shippingAmount, shoppingCartData} =
+    route?.params;
 
   const [isAccountCollapsed, setIsAccountCollapsed] = useState(false);
   const [isDistributorCollapsed, setIsDistributorCollapsed] = useState(false);
@@ -88,8 +92,8 @@ export default function Checkout_As_A_Guest() {
     isCollapsed: boolean,
   ) => {
     return (
-      <View>
-        <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
+      <>
+        <TouchableOpacity style={{zIndex: 10}} activeOpacity={0.7} onPress={onPress}>
           <View
             style={{
               flexDirection: 'row',
@@ -117,7 +121,7 @@ export default function Checkout_As_A_Guest() {
           </View>
           {divider()}
         </TouchableOpacity>
-      </View>
+      </>
     );
   };
 
@@ -253,6 +257,14 @@ export default function Checkout_As_A_Guest() {
     ) : null;
   };
 
+  const onVerify = (token: any) => {
+    console.log('success!', token);
+  };
+
+  const onExpire = () => {
+    console.warn('expired!');
+  };
+
   //Shipping Address
   const _shippingAddress = () => {
     return (
@@ -299,6 +311,17 @@ export default function Checkout_As_A_Guest() {
           <Select data={['']} title={'City'} isMandatory={true} />
           <Spacer mt={20} />
           {_inputItem('Zip Code', () => {}, 'Enter your zip code', true)}
+          <Spacer mt={20} />
+          {/* Captcha need to be show over here */}
+          <Recaptcha
+            onLoad={() => recaptcha.current?.open()}
+            ref={recaptcha}
+            siteKey="6LejsqwZAAAAAGsmSDWH5g09dOyNoGMcanBllKPF"
+            baseUrl="http://127.0.0.1"
+            onVerify={onVerify}
+            onExpire={onExpire}
+            size='normal'
+          />
           <Spacer mt={20} />
           {button(() => {}, 'Next')}
           <Spacer mt={20} />
@@ -485,7 +508,7 @@ export default function Checkout_As_A_Guest() {
             </TouchableOpacity>
           </View>
           <ScrollView
-            contentContainerStyle={{paddingHorizontal: 20,paddingTop: 20}}
+            contentContainerStyle={{paddingHorizontal: 20, paddingTop: 20}}
             showsVerticalScrollIndicator={false}>
             <Text containerStyle={{textAlign: 'center'}}>
               Lorem Ipsum is simply dummy text of the printing and typesetting{' '}
@@ -632,16 +655,22 @@ export default function Checkout_As_A_Guest() {
   return (
     <ScrollToTopContainer showCart={true}>
       <View style={{flex: 1, paddingHorizontal: 20}}>
-        <View style={{flex: 1, flexDirection: 'row',justifyContent:'space-between',alignItems:'center'}}>
-        <BreadCrumbWithTwoLevelUpWithoutNavigationParams
-          oneLevelTitle={'Shopping Cart'}
-          screenName={ScreenNames.MainShoppingCartBag}
-          params={{shoppingCartData: shoppingCartData}}
-          title={'Checkout'}
-        />
-        <TouchableOpacity>
-          <Image source={icons.NounSearch} style={{width: 22, height: 22}}/>
-        </TouchableOpacity>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <BreadCrumbWithTwoLevelUpWithoutNavigationParams
+            oneLevelTitle={'Shopping Cart'}
+            screenName={ScreenNames.MainShoppingCartBag}
+            params={{shoppingCartData: shoppingCartData}}
+            title={'Checkout'}
+          />
+          <TouchableOpacity>
+            <Image source={icons.NounSearch} style={{width: 22, height: 22}} />
+          </TouchableOpacity>
         </View>
         <Spacer mt={20} />
         {_independentDistributor()}
