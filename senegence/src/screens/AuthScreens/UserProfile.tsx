@@ -12,6 +12,10 @@ import Collapsible from 'react-native-collapsible';
 import KissKreditsTable from 'components/tables/KissKreditsTable';
 import Switch from 'components/switches/Switch';
 import OutlineButton from 'components/buttons/OutlineButton';
+import {_inputItem} from 'components/textInputs/InputItemWithAsterik';
+import DateTimePicker from 'components/dateTime/DateTimePicker';
+import Astrick from 'components/Astrick';
+import Select from 'components/select/Select';
 
 export default function UserProfile() {
   const [collapsePersonalInformation, setPersonalInformation] = useState(false);
@@ -24,6 +28,9 @@ export default function UserProfile() {
   const [collapseNewsLetterInfo, setCollapseNewsLetterInfo] = useState(false);
   const [twoFactorSwitch, setTwoFactorSwitch] = useState(false);
   const [newsLetterSwitch, setNewsLetterSwitch] = useState(false);
+  const [editPersonalInformation, setEditPersonalInformation] = useState(false);
+  const [defaultShippingAddressShow, setDefaultShippingAddressShow] =
+    useState(false);
 
   const _orderHistory = () => {
     return (
@@ -109,6 +116,111 @@ export default function UserProfile() {
     );
   };
 
+  const _personalInfoEditContent = () => {
+    return (
+      <>
+        <View style={[globalStyles.row]}>
+          <Text>Jalynn Schroeder</Text>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text containerStyle={{marginRight: 10}}>Edit</Text>
+            <TouchableOpacity onPress={() => setEditPersonalInformation(true)}>
+              <Image
+                source={images.editIcon}
+                style={{width: 15, height: 15, tintColor: COLORS.border1}}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <Spacer mt={20} />
+        {_personalInfoContent(
+          icons.email,
+          'CONTACT EMAIL: katieenos2@demo.com',
+        )}
+        {_personalInfoContent(icons.phone, 'CONTACT: (480) 369-2370')}
+        {_personalInfoContent(icons.email, 'LOGIN EMAIL: katieenos@demo.com')}
+        {_personalInfoContent(icons.globe, 'WEBSITE: katieenos@demo.com  ')}
+        {_personalInfoContent(icons.email, 'Birthday: 7/11/1990')}
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginVertical: 5,
+          }}>
+          <Image
+            source={icons.email}
+            style={{
+              width: 20,
+              height: 20,
+              marginRight: 10,
+              resizeMode: 'contain',
+            }}
+          />
+          <View style={{flexDirection: 'row'}}>
+            <Text containerStyle={{marginRight: 10}}>PASSWORD:</Text>
+            <TouchableOpacity>
+              <Text containerStyle={{color: COLORS.primary4}}>
+                Change Password
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </>
+    );
+  };
+
+  const _personalInfoEditForm = () => {
+    return (
+      <View>
+        {_inputItem(
+          'Contact Email',
+          () => {},
+          'katieenos@demo.com',
+          true,
+          false,
+          '',
+        )}
+        {_inputItem(
+          'Login Email',
+          () => {},
+          'katieenos@demo.com',
+          true,
+          false,
+          '',
+        )}
+        {_inputItem('Mobile', () => {}, '(480) 369-2370', true, false, '')}
+        {_inputItem('Website', () => {}, 'katieenos@demo.com', true, false, '')}
+        <Text>
+          Date Of Birth <Astrick />
+        </Text>
+        <Spacer mt={10} />
+        <DateTimePicker />
+        <Spacer mt={20} />
+        <View style={[globalStyles.row, {justifyContent: 'flex-end'}]}>
+          <OutlineButton
+            title={'Cancel'}
+            containerStyle={[
+              globalStyles.bannerBtnBlueOutline,
+              {width: 76, height: 36, marginRight: 20, alignSelf: 'flex-start'},
+            ]}
+            textStyleContainer={[globalStyles.bannerBtnTextBlue]}
+            onPress={() => {}}
+          />
+          <OutlineButton
+            title={'Save'}
+            containerStyle={[
+              globalStyles.bannerBtnBlueBackground,
+              {width: 89, height: 36, alignSelf: 'flex-start'},
+            ]}
+            textStyleContainer={[globalStyles.bannerBtnTextWhite]}
+            onPress={() => {
+              setEditPersonalInformation(false);
+            }}
+          />
+        </View>
+      </View>
+    );
+  };
+
   const personalInformation = () => {
     return (
       <>
@@ -140,51 +252,8 @@ export default function UserProfile() {
         </TouchableOpacity>
         <Collapsible collapsed={!collapsePersonalInformation}>
           <Spacer mt={20} />
-          <View style={[globalStyles.row]}>
-            <Text>Jalynn Schroeder</Text>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text containerStyle={{marginRight: 10}}>Edit</Text>
-              <TouchableOpacity>
-                <Image
-                  source={images.editIcon}
-                  style={{width: 15, height: 15, tintColor: COLORS.border1}}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-          <Spacer mt={20} />
-          {_personalInfoContent(
-            icons.email,
-            'CONTACT EMAIL: katieenos2@demo.com',
-          )}
-          {_personalInfoContent(icons.phone, 'CONTACT: (480) 369-2370')}
-          {_personalInfoContent(icons.email, 'LOGIN EMAIL: katieenos@demo.com')}
-          {_personalInfoContent(icons.globe, 'WEBSITE: katieenos@demo.com  ')}
-          {_personalInfoContent(icons.email, 'Birthday: 7/11/1990')}
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginVertical: 5,
-            }}>
-            <Image
-              source={icons.email}
-              style={{
-                width: 20,
-                height: 20,
-                marginRight: 10,
-                resizeMode: 'contain',
-              }}
-            />
-            <View style={{flexDirection: 'row'}}>
-              <Text containerStyle={{marginRight: 10}}>PASSWORD:</Text>
-              <TouchableOpacity>
-                <Text containerStyle={{color: COLORS.primary4}}>
-                  Change Password
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          {!editPersonalInformation && _personalInfoEditContent()}
+          {editPersonalInformation && _personalInfoEditForm()}
         </Collapsible>
       </>
     );
@@ -235,7 +304,10 @@ export default function UserProfile() {
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Text containerStyle={{marginRight: 10}}>Edit</Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setDefaultShippingAddressShow(true);
+              }}>
               <Image
                 source={images.editIcon}
                 style={{width: 15, height: 15, tintColor: COLORS.border1}}
@@ -257,6 +329,105 @@ Oakland, SC South Carolina 29150
     );
   };
 
+  const _defaultShippingAddress = () => {
+    return (
+      <>
+        <Spacer mt={20} />
+        <Text containerStyle={[globalStyles.text_avenir_heavy]}>
+          Default Shipping Address
+        </Text>
+        <Spacer mt={20} />
+        {_inputItem(
+          'First Name',
+          () => {},
+          'Enter your first name...',
+          true,
+          false,
+          '',
+        )}
+        {_inputItem(
+          'Last Name',
+          () => {},
+          'Enter your last name...',
+          true,
+          false,
+          '',
+        )}
+        {_inputItem(
+          'Phone Number',
+          () => {},
+          '(555) - 555-5555',
+          true,
+          false,
+          '',
+        )}
+        {_inputItem(
+          'Address',
+          () => {},
+          'Enter your Address…',
+          true,
+          false,
+          '',
+        )}
+        {_inputItem(
+          'Address 2',
+          () => {},
+          'Enter second line…',
+          true,
+          false,
+          '',
+        )}
+        <Select
+          checked={false}
+          data={['']}
+          title={'Country'}
+          isMandatory={true}
+        />
+        <Spacer mt={10} />
+        <Select
+          checked={false}
+          data={['']}
+          title={'State/Province'}
+          isMandatory={true}
+        />
+        <Spacer mt={10} />
+        <Select checked={false} data={['']} title={'City'} isMandatory={true} />
+        <Spacer mt={10} />
+        {_inputItem(
+          'Zip Code',
+          () => {},
+          'Enter your zip code…',
+          true,
+          false,
+          '',
+        )}
+        <Spacer mt={20} />
+        <View style={[globalStyles.row, {justifyContent: 'flex-end'}]}>
+          <OutlineButton
+            title={'Cancel'}
+            containerStyle={[
+              globalStyles.bannerBtnBlueOutline,
+              {width: 76, height: 36, marginRight: 20, alignSelf: 'flex-start'},
+            ]}
+            textStyleContainer={[globalStyles.bannerBtnTextBlue]}
+            onPress={() => {}}
+          />
+          <OutlineButton
+            title={'Save'}
+            containerStyle={[
+              globalStyles.bannerBtnBlueBackground,
+              {width: 89, height: 36, alignSelf: 'flex-start'},
+            ]}
+            textStyleContainer={[globalStyles.bannerBtnTextWhite]}
+            onPress={() => {
+              setDefaultShippingAddressShow(false);
+            }}
+          />
+        </View>
+      </>
+    );
+  };
+
   const _shippingAddress = () => {
     return (
       <View>
@@ -267,7 +438,10 @@ Oakland, SC South Carolina 29150
           <TouchableOpacity>
             <Text containerStyle={{color: COLORS.primary4}}>View All</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setDefaultShippingAddressShow(true);
+            }}>
             <Text containerStyle={{color: COLORS.primary4}}>+ Add New</Text>
           </TouchableOpacity>
         </View>
@@ -285,7 +459,10 @@ Oakland, SC South Carolina 29150
           <TouchableOpacity>
             <Text containerStyle={{color: COLORS.primary4}}>View All</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setDefaultShippingAddressShow(true);
+            }}>
             <Text containerStyle={{color: COLORS.primary4}}>+ Add New</Text>
           </TouchableOpacity>
         </View>
@@ -321,10 +498,15 @@ Oakland, SC South Carolina 29150
           />
         </TouchableOpacity>
         <Collapsible collapsed={!collapseAddress}>
-          <Spacer mt={20} />
-          {_shippingAddress()}
-          <Spacer mt={20} />
-          {_billingAddress()}
+          {!defaultShippingAddressShow && (
+            <>
+              <Spacer mt={20} />
+              {_shippingAddress()}
+              <Spacer mt={20} />
+              {_billingAddress()}
+            </>
+          )}
+          {defaultShippingAddressShow && _defaultShippingAddress()}
         </Collapsible>
       </>
     );
