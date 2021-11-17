@@ -39,7 +39,7 @@ import Error_503 from 'screens/AnonymousScreens/Error_Pages/503_Screen';
 import Checkout_As_A_Guest from 'screens/AnonymousScreens/Checkout_Pages/Checkout_As_A_Guest';
 import CategoryDetailsItemComponent from 'components/PLP/CategoryDetailsItemComponent';
 import DistributorEnrollment_Page from 'screens/AnonymousScreens/DistributorEnrollment_Pages/DistributorEnrollment_Page';
-import Login from 'screens/AuthScreens/Login';
+import UserProfile from 'screens/AuthScreens/UserProfile';
 
 const Drawer = createDrawerNavigator();
 
@@ -98,12 +98,12 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       screenOptions={{drawerType: 'front', drawerStyle: {width: 293}}}
-      initialRouteName={ScreenNames.Login}
+      initialRouteName={ScreenNames.UserProfile}
       drawerContent={props => (
         <CustomDrawerContent {...props} categoryData={categoryData} />
       )}>
         <Drawer.Group>
-          <Drawer.Screen name={ScreenNames.Login} component={Login}/>
+          <Drawer.Screen name={ScreenNames.UserProfile} component={UserProfile}/>
         </Drawer.Group>
       <Drawer.Group>
         <Drawer.Screen
