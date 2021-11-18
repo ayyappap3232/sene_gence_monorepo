@@ -15,7 +15,6 @@ target 'senegence' do
 
 
 
-  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
   target 'senegenceTests' do
     inherit! :complete
