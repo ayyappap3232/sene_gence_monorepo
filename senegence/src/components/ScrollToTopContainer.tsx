@@ -21,6 +21,7 @@ import {globalStyles} from 'globalstyles/GlobalStyles';
 import Spacer from './Spacer';
 import {ScreenNames} from '../utils/screenNames';
 import {useNavigation} from '@react-navigation/native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 export const ScrollToTopContainer = ({
   children,
