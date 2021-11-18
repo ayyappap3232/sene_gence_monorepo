@@ -41,6 +41,7 @@ import CategoryDetailsItemComponent from 'components/PLP/CategoryDetailsItemComp
 import DistributorEnrollment_Page from 'screens/AnonymousScreens/DistributorEnrollment_Pages/DistributorEnrollment_Page';
 import UserProfile from 'screens/AuthScreens/UserProfile';
 import UserOrders from 'screens/AnonymousScreens/Orders/UserOrders';
+import ContactDistributor from 'screens/AnonymousScreens/UserProfilesScreens/ContactDistributor';
 
 const Drawer = createDrawerNavigator();
 
@@ -123,6 +124,10 @@ const DrawerNavigator = () => {
         <Drawer.Screen
           name={ScreenNames.UserOrders}
           component={UserOrders}
+        />
+        <Drawer.Screen
+          name={ScreenNames.ContactDistributor}
+          component={ContactDistributor}
         />
         <Drawer.Screen
           name={ScreenNames.CategoryItem}

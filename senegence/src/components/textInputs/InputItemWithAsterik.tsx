@@ -14,7 +14,9 @@ export const _inputItem = (
     isMandatory?: boolean,
     multiline?: boolean,
     value?: string,
-    keyboardType = "default"
+    keyboardType = "default",
+    containerStyle = {},
+    containerHeight?:number,
   ) => {
     return (
       <>
@@ -24,14 +26,15 @@ export const _inputItem = (
         <Spacer mt={4} />
         {multiline ? (
           <OutlineTextInputMultiline
-          value={value}
-            containerStyle={{
+           value={value}
+            containerStyle={[{
               backgroundColor: 'rgba(244, 244, 244, 0.5)',
               width: '100%',
-            }}
+            },containerStyle]}
             placeholder={placeholder}
             onChangeText={onChangeText}
             multiline={multiline}
+            containerHeight={containerHeight}
           />
         ) : (
           <OutlineTextInput
