@@ -1,5 +1,6 @@
 export const ScreenNames = {
     DrawerNavigator:'DrawerNavigator',
+    ContactDistributor:"ContactDistributor",
     UserOrders:"UserOrders",
     UserProfile: 'UserProfile',
     StartUpDrawer: "StartUpDrawer",

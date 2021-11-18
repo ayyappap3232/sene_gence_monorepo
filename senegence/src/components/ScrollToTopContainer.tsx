@@ -114,11 +114,11 @@ export const ScrollToTopContainer = ({
           setMenuCallBack(false);
           navigation.navigate(ScreenNames.UserOrders);
         })}
-        {/* <Spacer mt={20} />
+        <Spacer mt={20} />
         {_menuItem('Contact Distributor', () => {
           setMenuCallBack(false);
-          navigation.navigate(ScreenNames.UserOrders);
-        })} */}
+          navigation.navigate(ScreenNames.ContactDistributor);
+        })}
         <Spacer mt={20} />
         {_menuItem('Loves', () => {})}
         <Spacer mt={20} />

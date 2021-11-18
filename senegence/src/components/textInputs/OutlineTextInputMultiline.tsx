@@ -11,9 +11,10 @@ export default function OutlineTextInputMultiline({
   containerStyle,
   placeholderTextColor=COLORS.swatch,
   restProps,
-  value
+  value,
+  containerHeight=80
 }: IOutlineTextProps) {
-  const [height, setHeight] = useState(40)
+  const [height, setHeight] = useState(containerHeight)
   return (
     <TextInput
       value={value}
@@ -23,7 +24,7 @@ export default function OutlineTextInputMultiline({
       {...restProps}
       style={[styles.textInput,containerStyle]}
       multiline={true}
-      height={80}
+      height={height}
       textAlignVertical="top"
       onContentSizeChange={() => setHeight(Math.max(48, height+16))}
     />
