@@ -251,7 +251,7 @@ const CustomDrawerContent = (props: any) => {
       <Spacer mt={11}/>
       <Text containerStyle={[globalStyles.text_avenir_medium,{letterSpacing: 4.8,textAlign: 'left',textTransform:'uppercase'}]}>Select User Login type</Text>
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={() => Linking.openURL("https://shop.senegence.com/en-ca/")}
           activeOpacity={0.7}
           style={[styles.loginText, {marginTop: 15}]}>
           <Text containerStyle={{textTransform: 'capitalize'}}>login as a customer</Text>
