@@ -5,6 +5,7 @@ const NounSearch = require("../../assets/icons/nounsearch.png");
 const email = require("../../assets/icons/email.png");
 const phone = require("../../assets/icons/phone.png");
 const globe = require("../../assets/icons/globe.png");
+const disreview = require("../../assets/icons/disreview.png");
 
 export default {
     email,
@@ -13,5 +14,6 @@ export default {
     Chevron,
     Check,
     SuccessCheck,
-    NounSearch
+    NounSearch,
+    disreview
 }

@@ -103,7 +103,7 @@ export default function DistributorEnroll_Tabs() {
         options={{
           tabBarIndicator: () => selectedDot(255),
           tabBarIcon: ({focused, color}) => (
-            tabBarIcon(icons.NounSearch, focused)
+            tabBarIcon(icons.disreview, focused)
           ),
         }}
         name={'Review'}
