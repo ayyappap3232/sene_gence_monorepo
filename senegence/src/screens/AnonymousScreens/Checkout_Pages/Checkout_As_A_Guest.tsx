@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import Modal from 'react-native-modal';
-import Recaptcha , { RecaptchaHandles } from 'react-native-recaptcha-that-works';
+import Recaptcha, {RecaptchaHandles} from 'react-native-recaptcha-that-works';
 
 //User defined Imports
 import BreadCrumbWithTwoLevelUpWithoutNavigationParams from 'components/breadCrumbs/BreadCrumbWithTwoLevelUpWithoutNavigationParams';
@@ -30,6 +30,10 @@ import {useGetCountries} from 'apollo/controllers/getCountries.Controller';
 import ShippingAddressDetailsCard from './ShippingAddressDetailsCard';
 import {shippingAddressDetailsArray} from 'utils/data/ShippingCardData';
 import OrderSummaryCard from 'components/screenComponents/OrderSummaryCard';
+import Drawer from 'components/drawers/Drawer';
+import {useSelector} from 'react-redux';
+import {getProductsInCart} from '../../../redux/cartItems';
+import {AddProductsToCartResponseType} from 'apollo/services/apollo/mutations/cart/addProductToCart';
 
 export default function Checkout_As_A_Guest() {
   const navigation = useNavigation();
@@ -77,6 +81,12 @@ export default function Checkout_As_A_Guest() {
   const [isViewAllDetails, setIsViewAllDetails] = useState(false);
   const [isBillingViewAllDetails, setIsBillingViewAllDetails] = useState(false);
 
+  //Drawer toggle
+  const [isVisible, setIsVisible] = useState(false);
+
+  const orders = useSelector(getProductsInCart);
+  console.log('orders', orders);
+
   useEffect(() => {
     //setVisible(true)
   }, [navigation]);
@@ -93,7 +103,10 @@ export default function Checkout_As_A_Guest() {
   ) => {
     return (
       <>
-        <TouchableOpacity style={{zIndex: 10}} activeOpacity={0.7} onPress={onPress}>
+        <TouchableOpacity
+          style={{zIndex: 10}}
+          activeOpacity={0.7}
+          onPress={onPress}>
           <View
             style={{
               flexDirection: 'row',
@@ -320,7 +333,7 @@ export default function Checkout_As_A_Guest() {
             baseUrl="http://127.0.0.1"
             onVerify={onVerify}
             onExpire={onExpire}
-            size='normal'
+            size="normal"
           />
           <Spacer mt={20} />
           {button(() => {}, 'Next')}
@@ -652,6 +665,60 @@ export default function Checkout_As_A_Guest() {
     );
   };
 
+  const _orderItemsInCart = () => {
+    return (
+      <>
+        {orders.map((item: any, index) => {
+          return (
+            <>
+            <View style={{flex: 1, flexDirection: 'row'}}>
+              <Image
+                source={{uri: item?.product.image.url}}
+                style={{width: 60, height: 120}}
+              />
+              <View>
+                <Text containerStyle={{ flexWrap: 'wrap', width: 150}}>
+                  {item?.product?.name}
+                </Text>
+
+                {item?.product?.color ? (
+                  <>
+                    <Spacer mt={5} />
+                    <View>
+                      <Text>Color: {item?.product?.color}</Text>
+                    </View>
+                  </>
+                ) : null}
+                {item?.product?.size ? (
+                  <>
+                    <Spacer mt={5} />{' '}
+                    <View>
+                      <Text>Size: {item?.product?.size}</Text>
+                    </View>
+                  </>
+                ) : null}
+                <Spacer mt={5} />
+                <Text>
+                  ${item?.prices?.price?.value * item?.quantity}{' '}
+                  {item?.prices?.price?.currency}
+                </Text>
+                <View style={{flexDirection:'row',alignItems:'center'}}>
+                  <Text>QTY</Text>
+                  <Text containerStyle={{marginLeft: 30}}>
+                    {item?.quantity}
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <Divider backgroundColor={COLORS.border} width={SIZES.width - 160} containerStyle={{marginRight:20}}/>
+            <Spacer mt={20} />
+            </>
+          );
+        })}
+      </>
+    );
+  };
+
   return (
     <ScrollToTopContainer showCart={true}>
       <View style={{flex: 1, paddingHorizontal: 20}}>
@@ -668,9 +735,19 @@ export default function Checkout_As_A_Guest() {
             params={{shoppingCartData: shoppingCartData}}
             title={'Checkout'}
           />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => setIsVisible(prev => !prev)}>
             <Image source={icons.NounSearch} style={{width: 22, height: 22}} />
           </TouchableOpacity>
+          <Drawer
+            hamburgermenu={images.close}
+            isVisible={isVisible}
+            setIsVisible={setIsVisible}>
+            <Text>ORDER SUMMARY</Text>
+            <Spacer mt={10} />
+            <Text>{orders.length} ITEMS IN BAG</Text>
+            <Spacer mt={10} />
+            {_orderItemsInCart()}
+          </Drawer>
         </View>
         <Spacer mt={20} />
         {_independentDistributor()}
