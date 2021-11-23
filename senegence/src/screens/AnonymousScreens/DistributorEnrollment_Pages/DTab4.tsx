@@ -33,28 +33,24 @@ const chooseKitData = [
 
 const distributorIDCarouselData = [
   {
-    id: 0,
-    image: images.freesample0,
-  },
-  {
     id: 1,
-    image: images.freesample1,
+    image: images.dk1,
   },
   {
     id: 2,
-    image: images.freesample2,
+    image: images.dk2,
   },
   {
     id: 3,
-    image: images.freesample3,
+    image: images.dk3,
   },
   {
     id: 4,
-    image: images.freesample4,
+    image: images.dk4,
   },
   {
     id: 5,
-    image: images.freesample5,
+    image: images.dk5,
   },
 ];
 

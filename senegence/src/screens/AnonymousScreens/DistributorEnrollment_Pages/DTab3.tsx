@@ -26,6 +26,7 @@ export default function DTab3() {
   const [collapsePhysicalAddress, setPhysicalAddress] = useState(false);
   const [collapseShippingAddress, setShippingAddress] = useState(false);
   const [collapseShippingOptions, setShippingOptions] = useState(false);
+  const [index, setIndex] = useState(-1);
 
   const accountInformation = () => {
     return (
@@ -450,9 +451,9 @@ export default function DTab3() {
   const _formfillupContent = () => {
     return (
       <>
-        {accountInformation()}
-        <Spacer mt={10} />
         {personalInformation()}
+        <Spacer mt={10} />
+        {accountInformation()}
         <Spacer mt={10} />
         {physicalAddress()}
         <Spacer mt={10} />
@@ -491,8 +492,8 @@ export default function DTab3() {
         showsVerticalScrollIndicator={false}
         style={{margin: 20}}>
         <View style={[globalStyles.row, {justifyContent: 'flex-start'}]}>
-          <TouchableOpacity onPress={() => {}}>
-            <RadioButton checked={0} index={-1} />
+          <TouchableOpacity onPress={() => setIndex(0)}>
+            <RadioButton checked={0} index={index} />
           </TouchableOpacity>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Text containerStyle={{marginLeft: 10}}>Individual Account</Text>
@@ -516,8 +517,8 @@ export default function DTab3() {
         </View>
         <Spacer mt={10} />
         <View style={[globalStyles.row, {justifyContent: 'flex-start'}]}>
-          <TouchableOpacity onPress={() => {}}>
-            <RadioButton checked={0} index={-1} />
+          <TouchableOpacity onPress={() => setIndex(1)}>
+            <RadioButton checked={1} index={index} />
           </TouchableOpacity>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Text containerStyle={{marginLeft: 10}}>Business Account</Text>

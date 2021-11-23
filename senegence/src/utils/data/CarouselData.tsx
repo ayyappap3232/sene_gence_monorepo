@@ -47,6 +47,24 @@ const homeCarouselData : IHomeCarouselData[] = [
         overlayColor: "rgba(255,255,255,0.8)"
 
     },
+    {
+        id: "hc6",
+        image: images.carousel6,
+        buttonText: "Shop Duos",
+        title: "Cream Contour And Highlight Duos",
+        subTitle: "Sculpt, Perfect, define, and enhance! These creamy,blendable Duos let you contour and highlight with ease for a photo-ready look",
+        overlayColor: "rgba(255,255,255,0.8)"
+
+    },
+    {
+        id: "hc7",
+        image: images.carousel7,
+        buttonText: "Shop Duos",
+        title: "Cream Contour And Highlight Duos",
+        subTitle: "Sculpt, Perfect, define, and enhance! These creamy,blendable Duos let you contour and highlight with ease for a photo-ready look",
+        overlayColor: "rgba(255,255,255,0.8)"
+
+    },
 ]
 
 const asSeenInCarouselData : IAsSeenInCarouselData[] = [

@@ -63,7 +63,7 @@ export default function DistributorEnroll_Tabs() {
         options={{
           tabBarIndicator: () => selectedDot(15),
           tabBarIcon: ({focused, color}) => (
-            tabBarIcon(icons.NounSearch, focused)
+            tabBarIcon(icons.de1, focused)
           ),
         }}
         name={'Identify'}
@@ -73,7 +73,7 @@ export default function DistributorEnroll_Tabs() {
         options={{
           tabBarIndicator: () => selectedDot(75),
           tabBarIcon: ({focused, color}) => (
-            tabBarIcon(icons.NounSearch, focused)
+            tabBarIcon(icons.de2, focused)
           ),
         }}
         name={'Sponser'}
@@ -81,9 +81,9 @@ export default function DistributorEnroll_Tabs() {
       />
       <DistributorTabs.Screen
         options={{
-          tabBarIndicator: () => selectedDot(135),
+          tabBarIndicator: () => selectedDot(132),
           tabBarIcon: ({focused, color}) => (
-            tabBarIcon(icons.NounSearch, focused)
+            tabBarIcon(icons.de3, focused)
           ),
         }}
         name={'YourAccount'}
@@ -91,9 +91,9 @@ export default function DistributorEnroll_Tabs() {
       />
       <DistributorTabs.Screen
         options={{
-          tabBarIndicator: () => selectedDot(195),
+          tabBarIndicator: () => selectedDot(192),
           tabBarIcon: ({focused, color}) => (
-            tabBarIcon(icons.NounSearch, focused)
+            tabBarIcon(icons.de4, focused)
           ),
         }}
         name={'DistributorKit'}
@@ -101,9 +101,9 @@ export default function DistributorEnroll_Tabs() {
       />
       <DistributorTabs.Screen
         options={{
-          tabBarIndicator: () => selectedDot(255),
+          tabBarIndicator: () => selectedDot(250),
           tabBarIcon: ({focused, color}) => (
-            tabBarIcon(icons.disreview, focused)
+            tabBarIcon(icons.de5, focused)
           ),
         }}
         name={'Review'}
@@ -111,9 +111,9 @@ export default function DistributorEnroll_Tabs() {
       />
       <DistributorTabs.Screen
         options={{
-          tabBarIndicator: () => selectedDot(315),
+          tabBarIndicator: () => selectedDot(310),
           tabBarIcon: ({focused, color}) => (
-            tabBarIcon(icons.Check, focused)
+            tabBarIcon(icons.de6, focused)
           ),
         }}
         name={'Complete'}

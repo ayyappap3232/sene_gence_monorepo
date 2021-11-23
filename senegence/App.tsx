@@ -58,7 +58,7 @@ function App() {
           <NavigationContainer theme={appTheme}>
             <View style={{flex: 1}}>
               {user ? <AppNavigator /> : <DrawerNavigator />}
-              <FlashMessage position="top" />
+              <FlashMessage position="bottom" />
             </View>
           </NavigationContainer>
         </ApolloProvider>

@@ -3,6 +3,9 @@ const carousel2 = require("../../assets/images/carousel2.png");
 const carousel3 = require("../../assets/images/carousel3.png");
 const carousel4 = require("../../assets/images/carousel4.png");
 const carousel5 = require("../../assets/images/carousel5.png");
+const carousel6 = require("../../assets/images/carousel6.png");
+const carousel7 = require("../../assets/images/carousel7.png");
+
 const logo = require("../../assets/images/LOGO.png")
 const drawerContentImage1 = require("../../assets/images/DrawerContentImage1.png")
 const banner1 = require("../../assets/images/banners/banners3x.png")
@@ -231,13 +234,26 @@ const freesample7 = require("../../assets/images/freeSamples/freesample7.png")
 
 //Distributor Enrollment
 const christopher = require("../../assets/images/distributorenrollment/christopher.png")
+const dk1 = require("../../assets/images/distributorenrollment/dk1.png")
+const dk2= require("../../assets/images/distributorenrollment/dk2.png")
+const dk3= require("../../assets/images/distributorenrollment/dk3.png")
+const dk4= require("../../assets/images/distributorenrollment/dk4.png")
+const dk5= require("../../assets/images/distributorenrollment/dk5.png")
 
 //Login User
 const loginUser = require("../../assets/images/userprofile/loginuser.png")
 
+const blueLips = require("../../assets/images/bluelips.png")
+
 export default {
     loginUser,
+    blueLips,
     christopher,
+    dk1,
+    dk2,
+    dk3,
+    dk4,
+    dk5,
     giftBox,
     freesample0,
     freesample1,
@@ -296,6 +312,8 @@ export default {
     carousel3,
     carousel4,
     carousel5,
+    carousel6,
+    carousel7,
     logo,
     drawerContentImage1,
     banner1,
