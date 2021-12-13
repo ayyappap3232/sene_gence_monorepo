@@ -31,5 +31,7 @@ export const ScreenNames = {
     Error_404:"Error_404",
     Error_503:"Error_503",
     Checkout_As_A_Guest:"Checkout_As_A_Guest",
-    DistributorEnrollment:"DistributorEnrollment"
+    DistributorEnrollment:"DistributorEnrollment",
+    AccessibilityStatement:"AccessibilityStatement",
+    Referrals:"Referrals"
 }

@@ -7,7 +7,7 @@ import { COLORS, FONTS, SIZES } from '../../constants';
 import { ScreenNames } from 'utils/screenNames'
 import Text from '../text/Text'
 
-export default function BreadCrumbWithTwoLevelUp({oneLevelTitle, oneLevelUrlPath, title}: any) {
+export default function BreadCrumbWithTwoLevelUp({oneLevelTitle, oneLevelUrlPath, title, isRoute=false}: any) {
     const navigation = useNavigation<any>();
     return (
         <View style={{flexDirection: 'row', alignItems: 'center', flexWrap:'wrap'}}>
@@ -25,7 +25,7 @@ export default function BreadCrumbWithTwoLevelUp({oneLevelTitle, oneLevelUrlPath
           /
         </Text>
         {!!oneLevelTitle && <><TouchableOpacity
-          onPress={() => navigation.navigate(ScreenNames.CategoryItem,{categoryData: {name: oneLevelTitle, url_path: oneLevelUrlPath}})}>
+          onPress={() => navigation.navigate(isRoute ? oneLevelUrlPath : ScreenNames.CategoryItem,{categoryData: {name: oneLevelTitle, url_path: oneLevelUrlPath}})}>
             <Text
             containerStyle={[
                 styles.commonText,

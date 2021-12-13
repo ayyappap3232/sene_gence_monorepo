@@ -20,8 +20,11 @@ import {
   cardNumberFormatter,
   expirationDateFormatter,
 } from '../../utils/helpers/formatters';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenNames} from 'utils/screenNames';
 
 export default function UserProfile() {
+  const navigation = useNavigation<any>();
   const [collapsePersonalInformation, setPersonalInformation] = useState(false);
   const [collapseAddress, setCollapseAddress] = useState(false);
   const [collapsePayment, setCollapsePayment] = useState(false);
@@ -997,7 +1000,12 @@ Tell someone today to begin earning Kiss Kredits and save, save, save!`}</Text>
         <Spacer mt={20} />
         <OutlineButton
           title={'Referrals'}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate(ScreenNames.Referrals, {
+              title: 'ACCOUNT',
+              screenName: ScreenNames.UserProfile,
+            });
+          }}
           containerStyle={[
             globalStyles.bannerBtnBlueBackground,
             {width: 128, alignSelf: 'center'},

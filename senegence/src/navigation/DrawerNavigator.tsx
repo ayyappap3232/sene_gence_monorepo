@@ -42,6 +42,8 @@ import DistributorEnrollment_Page from 'screens/AnonymousScreens/DistributorEnro
 import UserProfile from 'screens/AuthScreens/UserProfile';
 import UserOrders from 'screens/AnonymousScreens/Orders/UserOrders';
 import ContactDistributor from 'screens/AnonymousScreens/UserProfilesScreens/ContactDistributor';
+import AccessibilityStatement from 'screens/AnonymousScreens/AccessibilityStatement/AccessibilityStatement';
+import Referrals from 'screens/AnonymousScreens/Referrals/Referrals';
 
 const Drawer = createDrawerNavigator();
 
@@ -100,7 +102,7 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       screenOptions={{drawerType: 'front', drawerStyle: {width: 293}}}
-      initialRouteName={ScreenNames.DistributorEnrollment}
+      initialRouteName={ScreenNames.Referrals}
       drawerContent={props => (
         <CustomDrawerContent {...props} categoryData={categoryData} />
       )}>
@@ -120,6 +122,14 @@ const DrawerNavigator = () => {
         <Drawer.Screen
           name={ScreenNames.DistributorEnrollment}
           component={DistributorEnrollment_Page}
+        />
+        <Drawer.Screen
+          name={ScreenNames.Referrals}
+          component={Referrals}
+        />
+        <Drawer.Screen
+          name={ScreenNames.AccessibilityStatement}
+          component={AccessibilityStatement}
         />
         <Drawer.Screen
           name={ScreenNames.UserOrders}

@@ -31,6 +31,7 @@ export default function Footer({containerStyle = {}}) {
     getCategories();
   }, [getCategories]);
 
+  //<Image source={require("../../../assets/images/Beauty3x.png")}}}/>
 
   const _lastFooterContent = (text: string, link: any, name = "") => {
     return (
@@ -44,7 +45,7 @@ export default function Footer({containerStyle = {}}) {
 
 
   const _renderTopFooterMenu = (children: ItemChildrenCategory[]) => {
-    return children.map((childItem, index) => {
+    return children.map((childItem:any, index) => {
       return <View key={childItem.name} style={{marginBottom: 20}}>
         <TouchableOpacity style={[styles.linkWrapper]} onPress={() => setSelectedState({id: childItem.name, toggle: !selectedState.toggle})}>
           <Text containerStyle={[styles.title, {marginLeft: -10}]}> {childItem.name} </Text>
@@ -86,13 +87,11 @@ export default function Footer({containerStyle = {}}) {
         return (
           <View key={item.id}>
             <View style={[styles.linkWrapper,{marginBottom: 20}]}>
-
-
             <TouchableOpacity
               onPress={() => item.route ? navigation.navigate(item.route) :
                 setSelectedState({
                   id: item.title,
-                  toggle: !selectedState.toggle,
+                  toggle: item.id === selectedState.id ? !selectedState.toggle : true,
                 })
               }
               >
@@ -104,7 +103,7 @@ export default function Footer({containerStyle = {}}) {
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setSelectedState({
                   id: item.title,
-                  toggle: !selectedState.toggle,
+                  toggle: item.id === selectedState.id ? !selectedState.toggle : true,
                 })}>
             <Image
                 source={icons.Chevron}

@@ -10,7 +10,7 @@ import OutlineButton from './buttons/OutlineButton';
 import Spacer from './Spacer';
 import Text from './text/Text';
 
-export const _frequentlyAskedQuestions = () => {
+export const _frequentlyAskedQuestions = (title="View More") => {
   const navigation = useNavigation<any>();
   return (
     <View style={{backgroundColor: COLORS.ligthGrey, alignItems: 'center'}}>
@@ -33,9 +33,9 @@ export const _frequentlyAskedQuestions = () => {
         textStyleContainer={{color: COLORS.white}}
         containerStyle={[
           globalStyles.bannerBtnWhiteBackground,
-          {backgroundColor: COLORS.footerColor},
+          {backgroundColor: COLORS.primary3},
         ]}
-        title={'View More'}
+        title={title}
         onPress={() => navigation.navigate(ScreenNames.FAQS)}
       />
       <Spacer mt={20} />
