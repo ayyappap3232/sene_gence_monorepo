@@ -60,7 +60,7 @@ export default function OrderHistoryTable() {
             />
             {state.tableData.map((rowData, index) => (
               <TableWrapper key={index} >
-                <View style={[styles.row,index % 2 && {backgroundColor: '#ffffff'}]}>
+                <View style={[styles.row,index % 2 == 0 && {backgroundColor: '#ffffff'}]}>
                   {rowData.map((cellData, cellIndex) => (
                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     <Cell
